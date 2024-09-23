@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --background: #181926;
+  --background2: #24273a;
+  --background3: #494d64;
+  --theme: rgb(138, 173, 244);
+  --shadow: rgba(138, 173, 244, 0.5);
+  --text: #cad3f5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter';
+  background: var(--background);
+  color: var(--text);
+}
+
+h1 {
+  font-size: 56px;
+  font-family: 'Montserrat';
+}
+
+h6 {
+  font-size: 12px;
+  color: var(--text) !important;
+}
+
+nav {
+  width: 20vw;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+nav .logo {
+  font-family: 'Montserrat' !important;
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px;
+}
+
+nav .logo img {
+  height: 30px;
+  width: 30px;
+}
+
+nav .logo .logo-name {
+  color: var(--text);
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.tabs {
+  padding: 15px 0px 15px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: calc(100vh - 150px);
+  overflow: auto;
+}
+
+#tabs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tab-btn {
+  font-family: 'Inter';
+  width: 100%;
+  border-radius: 15px;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 16px;
+  transition: all 250ms;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+}
+
+.tab-btn:hover {
+  background: var(--background2);
+}
+
+.tab-btn p {
+  margin: 10px 0px;
+}
+
+.left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0px 10px
+}
+
+.close-tab {
+  border: none;
+  cursor: pointer;
+  padding: 5px 8px;
+  background: transparent;
+  color: var(--text);
+  transition: 250ms;
+  border-radius: 8px;
+  margin: 0px 8px;
+}
+
+.close-tab:hover {
+  background: var(--background3);
+}
+
+.close-tab:active {
+  transform: scale(0.9);
+}
+
+.bottom {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-btn {
+  height: 40px;
+  width: 40px;
+  border-radius: 10px;
+  transition: 250ms;
+  background: transparent;
+  outline: none;
+  color: var(--text);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background: var(--background2);
+}
+
+.action-btn:active {
+  transform: scale(0.9);
+}
+
+.main-content {
+  flex-grow: 1;
+  margin: 15px;
+  border-radius: 15px;
+  background-image: url(/assets/blue.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: calc(100vw - 30px);
+  overflow: auto;
+}
+
+#clock {
+  font-family: 'Montserrat';
+  font-size: 30px;
+}
+
+.page {
+  display: none;
+}
+
+#home-page, #settings-page {
+  display: block;
+  padding: 100px;
+  line-height: 1.5;
+}
+
+#embed-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  display: none;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+}
+
+.game-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 20px 0px;
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 50px 0px;
+}
+
+input {
+  padding: 11px 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 10px;
+  background: var(--background2);
+  color: var(--text);
+  border: none;
+  font-family: 'Inter';
+  width: 100%;
+}
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 10px;
+  background: var(--background2);
+  color: var(--text);
+  font-family: 'Inter' !important;
+  border: none;
+  width: 30%;
+}
+
+.game-btn {
+  width: 150px;
+  height: 210px;
+  border-radius: 20px;
+  position: relative;
+  transition: all 150ms;
+  display: block;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 0 20px var(--shadow);
+  background: var(--background2);
+  text-overflow: ellipsis;
+}
+
+.game-btn:hover {
+  transform: translateY(-5px);
+}
+
+.game-btn img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  transition: 250ms;
+}
+
+.game-btn .content {
+  text-align: left;
+  font-weight: 700;
+  padding: 0px 10px;
+}
+
+.game-btn .title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.game-btn .category {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.game-btn:active {
+  transform: scale(0.95);
+}

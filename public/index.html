@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta property="og:image" content="./assets/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arsenic</title>
+  <link rel="icon" href="./assets/favicon.png" type="image/xcon" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="./css/index.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <a href="/" class="logo">
+          <img src="./assets/favicon.png" alt="nobelium">
+          <h2 class="logo-name">arsenic</h2>
+          <h6>v1 beta</h6>
+        </a>
+        <div class="tabs">
+          <button class="tab-btn" id="home-tab" onclick="openPage('home-page')">
+            <div class="left">
+              <i class="fa-solid fa-house"></i>
+              <p>Home</p>
+              <p class="category"></p>
+            </div>
+          </button>
+          <div id="tabs-container"></div>
+        </div>
+      </div>
+      <div class="bottom">
+        <button class="action-btn" onclick="fullscreen()">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <button class="action-btn" onclick="openPage('settings-page')">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+      </div>
+    </nav>
+    <div class="main-content">
+      <div class="page" id="home-page">
+        <h1>Welcome</h1>
+        <p>
+          <div id="clock"></div>
+        </p>
+        <div class="input-container">
+          <input type="text" id="searchInput" placeholder="Search for a game...">
+          <select id="category-filter">
+            <option value="all">All</option>
+            <option value="2-player">2-Player</option>
+            <option value="action">Action</option>
+            <option value="sports">Sports</option>
+            <option value="sports">Shooter</option>
+            <option value="multiplayer">Multiplayer</option>
+            <option value="platformer">Platformer</option>
+            <option value="classic">Classic</option>
+            <option value="management">Management</option>
+            <option value="idle">Idle</option>
+            <option value="driving">Driving</option>
+            <option value="puzzle">Puzzle</option>
+            <option value="luck">Luck</option>
+            <option value="merge">Merge</option>
+            <option value="clicker">Clicker</option>
+          </select>
+        </div>
+        <div class="game-list" id="game-list">
+          
+        </div>
+      </div>
+      <div class="page" id="settings-page">
+        <h1>Settings</h1>
+      </div>
+      <div id="embed-container"></div>
+    </div>
+  </div>
+</body>
+
+<script src="./js/system.js"></script>
+</html>
