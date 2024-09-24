@@ -589,5 +589,75 @@
       "idle",
       "clicker"
     ]
+  },
+  {
+    "title": "Crazy Bikes",
+    "id": "crazy-bikes",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
+    "title": "Crazy Cars",
+    "id": "crazy-cars",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
+    "title": "Tanuki Sunset",
+    "id": "tanuki-sunset",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Cluster Rush",
+    "id": "cluster-rush",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Core Ball",
+    "id": "core-ball",
+    "tags": [
+      "action",
+      "classic"
+    ]
+  },
+  {
+    "title": "Stack",
+    "id": "stack",
+    "tags": [
+      "action",
+      "classic"
+    ]
+  },
+  {
+    "title": "Soccer Random",
+    "id": "soccer-random",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
+  },
+  {
+    "title": "Basket Random",
+    "id": "basket-random",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
+  },
+  {
+    "title": "Volley Random",
+    "id": "volley-random",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
   }
 ]

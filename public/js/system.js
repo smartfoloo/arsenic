@@ -1,3 +1,34 @@
+document.addEventListener('DOMContentLoaded', function () {
+  openPage('home-page'); 
+
+  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'blue';
+  changeWallpaper(savedWallpaper);
+
+  if (localStorage.getItem("aboutblankEnabled") === "true") {
+    let iFramed
+    try {
+      iFramed = window !== top
+    } catch (e) {
+      iFramed = true
+    }
+    if (!iFramed) {
+      const popup = open("about:blank", "_blank")
+      const document = popup.document
+      const body = document.body
+      const bodystyle = body.style
+      const iframe = document.createElement('iframe')
+      const iframestyle = iframe.style
+      iframe.src = location.href
+      iframestyle.top = iframestyle.bottom = iframestyle.left = iframestyle.right = 0
+      iframestyle.border = iframestyle.outline = 'none'
+      iframestyle.width = iframestyle.height = '100%'
+      bodystyle.margin = bodystyle.padding = '0'
+      document.body.appendChild(iframe)
+      location.replace('https://classroom.google.com/');
+    }
+  }
+});
+
 // Display time
 function displayTime() {
   const now = new Date();
@@ -103,7 +134,7 @@ function openPage(pageId) {
   const embeds = document.querySelectorAll('#embed-container iframe');
   const embedContainer = document.getElementById('embed-container');
 
-  embedContainer.style.display = pageId === 'home-page' ? 'none' : 'block';
+  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page') ? 'none' : 'block';
 
   pages.forEach(page => {
     page.style.display = 'none';
@@ -178,3 +209,67 @@ const fullscreen = () => {
   const elem = document.getElementsByClassName("game-embed")[0];
   reqFs(elem);
 };
+
+// Settings page
+
+function openTab(evt, tabName) {
+  const tabContent = document.getElementsByClassName('tab-content');
+  const tabLinks = document.getElementsByClassName('tab-link');
+
+  for (let i = 0; i < tabContent.length; i++) {
+    tabContent[i].style.display = 'none';
+  }
+
+  for (let i = 0; i < tabLinks.length; i++) {
+    tabLinks[i].classList.remove('tab-active');
+  }
+
+  document.getElementById(tabName).style.display = 'block';
+  evt.currentTarget.classList.add('tab-active');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelector('.tab-link').click();
+});
+
+// Wallpapers
+
+function changeWallpaper(color) {
+  const mainContent = document.getElementById('main-content');
+  mainContent.style.backgroundImage = `url('./assets/${color}.png')`;
+  localStorage.setItem('selectedWallpaper', color);
+
+  const wallpaperCards = document.querySelectorAll('.wallpaper-card');
+  wallpaperCards.forEach(card => {
+    card.classList.remove('selected');
+    if (card.querySelector('h4').textContent.toLowerCase() === color) {
+      card.classList.add('selected');
+    }
+  });
+}
+
+// about:blank Cloak
+
+if (localStorage.getItem('aboutblankEnabled') === null) {
+  localStorage.setItem('aboutblankEnabled', 'false');
+}
+
+function enableAboutBlank() {
+  localStorage.setItem('aboutblankEnabled', 'true');
+  location.reload();
+}
+
+function disableAboutBlank() {
+  localStorage.setItem('aboutblankEnabled', 'false');
+  location.reload();
+}
+
+const aboutblankEnabled = localStorage.getItem('aboutblankEnabled');
+
+if (aboutblankEnabled === 'true' || aboutblankEnabled === '' || aboutblankEnabled === null) {
+  document.getElementById('enableAboutBlank').disabled = true;
+  document.getElementById('disableAboutBlank').disabled = false;
+} else {
+  document.getElementById('enableAboutBlank').disabled = false;
+  document.getElementById('disableAboutBlank').disabled = true;
+}

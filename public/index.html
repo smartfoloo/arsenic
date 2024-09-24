@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" id="container">
     <nav>
       <div class="top">
         <a href="/" class="logo">
@@ -37,15 +37,15 @@
         </div>
       </div>
       <div class="bottom">
-        <button class="action-btn" onclick="fullscreen()">
-          <i class="fa-solid fa-expand"></i>
-        </button>
         <button class="action-btn" onclick="openPage('settings-page')">
           <i class="fa-solid fa-gear"></i>
         </button>
+        <button class="action-btn" onclick="fullscreen()">
+          <i class="fa-solid fa-expand"></i>
+        </button>
       </div>
     </nav>
-    <div class="main-content">
+    <div class="main-content" id="main-content">
       <div class="page" id="home-page">
         <h1>Welcome</h1>
         <p>
@@ -77,6 +77,61 @@
       </div>
       <div class="page" id="settings-page">
         <h1>Settings</h1>
+        <div class="settings-tab-container">
+          <div class="settings-tabs">
+            <button class="tab-link" onclick="openTab(event, 'appearance')">
+              <i class="fa-solid fa-palette"></i>
+              Appearance
+            </button>
+            <button class="tab-link" onclick="openTab(event, 'cloaking')">
+              <i class="fa-solid fa-display"></i>
+              Cloaking
+            </button>
+            <button class="tab-link" onclick="openTab(event, 'misc')">
+              <i class="fa-solid fa-ellipsis"></i>
+              Misc
+            </button>
+          </div>
+        
+          <div id="appearance" class="tab-content">
+            <div class="setting-card">
+              <h2>Wallpaper</h2>
+              <div class="cards-container">
+                <div class="wallpaper-card" onclick="changeWallpaper('blue')">
+                  <img src="./assets/blue.png" alt="blue">
+                  <h4>Blue</h4>
+                </div>
+                <div class="wallpaper-card" onclick="changeWallpaper('green')">
+                  <img src="./assets/green.png" alt="green">
+                  <h4>Green</h4>
+                </div>
+                <div class="wallpaper-card" onclick="changeWallpaper('orange')">
+                  <img src="./assets/orange.png" alt="orange">
+                  <h4>Orange</h4>
+                </div>
+                <div class="wallpaper-card" onclick="changeWallpaper('teal')">
+                  <img src="./assets/teal.png" alt="teal">
+                  <h4>Teal</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div id="cloaking" class="tab-content">
+            <div class="setting-card">
+              <h2>about:blank Cloaking</h2>
+              <p>about:blank cloaking allows you to hide this site from your tab history. Please enable popups for this to work.</p>
+              <div class="buttons">
+                <button id="enableAboutBlank" onclick="enableAboutBlank()">Enable</button>
+                <button id="disableAboutBlank" onclick="disableAboutBlank()">Disable</button>
+              </div>
+            </div>
+          </div>
+        
+          <div id="misc" class="tab-content">
+            <p>Coming soon...</p>
+          </div>
+        </div>
       </div>
       <div id="embed-container"></div>
     </div>

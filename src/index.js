@@ -2,6 +2,7 @@ const { createBareServer } = require("@tomphttp/bare-server-node");
 const express = require("express");
 const { createServer } = require("node:http");
 const { hostname } = require("node:os");
+const { join } = require("path");
 
 const bare = createBareServer("/bare/");
 const app = express();
@@ -10,8 +11,7 @@ app.use(express.static("./public"));
 
 // Error for everything else
 app.get('*', function (req, res) {
-  res.send('404');
-  res.sendFile(join("../public", "404.html"));
+  res.status(404).sendFile(join(__dirname, "../public/404.html"));
 });
 
 const server = createServer();
@@ -32,25 +32,18 @@ server.on("upgrade", (req, socket, head) => {
   }
 });
 
-let port = parseInt(process.env.PORT || "");
-
-if (isNaN(port)) port = 8080;
+let port = parseInt(process.env.PORT, 10);
+if (isNaN(port)) port = 5000;
 
 server.on("listening", () => {
   const address = server.address();
-
-  // by default we are listening on 0.0.0.0 (every interface)
-  // we just need to list a few
   console.log("Listening on:");
   console.log(`\thttp://localhost:${address.port}`);
   console.log(`\thttp://${hostname()}:${address.port}`);
-  console.log(
-    `\thttp://${address.family === "IPv6" ? `[${address.address}]` : address.address
-    }:${address.port}`
-  );
+  console.log(`\thttp://${address.family === "IPv6" ? `[${address.address}]` : address.address}:${address.port}`);
 });
 
-// https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
+// Graceful shutdown
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
@@ -61,6 +54,4 @@ function shutdown() {
   process.exit(0);
 }
 
-server.listen({
-  port,
-});
+server.listen({ port });
