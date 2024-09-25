@@ -22,6 +22,11 @@ body {
   color: var(--text);
 }
 
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+
 h1 {
   font-size: 56px;
   font-family: 'Montserrat';
@@ -269,6 +274,20 @@ select {
   font-family: 'Inter' !important;
   border: none;
   width: 30%;
+  cursor: pointer;
+  transition: 150ms;
+}
+
+select:hover {
+  background: var(--background3);
+}
+
+.setting-card select {
+  background: var(--background3);
+}
+
+.setting-card select:hover {
+  background: var(--background4);
 }
 
 .game-btn {
@@ -276,13 +295,28 @@ select {
   height: 210px;
   border-radius: 20px;
   position: relative;
-  transition: all 150ms;
+  transition: opacity 1s, transform 150ms !important;
   display: block;
   cursor: pointer;
   overflow: hidden;
   box-shadow: 0 0 20px var(--shadow);
   background: var(--background2);
   text-overflow: ellipsis;
+}
+
+.hidden {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.show {
+  opacity: 1;
+}
+
+@media(prefers-reduced-motion) {
+  .hidden {
+    transition: none;
+  }
 }
 
 .game-btn:hover {
@@ -321,7 +355,7 @@ select {
 
 /* settings */
 
-.settings-tab-container {
+.settings-container {
   width: 100%;
   margin: 30px 0px;
 }
@@ -339,6 +373,7 @@ select {
 .tab-link {
   padding: 11px 10px;
   font-size: 16px;
+  font-weight: 700;
   outline: none;
   border-radius: 10px;
   background: var(--background2);
@@ -364,6 +399,8 @@ select {
 
 .tab-content {
   display: none;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .setting-card {
