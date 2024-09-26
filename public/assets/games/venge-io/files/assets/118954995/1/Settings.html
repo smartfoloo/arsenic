@@ -1,0 +1,72 @@
+<div id="settings" class="wrapper">
+    <div id="header">
+        <div class="header-left-wrap">
+            <span v-on:click="goBack()" class="back-button">
+                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+            </span>
+            <span class="header-title">
+                {{translate('Settings')}}
+            </span>
+
+            <div class="tabs">
+                <li v-on:click="tab = 'General'" :class="{'active' : tab == 'General'}">{{translate('General')}}</li>
+                <li v-on:click="tab = 'Graphics'" :class="{'active' : tab == 'Graphics'}">{{translate('Graphics')}}</li>
+                <li v-on:click="tab = 'Controls'" :class="{'active' : tab == 'Controls'}">{{translate('Controls')}}</li>
+                <li v-on:click="tab = 'Audio'" :class="{'active' : tab == 'Audio'}">{{translate('Audio')}}</li>
+                <li v-on:click="tab = 'Crosshair'" :class="{'active' : tab == 'Crosshair'}">{{translate('Crosshair')}}</li>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="content">
+        <div 
+            id="alert" 
+            v-if="alert.active"
+            :class="{'alert-danger' : alert.type == 'danger', 'alert-info' : alert.type == 'info'}"
+        >
+            <i v-if="alert.type == 'danger'" class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+            <i v-if="alert.type == 'info'" class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+            {{alert.message}}
+        </div>
+
+        <div id="content-loading" v-if="loading">
+            <div id="spinner-center">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-page">
+            <div v-if="tab == 'General'" class="tab-content">
+                @import "Settings.General.html"
+            </div>
+
+            <div v-if="tab == 'Graphics'" class="tab-content">
+                @import "Settings.Graphics.html"
+            </div>
+
+            <div v-if="tab == 'Controls'" class="tab-content">
+                @import "Settings.Controls.html"
+            </div>
+
+            <div v-if="tab == 'Audio'" class="tab-content">
+                @import "Settings.Audio.html"
+            </div>
+
+            <div v-if="tab == 'Crosshair'" class="tab-content">
+                @import "Settings.Crosshair.html"
+            </div>
+
+        </div>
+    </div>
+    <div id="content-banner-area">
+        <div id="centered-banner" class="banner-area">
+            
+        </div>
+    </div>
+</div>

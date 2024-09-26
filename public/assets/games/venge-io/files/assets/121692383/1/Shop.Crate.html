@@ -1,0 +1,48 @@
+<div v-if="popup.page == 'Crate'" class="popup">
+    <div class="popup-header">
+        <i class="fa fa-cube" aria-hidden="true"></i> Crate
+        <a v-on:click="closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="popup-content">
+        <div v-if="popup.loading" class="popup-loading">
+            <div id="spinner-center">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="popup.tab == 'Home'" v-on:click="unlockCrate()" id="crate-screen">
+            <img class="item-thumbnail" :src="'https://assets.venge.io/' + popup.item.thumbnail">
+        </div>
+
+        <div v-if="popup.tab == 'Unlocking'" id="unlocking-screen" :class="{'unlocked' : unlockStatus == 'Completed'}">
+            <div id="unlocking-slider">
+                <li v-for="(item, index) in unlockContent" :class="'item ' + item.rarity + ' ' + (index == 15 ? 'selected' : '')">
+                    <img :src="'https://assets.venge.io/' + item.thumbnail">
+                    <b>{{item.name}} <small>{{item.rarity}}</small></b>
+                </li>
+            </div>
+            <div id="centered-line"></div>
+            <div id="unlocking-shadow"></div>
+        </div>
+
+        <div class="popup-bottom-content">
+            <div class="crate-rarities">
+                {{popup.item.crate_rarities}}
+            </div>
+            <button v-if="isLoggedIn && (unlockStatus == 'Start' || unlockStatus == 'Completed')" class="btn btn-primary button-sound" v-on:click="unlockCrate()">
+                Unlock Crate <small>{{numberFormat(popup.item.price)}} VG</small>
+                <i class="fa fa-caret-right" aria-hidden="true"></i>
+            </button>
+
+            <button v-if="!isLoggedIn" class="btn btn-secondary button-sound" v-on:click="goLogin('Account')">
+                <i class="fa fa-user" aria-hidden="true"></i> {{translate('You Need to Login')}} 
+            </button>
+            
+        </div>
+    </div>
+</div>

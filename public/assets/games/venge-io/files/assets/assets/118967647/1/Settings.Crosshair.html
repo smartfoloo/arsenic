@@ -1,0 +1,85 @@
+<div class="field-info">
+    {{translate('You can download different type of crosshairs from Kenney\'s asset pack, here is the link')}} : 
+    <a target="_blank" href="https://www.kenney.nl/assets/crosshair-pack">https://www.kenney.nl/assets/crosshair-pack</a>
+</div>
+
+<div class="field-wrap"> 
+
+    <div class="field file-upload">
+        <div class="label-wrap">
+            <label>
+                {{translate('Custom Crosshair Image')}} (.png)
+            </label>
+        </div>
+        
+        <div class="form-element-wrap">
+            <div class="file-upload-wrapper">
+                <input v-on:change="fileUpload($event.target, 'Crosshair_Image', 'default')" type="file">
+                <div class="field-thumbnail">
+                    <img :src="crosshair.default ? crosshair.default : getImage('Crosshair.png')" accept="image/*">
+                    <button type="button" class="field-button secondary-button" v-on:click="clearUpload('Crosshair_Image', 'default')" >{{translate('Reset')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="field file-upload">
+        <div class="label-wrap">
+            <label>
+                {{translate('Custom Sniper Scope Image')}} (.png)
+            </label>
+        </div>
+
+        <div class="form-element-wrap">
+            <div class="file-upload-wrapper">
+                <input v-on:change="fileUpload($event.target, 'CustomScope', 'sniper')" type="file">
+                <div class="field-thumbnail">
+                    <img :src="crosshair.sniper ? crosshair.sniper : getImage('Scope_Texture.png')">
+                    <button  class="field-button secondary-button" type="button" v-on:click="clearUpload('CustomScope', 'sniper')" >{{translate('Reset')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="field-wrap"> 
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="crosshairSize"> {{translate('Crosshair Size')}} </label>
+        </div>
+      
+        <div class="form-element-wrap">
+            <div class="input-slider-wrapper">
+                <div class="input-slider-text">
+                    {{settings.crosshairScale}}
+                </div>
+                
+                <input id="crosshairSize" v-on:change="onSettingsChange()" 
+                    type="range" min="60" max="100" 
+                    v-model="settings.crosshairScale">
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="hideCrosshair">{{translate('Hide Crosshair')}}</label>
+        </div>
+        
+        <div class="form-element-wrap">
+            <div class="field-toggle-wrapper">
+                <input class="toggle" v-on:change="onSettingsChange()" 
+                type="checkbox" id="hideCrosshair"
+                v-model="settings.hideCrosshair">
+                <label for="hideCrosshair">
+                     <span v-html="settings.hideCrosshair == true ? translate('Yes') : translate('No')"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

@@ -1,0 +1,130 @@
+<div class="profile-details-wrapper" :class="profile.hero">
+    <div class="profile-username-header">
+        <div class="level">{{profile.level}}<span>LVL</span></div>
+        <h1>
+            <username :value="profile.username" :verified="profile.verified" :emoji="profile.emoji"></username>
+        </h1>
+        <a class="change-username-button hint--bottom hint--rounded" aria-label="Change Username" v-on:click="showPopup('ChangeUsername')">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
+    </div>
+
+
+    <div class="profile-exp-wrapper">
+        <div class="profile-exp-bar">
+            <span :style="{ width: 200 * profile.experience_bar+ 'px' }"></span>
+        </div>
+        <p>{{profile.experience}} / {{profile.experience_next}} XP</p>
+    </div>
+</div>
+
+
+
+<div class="profile-content">
+
+    <div class="stats-wrapper">
+        
+        <div class="stats-box">
+            <ul class="stats-col kdr-col">
+                <li>
+                    <span class="label">
+                        <img :src="getImage('Skull-Icon.png')" alt=""> 
+                        {{translate('Kills')}}
+                    </span>
+                    <span class="value">{{profile.kills}}</span>
+                </li>
+                <li>
+                    <span class="label">
+                        <img :src="getImage('Death-Icon.png')" alt=""> 
+                        {{translate('Deaths')}}
+                    </span>
+                    <span class="value">{{profile.deaths}}</span>
+                </li>
+                <li :style="{'--progress' : ((profile.deaths / profile.kills) * 100)+ '%'}">
+                    <span class="label">
+                        <img :src="getImage('Crosshair-Icon.png')" alt=""> 
+                        {{translate('K/D')}}
+                    </span>
+                    <span class="value">{{profile.kdr}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="stats-box">
+            <h4>{{translate('Last Match')}}</h4>
+            <ul class="stats-col">
+                <li>
+                    <span class="label">
+                        <img :src="getImage('Skull-Icon.png')" alt=""> 
+                        {{translate('Last Match Kills')}} 
+                    </span>
+                    <span class="value">{{profile.last_match_kills}}</span>
+                </li>
+                <li>
+                    <span class="label">
+                        <img :src="getImage('Crosshair-Icon.png')" alt=""> 
+                        {{translate('Last Match Headshot')}}
+                    </span>
+                    <span class="value">{{profile.last_match_headshots}}</span>
+                </li>
+                <li>
+                    <span class="label">
+                        <img :src="getImage('Crown-Icon.png')" alt=""> 
+                        {{translate('Last Match Rank')}}
+                    </span>
+                    <span class="value">{{profile.last_match_position}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="stats-box">
+            <h4> {{translate('Overall')}}</h4>
+            <ul class="stats-col">
+                <li>
+                    <span class="label">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> {{translate('Game Time')}} 
+                    </span>
+                    <span class="value">
+                        {{numberFormat(profile.total_game_time, 'time')}}
+                    </span>
+                </li>
+                <li>
+                    <span class="label">
+                        <img :src="getImage('Capture-Icon.png')" alt=""> 
+                    {{translate('Games Played')}}  
+                    </span>
+                    <span class="value">{{profile.total_games_played}}</span>
+                </li>
+                <li>
+                    <span class="label">
+                        <img :src="getImage('Revenge-Icon.png')" alt=""> 
+                        {{translate('Games Won')}}   
+                    </span>
+                    <span class="value">{{profile.total_games_won}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="stats-box">
+            <h4>{{translate('Badges')}}</h4>
+            <ul class="stats-col">
+                <li class="badges-area">
+                    <span
+                    v-for="item in profile.badges"
+                    class="hint--bottom hint--rounded badge-icon"
+                    :aria-label="item.description"
+                    >
+                    <img
+                        :src="getImage(item.icon)"
+                        alt="profile-badge"
+                        class="profile-badge"
+                        />
+                    <p>{{item.name}}</p>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>

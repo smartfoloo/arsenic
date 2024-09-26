@@ -1,0 +1,98 @@
+<div id="shop" class="shop">
+    <div id="header">
+
+        <div class="header-left-wrap">
+            <span v-on:click="goBack()" class="back-button">
+                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+            </span>
+            <span class="header-title">
+                {{translate('Shop')}}  
+            </span>
+
+            <ul id="header-menu-items">
+                <li v-if="isLoggedIn" v-on:click="tab = 'Featured'" :class="{'active' : tab == 'Featured'}">
+                    <i aria-hidden="true" class="fa fa-bullhorn"></i> FEATURED 
+                </li>
+                <li v-if="isLoggedIn" v-on:click="tab = 'Inventory'" :class="{'active' : tab == 'Inventory'}">
+                    <i aria-hidden="true" class="fa fa-briefcase"></i> INVENTORY
+                </li>
+            </ul>
+        </div>
+
+        <div class="header-right-wrap">
+            <ul id="header-info-items">
+                <li>
+                    <a href="https://social.venge.io/" target="_blank">
+                        <img :src="getImage('Social-Hub.png')">
+                        Social Hub
+                    </a>
+                </li>
+                <li class="balance-list">
+                    <span v-if="balance" class="balance">
+                        Balance: 
+                        <b>
+                            {{balance}} 
+                            <img :src="getImage('Coin-Icon.png')" alt="">
+                        </b> 
+                    </span>
+                </li>
+            </ul>
+        </div>   
+    </div>
+
+    <div v-if="popup.active" class="shadow" v-on:click="closePopup()"></div>
+    @import "Shop.Item.html"
+    @import "Shop.Crate.html"
+    @import "Shop.Reward.html"
+    
+
+    <div id="content" :class="{'focused' : isFocused}">
+        <div 
+            id="alert" 
+            v-if="alert.active && !popup.active"
+            :class="{'alert-danger' : alert.type == 'danger', 'alert-info' : alert.type == 'info'}"
+        >
+            <i v-if="alert.type == 'danger'" class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+            <i v-if="alert.type == 'info'" class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+            {{alert.message}}
+        </div>
+
+        <div id="content-loading" v-if="loading">
+            <div id="spinner-center">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <ul v-if="tab == 'Featured'" class="item-wrapper">
+            <li v-for="item in offers" class="item" v-on:click="showItemOrCrate(item)"  v-on:mouseover="isFocused = true" v-on:mouseleave="isFocused = false">
+                <div v-if="item.ads" class="ads-button">
+                   <img class="ads-img" :src="getImage('Ads-Icon.png')">
+                </div>
+                <img class="item-thumbnail" :src="'https://assets.venge.io/' + item.thumbnail">
+                <span class="item-price">
+                    <span v-if="item.original_price > 0" class="original-price">{{numberFormat(item.original_price)}}  VG</span>
+                    <span class="price-value"><img class="coin-icon" :src="getImage('Coin-Icon.png')" alt=""> {{numberFormat(item.price)}} VG</span>
+                </span>
+
+                <div class="item-header">
+                    <span class="title">{{item.name}}</span>
+                    <span class="type">{{item.class}}</span>
+                    <span v-if="item.class != 'Crate'" class="rarity"><span class="square" :class="item.rarity"></span>{{item.rarity}}</span>
+                </div>
+            </li>
+        </ul>
+        
+        @import "Shop.Inventory.html"
+    </div>
+
+    <div id="content-banner-area">
+        <div id="centered-banner" class="banner-area">
+            
+        </div>
+    </div>
+</div>

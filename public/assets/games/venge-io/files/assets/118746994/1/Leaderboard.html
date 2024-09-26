@@ -1,0 +1,131 @@
+<div id="wrapper">
+    <div id="header">
+
+        <div class="header-left-wrap">
+            <span v-on:click="goBack()" class="back-button">
+                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+            </span>
+            <span class="header-title">
+                {{translate('Leaderboard')}}  
+            </span>
+            <div class="tabs">
+                <li v-on:click="tab = 'rank'" :class="{'active' : tab == 'rank'}">Daily</li>
+                <li v-on:click="tab = 'weekly'" :class="{'active' : tab == 'weekly'}">Weekly</li>
+                <li v-on:click="tab = 'score'" :class="{'active' : tab == 'score'}">Global</li>
+                <li v-on:click="tab = 'followers'" :class="{'active' : tab == 'followers'}">Popular</li>
+                <li v-on:click="tab = 'clans'" :class="{'active' : tab == 'clans'}">Clans</li>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="content-loading" v-if="loading">
+            <div id="spinner-center">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-page">
+            
+            <div id="leaderboard-table" class="table-list-style with-sort" :class="{'fit-list' : tab == 'clans'}">
+                <ul class="table-list-header">
+                    <li>{{translate('Name')}}</li>
+                    <li class="hide-mobile" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('Kills')}}</li>
+                    <li class="hide-mobile" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('Death')}}</li>
+                    <li class="hide-mobile" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('KDR')}}</li>
+                    <li v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('Score')}}</li>
+                    <li v-if="tab == 'followers'">{{translate('Followers')}}</li>
+                    <li class="hide-mobile" v-if="tab == 'clans'">{{translate('Tag')}}</li>
+                    <li class="hide-mobile" v-if="tab == 'clans'">{{translate('Members')}}</li>
+                    <li class="hide-mobile" v-if="tab == 'clans'">{{translate('KDR')}}</li>
+                    <li v-if="tab == 'clans'">{{translate('Score')}}</li>
+                    <li v-if="tab == 'clans'">{{translate('Level')}}</li>
+                    <li class="hide-mobile" v-if="tab == 'clans'">{{translate('Owner')}}</li>
+                </ul>
+
+                <ul class="table-list-content">
+                    <li v-for="(player, rank) in leaderboard"> 
+                        <div class="list">{{rank + 1}}.</div>
+                        <div class="list" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score' || tab == 'followers'">
+                            <username :value="player.username" :emoji="player.emoji" :verified="player.verified"></username>
+                        </div>
+                        <div class="list hide-mobile" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'"> {{player.kills}}</div>
+                        <div class="list hide-mobile" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'"> {{player.deaths}}</div>
+                        <div class="list hide-mobile" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'"> {{player.kdr}}</div>
+                        <div class="list" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'"> {{formatNumber(player.experience)}}</div>
+                        <div class="list" v-if="tab == 'followers'"> {{player.followers}}</div>
+
+                        <div class="list" v-if="tab == 'clans'"><username :value="player.clan_name" :clan="true"></username></div>
+                        <div class="list hide-mobile" v-if="tab == 'clans'"><username :value="player.slug" :clan="true"></username></div>
+                        <div class="list hide-mobile" v-if="tab == 'clans'"> {{player.members_count}}</div>
+                        <div class="list hide-mobile" v-if="tab == 'clans'"> {{player.kdr}}</div>
+                        <div class="list" v-if="tab == 'clans'"> {{formatNumber(player.experience)}}</div>
+                        <div class="list" v-if="tab == 'clans'"> {{player.level}}</div>
+                        <div class="list hide-mobile" v-if="tab == 'clans'"> <username :value="player.owner_username"></username></div>
+                        <div class="list" v-if="tab == 'clans'">
+                            <a target="_blank" :href="generateClanLink(player)" class="table-button">{{translate('Clan')}} <i class="fa fa-id-card" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="list" v-if="tab == 'rank' || tab == 'weekly' || tab == 'score' || tab == 'followers'">
+                            <a target="_blank" :href="generatePlayerLink(player)" class="table-button">{{translate('Profile')}} <i class="fa fa-id-card" aria-hidden="true"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!--<table id="leaderboard-table" class="table list-table">
+                <tr class="sort-header">
+                    <th></th>
+                    <th>{{translate('Name')}}</th>
+                    <th v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('Kills')}}</th>
+                    <th v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('Deaths')}}</th>
+                    <th v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('KDR')}}</th>
+                    <th v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{translate('Score')}}</th>
+                    <th v-if="tab == 'followers'">{{translate('Followers')}}</th>
+                    <th v-if="tab == 'clans'">{{translate('Tag')}}</th>
+                    <th v-if="tab == 'clans'">{{translate('Members')}}</th>
+                    <th v-if="tab == 'clans'">{{translate('KDR')}}</th>
+                    <th v-if="tab == 'clans'">{{translate('Score')}}</th>
+                    <th v-if="tab == 'clans'">{{translate('Level')}}</th>
+                    <th v-if="tab == 'clans'">{{translate('Owner')}}</th>
+                    <th></th>
+                </tr>
+                <tr v-for="(player, rank) in leaderboard">
+                    <td>{{rank + 1}}.</td>
+                    <td v-if="tab == 'rank' || tab == 'weekly' || tab == 'score' || tab == 'followers'">
+                        <username :value="player.username" :emoji="player.emoji" :verified="player.verified"></username>
+                    </td>
+                    <td v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{player.kills}}</td>
+                    <td v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{player.deaths}}</td>
+                    <td v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{player.kdr}}</td>
+                    <td v-if="tab == 'rank' || tab == 'weekly' || tab == 'score'">{{player.experience}}</td>
+                    <td v-if="tab == 'followers'">{{player.followers}}</td>
+
+                    <td v-if="tab == 'clans'"><username :value="player.clan_name"></username></td>
+                    <td v-if="tab == 'clans'"><username :value="player.slug"></username></td>
+                    <td v-if="tab == 'clans'">{{player.members_count}}</td>
+                    <td v-if="tab == 'clans'">{{player.kdr}}</td>
+                    <td v-if="tab == 'clans'">{{player.experience}}</td>
+                    <td v-if="tab == 'clans'">{{player.level}}</td>
+                    <td v-if="tab == 'clans'">{{player.owner_username}}</td>
+                    <td v-if="tab == 'clans'">
+                        <a target="_blank" :href="generateClanLink(player)" class="btn-table">{{translate('Clan Profile')}} <i class="fa fa-id-card" aria-hidden="true"></i></a>
+                    </td>
+                    <td v-if="tab == 'rank' || tab == 'weekly' || tab == 'score' || tab == 'followers'">
+                        <a target="_blank" :href="generatePlayerLink(player)" class="btn-table">{{translate('Profile')}} <i class="fa fa-id-card" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            </table>-->
+        </div>
+    </div>
+    <div id="content-banner-area">
+        <div id="centered-banner">
+
+        </div>
+    </div>
+</div>

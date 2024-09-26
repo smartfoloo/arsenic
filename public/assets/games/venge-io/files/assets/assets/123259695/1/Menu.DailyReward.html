@@ -1,0 +1,65 @@
+<div v-if="popup.page == 'DailyReward' && isLoggedIn" id="daily-reward" class="popup">
+    <div class="popup-header">
+        Daily Login Reward
+        <a v-on:click="closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div v-on:click="getDailyReward()" class="popup-content popup-clickable">
+        <div class="popup-side-content full-side" :class="{'popup-no-scroll' : popup.loading}">
+            <div v-if="popup.loading" class="popup-loading">
+                <div id="spinner-center">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="!dailyReward.unlocked" class="daily-reward-wrapper">
+                <div class="daily-reward-header">
+                    <h3>COLLECT YOUR DAILY REWARD <span>DAY {{dailyReward.claimedUntil}}</span></h3>
+                    <img class="bouncing-icon" :src="getImage('Gift-Icon.png')">
+                </div>
+
+                <div class="daily-reward-content">
+                    <ul>
+                        <li v-for="(item, key) in dailyReward.days" :class="{'active' : item.colored}">
+                            <p>{{key + 1}}</p>
+                            <i v-if="item.claimed" class="fa fa-check" aria-hidden="true"></i>
+                            <span v-if="(key + 1) >= dailyReward.claimedUntil + 1">DAY</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div v-if="dailyReward.unlocked" class="daily-reward-wrapper">
+                <div class="daily-reward-header">
+                    <h3>REWARD FOR DAY {{dailyReward.claimedUntil}}<span>{{dailyReward.reward.class}} {{dailyReward.reward.name}}</span></h3>
+                    <img class="item-explosion" :src="'https://assets.venge.io/' + dailyReward.reward.thumbnail">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="popup-bottom-content">
+            <div 
+                v-if="alert.active"
+                class="alert"
+                :class="{'alert-danger' : alert.type == 'danger', 'alert-info' : alert.type == 'info'}"
+            >
+                <i v-if="alert.type == 'danger'" class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+                <i v-if="alert.type == 'info'" class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+                {{alert.message}}
+            </div>
+
+            <div class="popup-bottom-left-text">
+                <img :src="getImage('Info-Icon.png')">
+                <p> Receive a reward for logging in daily. <br>Get better rewards for each consecutive day!</p>
+            </div>
+
+            <button v-if="!popup.loading && !dailyReward.unlocked" class="btn btn-yellow button-sound">
+                🎬 COLLECT FREE REWARD
+            </button>
+        </div>
+    </div>
+</div>

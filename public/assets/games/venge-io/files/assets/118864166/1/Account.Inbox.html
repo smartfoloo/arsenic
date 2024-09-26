@@ -1,0 +1,103 @@
+<!--<div class="inbox-head-wrapper">
+    <div class="inbox-left-head">
+        <h1>Inbox</h1>
+    </div>
+    
+    <div class="inbox-right-head">
+        <button v-on:click="subtab = 'SendMessage', getMessages(false)" class="btn btn-purple" :class="{'active' : subtab == 'SendMessage'}">
+            <i class="fa fa-inbox" aria-hidden="true"></i> {{translate('Send Message')}}
+        </button>
+    </div>
+</div>-->
+
+<div class="inbox-content-wrapper">
+    <div class="inbox-left-content">
+        <div class="inbox-search-box">
+            <div class="field-wrap single-field">
+                <div class="field">
+                    <div class="form-element-wrap">
+                        <input v-model="inbox.search" type="text" :placeholder="translate('Search Inbox')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="message-list">
+            <ul>
+                <li v-on:click="getMessages(message)" v-for="(message, index) in filteredMessageSearch">
+                    <div v-if="!message.viewed" class="new-message">{{translate('New')}}</div>
+                    <div class="message-sender">
+                        <div class="sender-img">{{message.sender.charAt(0)}}</div>
+                        <div class="sender-box">
+                            <username :value="message.sender"></username>
+                            <span class="message-time">{{message.time_ago}}</span>
+                        </div>
+                        
+                    </div>
+                    <div class="message">
+                        {{message.message.substring(0, 120)}}...
+                    </div>
+                </li>
+            </ul>
+
+            <div v-if="inbox.searchCount == 0" class="no-result-found">
+                <p> {{translate('No Result Found')}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="inbox-right-content">
+
+        <div class="inbox-content-head">
+            <button v-on:click="getMessages(false)" class="btn btn-purple" :class="{'active' : subtab == 'SendMessage'}">
+                <i class="fa fa-inbox" aria-hidden="true"></i> {{translate('Send Message')}}
+            </button>
+        </div>
+
+        <div id="messages">
+            <div class="message-content">
+                <div class="message-head-wrapper">
+                    <div id="message-send-to">
+                        <div class="message-input-wrap">
+                            <span>{{translate('To')}}: </span>
+                            <input id="message-to-input" :class="{'selected' : inbox.message.isSelected}" v-on:keyup.enter="selectSearchResult(inbox.message.username)" v-on:keydown="searchFriends(inbox.message.username)" type="text" v-model="inbox.message.username" :placeholder="translate('Username')">
+                        </div>
+                       
+                        <span class="suggestions">
+                            <span v-on:click="selectSearchResult(username)" v-for="username in inbox.message.searchResults">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                {{username}}
+                            </span>
+                        </span>
+                    </div>
+
+                    <div v-if="inbox.message.username" class="field-wrap mini-wrap">
+                        <div class="field">
+                            <div class="label-wrap">
+                                <label for="fpsCounter"> {{translate('Disable All Messages From That User')}}</label>
+                            </div>
+                        
+                            <div class="form-element-wrap">
+                                <div class="field-toggle-wrapper">
+                                    <input class="toggle" v-on:change="setBlockedUsers(inbox.message.username)" 
+                                    type="checkbox" id="disableMessages"
+                                    v-model="inbox.message.isBlockedUser">
+                                    <label for="disableMessages">
+                                        <span v-html="inbox.message.isBlockedUser == true ? translate('Yes') : translate('No')"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="message-inbox"> 
+                    <div class="message" :class="{'mine' : message.sender == cleanMarkup(profile.username)}" v-for="message in inbox.message.pastMessages">
+                        <username class="username" :value="message.sender"></username>
+                        <span class="content">{{message.message}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <input id="message-box" v-on:keyup.enter="sendMessage()" type="text" v-model="inbox.message.message" autocomplete="off" :placeholder="translate('Enter your message and press [ENTER] to send')">
+        </div>
+    </div>
+</div>

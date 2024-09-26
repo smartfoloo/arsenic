@@ -1,0 +1,50 @@
+<table id="quests-table" class="table">
+    <tr class="sort-header">
+        <th></th>
+        <th>{{translate('Quest')}}</th>
+        <th>{{translate('XP')}}</th>
+        <th>{{translate('Earn')}}</th>
+        <th></th>
+    </tr>
+    <tr v-for="quest in quests.list">
+        <td>
+            <img class="quest-img" :src="getImage(quest.icon)" alt="">
+        </td>
+        <td>
+            {{quest.title}}
+            <div class="quest-progress">
+                <div class="quest-experience-bar">
+                    <span :style="{ width: 100 * quest.percentage + '%' }"></span>
+                </div>
+                <p>{{quest.completed_goal}}</p>
+            </div>
+        </td>
+        <td>
+            <img class="quest-icon" :src="getImage('Jump-Icon.png')">
+            {{quest.xp_reward}}
+        </td>
+        <td>
+            <img class="quest-icon" :src="getImage('Gold.png')">
+            {{quest.coin_reward}}
+        </td>
+
+        <td>
+            <button v-if="quest.can_claim" v-on:click="claimQuestReward(quest.index)" class="quest-claim button-sound">
+                <img :src="getImage('Check-Icon.png')" alt="">
+                Claim Reward
+            </button>
+
+            <div v-if="quest.is_claimed" class="quest-claimed">
+                <img :src="getImage('Check-Icon.png')" alt="">
+                <p>Reward Claimed!</p>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="pull-right" v-if="quests.can_reset">
+    <button class="btn btn-primary button-sound" v-on:click="newQuests()">
+        Get New Quests 
+        <i class="fa fa-caret-right" aria-hidden="true"></i>
+    </button>
+</div>

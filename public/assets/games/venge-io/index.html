@@ -1,0 +1,420 @@
+<!doctype html>
+<html>
+<head>
+    <title>Venge.io - FPS io game</title>
+
+    <meta name="description" content="Venge is an objective-based first person shooter. On this awesome first person shooter game every match is an intense unique experience. Best IO game you can play it on browser, no download, and free!">
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <meta name="keywords" content="multiplayer, io, 3D Shooter, objective-based, FPS, no download, browser game, game, web game">
+
+    <link rel="canonical" href="https://venge.io" />
+
+    <link rel="icon" href="favicon-96x96.png" type="image/x-icon">
+    <meta content="https://venge.io/thumbnail.jpg" property="og:image">
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:title" content="Play Venge.io!">
+    <meta property="og:description" content="Click on this link to start a game with your friend! Venge is an objective-based first-person shooter. Play it on browser, no download, and free!">
+
+    <meta property="og:url" content="https://venge.io/">
+    <meta property="og:site_name" content="venge.io">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+
+    <meta charset="utf-8">
+
+    <script type="text/javascript">
+        var VERSION = '6a8762';
+        var VERSION_CODE = '1.2.24';
+    </script>
+
+    <script type="text/javascript">
+        var isClient  = false;
+        var referral  = window.location.href;
+        var quantcast = true;
+        var SDKLoaded = true;
+
+        var adblockEnabled = false;
+
+        //if URL has ?debug=true, show all errors on screen
+        var debug = false;
+
+        if(window.location.href.indexOf('debug=true') > -1){
+            debug = true;
+        }
+
+        if(debug){
+            isClient = true;
+        }
+
+        if(referral && referral.search('poki') > -1){
+            quantcast = false;
+        }
+
+        //try to reach localStorage
+        try{
+            var wasClient = window.localStorage.getItem('client_version');
+
+            if(wasClient){
+                isClient = true;
+            }
+        }catch(e){
+            //not available
+        }
+
+        if(referral.search('client_version') > -1){
+            isClient = true;
+            window.localStorage.setItem('client_version', 'TRUE');
+        }
+    </script>
+
+    <script src="./sdk.js"></script>
+
+    <script type="text/javascript" src="adblock.js"></script>
+    <script type="text/javascript" src="playcanvas-stable.min.js?v=1.2.24"></script>
+    <script type="text/javascript" src="__settings__.js?v=1.2.0"></script>
+
+    <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+    <script type="text/javascript" async=true>
+
+        var isPoki = window.location.href.indexOf('poki') > -1;
+
+        if(!isPoki){
+            (function() {
+            var host = 'venge.io';
+            var element = document.createElement('script');
+            var firstScript = document.getElementsByTagName('script')[0];
+            var url = 'https://cmp.quantcast.com'
+                .concat('/choice/', 'VzKDgYuw-1KTr', '/', host, '/choice.js?tag_version=V2');
+            var uspTries = 0;
+            var uspTriesLimit = 3;
+            element.async = true;
+            element.type = 'text/javascript';
+            element.src = url;
+            
+            firstScript.parentNode.insertBefore(element, firstScript);
+            
+            function makeStub() {
+                var TCF_LOCATOR_NAME = '__tcfapiLocator';
+                var queue = [];
+                var win = window;
+                var cmpFrame;
+            
+                function addFrame() {
+                var doc = win.document;
+                var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+            
+                if (!otherCMP) {
+                    if (doc.body) {
+                    var iframe = doc.createElement('iframe');
+            
+                    iframe.style.cssText = 'display:none';
+                    iframe.name = TCF_LOCATOR_NAME;
+                    doc.body.appendChild(iframe);
+                    } else {
+                    setTimeout(addFrame, 5);
+                    }
+                }
+                return !otherCMP;
+                }
+            
+                function tcfAPIHandler() {
+                var gdprApplies;
+                var args = arguments;
+            
+                if (!args.length) {
+                    return queue;
+                } else if (args[0] === 'setGdprApplies') {
+                    if (
+                    args.length > 3 &&
+                    args[2] === 2 &&
+                    typeof args[3] === 'boolean'
+                    ) {
+                    gdprApplies = args[3];
+                    if (typeof args[2] === 'function') {
+                        args[2]('set', true);
+                    }
+                    }
+                } else if (args[0] === 'ping') {
+                    var retr = {
+                    gdprApplies: gdprApplies,
+                    cmpLoaded: false,
+                    cmpStatus: 'stub'
+                    };
+            
+                    if (typeof args[2] === 'function') {
+                    args[2](retr);
+                    }
+                } else {
+                    if(args[0] === 'init' && typeof args[3] === 'object') {
+                    args[3] = Object.assign(args[3], { tag_version: 'V2' });
+                    }
+                    queue.push(args);
+                }
+                }
+            
+                function postMessageEventHandler(event) {
+                var msgIsString = typeof event.data === 'string';
+                var json = {};
+            
+                try {
+                    if (msgIsString) {
+                    json = JSON.parse(event.data);
+                    } else {
+                    json = event.data;
+                    }
+                } catch (ignore) {}
+            
+                var payload = json.__tcfapiCall;
+            
+                if (payload) {
+                    window.__tcfapi(
+                    payload.command,
+                    payload.version,
+                    function(retValue, success) {
+                        var returnMsg = {
+                        __tcfapiReturn: {
+                            returnValue: retValue,
+                            success: success,
+                            callId: payload.callId
+                        }
+                        };
+                        if (msgIsString) {
+                        returnMsg = JSON.stringify(returnMsg);
+                        }
+                        if (event && event.source && event.source.postMessage) {
+                        event.source.postMessage(returnMsg, '*');
+                        }
+                    },
+                    payload.parameter
+                    );
+                }
+                }
+            
+                while (win) {
+                try {
+                    if (win.frames[TCF_LOCATOR_NAME]) {
+                    cmpFrame = win;
+                    break;
+                    }
+                } catch (ignore) {}
+            
+                if (win === window.top) {
+                    break;
+                }
+                win = win.parent;
+                }
+                if (!cmpFrame) {
+                addFrame();
+                win.__tcfapi = tcfAPIHandler;
+                win.addEventListener('message', postMessageEventHandler, false);
+                }
+            };
+            
+            makeStub();
+            
+            var uspStubFunction = function() {
+                var arg = arguments;
+                if (typeof window.__uspapi !== uspStubFunction) {
+                setTimeout(function() {
+                    if (typeof window.__uspapi !== 'undefined') {
+                    window.__uspapi.apply(window.__uspapi, arg);
+                    }
+                }, 500);
+                }
+            };
+            
+            var checkIfUspIsReady = function() {
+                uspTries++;
+                if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+                console.warn('USP is not accessible');
+                } else {
+                clearInterval(uspInterval);
+                }
+            };
+            
+            if (typeof window.__uspapi === 'undefined') {
+                window.__uspapi = uspStubFunction;
+                var uspInterval = setInterval(checkIfUspIsReady, 6000);
+            }
+            })();
+        }
+    </script>
+    <!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+
+    <script type="text/javascript">
+        var adblockEnabled = false;
+        var pokiSDKInitialized = false;
+
+        if(!isClient){
+            PokiSDK.enableEventTracking(2);
+
+            PokiSDK.init({ volume: 0.4 }).then(function(){
+                adblockEnabled = false;
+                pokiSDKInitialized = true;
+
+                /*
+                console.scrollIndex = 0;
+                console.info = function(){
+                    var el = document.createElement('div');
+                    el.style.position = 'absolute';
+                    el.style.top = (console.scrollIndex * 25) + 'px';
+                    el.style.left = '0';
+                    el.style.height = '15px';
+                    el.style.background = 'rgba(0,0,0,0.5)';
+                    el.style.color = 'white';
+                    el.style.zIndex = '999999';
+                    el.style.fontSize = '12px';
+                    el.style.padding = '5px';
+                    el.style.lineHeight = '15px';
+
+                    var text = '';
+                    for(var i = 0; i < arguments.length; i++){
+                        text += arguments[i] + ' ';
+                    }
+
+                    if(text.search('POKI_TRACKER') > -1){
+                        var eventName = text.split("'");
+                        eventName = eventName[1].split("'");
+
+                        var eventTime = new Date();
+                        var eventTimeStr = eventTime.getMinutes() + ':' + eventTime.getSeconds();
+
+                        el.innerHTML = eventTimeStr + ' -> ' + eventName[0];
+
+                        document.body.appendChild(el);
+
+                        console.scrollIndex++;
+                    }
+                };
+
+                PokiSDK.setLogging(true);
+                */
+
+                console.log('Poki SDK successfully initialized');
+            }).catch(function(){
+                adblockEnabled = true;
+
+                console.log('Initialized, but the user likely has adblock');
+            });
+        }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": ["VideoGame", "Game"],
+        "name": "Venge.io",
+        "gameLocation": "http://venge.io/",
+        "url": "https://venge.io/",
+        "publisher": "Poki",
+        "inLanguage": "English",
+        "image": "https://venge.io/Thumbnail-001.jpg",
+        "genre": ["Action Shooter", "3D", "io game", "FPS"],
+        "gamePlatform": ["Browser", "PC Client"],
+        "author": {
+          "@type": "Organization",
+          "name": "Onrush Studio",
+          "url": "https://onrush.studio/",
+          "foundingDate": "2018",
+          "founder": "Cem Demir"
+        },
+        "description": "A fast paced, character based action First Person Shooter with customizable weapon loadout system, playable heroes with special abilities, fully moddable standalone client, several maps and custom games to play on and many more features.
+        Play and test your strenght across several official mythologically inspired maps and thousands of custom games made with built-in map editor.
+        Find your path in this easy to play, hard to master arena shooter.
+        Gain points and VG with doing quests, in-game challenges, daily rewards, tournaments, and of course, kills. In addition, customize your experience in highly customizable controls and user interface, you can get your place in leaderboards, build your clan and fight as a team, easily invite friends and add them to your friends list, make your own weapon skin and submit to our Discord server, make your own custom map and play it with your friends, sell your items in player market, earn VG and; buy new characters weapon skins, character skins, charms, emotes and sprays. ",
+        "playMode" : "MultiPlayer",
+        "director" : "Cem Demir",
+        "sameAs":[
+            "https://venge.io", 
+            "https://twitter.com/vengeio", 
+            "https://www.giantbomb.com/vengeio/3030-79064", 
+            "https://www.instagram.com/venge_io/", 
+            "https://poki.com/en/g/venge-io", 
+            "https://www.crazygames.com/game/venge-io", 
+            "https://commention.itch.io/vengeio",
+            "https://www.reddit.com/r/vengeio/"
+        ]
+      }
+    </script>
+</head>
+<body>
+    <div style="display: none;">
+        <h2>Best fps io game?</h2>
+        <p>I think we know the answer.</p>
+
+        <p>Venge.io is a FPS shooter io game, a game you can play on your browser without downloading anything. It's free and it always be free. </p>
+            
+        <p>It's the best FPS io game you can play on browser, there are 4 different heroes you can unlock, each of them has different weapons, abilities and cards. Especially if you like hero shooter games, you'll love Venge.io FPS shooter game. We have 1.000+ different, unique game maps that is designed by community members. Some of them has top-down shooter views.</p>
+
+        <h3>About Venge.io</h3>
+        <p>Venge.io is biggest and best IO game ever produced. It has more than 3.000.000 monthly players and it's growing every day.</p>
+        <p>Venge .io FPS is a fast-paced online shooter IO game that pits teams of players against each other in intense, head-to-head shooting combat.</p>
+        <p>Choose from various weapons and abilities to take down your opponents, and take control of the battlefield!</p>
+        <p>Venge .io is a multiplayer shooting IO game, where players must shoot their way in fps io game controls and create strategies against each other using fps io game mechanics.</p>
+        <p>Unlike in other fps IO games, Venge IO shooter offers unique heroes, custom weapon load-outs, custom skins for both heroes and guns, and much more never seen before shooter io game features that in any FPS.IO games.</p>
+        <p>Venge io fps game is the shooter game that changed the IO games scene, compelling other fps IO games to as much quality content as Venge offers.</p>
+
+        <h4>Instructions:</h4>
+
+        <p>Move: WASD 
+        Aim/Shoot: Mouse 
+        Change Weapon: 1-9 
+        Ability: F
+        </p>
+
+        <p>Play and test your strenght across several official mythologically inspired maps and thousands of custom games made with built-in map editor.
+        </p>
+
+        <p>Find your path in this easy to play, hard to master arena shooter.
+            Gain points and VG with doing quests, in-game challenges, daily rewards, tournaments, and of course, kills.
+        </p> 
+
+        <p>In addition, customize your experience in highly customizable controls and user interface, you can get your place in leaderboards, build your clan and fight as a team, easily invite friends and add them to your friends list, make your own weapon skin and submit to our Discord server, make your own custom map and play it with your friends, sell your items in player market, earn VG and; buy new characters weapon skins, character skins, charms, emotes and sprays.</p>
+
+        <p>Play <a href="https://venge.io/?fps-game">fps io game</a> now!</p>
+    </div>
+    
+    <script src="__modules__.js"></script>
+    <script src="__start__.js?v=1.1.50"></script>
+    <script src="__loading__.js?v=1.1.50"></script>
+
+    <div id="preroll"></div>
+
+    <div id="about" style="display: none;">
+        <p>Venge.io is an online shooter where you will be playing against real players from all around the world in an arena. There are several weapons to choose from such as Scar, Shotgun, Tec-9 and even a Sniper rifle!</p>
+
+        <p>You must find the green areas on the map and capture that area before your opponents do. By capturing the area you will receive special skill cards that you can use, to improve your equipment and make you stronger.</p>
+
+        <p>Play different heroes, with different weapons! Create your own games, or join any community made game instantly!</p>
+
+        <a href="https://venge.io/tos.txt" target="_blank">Read TOS</a>
+        <a href="https://social.venge.io/client.html" target="_blank">Download Windows Client</a>
+    </div>
+    <script>
+        if(debug){
+            window.onerror = function(message, source, lineno, colno, error){
+                var errorStr = message + ' ' + source + ' ' + lineno + ' ' + colno + ' ' + error;
+
+                var el = document.createElement('span');
+                el.style.position = 'absolute';
+                el.style.top = '0';
+                el.style.left = '0';
+                el.style.height = '15px';
+                el.style.background = 'rgba(0,0,0,0.5)';
+                el.style.color = 'white';
+                el.style.zIndex = '999999';
+                el.style.fontSize = '12px';
+                el.style.padding = '5px';
+                el.style.lineHeight = '15px';
+
+                el.innerHTML = errorStr;
+
+                document.body.appendChild(el);
+            };
+        }
+    </script>
+</body>
+</html>

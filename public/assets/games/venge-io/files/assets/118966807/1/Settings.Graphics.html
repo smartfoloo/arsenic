@@ -1,0 +1,115 @@
+
+<div class="field-wrap">
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="fov">{{translate('Field of View')}} (FOV)</label>
+        </div>
+
+        <div class="form-element-wrap">
+            <div class="input-slider-wrapper">
+                <div class="input-slider-text">
+                    {{settings.fov}}
+                </div>
+                
+                <input id="fov" v-on:change="onSettingsChange()" 
+                        type="range" min="30" max="120"
+                        v-model="settings.fov">
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="weaponHandFov">{{translate('Weapon and Hand')}} (FOV)</label>
+        </div>
+        
+        <div class="form-element-wrap">
+            <div class="input-slider-wrapper">
+                <div class="input-slider-text">
+                    {{settings.weaponHandFov}}
+                </div>
+                
+                <input id="weaponHandFov" v-on:change="onSettingsChange()" 
+                        type="range" min="30" max="100"
+                        v-model="settings.weaponHandFov">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="resolution">{{translate('Graphic Quality')}} ({{translate('Resolution')}})</label>
+        </div>
+
+        <div class="form-element-wrap">
+            <div class="input-slider-wrapper">
+                <div class="input-slider-text">
+                    {{settings.quality}}
+                </div>
+                
+                <input id="resolution" v-on:change="onSettingsChange()" 
+                        type="range" min="20" max="100"
+                        v-model="settings.quality">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="field-wrap">
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="fpsCounter"> {{translate('FPS & Ping Counter')}}</label>
+        </div>
+       
+        <div class="form-element-wrap">
+            <div class="field-toggle-wrapper">
+                <input class="toggle" v-on:change="onSettingsChange()" 
+                type="checkbox" id="fpsCounter"
+                v-model="settings.fpsCounter">
+                <label for="fpsCounter">
+                    <span v-html="settings.fpsCounter == true ? translate('Yes') : translate('No')"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="disableSpecialEffects">{{translate('Disable Special Effects')}}</label>
+        </div>
+
+        <div class="form-element-wrap">
+            <div class="field-toggle-wrapper">
+                <input class="toggle" v-on:change="onSettingsChange()" 
+                type="checkbox" id="disableSpecialEffects"
+                v-model="settings.disableSpecialEffects">
+                <label for="disableSpecialEffects">
+                    <span v-html="settings.disableSpecialEffects == true ? translate('Yes') : translate('No')"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="disableShadows">{{translate('Disable Shadows')}}</label>
+        </div>
+       
+        <div class="form-element-wrap">
+            <div class="field-toggle-wrapper">
+                <input class="toggle" v-on:change="onSettingsChange()" 
+                type="checkbox" id="disableShadows"
+                v-model="settings.disableShadows">
+                <label for="disableShadows">
+                     <span v-html="settings.disableShadows == true ? translate('Yes') : translate('No')"></span>
+                </label>
+            </div>
+        </div>
+       
+    </div>
+</div>

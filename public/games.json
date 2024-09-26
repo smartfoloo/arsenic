@@ -8,11 +8,27 @@
     ]
   },
   {
+    "title": "Animal Arena",
+    "id": "animal-arena",
+    "tags": [
+      "2-player",
+      "action"
+    ]
+  },
+  {
     "title": "Poor Bunny",
     "id": "poor-bunny",
     "tags": [
       "2-player",
       "sports"
+    ]
+  },
+  {
+    "title": "Tightrope Theatre",
+    "id": "tightrope-theatre",
+    "tags": [
+      "action",
+      "platformer"
     ]
   },
   {
@@ -61,6 +77,13 @@
     "tags": [
       "2-player",
       "action"
+    ]
+  },
+  {
+    "title": "Zooplop",
+    "id": "zooplop",
+    "tags": [
+      "puzzle"
     ]
   },
   {

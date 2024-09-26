@@ -1,0 +1,40 @@
+<div v-if="popup.page == 'Loadout'" id="loadout" class="popup">
+    <div class="popup-header">
+        Loadout
+        <a v-on:click="closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="popup-content">
+        <div class="popup-side-menu">
+            <li v-on:click="loadoutTab = 'Hero'" :class="{'active'  : loadoutTab == 'Hero'}"><img :src="getImage('Lilium-Thumbnail-White.png')"/> Heroes</li>
+            <li v-on:click="loadoutTab = 'Rifle'" :class="{'active'   : loadoutTab == 'Rifle'}"><img :src="getImage('Scar-Thumbnail-White.png')"/> Rifle</li>
+            <li v-on:click="loadoutTab = 'Shotgun'" :class="{'active' : loadoutTab == 'Shotgun'}"><img :src="getImage('Shotgun-Thumbnail-White.png')"/> Shotgun</li>
+            <li v-on:click="loadoutTab = 'Sniper'" :class="{'active'  : loadoutTab == 'Sniper'}"><img :src="getImage('Sniper-Thumbnail-White.png')"/> Sniper</li>
+            <li v-on:click="loadoutTab = 'Handgun'" :class="{'active' : loadoutTab == 'Handgun'}"><img :src="getImage('Desert-Eagle-Thumbnail-White.png')"/> Handgun</li>
+        </div>
+        <div class="popup-side-content" :class="{'popup-no-scroll' : popup.loading}">
+            <div v-if="popup.loading" class="popup-loading">
+                <div id="spinner-center">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="selection-type">
+                <li v-on:click="setLoadout(item)" v-for="item in loadoutList" :class="{'active' : item.active}">
+                    <img :src="getImage(item.thumbnail)">
+                    <b><i v-if="item.locked" class="fa fa-lock" aria-hidden="true"></i> {{item.name}}</b>
+                    <div class="description">
+                        <span class="mode">{{item.type}}</span>{{item.description}}
+                    </div>
+                    <span class="active-check">
+                        <i class="fa fa-check-circle-o check" aria-hidden="true"></i>
+                        <i class="fa fa-circle-o uncheck" aria-hidden="true"></i>
+                    </span>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div v-if="popup.page == 'Quests'" id="quests" class="popup">
+    <div class="popup-header">
+        Quests
+        <a v-on:click="closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="popup-content">
+        <div class="popup-side-content full-side" :class="{'popup-no-scroll' : popup.loading}">
+            <div v-if="popup.loading" class="popup-loading">
+                <div id="spinner-center">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="selection-type">
+                <li v-on:click="setLoadout(item)" v-for="item in quests.list" :class="{'active' : item.completed}">
+                    <span class="highlight">{{item.completed_goal}}</span>
+                    <img :src="getImage(item.icon)" alt="">
+                    <b>{{item.title}}</b>
+                    <div class="description">
+                        <span class="mode">{{translate('Quest')}}</span>
+                        <div class="quest-rewards">
+                            <div class="reward">
+                                <img :src="getImage('Jump-Icon.png')" alt="">
+                                <p>{{item.xp_reward}}</p>
+                            </div>
+                            <div class="reward">
+                                <img :src="getImage('Gold.png')" alt="">
+                                <p>{{item.coin_reward}}</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="quest-progress">
+                            <div class="quest-experience-bar">
+                                <span :style="{ width: 100 * item.percentage + '%' }"></span>
+                            </div>
+
+                            <button v-if="item.can_claim" v-on:click="claimQuestReward(item.index)" class="quest-claim">
+                                <img :src="getImage('Check-Icon.png')" alt="">
+                                Claim Reward
+                            </button>
+
+                            <div v-if="item.is_claimed" class="quest-claimed">
+                                <img :src="getImage('Check-Icon.png')" alt="">
+                                <p>Reward Claimed!</p>
+                            </div>
+                     </div>
+                </li>
+            </div>
+
+            <div v-if="quests.can_reset" class="popup-bottom-content right-align">
+                <button class="btn btn-primary button-sound" v-on:click="newQuests()">
+                    Get New Quests 
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div v-if="popup.page == 'MapSelection'" id="map-selection" class="popup">
+    <div class="popup-header">
+        Map Selection
+        <a v-on:click="closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="popup-content">
+        <div class="popup-side-menu">
+            <li v-on:click="mapTab = 'Official'" :class="{'active' : mapTab == 'Official'}"><i class="fa fa-asterisk" aria-hidden="true"></i> Official Maps</li>
+            <li v-on:click="mapTab = 'Parkour'" :class="{'active' : mapTab == 'Parkour'}"><i class="fa fa-reply-all" aria-hidden="true"></i> Parkour Maps</li>
+            <li v-on:click="mapTab = 'Sniper'" :class="{'active' : mapTab == 'Sniper'}"><i class="fa fa-crosshairs" aria-hidden="true"></i> Sniper Game Modes</li>
+            <li v-on:click="mapTab = 'Search'" :class="{'active' : mapTab == 'Search'}"><i class="fa fa-search" aria-hidden="true"></i> Search</li>
+            <a v-on:click="clearMapSelection()" class="popup-bottom" :class="{'popup-bottom-active' : selectedMaps.length > 0}" href="javascript:;"><i class="fa fa-times" aria-hidden="true"></i> Clear Map Selection ({{selectedMaps.length}})</a>
+        </div>
+        <div class="popup-side-content" :class="{'popup-no-scroll' : popup.loading}">
+            <div v-if="popup.loading" class="popup-loading">
+                <div id="spinner-center">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Server Region</label>
+
+                <select class="half-option" v-model="country" v-on:change="changeCountry()">
+                    <option value="EU">EU (Europe / Frankfurt) - {{regions.EU}} online</option>
+                    <option value="NA">NA (North America / Atlanta, California) - {{regions.NA}} online</option>
+                    <option value="AS">AS (Asia / Singapore) - {{regions.AS}} online</option>
+                    <option value="AU">AU (Oceania / Sydney) - {{regions.AU}} online</option>
+                    <option value="SA">SA (South America / Sao Paulo) - {{regions.SA}} online</option>
+                </select>
+            </div>
+
+            <div v-if="mapTab == 'Search'" class="search-bar">
+                <input id="search-box" placeholder="Sniper, parkour eg." v-on:keyup.enter="searchCustomMap()" type="search" v-model="form.search">
+                <button v-on:click="searchCustomMap()">Search <i class="fa fa-search"></i></button>
+            </div>
+
+            <div class="map-selection">
+                <li v-on:click="selectMap(map)" v-for="map in maps" :class="{'active' : isActiveMap(map)}">
+                    <span class="online" v-if="getOnlineUsersByMap(map.name)">{{getOnlineUsersByMap(map.name)}} Online</span>
+                    <img :src="'https://maps.venge.io/' + map.name + '-512x.jpg'">
+                    <b>{{map.name}}</b>
+                    <div class="description">
+                        <span class="mode">{{map.mode}}</span>{{map.description}}
+                    </div>
+                    <span class="active-check">
+                        <i class="fa fa-check-square-o check" aria-hidden="true"></i>
+                        <i class="fa fa-square-o uncheck" aria-hidden="true"></i>
+                    </span>
+                </li>
+            </div>
+        </div>
+    </div>
+</div>

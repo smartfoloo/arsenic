@@ -1,0 +1,50 @@
+<div v-if="popup.page == 'Invite'" id="invite-popup" class="popup">
+    <div class="popup-header">
+        <i class="fa fa-user-plus" aria-hidden="true"></i> Invite
+        <a v-on:click="closeInvite(), closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="popup-content popup-reverse">
+        <div class="popup-side-content">
+            <div v-if="popup.loading" class="popup-loading">
+                <div id="spinner-center">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="info-field"><i class="fa fa-info-circle" aria-hidden="true"></i> Create a private game to play with friends. Share the link with your friends, wait for them to join the lobby, then click "Start".</p>
+            <div class="field">
+                <label>Invite Link (Share)</label>
+                <div class="group-input">
+                    <input v-model="invite.link" readonly placeholder="Loading..." v-on:click="copyLink(invite.link)" class="half-option">
+                    <button type="button" class="side-button" v-on:click="copyLink(invite.link)">
+                        <i aria-hidden="true" class="fa fa-clipboard"></i>
+                        {{translate('Copy')}}
+                    </button>
+                </div>
+                
+            </div>
+
+            <chat-module :username="profile.username" :room-id="invite.hash"></chat-module>
+        </div>
+        <div class="popup-side-menu">
+            <div class="popup-players">
+                <li v-for="(player, index) in invite.players"><username :value="player"></username> <span v-if="index === 0" class="you">👑</span>
+                    <button v-if="invite.isOwner && index != 0" v-on:click="inviteKick(player)">Kick</button>
+                </li>
+            </div>
+            <div class="invite-settings">
+                <li><label>Map :</label> <b>{{getSelectedMap()}}</b></li>
+                <li><label>Time :</label> <b>05:00</b></li>
+            </div>
+            <button v-if="invite.isOwner" v-on:click="inviteStart()" class="popup-primary-button">START <i class="fa fa-angle-right" aria-hidden="true"></i></button>
+            <div v-if="!invite.isOwner" class="waiting-owner">
+                Waiting for owner to start the game...
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="field-wrap">
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="text">{{translate('Select Emoji')}}</label>
+        </div>
+
+        <div class="form-element-wrap">
+             <select name="emoji" id="emoji" v-model="emoji.selected" v-on:change="setEmoji()">
+                <option
+                        v-for="item in emoji.list" 
+                        :value="item.value">
+                        {{item.text}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="text">{{translate('Kill Message')}}</label>
+        </div>
+       
+        <div class="form-element-wrap">
+            <select id="killMessage" :placeholder="translate('Kill Message')" v-model="killMessage.message" v-on:change="setKillMessage()">
+                <option :selected="item == killMessage.message" 
+                        v-for="item in killMessage.list" 
+                        :value="item">
+                        {{item}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+<div class="field-wrap col-wrap mobile-fix">
+
+    <div class="field">
+        <div class="label-wrap">
+            <label for="password">{{translate('New Password')}}</label>
+        </div>
+
+        <div class="form-element-wrap">
+            <input type="password" id="password" :placeholder="translate('Password')" v-model="form.newPassword">
+        </div>
+    </div>
+    
+    <div class="field">
+        <div class="label-wrap">
+            <label for="email">{{translate('E-mail')}}</label>
+        </div>
+
+        <div class="form-element-wrap">
+            <input type="text" id="email" :placeholder="translate('E-mail')" v-model="form.email">
+        </div>
+    </div>
+
+    <div class="field with-input-text">
+        <div class="label-wrap">
+            <label for="twitchUsername">{{translate('Twitch Username')}}</label>
+        </div>
+        
+        <div class="form-element-wrap">
+            <div class="with-text-wrapper">
+                <input type="text" id="twitchUsername" placeholder="Venge" v-model="form.twitchUsername">
+                <span class="input-text">https://twitch.tv/</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="field button-wrap">
+        <button type="button" class="btn btn-primary" v-on:click="setProfileSettings()">
+            {{translate('Update')}}
+            <img :src="getImage('Caret-Icon.png')" alt="">
+        </button>
+    </div>
+
+</div>
+
+
+

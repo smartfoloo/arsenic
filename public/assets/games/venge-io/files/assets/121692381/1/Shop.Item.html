@@ -1,0 +1,96 @@
+<div v-if="popup.page == 'Item'" class="popup">
+    <div class="popup-header">
+        <i class="fa fa-cube" aria-hidden="true"></i> Item
+        <a v-on:click="closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="popup-content">
+        <div v-if="popup.loading" class="popup-loading">
+            <div id="spinner-center">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div id="popup-item-details">
+            <img class="item-thumbnail" :class="popup.item.rarity" :src="'https://assets.venge.io/' + popup.item.thumbnail">
+            <div id="popup-text-details">
+                <li>
+                    <label>Name</label>
+                    <span>{{popup.item.name}}</span>
+                </li>
+                <li>
+                    <label>Rarity</label>
+                    <div class="rarities-wrapper">
+                        <div v-if="rarity == popup.item.rarity" v-for="rarity in rarities" class="rarity" :class="rarity">
+                            {{rarity}}
+                        </div>
+
+                        <div class="rarity-list">
+                            <span class="common">Common %55,</span> <br/>
+                            <span class="uncommon">Uncommon %30,</span><br/>
+                            <span class="rare">Rare %9,</span><br/>
+                            <span class="legendary">Legendary %5,</span><br/>
+                            <span class="mythical">Mythical %1</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <label>Class</label>
+                    <span>{{popup.item.class}}</span>
+                </li>
+                <li v-if="popup.item.price > 0">
+                    <label>Price</label>
+                    <span v-if="popup.item.original_price > 0" class="original-price">{{numberFormat(popup.item.original_price)}}  VG</span>
+                    <span><img class="coin-icon" :src="getImage('Coin-Icon.png')" alt=""> {{numberFormat(popup.item.price)}} VG</span>
+                </li>
+            </div>
+        </div>
+
+        <div class="popup-bottom-content right-align">
+            <div 
+                v-if="alert.active"
+                class="alert"
+                :class="{'alert-danger' : alert.type == 'danger', 'alert-info' : alert.type == 'info'}"
+            >
+                <i v-if="alert.type == 'danger'" class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+                <i v-if="alert.type == 'info'" class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+                {{alert.message}}
+            </div>
+
+            <span v-if="isLoggedIn">
+                <button v-if="!isOwner && popup.item.reward_ads > 0" class="unlock-with-ads" v-on:click="watchAds(popup.item)">
+                    <img class="ads-img" :src="getImage('Ads-Icon.png')">
+                    <div class="button-content">
+                        <p>{{translate('Unlock With Ads')}}</p> 
+                        <p class="ads-count">
+                            <span>{{totalAdsWatched}}</span>
+                            <span>{{popup.item.reward_ads}}</span>
+                        </p>
+                    </div>
+                </button>
+
+                <button v-if="!isOwner && popup.item.reward_ads == '0'" class="btn btn-primary button-sound" v-on:click="buyItem(popup.item)">
+                    <i class="fa fa-unlock" aria-hidden="true"></i> Unlock <small>{{numberFormat(popup.item.price)}} VG</small>
+                    <i class="fa fa-caret-right" aria-hidden="true"></i>
+                </button>
+
+                <button v-if="isOwner && !isEquiped" class="btn btn-primary button-sound" v-on:click="equipItem(popup.item, 'Popup')">
+                    <i class="fa fa-check" aria-hidden="true"></i> Equip
+                </button>
+
+                <button v-if="isOwner && isEquiped" class="btn btn-primary button-sound" v-on:click="unequipItem(popup.item, 'Popup')">
+                    <i class="fa fa-times" aria-hidden="true"></i> Unequip
+                </button>
+            </span>
+
+            <span v-if="!isLoggedIn && !popup.item.ads"> 
+                <button class="btn btn-secondary button-sound" v-on:click="goLogin('Account')">
+                    <i class="fa fa-user" aria-hidden="true"></i> {{translate('You Need to Login')}} 
+                </button>
+            </span>
+        </div>
+    </div>
+</div>

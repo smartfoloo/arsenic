@@ -1,0 +1,39 @@
+<form action="javascript:;" class="wide">
+    <div class="field-wrap login-form">
+        <img class="login-form-img" :src="getImage('Logo.png')" alt="">
+
+        <div class="field">
+            <div class="label-wrap">
+                <label>{{translate('Username')}}</label>
+            </div>
+
+            <div class="form-element-wrap">
+                 <input v-model="form.username" type="text" placeholder="">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="label-wrap">
+                <label>{{translate('Password')}}</label>
+            </div>
+
+            <div class="form-element-wrap">
+                 <input v-model="form.password" type="password" placeholder="">
+            </div>
+        </div>
+    </div>
+
+    <div class="field-wrap" v-show="!loading">
+        <div class="account-box-wrap">
+            <div class="account-left-box">
+                <p class="tos-text">With registering an account on Venge.io you accept <a target="_blank" href="https://venge.io/tos.txt">T.O.S.</a></p>
+                <p v-if="!isPoki" class="tos-text mini-info">You can find more about our <a target="_blank" href="https://venge.io/privacy.txt">privacy policy here.</a> </p>
+            </div>
+            
+            <div class="account-button-box">
+                <button v-on:click="login()" class="btn btn-primary">{{translate('Login')}}</button>
+                <button v-on:click="signup()" class="btn btn-secondary"><i class="fa fa-user-plus" aria-hidden="true"></i> {{translate('Register')}}</button>
+            </div>
+        </div>
+    </div>
+</form>

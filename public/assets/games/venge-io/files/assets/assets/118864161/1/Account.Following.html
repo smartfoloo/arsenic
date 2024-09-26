@@ -1,0 +1,82 @@
+<div class="subtab">
+    <ul>
+        <li v-on:click="subtab = 'Followers'" :class="{'active' : subtab == 'Followers'}">{{translate('Followers')}}</li>
+        <li v-on:click="subtab = 'Following'" :class="{'active' : subtab == 'Following'}">{{translate('Following')}}</li>
+    </ul>
+
+    <form class="subtab-form" action="javascript:;">
+        <div class="field-wrap">
+            <div class="field">
+                <div class="form-element-wrap" v-show="!loading">
+                    <input id="friendUsername" v-model="form.friendUsername" type="text" :placeholder="translate('Friend\'s username')">
+                </div>
+            </div>
+
+            <div class="field button-wrap">
+                <button v-on:click="follow(form.friendUsername)" class="btn btn-secondary"><i class="fa fa-user-plus" aria-hidden="true"></i> {{translate('Follow')}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div v-if="subtab == 'Followers'" id="followers-table" class="table-list-style with-sort">
+    <ul class="table-list-header with-subtab">
+        <li>{{translate('Username')}}</li>
+        <li>{{translate('Last Online')}}</li>
+    </ul>
+
+    <ul class="table-list-content">
+        <li v-for="(player, rank) in friends.followers"> 
+            <div class="list">{{rank + 1}}.</div>
+            <div class="list">
+                <td><username :value="player.username"></username></td>
+            </div>
+            <div class="list">{{player.last_game_start}}</div>
+            <div class="list">
+                <button type="button" class="table-button" v-on:click="follow(player.username)">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    {{translate('Follow')}}
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<div v-if="subtab == 'Following'" id="following-table" class="table-list-style with-sort">
+    <ul class="table-list-header with-subtab">
+        <li>{{translate('Username')}}</li>
+        <li>{{translate('Last Online')}}</li>
+    </ul>
+
+    <ul class="table-list-content">
+        <li v-for="(player, rank) in friends.following"> 
+            <div class="list">{{rank + 1}}.</div>
+            <div class="list">
+                <td><username :value="player.username"></username></td>
+            </div>
+            <div class="list">{{player.last_game_start}}</div>
+            <div class="list">
+                <button type="button" class="table-button secondary-button" v-on:click="unfollow(player.username)">
+                    <i class="fa fa-user-times" aria-hidden="true"></i>
+                    {{translate('Unfollow')}}
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<!--<div id="add-friend" v-if="subtab == 'FollowSomeone'">
+    <form action="javascript:;">
+        <div class="form-field">
+            <label>{{translate('Username')}}</label>
+            <input v-model="form.friendUsername" type="text" :placeholder="translate('Friend\'s username')">
+        </div>
+
+        <div class="form-field flex-align" v-show="!loading">
+            <p class="tos-text">{{translate('Followed person should follow you back, later on.')}}</p>
+            <button v-on:click="follow(form.friendUsername)" class="btn btn-secondary"><i class="fa fa-user-plus" aria-hidden="true"></i> {{translate('Follow')}}</button>
+        </div>
+    </form>
+</div>-->

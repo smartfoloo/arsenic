@@ -1,0 +1,124 @@
+
+<div v-if="popup.page == 'ChangeUsername'" id="change-username-wrapper" class="popup">
+   
+    <div class="popup-header">
+        Change Username
+        <a v-on:click="closePopup()" href="javascript:;" class="popup-close"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+
+    <div 
+        id="alert" 
+        v-if="alert.active && popup.page"
+        :class="{'alert-danger' : alert.type == 'danger', 'alert-info' : alert.type == 'info'}"
+    >
+        <i v-if="alert.type == 'danger'" class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+        <i v-if="alert.type == 'info'" class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+        {{alert.message}}
+    </div>
+
+    <div class="popup-content">
+        <div class="popup-side-content full-side" :class="{'popup-no-scroll' : popup.loading}">
+
+            <div v-if="popup.loading" class="popup-loading">
+                <div id="spinner-center">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="steps-wrapper">
+                <ul>
+                    <li 
+                        v-for="index in stepSlider.slides" 
+                        :class="{'active' : stepSlider.active == index - 1, 'completed' : stepSlider.active > index - 1}">
+                            Step {{index}}
+                        </li>
+                </ul>
+            </div>
+
+            <div class="steps-content-wrapper">
+
+                <div class="slides">
+                    <transition-group 
+                        name="slide"
+                        mode="out-in"
+                        enter-class="slide-in"
+                        leave-class="slide-out"
+                        enter-active-class="animated slide-in-active"
+                        leave-active-class="animated slide-out-active">
+
+                        <div class="slide-box" v-if="stepSlider.active == 0" key="0">
+                             <div id="step-1">
+                                <ul class="popup-details">
+                                    <li>{{translate('After this process, your username will completely change.')}}</li>
+                                    <li>{{translate('Using inappropriate words and terms is prohibited.')}}</li>
+                                    <li>{{translate('Changing username costs')}} {{changeUsernamePrice}} VG</li>
+                                    <li>{{translate('This transaction cannot be undone and vg is non-refundable.')}}</li>
+                                    <li>{{translate('You can only change your username once every 1 Month')}}</li>
+                                </ul>
+
+                                <div class="popup-bottom-content right-align">
+                                    <button v-if="!popup.loading" class="btn btn-primary button-sound" v-on:click="slide(1)">
+                                        {{translate('CONTINUE')}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slide-box" v-if="stepSlider.active == 1" key="1">
+                            <div id="step-2">
+                                <form action="javascript:;" class="wide">
+
+                                    <div class="field-wrap change-form">
+                                        <div class="field">
+                                            <div class="label-wrap">
+                                                <label>{{translate('New Username')}}</label>
+                                            </div>
+
+                                            <div class="form-element-wrap">
+                                                <input v-model="form.newUsername" type="text" placeholder="">
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <div class="label-wrap">
+                                                <label>{{translate('Password')}}</label>
+                                            </div>
+
+                                            <div class="form-element-wrap">
+                                                <input v-model="form.password" type="password" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <div v-if="!popup.loading" class="popup-bottom-content">
+                                    <button v-on:click="slide(-1)" class="btn btn-fourth">{{translate('BACK')}}</button>
+                                    <button v-on:click="slide(1)" class="btn btn-primary">{{translate('CONTINUE')}}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slide-box" v-if="stepSlider.active == 2" key="2">
+                            <div id="step-3" class="steps">
+                                <div class="popup-result-text">
+                                    <p>{{translate('Your username will be changed to')}} <span>{{form.newUsername}}</span> </p>
+                                    <p> {{translate('Do you want to continue?')}}</p>
+                                </div>
+                                
+                                <div v-if="!popup.loading" class="popup-bottom-content" :class="{'alert-active' : alert.active}">
+                                    <button v-on:click="slide(-1)" class="btn btn-fourth">{{translate('BACK')}}</button>
+                                    <button v-on:click="setNewUsername()" class="btn btn-primary">{{translate('YES PAY')}} {{changeUsernamePrice}} VG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </transition-group>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

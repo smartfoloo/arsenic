@@ -1,0 +1,607 @@
+<div class="subtab" v-if="!clan.details">
+    <ul>
+        <li v-on:click="subtab = 'ClanList'"    :class="{'active' : subtab == 'ClanList'}">     {{translate('Clan List')}}    </li>
+        <li v-on:click="subtab = 'ClanCreate'"  :class="{'active' : subtab  == 'ClanCreate'}">  {{translate('Create Clan')}}   </li>
+        <li v-on:click="subtab = 'ClanRequest'" :class="{'active' : subtab  == 'ClanRequest'}"> {{translate('Clan Request')}} </li>
+    </ul>
+</div>
+
+<div class="subtab" v-if="clan.details">
+    <ul>
+        <li v-on:click="subtab = 'ClanHome'"    :class="{'active' : subtab == 'ClanHome'}">       {{translate('Clan Home')}}  </li>
+        <li v-on:click="subtab = 'ClanMatches'"  :class="{'active' : subtab  == 'ClanMatches'}">  {{translate('Matches List')}}  </li>
+        <li v-on:click="subtab = 'ClanBank'" :class="{'active' : subtab  == 'ClanBank'}">         {{translate('Clan Bank')}}  </li>
+        <li v-on:click="subtab = 'ClanMembers'" :class="{'active' : subtab  == 'ClanMembers'}">   {{translate('Clan Members')}}  </li>
+        <li v-on:click="subtab = 'ClanSettings'" :class="{'active' : subtab  == 'ClanSettings'}"> {{translate('Clan Settings')}}  </li>
+    </ul>
+</div>
+
+
+<div v-if="!clan.details" class="sub-wrapper">
+    <div v-if="subtab == 'ClanList'" id="clan-list">
+        <div class="input-field">
+            <p>
+                {{translate('Enter Clan Name or Code')}}: 
+            </p>
+            <input type="text" v-model="clan.name" 
+                :placeholder="translate('Clan Name or Code')" 
+                v-on:keyup.enter="getClanList(clan.name)">
+
+            <button type="button" v-on:click="getClanList(clan.name)">
+                {{translate('Search Clan')}}
+            </button>
+        </div>
+            
+        <table class="table">
+            <tr>
+                <th>{{translate('Clan Name')}}</th>
+                <th>{{translate('Code')}}</th>
+                <th>{{translate('Owner')}}</th>
+                <th>{{translate('Members')}}</th>
+                <th>{{translate('KDR')}}</th>
+                <th class="pull-right">{{translate('Actions')}}</th>
+            </tr>
+
+            <tr v-for="(item, key) in clan.list">
+                <td>{{item.name}}</td>
+                <td v-html="formatMarkup(item.slug)"></td>
+                <td>{{item.owner}}</td>
+                <td>{{item.members}}</td>
+                <td>{{item.kdr}}</td>
+                <td>
+                    <button type="button" class="btn-table pull-right" v-bind:id="item.id" v-on:click="joinClan(item.id)">{{translate('Request to Join')}}</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div v-if="subtab == 'ClanCreate'" id="clan-create">
+        <div class="field-info">
+            <p> {{translate('Enter your clan name and clan code to start your clan. Players can join to your clan after you create them.')}} </p>
+        </div>
+        <hr>
+
+        <div class="field-wrap col-wrap">
+            <div class="field">
+                <div class="label-wrap">
+                   <label for="text">{{translate('Clan Name')}}</label>
+                </div>
+                
+                <div class="form-element-wrap">
+                    <input type="text" id="clanName" :placeholder="translate('Clan Name')" v-model="clan.name">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="label-wrap">
+                   <label for="text">{{translate('Clan Tag')}}</label>
+                </div>
+                
+                <div class="form-element-wrap">
+                    <input type="text" id="clanTag" :placeholder="translate('Clan Tag')" v-model="clan.slug">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="label-wrap">
+                    <label for="text">{{translate('Social Link')}} (Discord) <span>{{translate('Optional')}}</span> </label>
+                </div>
+                
+                <div class="form-element-wrap">
+                    <input type="text" id="clanSocialLink" :placeholder="translate('Clan Social Link - Discord')" v-model="clan.social_link">
+                </div>
+            </div>
+
+            <div class="field button-wrap">
+                <button type="button" class="btn btn-primary" v-on:click="createClan()">
+                    {{translate('Create')}}
+                    <img :src="getImage('Caret-Icon.png')" alt="">
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div v-if="subtab == 'ClanRequest'" id="clan-request">
+        <div class="field-info">
+            <p>{{translate('Cancel Request - You can cancel current clan requests with cancel button.')}}</p>
+        </div>
+        <hr>
+        <div class="field-wrap">
+            <div class="field pull-right">
+                <button type="button" class="btn btn-danger" v-on:click="leaveClan()">
+                    <img  :src="getImage('Close-Icon.png')" alt="">
+                    {{translate('Cancel Requests')}}
+                </button>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+<div v-if="clan.details" class="sub-wrapper">
+
+    <div v-if="subtab == 'ClanHome'" class="clan-header" :class="'clan-level-' + clan.details.level">
+        <div class="clan-info">
+            <div class="clan-level">
+                <img :src="getImage('Clan-Level-' + clan.details.level + '.png')" v-bind:alt="clan.details.level" accept="image/*">
+                <p>
+                    {{clan.details.level}} 
+                    <span>LVL</span>
+                </p>
+            </div>
+
+            <div class="clan-status">
+                <div class="clan-name">
+                    [{{clan.details.slug}}] - {{clan.details.clan_name}}
+                </div>
+                <div v-if="clan.details.roles" class="clan-owner">
+                    <img :src="getImage('People-Icon.png')" alt="">
+                    {{clan.details.clan_owner}} - {{translate('Owner')}}
+                </div>
+            </div>
+        </div>
+        <div class="clan-amount">
+            <div class="amount">
+                <img :src="getImage('Coin-Icon.png')" alt="">
+                <p>{{translate('Bank')}} : {{formatNumber(clan.details.bank)}} VG</p>
+            </div>
+            <div class="deposit">
+                <div class="deposit-field">
+                    <button type="button" class="btn-clan"  v-on:click="onSubClanBank();">{{translate('Deposit')}}</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div  v-if="subtab == 'ClanHome'" id="clan-home">
+        <div class="clan-content">
+
+            <div class="stats-wrapper">
+                <div class="stats-box">
+                    <ul class="stats-col kdr-col">
+                        <li>
+                            <span class="label">
+                                <img :src="getImage('Skull-Icon.png')" alt=""> 
+                                {{translate('Kills')}}
+                            </span>
+                            <span class="value">{{formatNumber(clan.details.kills)}}</span>
+                        </li>
+                        <li>
+                            <span class="label">
+                                <img :src="getImage('Death-Icon.png')" alt=""> 
+                                {{translate('Members')}}
+                            </span>
+                            <span class="value">{{clan.details.members}}</span>
+                        </li>
+                        <li>
+                            <span class="label">
+                                <img :src="getImage('Crosshair-Icon.png')" alt=""> 
+                                {{translate('K/D')}}
+                            </span>
+                            <span class="value">{{clan.details.kdr}}</span>
+                        </li>
+                    </ul>
+                    <div class="clan-social">
+                        <h2>{{clan.details.welcome_message}}</h2>
+                        <a v-if="clan.details.social_link" :href="clan.details.social_link">
+                            <img :src="getImage('Discord-Icon.png')"/>
+                            Join Our Discord
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="clan-details-wrapper">
+
+                    <div v-if="(clan.is_clan_owner || clan.member_access) && clan.pending_request.length > 0"  class="clan-box fix">
+                        <h4>{{translate('Pending Request')}}</h4>
+                    
+                        <div id="clan-pending-request-table" class="table-list-style">
+                            <ul class="table-list-header">
+                                <li>{{translate('Username')}}</li>
+                                <li>{{translate('Level')}}</li>
+                                <li>{{translate('Kdr')}}</li>
+                                <li class="pull-right">{{translate('Action')}}</li>
+                            </ul>
+
+                            <ul class="table-list-content">
+                                <li v-for="(item, key) in clan.pending_request"> 
+                                    <div class="list">
+                                        <a :href="'https://social.venge.io/#' + formatMarkup(item.username)" target="_blank">
+                                            {{formatMarkup(item.username)}}
+                                        </a>
+                                    </div>
+                                    <div class="list"> {{item.level}} </div>
+                                    <div class="list"> {{item.kdr}} </div>
+                                    <div class="list pull-right">
+                                        <button type="button" 
+                                            class="table-button secondary-button" 
+                                            v-on:click="clanMemberKick(item.username)">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" 
+                                                class="table-button" 
+                                                v-on:click="clanMemberApprove(item.username)">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Chat-->
+                    <chat-module :username="profile.username" :room-id="clan.details.clan_chat"></chat-module>
+                </div>
+
+            </div>
+            
+            <div class="clan-details">
+                <!--<ul>
+                    <li>{{clan.details.level}}  <span>{{translate('LEVEL')}}</span></li>
+                    <li>{{formatNumber(clan.details.experience)}} <span>{{translate('EXP')}}</span></li>
+                    <li>{{clan.details.members}} <span>{{translate('MEMBERS')}}</span></li>
+                    <li>{{formatNumber(clan.details.kills)}} <span>{{translate('KILLS')}}</span></li>
+                    <li>{{clan.details.kdr}} <span>{{translate('KDR')}} %</span></li>
+                </ul>
+
+                <div class="clan-social">
+                    <a :href="clan.details.social_link"> 
+                            <img :src="getImage('Discord-Icon.png')" alt="">
+                            {{translate('Join')}} {{clan.details.slug}} <br> {{translate('Community')}}
+                        </a>
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <div v-if="subtab == 'ClanMatches'" id="clan-matches">
+        <div id="clan-matches-table" class="table-list-style">
+            <ul class="table-list-header with-subtab">
+                <li>{{translate('Username')}}</li>
+                <li class="hide-mobile">{{translate('Experience')}}</li>
+                <li>{{translate('Kills')}}</li>
+                <li>{{translate('Deaths')}}</li>
+                <li class="hide-mobile">{{translate('Date')}}</li>
+                <li>{{translate('Rank')}}</li>
+            </ul>
+
+            <ul class="table-list-content">
+                <li v-for="(item, key) in clan.matches"> 
+                    <div class="list">
+                        <a :href="'https://social.venge.io/#' + formatMarkup(item.username)" target="_blank">
+                            {{formatMarkup(item.username)}}
+                        </a>
+                    </div>
+                    <div class="list hide-mobile"> {{item.experience}} </div>
+                    <div class="list"> {{item.kills}} </div>
+                    <div class="list"> {{item.deaths}} </div>
+                    <div class="list hide-mobile"> {{item.date}} </div>
+                    <div class="list"> {{item.rank}} </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div  v-if="subtab == 'ClanBank'" id="clan-bank">
+        <div class="bank-content">
+            <div class="clan-bank-wrapper">
+                <div class="clan-amount">
+                    <div class="amount">
+                        <img :src="getImage('Coin-Icon.png')" alt="">
+                        <p>{{translate('Bank')}} : {{formatNumber(clan.bankBalance.bank)}} VG</p>
+                        <img class="space" :src="getImage('Coin-Icon.png')" alt="">
+                        <p>{{translate('Your Balance')}} : {{clan.bankCoin.balance}}</p>
+                    </div>
+                    <div class="deposit">
+                        <div class="deposit-field">
+                            <input type="text" :placeholder="translate('Amount VG')" v-model="clan.depositCoin" 
+                            v-on:keyup.enter="depositCoin()">
+                            <button type="button" class="btn btn-primary" v-on:click="depositCoin()">{{translate('Deposit')}}</button>
+                        </div>
+                        <p>{{translate('WARNING')}} : {{translate('You cannot withdraw from the clan bank! - Temporarily')}}</p>
+                    </div>
+                </div>
+
+                <div class="top-donator">
+                    <div class="top-donator-head">
+                    <img :src="getImage('Crown-Icon.png')" alt="">
+                    <h2> {{translate('Top Donators')}}</h2>
+                    </div>
+                    <ul>
+                    <li v-for="item in clan.bankBalance.top_donators">
+                        <img :src="getImage('Caret-Icon.png')">
+                        {{item.username + ' - ' + formatNumber(item.amount) + ' VG'}}
+                    </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="clan-levels">
+                <h2>{{translate('Clan Level System')}}</h2>
+                <ul>
+                    <li v-for="(item, key) in clan.levels.list">
+                        <div class="icons" :style="'background:' + item.color" :class="item.class">
+                            <img v-if="item.thumbnail" :class="item.class" :src="getImage(item.thumbnail)" :alt="item.name">
+                            <img class="icon" :src="getImage('Jump-Icon.png')" alt="">
+                            <p>{{item.name}}</p>
+                        </div>
+                        <div class="level-detail">
+                            <p>{{item.cost}}</p>
+                            <p>{{item.invite}}</p>
+                            <p v-if="item.extra">{{item.extra}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="subtab == 'ClanMembers'" id="clan-members">
+        
+        <div class="members">
+            <h2>{{translate('Members')}}</h4>
+        
+            <div id="clan-pending-request-table" class="table-list-style">
+                <ul class="table-list-header">
+                    <li>{{translate('Username')}}</li>
+                    <li>{{translate('Level')}}</li>
+                    <li>{{translate('Kills')}}</li>
+                    <li class="hide-mobile">{{translate('Death')}}</li>
+                    <li>{{translate('Kdr')}}</li>
+                    <li class="hide-mobile">{{translate('Join Date')}}</li>
+                    <li class="hide-mobile">{{translate('Last Login')}}</li>
+                    <li v-if="clan.is_clan_owner || clan.member_access" class="pull-right">{{translate('Action')}}</li>
+                </ul>
+
+                <ul class="table-list-content">
+                    <li v-for="(item, key) in clan.members"> 
+                        <div class="list">
+                            <a :href="'https://social.venge.io/#' + formatMarkup(item.username)" target="_blank">
+                                {{formatMarkup(item.username)}}
+                            </a>
+                        </div>
+                        <div class="list">
+                            {{item.level}}
+                        </div>
+                        <div class="list">
+                            {{formatNumber(item.kills)}}
+                        </div>
+                        <div class="list hide-mobile">
+                            {{formatNumber(item.deaths)}}
+                        </div>
+                        <div class="list">
+                            {{item.kdr}}
+                        </div>
+                        <div class="list hide-mobile">
+                            {{item.time_ago}}
+                        </div>
+                        <div class="list hide-mobile">
+                            {{item.last_login}}
+                        </div>
+                        <div class="list pull-right" v-if="clan.is_clan_owner || clan.member_access">
+                            <button type="button" v-on:click="clanMemberKick(item.username)" class="table-button secondary-button">{{translate('Kick')}}</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pending_request" v-if="(clan.is_clan_owner || clan.member_access) && clan.pending_request.length > 0">
+            <h2>{{translate('Pending Request')}}</h4>
+        
+            <div id="clan-pending-request-table" class="table-list-style">
+                <ul class="table-list-header">
+                    <li>{{translate('Username')}}</li>
+                    <li>{{translate('Level')}}</li>
+                    <li>{{translate('Kdr')}}</li>
+                    <li class="pull-right">{{translate('Action')}}</li>
+                </ul>
+
+                <ul class="table-list-content">
+                    <li v-for="(item, key) in clan.pending_request"> 
+                        <div class="list">
+                            <a :href="'https://social.venge.io/#' + formatMarkup(item.username)" target="_blank">
+                                {{formatMarkup(item.username)}}
+                            </a>
+                        </div>
+                        <div class="list"> {{item.level}} </div>
+                        <div class="list"> {{item.kdr}} </div>
+                        <div class="list pull-right">
+                            <button type="button" 
+                                class="table-button secondary-button" 
+                                v-on:click="clanMemberKick(item.username)">
+                                {{translate('Decline')}}
+                            </button>
+
+                            <button type="button" 
+                                    class="table-button" 
+                                    v-on:click="clanMemberApprove(item.username)">
+                                {{translate('Approve')}}
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="subtab == 'ClanSettings'" id="clan-settings">
+        
+        <div v-if="clan.is_clan_owner" class="admin-setting">
+            <div class="field-wrap">
+                <div class="field">
+                    <label for="welcome_message">{{translate('Welcome Message')}}</label>
+                    <input type="text" id="welcome_message" :placeholder="translate('Enter Message')" v-model="clan.welcome_message">
+                </div>
+                <div class="field">
+                    <label for="social_link">{{translate('Discord Invite Link')}}</label>
+                    <input type="text" id="social_link" :placeholder="translate('Discord Invite Link')" v-model="clan.social_link">
+                </div>
+                <div class="field button-wrap">
+                    <button type="button" class="btn btn-primary" v-on:click="updateClanSettings()">
+                        {{translate('Save')}}
+                        <img :src="getImage('Caret-Icon.png')" alt="">
+                    </button>
+                </div>
+            </div>
+           
+            <div class="clan-roles">
+                <div class="clan-member-roles">
+                    <h2>{{translate('Roles')}}</h2>
+                    <!--<table class="table">
+                        <tr>
+                            <th>{{translate('Username')}}</th>
+                            <th class="pull-right">{{translate('Actions')}}</th>
+                        </tr>
+
+                        <tr v-for="(item, key) in clan.members">
+                            <td>
+                                <a :href="'https://social.venge.io/#' + formatMarkup(item.username)" target="_blank">
+                                    {{formatMarkup(item.username)}}
+                                </a>
+                            </td>
+                            <td class="pull-right">
+                                <button type="button" class="btn-table" v-on:click="getClanRoles(item.username)">
+                                    {{translate('Roles')}}
+                                </button>
+                            </td>
+                        </tr>
+                    </table>-->
+
+
+                    <div class="table-list-style">
+                        <ul class="table-list-header">
+                            <li>{{translate('Username')}}</li>
+                            <li class="pull-right">{{translate('Action')}}</li>
+                        </ul>
+
+                        <ul class="table-list-content">
+                            <li v-for="(item, key) in clan.members"> 
+                                <div class="list">
+                                    <a :href="'https://social.venge.io/#' + formatMarkup(item.username)" target="_blank">
+                                        {{formatMarkup(item.username)}}
+                                    </a>
+                                </div>
+                                <div class="list pull-right"> 
+                                    <button type="button" class="table-button" v-on:click="getClanRoles(item.username)">
+                                        {{translate('Roles')}}
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                </div>
+                <div class="edit-role">
+                    <h2>{{translate('User Role Details')}}</h2>
+                    <div class="role-form">
+
+                        <div class="field-wrap">
+                            <div class="field">
+                                <div class="label-wrap">
+                                     <label for="username">{{translate('Username')}}</label>
+                                </div>
+                            
+                                <div class="form-element-wrap">
+                                   <input type="text" id="username" :placeholder="translate('Select Member')" class="readdonly" v-model="clan.roles.username" readonly>
+                                </div>
+                            </div>
+
+                            <div class="field" v-if="clan.roles.role">
+                                <div class="label-wrap">
+                                      <label for="role_title">{{translate('Role Name')}}</label>
+                                </div>
+                            
+                                <div class="form-element-wrap">
+                                   <input type="text" id="role_title" :placeholder="translate('Role Title')" v-model="clan.roles.role">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-wrap">
+                            <div class="field">
+                                <div class="label-wrap">
+                                    <label for="acceptRequests">{{translate('Can Accept Request')}}</label>
+                                </div>
+                                
+                                <div class="form-element-wrap">
+                                    <div class="field-toggle-wrapper">
+                                        <input class="toggle"
+                                        type="checkbox" id="acceptRequests"
+                                        v-model="clan.roles.can_accept_requests">
+                                        <label for="acceptRequests">
+                                            <span v-html="clan.roles.can_accept_requests == true ? translate('Yes') : translate('No')"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="field">
+                                <div class="label-wrap">
+                                    <label for="manageChat">{{translate('Can Manage Chat')}}</label>
+                                </div>
+                                <div class="form-element-wrap">
+                                    <div class="field-toggle-wrapper">
+                                        <input class="toggle"
+                                        type="checkbox" id="manageChat"
+                                        v-model="clan.roles.can_manage_chat">
+                                        <label for="manageChat">
+                                            <span v-html="clan.roles.can_manage_chat == true ? translate('Yes') : translate('No')"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-wrap pull-right">
+                            <div class="field button-wrap">
+                                <button type="button" class="btn btn-danger" v-on:click="removeClanRole(clan.roles.username)">{{translate('Remove Role')}}</button>
+                                <button type="button" class="btn btn-primary" v-on:click="updateClanRole()">{{translate('Update Role')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="field-wrap info-center">
+                <div class="field-info half">
+                    <h2>{{translate('Delete Clan')}}</h2>
+                    <p>{{translate('If you want to delete clan, click "Delete Clan" button.')}} <br>
+                    {{translate('WARNING')}} :  {{translate('This action cannot be undone.')}}
+                    </p>
+                </div>
+            
+                <div class="field button-wrap zero-space">
+                    <button type="button" class="btn btn-danger mini-style" v-on:click="deleteClan()">
+                        {{translate('Delete Clan')}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div v-if="!clan.is_clan_owner" class="member-settings">
+            <div class="field-wrap">
+                <div class="field-info half">
+                    <h2>{{translate('Leave Clan')}}</h2>
+                    <p>{{translate('Leaving a clan is irreversible. Are you sure want to leave?')}}</p>
+                </div>
+            
+                <div class="field button-wrap zero-space">
+                    <button type="button" class="btn btn-danger mini-style" v-on:click="leaveClan()">
+                        {{translate('Leave Clan')}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

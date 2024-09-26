@@ -1,0 +1,68 @@
+<div v-if="tab == 'Inventory'" class="inventory-wrapper">
+    <div class="wrap-header">
+        <h3>
+            <i class="fa fa-briefcase" aria-hidden="true"></i> INVENTORY
+        </h3>
+        <form class="filter-form" action="javascript:;">
+            <div class="search-bar">
+                <input id="search-box" placeholder="Search item..." v-on:keyup.enter="filterInventory(inventorySearch)" type="search" v-model="inventorySearch">
+                <button v-on:click="filterInventory(inventorySearch)"><i class="fa fa-search"></i></button>
+            </div>
+
+            <select v-model="shop.rarity">
+                <option value="">Rarity:</option>
+                <option v-for="rarity in shop.rarities">{{rarity}}</option>
+            </select>
+            <select v-model="shop.type">
+                <option value="">Type:</option>
+                <option v-for="type in shop.types">{{type}}</option>
+            </select>
+        </form>
+    </div>
+    
+    <div id="inventory-content">
+        <table class="item-details">
+            <tr v-for="item in filterInventory(inventory)" :class="{'favorite-item' : item.favorite}">
+                <td>
+                    <span class="favorite-button" v-on:click="setFavoriteItem(item)">
+                        <i v-if="!item.favorite" class="fa fa-star-o" aria-hidden="true"></i>
+                        <i v-if="item.favorite" class="fa fa-star" aria-hidden="true"></i>
+                    </span>
+                </td>
+                <td v-on:click="showItemOrCrate(item)">
+                    <img :src="'https://assets.venge.io/' + item.thumbnail">
+                </td>
+                <td v-on:click="showItemOrCrate(item)">
+                    {{item.name}}
+                </td>
+                <td v-on:click="showItemOrCrate(item)">
+                    <span class="table-rarity">
+                        <span class="square" :class="item.rarity"></span>{{item.rarity}} 
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        ({{item.quantity}})
+                    </span>
+                </td>
+                <td>
+                    <button v-on:click="resellItem(item, true)" class="btn btn-side-end">
+                        <i class="fa fa-sort-amount-desc" aria-hidden="true"></i>
+                    </button>
+                    
+                    <button v-on:click="resellItem(item)" class="btn btn-secondary btn-side-start hint--bottom hint--rounded badge-icon"
+                    :aria-label="item.resell">Resell</button>
+
+                    <button v-if="!item.equiped" v-on:click="equipItem(item, 'Inventory')" class="btn btn-primary">Equip</button>
+                    <button v-if="item.equiped" v-on:click="unequipItem(item, 'Inventory')" class="btn btn-danger"><i class="fa fa-close" aria-hidden="true"></i> Unequip</button>
+                </td>
+            </tr>
+
+            <tr v-if="inventoryInfoText">
+                <td class="no-item">
+                    <p> No item found...</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

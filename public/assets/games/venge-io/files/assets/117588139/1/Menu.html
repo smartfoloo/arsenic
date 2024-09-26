@@ -1,0 +1,139 @@
+<div id="menu" class="wrapper" :class="{'poki' : isPoki}">
+    <div id="menu-bar">
+       <img id="logo" :src="getImage('Logo.png')">
+       <ul id="menu-items">
+            <li class="match active">
+               <img :src="getImage('Battle-Icon.png')"> MATCH
+            </li>
+            <li class="shop" v-on:click="goScene('Shop');">
+               <img :src="getImage('Market-Icon.png')"> SHOP
+            </li>
+            <li class="leaderboard" v-on:click="goScene('Leaderboard');">
+               <img :src="getImage('God-Icon.png')"> LEADERBOARD
+            </li>
+            <li class="account" v-on:click="goScene('Account');">
+               <i class="fa fa-user" aria-hidden="true"></i> <p>ACCOUNT</p>   
+            </li>
+            <li class="settings" v-on:click="goScene('Settings')">
+               <i class="fa fa-cog" aria-hidden="true"></i>
+            </li>
+
+        </ul>
+    </div>
+
+    <div v-if="popup.active" class="shadow" v-on:click="closePopup(), closeInvite()"></div>
+    @import "Menu.MapSelection.html"
+    @import "Menu.Invite.html"
+    @import "Menu.Loadout.html"
+    @import "Menu.Quests.html"
+    @import "Menu.DailyReward.html"
+    @import "Menu.Inbox.html"
+
+    <div id="news-area" v-if="!isPoki">
+        @import "Menu.News.html"
+    </div>
+
+    <div id="reward-ads" v-if="reward.active" v-on:click="claimReward(reward)">
+        <a href="javascript:;" class="reward">
+            <img :src="getImage(reward.image)">
+            <h3>{{reward.title}}</h3>
+            <span v-if="!reward.claimed && reward.action.type == 'Weapon'" class="discord-button">🎬 GET WEAPON</span>
+            <span v-if="!reward.claimed && reward.action.type == 'Coin'" class="discord-button">🎬 GET VG</span>
+        </a>
+    </div>
+
+    <div v-if="!isMobile" id="home-banner-horizontal" class="banner-area"></div>
+    <div v-if="!isMobile" id="home-banner-square" class="banner-area"></div>
+
+    <div id="play-section">
+        <div 
+            v-if="alert.active && !popup.active"
+            class="alert"
+            :class="{'alert-danger' : alert.type == 'danger', 'alert-info' : alert.type == 'info'}"
+        >
+            <i v-if="alert.type == 'danger'" class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+            <i v-if="alert.type == 'info'" class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+            {{alert.message}}
+        </div>
+
+        <div class="game-options" :class="{'active' : isLoggedIn}">
+            <div v-on:click="showPopup('Loadout'), loadoutTab = 'Hero'" id="loadout-selection-button">
+                <img :src="'https://assets.venge.io/' + loadout.hero + '-Thumbnail-1.png'">
+                <span>Loadout<b>{{loadout.hero}}</b></span>
+            </div>
+            <div v-on:click="showPopup('MapSelection')" id="map-selection-button">
+                <img v-if="selectedMaps.length > 0" :src="'https://maps.venge.io/' + selectedMaps[0] + '-512x.jpg'">
+                <img v-if="selectedMaps.length === 0" :src="getImage('Sierra-512x.jpg')">
+
+                <span v-if="selectedMaps.length == 1">Map <b>{{selectedMaps[0]}}</b></span>
+                <span v-if="selectedMaps.length > 1">Map <b>Multiple</b></span>
+                <span v-if="selectedMaps.length === 0">Map <b>All</b></span>
+            </div>
+        </div>
+
+        <button :disabled="loading" v-on:click="playNow()" class="big-button attention">
+            <div v-if="loading" class="loader loader-center"></div>
+            <span v-if="!loading">
+                {{translate('Play Now')}} 
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+        </button>
+
+        <div class="content-wrapper">
+                <button :disabled="loading" v-on:click="createInvite()" class="invite-button">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    {{translate('PLAY WITH FRIENDS')}}
+                </button>
+                <div v-if="isLoggedIn" class="options">
+                    
+                    <a v-on:click="goScene('Account')" href="javascript:;">
+                        <p v-if="!profile.active">
+                            <i class="fa fa-user" aria-hidden="true"></i> {{translate('Account')}}
+                        </p>
+                        <div class="mini-profile" v-if="profile.active">
+                           <div class="mini-detail">
+                                <div class="level">{{profile.level}}</div>
+                                <username :value="profile.username" :link="'noLink'" :emoji="profile.emoji"></username>
+                            </div>
+                            <div class="profile-exp-wrapper">
+                                <div class="profile-exp-bar">
+                                    <span :style="{ width: 100 * profile.experience_bar+ '%' }"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="option-box" v-on:click="showPopup('Inbox'), inboxMessageCount = 0" href="javascript:;">
+                        <i class="fa fa-envelope-open" aria-hidden="true"></i> 
+                        <b class="option-info" :class="{ 'no-message' : inboxMessageCount == 0 }">{{inboxMessageCount}}</b>
+                    </a>
+                    <a v-on:click="showPopup('Quests')" href="javascript:;">
+                         <img :src="getImage('BlackCoin-Icon.png')"> <p v-if="!profile.active">{{translate('Quests')}}</p>
+                    </a>
+                </div>
+            </div>
+
+            <div id="game-info">
+                <p><i class="fa fa-user-circle" aria-hidden="true"></i> {{translate('Online')}} - {{online}}</p>
+                <a href="https://venge.io/changes.txt" target="_blank" v-on:click="getUpdateLog()"> Version - {{version}}</a>
+                <a v-if="!isPoki" href="https://onrush.studio/privacy.txt" target="_blank">Privacy</a>
+            </div>
+    </div>
+
+    <div id="connecting" v-if="assets.active">
+        <img id="logo" :src="getImage('Logo.png')">
+
+        <div class="loading-bar">
+            <div class="fill" :style="{'width' : assets.loaded * 100 / assets.count + '%'}"></div>
+            <h3>
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                {{assets.loading}}
+            </h3>
+        </div>
+    </div>
+</div>

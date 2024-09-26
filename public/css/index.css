@@ -291,8 +291,7 @@ select:hover {
 }
 
 .game-btn {
-  width: 150px;
-  height: 210px;
+  width: calc(12.5% - 26.25px);
   border-radius: 20px;
   position: relative;
   transition: opacity 1s, transform 150ms !important;
@@ -324,8 +323,7 @@ select:hover {
 }
 
 .game-btn img {
-  width: 150px;
-  height: 150px;
+  width: 100%;
   object-fit: cover;
   top: 0;
   left: 0;
@@ -336,6 +334,7 @@ select:hover {
   text-align: left;
   font-weight: 700;
   padding: 0px 10px;
+  height: 50px;
 }
 
 .game-btn .title {
@@ -439,5 +438,29 @@ select:hover {
 
 .selected {
   border-color: #f5a97f;
+}
+
+@media screen and (max-width: 1700px) {
+  .game-btn {
+    width: calc(16.66666667% - 25px)
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .game-btn {
+    width: calc(20% - 24px)
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .game-btn {
+    width: calc(25% - 22.5px)
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .game-btn {
+    width: calc(33% - 20px)
+  }
 }
 
