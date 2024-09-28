@@ -87,6 +87,13 @@
     ]
   },
   {
+    "title": "Physibox",
+    "id": "physibox",
+    "tags": [
+      "idle"
+    ]
+  },
+  {
     "title": "Geometry Dash",
     "id": "geometry-dash",
     "tags": [

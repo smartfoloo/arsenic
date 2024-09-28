@@ -1,0 +1,12 @@
+{
+  "name": "E Clicker Mobile",
+  "short_name": "E Clicker Mobile",
+  "id": "com.example.gamename",
+  "description": "",
+  "orientation": "portrait",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "black",
+  "categories": ["games", "entertainment"],
+  "icons": []
+}
