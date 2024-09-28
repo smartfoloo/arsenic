@@ -3,8 +3,8 @@
 <img style="border-radius:50%" height="150px" src="https://archive.org/download/arsenic-ss1/arsenic-blue-fill.png">
 </kbd>
 
-# Arsenic
-Arsenic is a open-source, privacy focused, feature rich, online gaming website built in Node.js that includes extensive features such as:
+# arsenic
+arsenic is an open-source, privacy focused, feature rich, online gaming website built in Node.js that includes extensive features such as:
 
 - ✅Tabbing feature
 - ✅100+ Games
