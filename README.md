@@ -20,7 +20,7 @@ You can use either of the two methods below:
 
 Clone and install dependencies
 
-`git clone https://github.com/smartfoloo/arsenic.git`
+```git clone https://github.com/smartfoloo/arsenic.git```
 
 `cd arsenic`
 
