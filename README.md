@@ -51,7 +51,7 @@ cd arsenic
 
 npm i
 
-pm2 start ./source/index.js
+pm2 start src/index.js
 ```
 
 ## Screenshots
