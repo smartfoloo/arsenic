@@ -16,10 +16,11 @@ arsenic is an open-source, privacy focused, feature rich, online gaming website 
 - ✅Easy to self host
 - And more!
 
-## Deploy
-You can use either of the two methods below:
+## Deployment
 
-**Running Locally**
+These are the two we recommend:
+
+**Start with npm**
 
 Clone and install dependencies
 
