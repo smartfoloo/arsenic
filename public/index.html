@@ -10,8 +10,10 @@
   <link rel="icon" href="./assets/favicon.png" type="image/xcon" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="./css/index.css" />
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V45JNZYC0T"></script>
@@ -57,7 +59,7 @@
       <div class="page" id="home-page">
         <h1>Welcome</h1>
         <p>
-          <div id="clock"></div>
+        <div id="clock"></div>
         </p>
         <div class="input-container">
           <input type="text" id="searchInput" placeholder="Search for a game...">
@@ -80,7 +82,7 @@
           </select>
         </div>
         <div class="game-list" id="game-list">
-          
+
         </div>
       </div>
       <div class="page" id="settings-page">
@@ -100,35 +102,40 @@
               About
             </button>
           </div>
-        
+
           <div id="appearance" class="tab-content">
             <div class="setting-card">
               <h2>Wallpaper</h2>
               <div class="cards-container">
-                <div class="wallpaper-card" onclick="changeWallpaper('blue')">
+                <div class="wallpaper-card"
+                  onclick='changeWallpaper("blue"); customThemeJSON({ "--background": "#181926" });'>
                   <img src="./assets/blue.png" alt="blue">
                   <h4>Blue</h4>
                 </div>
-                <div class="wallpaper-card" onclick="changeWallpaper('green')">
+                <div class="wallpaper-card"
+                  onclick='changeWallpaper("green"); customThemeJSON({ "--background": "#12371c" });'>
                   <img src="./assets/green.png" alt="green">
                   <h4>Green</h4>
                 </div>
-                <div class="wallpaper-card" onclick="changeWallpaper('orange')">
+                <div class="wallpaper-card"
+                  onclick='changeWallpaper("orange");  customThemeJSON({ "--background": "#4c2e14" });'>
                   <img src="./assets/orange.png" alt="orange">
                   <h4>Orange</h4>
                 </div>
-                <div class="wallpaper-card" onclick="changeWallpaper('teal')">
+                <div class="wallpaper-card"
+                  onclick='changeWallpaper("teal"); customThemeJSON({ "--background": "#205153" });'>
                   <img src="./assets/teal.png" alt="teal">
                   <h4>Teal</h4>
                 </div>
               </div>
             </div>
           </div>
-        
+
           <div id="cloaking" class="tab-content">
             <div class="setting-card">
               <h2>about:blank Cloaking</h2>
-              <p>about:blank cloaking allows you to hide this site from your tab history. Please enable popups for this to work.</p>
+              <p>about:blank cloaking allows you to hide this site from your tab history. Please enable popups for this
+                to work.</p>
               <div class="buttons">
                 <button id="enableAboutBlank" onclick="enableAboutBlank()">Enable</button>
                 <button id="disableAboutBlank" onclick="disableAboutBlank()">Disable</button>
@@ -149,11 +156,15 @@
               </div>
             </div>
           </div>
-        
+
           <div id="about" class="tab-content">
             <div class="setting-card">
               <h2>Status</h2>
               <a href="https://arsenic.betteruptime.com/" target="_blank">https://arsenic.betteruptime.com/</a>
+              <hr>
+              <h2>Developers</h2>
+              <p>smartfoloo</p>
+              <p>silvereen_</p>
             </div>
           </div>
         </div>
@@ -163,4 +174,6 @@
   </div>
 </body>
 <script src="./js/system.js"></script>
+<script src="./js/themes.js"></script>
+
 </html>
