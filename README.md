@@ -19,37 +19,39 @@ arsenic is an open-source, privacy focused, feature rich, online gaming website 
 ## Deploy
 You can use either of the two methods below:
 
-**Regular Node.js**
+**Running Locally**
 
 Clone and install dependencies
 
-```git clone https://github.com/smartfoloo/arsenic.git```
+```bash
+git clone https://github.com/smartfoloo/arsenic.git
 
-`cd arsenic`
+cd arsenic
 
-`npm i`
+npm i
 
-Start Arsenic
-
-`npm start`
+npm start
+```
 
 **Start with PM2**
 
 Install PM2 if you havent already
 
-`npm i pm2 -g`
+```bash
+npm i pm2 -g
+```
 
 Clone and install dependencies
 
-`git clone https://github.com/smartfoloo/arsenic.git`
+```bash
+git clone https://github.com/smartfoloo/arsenic.git
 
-`cd arsenic`
+cd arsenic
 
-`npm i`
+npm i
 
-Start Arsenic
-
-`pm2 start ./source/index.js`
+pm2 start ./source/index.js
+```
 
 ## Screenshots
 
