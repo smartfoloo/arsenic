@@ -1,7 +1,12 @@
-<p style="text-align: center"><img src="https://archive.org/download/arsenic-ss1/arsenic-blue-fill.png"></p>
+<p align="center">
+<kbd>
+<img style="border-radius:50%" height="150px" src="https://archive.org/download/arsenic-ss1/arsenic-blue-fill.png">
+</kbd>
 
-# Arsenic
-Arsenic is a open-source, privacy focused, feature rich, online gaming website built in Node.js that includes extensive features such as:
+<h1 align="center">
+arsenic
+</h1>
+arsenic is an open-source, privacy focused, feature rich, online gaming website built in Node.js that includes extensive features such as:
 
 - ✅Tabbing feature
 - ✅100+ Games
@@ -13,40 +18,43 @@ Arsenic is a open-source, privacy focused, feature rich, online gaming website b
 - ✅Easy to self host
 - And more!
 
-## Deploy
-You can use either of the two methods below:
+## Deployment
 
-**Regular Node.js**
+These are the two we recommend:
+
+**Start with npm**
 
 Clone and install dependencies
 
-`git clone https://github.com/smartfoloo/arsenic.git`
+```bash
+git clone https://github.com/smartfoloo/arsenic.git
 
-`cd arsenic`
+cd arsenic
 
-`npm i`
+npm i
 
-Start Arsenic
-
-`npm start`
+npm start
+```
 
 **Start with PM2**
 
 Install PM2 if you havent already
 
-`npm i pm2 -g`
+```bash
+npm i pm2 -g
+```
 
 Clone and install dependencies
 
-`git clone https://github.com/smartfoloo/arsenic.git`
+```bash
+git clone https://github.com/smartfoloo/arsenic.git
 
-`cd arsenic`
+cd arsenic
 
-`npm i`
+npm i
 
-Start Arsenic
-
-`pm2 start ./source/index.js`
+pm2 start src/index.js
+```
 
 ## Screenshots
 
