@@ -682,5 +682,13 @@
       "2-player",
       "sports"
     ]
+  },
+  {
+    "title": "JustFall.LOL",
+    "id": "justfalllol",
+    "tags": [
+      "action",
+      "platformer"
+    ]
   }
 ]
