@@ -10,10 +10,9 @@
   <link rel="icon" href="./assets/favicon.png" type="image/xcon" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="./css/index.css" />
+  <link rel="stylesheet" href="./css/themes.css" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V45JNZYC0T"></script>
@@ -38,7 +37,7 @@
         <div class="tabs">
           <button class="tab-btn" id="home-tab" onclick="openPage('home-page')">
             <div class="left">
-              <i class="fa-solid fa-house"></i>
+              <i class="bi bi-house"></i>
               <p>Home</p>
               <p class="category"></p>
             </div>
@@ -48,10 +47,10 @@
       </div>
       <div class="bottom">
         <button class="action-btn" onclick="openPage('settings-page')">
-          <i class="fa-solid fa-gear"></i>
+          <i class="bi bi-gear"></i>
         </button>
         <button class="action-btn" onclick="fullscreen()">
-          <i class="fa-solid fa-expand"></i>
+          <i class="bi bi-fullscreen"></i>
         </button>
       </div>
     </nav>
@@ -90,40 +89,51 @@
         <div class="settings-container">
           <div class="settings-tabs">
             <button class="tab-link" onclick="openTab(event, 'appearance')">
-              <i class="fa-solid fa-palette"></i>
+              <i class="bi bi-palette"></i>
               Appearance
             </button>
             <button class="tab-link" onclick="openTab(event, 'cloaking')">
-              <i class="fa-solid fa-display"></i>
+              <i class="bi bi-incognito"></i>
               Cloaking
             </button>
             <button class="tab-link" onclick="openTab(event, 'about')">
-              <i class="fa-solid fa-circle-info"></i>
+              <i class="bi bi-info-circle"></i>
               About
             </button>
           </div>
 
           <div id="appearance" class="tab-content">
             <div class="setting-card">
-              <h2>Themes</h2>
+              <h2>Theme</h2>
+              <div class="theme-buttons">
+                <button onclick="setTheme('catppuccin-macchiato')" style="background: #181926; color: #cad3f5">
+                  <h4>Catpuccin Macchiato</h4>
+                </button>
+                <button onclick="setTheme('catppuccin-mocha')" style="background: #11111b; color: #cdd6f4;">
+                  <h4>Catppuccin Mocha</h4>
+                </button>
+              </div>
+            </div>
+            <div class="setting-card">
+              <h2>Wallpaper</h2>
               <div class="cards-container">
                 <div class="wallpaper-card"
-                  onclick='changeWallpaper("blue"); customThemeJSON({ "--background": "#181926" });'>
+                  onclick='changeWallpaper("blue")'>
                   <img src="./assets/blue.png" alt="blue">
                   <h4>Blue</h4>
                 </div>
                 <div class="wallpaper-card"
-                  onclick='changeWallpaper("green"); customThemeJSON({ "--background": "#12371c" });'>
+                  onclick='changeWallpaper("green")'>
                   <img src="./assets/green.png" alt="green">
                   <h4>Green</h4>
                 </div>
                 <div class="wallpaper-card"
-                  onclick='changeWallpaper("orange");  customThemeJSON({ "--background": "#4c2e14" });'>
+                  onclick='changeWallpaper("orange")'>
                   <img src="./assets/orange.png" alt="orange">
                   <h4>Orange</h4>
                 </div>
                 <div class="wallpaper-card"
-                  onclick='changeWallpaper("teal"); customThemeJSON({ "--background": "#205153" });'>
+                  onclick='changeWallpaper("teal")'>
                   <img src="./assets/teal.png" alt="teal">
                   <h4>Teal</h4>
                 </div>
@@ -160,11 +170,51 @@
           <div id="about" class="tab-content">
             <div class="setting-card">
               <h2>Status</h2>
-              <a href="https://arsenic.betteruptime.com/" target="_blank">https://arsenic.betteruptime.com/</a>
-              <hr>
-              <h2>Developers</h2>
-              <p>smartfoloo</p>
-              <p>silvereen_</p>
+              <a href="https://arsenic.betteruptime.com/" target="_blank">
+                <button>
+                  <i class="bi bi-box-arrow-up-right"></i>
+                  Open
+                </button>
+              </a>
+            </div>
+            <div class="setting-card">
+              <h2>
+                Credits
+              </h2>
+              <div class="cards-container">
+                <div class="credit-card">
+                  <img src="./assets/credits/smartfoloo.webp" alt="" class="credit-pfp">
+                  <b>
+                    <p>smxrtfoloo</p>
+                  </b>
+                  <p class="discord-user">smartfoloo</p>
+                  <p>creator and main developer.</p>
+                </div>
+                <div class="credit-card">
+                  <img src="./assets/credits/silvereen.webp" alt="" class="credit-pfp">
+                  <b>
+                    <p>silvereen</p>
+                  </b>
+                  <p class="discord-user">silvereen_</p>
+                  <p>developer. made theme system work.</p>
+                </div>
+                <div class="credit-card">
+                  <img src="./assets/credits/immstella.webp" alt="" class="credit-pfp">
+                  <b>
+                    <p>skye</p>
+                  </b>
+                  <p class="discord-user">imm.stella</p>
+                  <p>designed our wallpapers.</p>
+                </div>
+                <div class="credit-card">
+                  <img src="./assets/credits/molkify.webp" alt="" class="credit-pfp">
+                  <b>
+                    <p>iris 🌸</p>
+                  </b>
+                  <p class="discord-user">molkify</p>
+                  <p>added one game.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

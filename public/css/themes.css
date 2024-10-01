@@ -1,11 +1,19 @@
 body[theme="catppuccin-macchiato"] {
-  --background: #181926;
-  --background2: #24273a;
-  --background4: #494d64;
-  --theme: rgb(138, 173, 244);
-  --shadow: rgba(138, 173, 244, 0.5);
-  --text: #cad3f5;
-  --placeholder: #8087a2;
-  --text-secondary: #181926;
-  --nav-btn: #1e2030;
+  --background: #181926; /* crust */
+  --background2: #24273a; /* base */
+  --background3: #363a4f; /* surface 0 */
+  --background4: #494d64; /* surface 1 */
+  --theme: rgb(138, 173, 244); /* blue */
+  --shadow: rgba(138, 173, 244, 0.5); /* blue with less opacity */
+  --text: #cad3f5; /* text */
+}
+
+body[theme="catppuccin-mocha"] {
+  --background: #11111b;
+  --background2: #1e1e2e;
+  --background3: #313244;
+  --background4: #45475a;
+  --theme: rgb(137, 180, 250);
+  --shadow: rgba(137, 180, 250, 0.5);
+  --text: #cdd6f4;
 }

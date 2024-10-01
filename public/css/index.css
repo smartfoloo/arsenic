@@ -140,7 +140,7 @@ nav .logo .logo-name {
 .close-tab {
   border: none;
   cursor: pointer;
-  padding: 5px 8px;
+  padding: 5px;
   background: transparent;
   color: var(--text);
   transition: 250ms;
@@ -442,6 +442,29 @@ select:hover {
   border-color: #f5a97f;
 }
 
+.theme-buttons button:hover {
+  transform: scale(0.97)
+}
+
+.credit-card {
+  width: calc(25% - 7.5px);
+  text-align: center;
+  border-radius: 15px;
+  transition: 250ms;
+  padding: 10px;
+  border: 3px solid var(--shadow);
+}
+
+.credit-pfp {
+  width: 100px;
+  border-radius: 50%;
+}
+
+.discord-user {
+  font-size: 12px;
+  margin: 0px 0px 10px 0px;
+}
+
 @media screen and (max-width: 1700px) {
   .game-btn {
     width: calc(16.66666667% - 25px)
@@ -463,5 +486,9 @@ select:hover {
 @media screen and (max-width: 1100px) {
   .game-btn {
     width: calc(33% - 20px)
+  }
+
+  .credit-card {
+    width: calc(50% - 15px);
   }
 }

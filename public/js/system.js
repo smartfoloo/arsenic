@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'blue';
   changeWallpaper(savedWallpaper);
 
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.body.setAttribute('theme', savedTheme);
+  }
+
   if (localStorage.getItem("aboutblankEnabled") === "true") {
     let iFramed
     try {
@@ -219,7 +224,7 @@ function addGameTab(gameId, gameName) {
   newTab.classList.add('tab-btn');
   newTab.id = `${gameId}-tab`;
 
-  newTab.innerHTML = `<div class="left"><i class="fa-solid fa-gamepad"></i><p>${gameName}</p></div> <button class="close-tab" onclick="closeTab('${gameId}')"><i class="fa-solid fa-xmark"></i></button>`;
+  newTab.innerHTML = `<div class="left"><i class="bi bi-controller"></i><p>${gameName}</p></div> <button class="close-tab" onclick="closeTab('${gameId}')"><i class="bi bi-x-lg"></i></button>`;
   newTab.onclick = function () { openPage(`${gameId}-embed`); };
 
   tabsContainer.appendChild(newTab);
@@ -441,6 +446,12 @@ function resetTab() {
   localStorage.setItem("tab", JSON.stringify({}));
 }
 
+// Themes
+
+function setTheme(theme) {
+  document.body.setAttribute('theme', theme);
+  localStorage.setItem('theme', theme);
+}
 
 // Load animation.js after
 
