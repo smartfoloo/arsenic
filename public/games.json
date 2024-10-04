@@ -32,6 +32,14 @@
     ]
   },
   {
+    "title": "Ducklings.io",
+    "id": "ducklings-io",
+    "tags": [
+      "multiplayer",
+      "idle"
+    ]
+  },
+  {
     "title": "Dadish 3D",
     "id": "dadish-3d",
     "tags": [
@@ -265,6 +273,34 @@
     ]
   },
   {
+    "title": "Gobble",
+    "id": "gobble",
+    "tags": [
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Monster Tracks",
+    "id": "monster-tracks",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
+    "title": "Drive Mad",
+    "id": "drive-mad",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
+    "title": "Recoil",
+    "id": "recoil",
+    "tags": [
+      "action"
+    ]
+  },
+  {
     "title": "Bank Robbery 2",
     "id": "bank-robbery-2",
     "tags": [
@@ -382,6 +418,14 @@
     ]
   },
   {
+    "title": "Stickman Bike",
+    "id": "stickman-bike",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
     "title": "Stickman Hook",
     "id": "stickman-hook",
     "tags": [
@@ -408,6 +452,22 @@
     "tags": [
       "action",
       "driving"
+    ]
+  },
+  {
+    "title": "OvO",
+    "id": "ovo",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "OvO Dimensions",
+    "id": "ovo-dimensions",
+    "tags": [
+      "action",
+      "platformer"
     ]
   },
   {
@@ -439,27 +499,6 @@
     "tags": [
       "clicker",
       "idle"
-    ]
-  },
-  {
-    "title": "Monster Tracks",
-    "id": "monster-tracks",
-    "tags": [
-      "driving"
-    ]
-  },
-  {
-    "title": "Drive Mad",
-    "id": "drive-mad",
-    "tags": [
-      "driving"
-    ]
-  },
-  {
-    "title": "Recoil",
-    "id": "recoil",
-    "tags": [
-      "action"
     ]
   },
   {
@@ -696,6 +735,91 @@
     "tags": [
       "action",
       "platformer"
+    ]
+  },
+  {
+    "title": "Bitlife",
+    "id": "bitlife",
+    "tags": [
+      "management"
+    ]
+  },
+  {
+    "title": "Idle Mining Empire",
+    "id": "idle-mining-empire",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Startup Tycoon",
+    "id": "idle-startup-tycoon",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Farming Business",
+    "id": "idle-farming-business",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Mining Empire",
+    "id": "idle-mining-empire",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Gang",
+    "id": "idle-gang",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Light City",
+    "id": "idle-light-city",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Iron Snout",
+    "id": "iron-snout",
+    "tags": [
+      "action"
+    ]
+  },
+  {
+    "title": "Bacon May Die",
+    "id": "bacon-may-die",
+    "tags": [
+      "action"
+    ]
+  },
+  {
+    "title": "Idle Breakout",
+    "id": "idle-breakout",
+    "tags": [
+      "clicker",
+      "idle"
+    ]
+  },
+  {
+    "title": "Dune",
+    "id": "dune",
+    "tags": [
+      "action",
+      "classic"
     ]
   }
 ]

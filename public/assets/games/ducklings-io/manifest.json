@@ -1,0 +1,79 @@
+{
+	"name": "Ducklings",
+	"short_name": "Ducklings",
+	"start_url": ".",
+	"display": "fullscreen",
+	"description": "It's time to relax, you're a duck now. Swim around and rescue as many ducklings as possible. Dodge the reckless boats, they will hurt you. UPGRADE your home by retrieving more ducklings and get the best looking nest in the pond.",
+	"categories": ["games", "adventure", "adventure games", "entertainment", "social"],
+	"icons": [
+		{
+			"src": "img/icon512monochrome.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "monochrome"
+		},
+		{
+			"src": "img/icon512maskable.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "maskable"
+		},
+		{
+			"src": "img/icon512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"background_color": "#01c6fe",
+	"theme_color": "#01c6fe",
+	"shortcuts": [
+		{
+			"name": "Continue Game",
+			"short_name": "Continue",
+			"description": "Continue playing where you left off.",
+			"url": ".",
+			"icons": [
+				{ "src": "img/arrowIcon.svg", "type": "image/svg+xml", "sizes": "24x24" },
+				{ "src": "img/arrowIcon.png", "type": "image/png", "sizes": "512x512" }
+			]
+		},
+		{
+			"name": "New Game",
+			"short_name": "New Game",
+			"description": "Reset progress and start a new game.",
+			"url": "./?requestProgressReset=true",
+			"icons": [
+				{ "src": "img/addIcon.svg", "type": "image/svg+xml", "sizes": "24x24" },
+				{ "src": "img/addIcon.png", "type": "image/png", "sizes": "512x512" }
+			]
+		}
+	],
+	"screenshots": [
+		{
+			"src": "img/screenshots/1.jpg",
+			"type": "image/jpeg",
+			"sizes": "2732x2048"
+		},
+		{
+			"src": "img/screenshots/2.jpg",
+			"type": "image/jpeg",
+			"sizes": "2732x2048"
+		},
+		{
+			"src": "img/screenshots/3.jpg",
+			"type": "image/jpeg",
+			"sizes": "2732x2048"
+		},
+		{
+			"src": "img/screenshots/4.jpg",
+			"type": "image/jpeg",
+			"sizes": "2732x2048"
+		}
+	],
+	"related_applications": [
+		{
+			"platform": "play",
+			"id": "co.pelicanparty.ducklings"
+		}
+	]
+}
