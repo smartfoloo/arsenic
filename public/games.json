@@ -40,6 +40,14 @@
     ]
   },
   {
+    "title": "Zombie Rush",
+    "id": "zombie-rush",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
     "title": "Dadish 3D",
     "id": "dadish-3d",
     "tags": [
@@ -66,6 +74,22 @@
   {
     "title": "Dadish 3",
     "id": "dadish-3",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Super Fowlst",
+    "id": "super-fowlst",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Super Fowlst 2",
+    "id": "super-fowlst-2",
     "tags": [
       "action",
       "platformer"
@@ -298,6 +322,14 @@
     "id": "recoil",
     "tags": [
       "action"
+    ]
+  },
+  {
+    "title": "Dino Bros",
+    "id": "dino-bros",
+    "tags": [
+      "platformer",
+      "puzzle"
     ]
   },
   {

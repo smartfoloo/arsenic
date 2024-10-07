@@ -271,6 +271,15 @@ const fullscreen = () => {
   reqFs(elem);
 };
 
+// Refresh
+
+function refresh() {
+  const gameEmbed = document.querySelector('iframe.game-embed');
+  if (gameEmbed) {
+    gameEmbed.src += '';
+  }
+}
+
 // Settings page
 
 function openTab(evt, tabName) {
