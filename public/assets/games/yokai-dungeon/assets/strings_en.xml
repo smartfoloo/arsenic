@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strings>
+
+	<string name="newline" value="&#10;"/>
+	
+	<!-- 
+	
+	"text [nervous] text"        = emoticon action
+	"[red] text text [/red]"     = color
+	"[shake] text text [/shake]" = animation
+	"text [br] text"          = paragraph
+	
+	EMOTICONS: nervous, 
+	COLORS: red, cyan, yellow, green
+	
+	ANIMATIONS: shake,
+				wave,
+				hor_wave,
+				radio // like hor_wave but just for a limited time
+	
+	PARAGRAPH: br   = forces new paragraph
+			   line = forces new line
+			   
+	CHARS: & = cat symbol
+	-->
+	
+	<string name="tutorial_0"  value="welcome to the tutorial."/>
+	<string name="tutorial_1"  value="use keys/swipe and hold to move around."/>
+	<string name="tutorial_2"  value="well done!"/>
+	<string name="tutorial_3"  value="press space/tap to push blocks."/>
+	<string name="tutorial_4"  value="defeat enemies by crushing them with blocks."/>
+	<string name="tutorial_4b"  value="remember, you can change controls in the & menu."/>
+	<string name="tutorial_5"  value="now, exit the room by using the door at the bottom."/>
+	<string name="tutorial_6"  value="good luck!"/>
+	
+	<string name="hint_0" value="defeat enemies to charge your spell button."/>
+	<string name="hint_1" value="collect gems to increase your exp level."/>
+	<string name="hint_2" value="collect all the letters to form the word wizard."/>
+	<string name="hint_3" value="the bigger the avalanche the higher the points amount."/>
+	<string name="hint_4" value="every wizard has a unique magic spell."/>
+	<string name="hint_5" value="collect all the pages of the almanac."/>
+	
+	<string name="skill_0" value=" collected gems increased of 10% at the end of each level -"/>
+	<string name="skill_1" value=" invulnerable to fire flames -"/>
+	<string name="skill_2" value=" doesn't slow down inside the water -"/>
+	<string name="skill_3" value=" game bosses have one energy less -"/>
+	<string name="skill_4" value=" doesn't drift on ice tiles -"/>
+	<string name="skill_5" value=" invulnerable to magic attacks -"/>
+	
+	<string name="level_world"  value="world" />
+	<string name="best_time"    value="best time"/> 
+	<string name="level_clear"  value="level clear"/>
+	<string name="time"         value="time"/>
+	<string name="best"         value="best"/>
+	<string name="continue"     value="tap to continue.."/>
+	
+	<string name="shop_1" value="welcome to the market!"/>
+	<string name="shop_2" value="thanks - come again!"/>
+	
+	
+	<string name="panel_pause" value="pause"/>
+	<string name="panel_level_up" value="level up"/>
+	<string name="panel_shop"  value="shop"/>
+	<string name="panel_buy"   value="buy"/>
+	<string name="panel_no_ads" value="premium"/>
+	<string name="panel_book" value="yokaipedia"/>
+	<string name="panel_premium_text_1" value="free rare items"/>
+	<string name="panel_premium_text_2" value="free continue"/>
+	<string name="panel_premium_text_3" value="remove all ads"/>
+	<string name="panel_locked" value="???"/>
+	<string name="panel_more_gems" value="more coins"/>
+	<string name="panel_parental_gate" value="parental gate"/>
+	<string name="panel_ad_continue" value="watch an ad to continue?"/>
+	<string name="panel_gems_continue" value="use your gems to continue?"/>
+	<string name="panel_tap_to_play_0" value="tap/press space to play"/>
+	<string name="panel_tap_to_play_1" value="tap/press space to play"/>
+	<string name="panel_continue" value="continue?"/>
+	<string name="panel_chest" value="open chest?"/>
+	<string name="panel_chest_message" value="watch an ad to unlock this rare item?"/>
+	<string name="panel_wizards" value="wizards"/>
+	<string name="panel_missing_page" value="missing page"/>
+	<string name="panel_continue_text" value="want to restore your previous game?"/>
+	<string name="panel_quit" value="quit"/>
+	<string name="panel_unlock" value="unlock 1st row"/>
+	<string name="panel_unlock_1" value="unlock 2nd row"/>
+	<string name="panel_unlock_2" value="unlock all wizards"/>
+	<string name="panel_secret_skill" value=" purchase to discover ability -"/>
+	
+	<string name="hero_name_0" value="tanuki"/>
+	<string name="hero_name_1" value="ninja"/>
+	<string name="hero_name_2" value="kitsune"/>
+	<string name="hero_name_3" value="mia"/>
+	<string name="hero_name_4" value="panda"/>
+	<string name="hero_name_5" value="bear"/>
+	<string name="hero_name_6" value="sumo"/>
+	<string name="hero_name_7" value="cactus"/>
+	<string name="hero_name_8" value="samurai"/>
+	<string name="hero_name_9" value="skull-boi"/>
+	<string name="hero_name_10" value="kappa"/>
+	<string name="hero_name_11" value="fox lady"/>
+	<string name="hero_name_12" value="baburu"/>
+	<string name="hero_name_13" value="gionathan"/>
+	<string name="hero_name_14" value="pinguino"/>
+	<string name="hero_name_15" value="pinguina"/>
+	<string name="hero_name_16" value="alex"/>
+	<string name="hero_name_17" value="laal"/>
+	<string name="hero_name_18" value="firo"/>
+	<string name="hero_name_19" value="ico"/>
+	<string name="hero_name_20" value="franco"/>
+	<string name="hero_name_21" value="mummy"/>
+	<string name="hero_name_22" value="werewolf"/>
+	<string name="hero_name_23" value="succubus"/>
+	<string name="hero_name_24" value="vampire"/>
+	
+	
+	
+	<string name="skills_1" value="tap a skill"/>
+	<string name="skills_2" value="power"/>
+	<string name="skills_3" value="speed"/>
+	<string name="skills_4" value="magic"/>
+	<string name="skills_5" value="+1 life"/>
+	<string name="skills_6" value="infos"/>
+	
+	<string name="skill_help_1" value="increases minions stun time"/>
+	<string name="skill_help_2" value="increases speed of your wizard"/>
+	<string name="skill_help_3" value="increases magic's charge speed"/>
+	<string name="skill_help_4" value="adds one life"/>
+	
+	<string name="hurry" value="hurry!!"/>
+	<string name="ready" value="ready"/>
+	<string name="go" value="go !!"/>
+	
+	<string name="wizard_name_0" value="teo"/>
+	<string name="wizard_name_1" value="laal"/>
+	<string name="wizard_name_2" value="baburu"/>
+	<string name="wizard_name_3" value="kallio"/>
+	<string name="wizard_name_4" value="sami"/>
+	<string name="wizard_name_5" value="mia"/>
+	<string name="wizard_name_7" value="timo"/>
+	<string name="wizard_name_8" value="yui"/>
+	<string name="wizard_name_9" value="death"/>
+	
+	<string name="panel_purchase_ok" value="purchase successful."/>
+	<string name="panel_purchase_bad_1" value="not enough coins."/>
+	
+	<string name="panel_settings"   value="credits"/>
+	<string name="panel_reset"      value="reset game"/>
+	<string name="reset_line_0"     value="are you sure?"/>
+	<string name="reset_line_1"     value="resetting the game will remove all your progress permanently"/>
+	<string name="panel_map" 	    value="map"/>
+	<string name="panel_item" 	    value="item"/>
+	<string name="panel_audio" 	    value="audio"/>
+	<string name="panel_options"    value="settings"/>
+	<string name="panel_controls"   value="controls"/>
+	<string name="panel_controls_1" value="swipes"/>
+	<string name="panel_controls_2" value="d-pad"/>
+	
+	<string name="yes" value="yes"/>
+	<string name="no" value="no"/>
+	
+	<string name="intro_string_1" value="it is the lantern festival and all people are gathered."/>
+	<string name="intro_string_2" value="tanuki is guarding the village,"/>
+	<string name="intro_string_2b" value="when a lightning strikes the nearby shrine."/>
+	<string name="intro_string_3" value="removing the protection charm from an old jar."/>
+	<string name="intro_string_4" value="oh no! the evil spirits are freed."/>
+	<string name="intro_string_5" value="'i am tatarigami and i bring sorrow and destruction!'"/>
+	<string name="intro_string_6" value="will you defeat all the pesky yokai and save the festival?"/>
+	
+	<string name="ending_0_string_1" value="tanuki successfully sealed tatarigami back into the old jar."/>
+	<string name="ending_0_string_2" value="the lantern festival shall now continue!"/>
+	<string name="ending_1_string_1" value="after defeating the yokais the ninja mysteriously disappears,"/>
+	<string name="ending_1_string_2" value="getting ready for his next stealth mission."/>
+	<string name="ending_2_string_1" value="kitsune collected his money prize for defeating the yokais."/>
+	<string name="ending_2_string_2" value="-ha ha! i'm the smartest fox ever existed!-"/>
+	<string name="ending_3_string_1" value="after defeating tatarigami mia decided to stay at the village for a while,"/>
+	<string name="ending_3_string_2" value="enjoying the relaxing hot springs."/>
+	<string name="ending_4_string_1" value="panda heads back to the bamboo forest,"/>
+	<string name="ending_4_string_2" value="where she can relax and eat as much bamboo as she wants!"/>
+	<string name="ending_5_string_1" value="the giant bear has proved to be even stronger than the evil yokai tatarigami."/>
+	<string name="ending_5_string_2" value="-roar!! i'm the king of the mountain!-"/>
+	<string name="ending_6_string_1" value="sumo master is now the guest of honor at the lantern festival,"/>
+	<string name="ending_6_string_2" value="and he's treated with some delicious sushi. yum yum!"/>
+	<string name="ending_7_string_1" value="now that the yokais are gone cactus can continue his journey,"/>
+	<string name="ending_7_string_2" value="trying to find his lost mom."/>
+	<string name="ending_8_string_1" value="the samurai successfully re-established his power,"/>
+	<string name="ending_8_string_2" value="and he's about to rule over the village, imposing heavy taxes to all villagers."/>
+	<string name="ending_9_string_1" value="skull-boi heads back to town,"/>
+	<string name="ending_9_string_2" value="chasing his dream of becoming a famous rapper!"/>
+	<string name="ending_10_string_1" value="the blue kappa returns to his swamp,"/>
+	<string name="ending_10_string_2" value="being treated by the villagers with fresh cucumbers every day!"/>
+	<string name="ending_11_string_1" value="fox lady didn't really care about saving the villagers,"/>
+	<string name="ending_11_string_2" value="all she wanted was to make sure the forest remained safe and protected."/>
+	<string name="ending_12_string_1" value="the lantern festival was too loud and crowded for baburu,"/>
+	<string name="ending_12_string_2" value="so he decided to leap back into the water and enjoy a deep sleep."/>
+	<string name="ending_13_string_1" value="gionathan woke up from his dream,"/>
+	<string name="ending_13_string_2" value="and realized he still had to fix bugs before shipping his last videogame."/>
+	<string name="ending_14_string_1" value="looks like pinguino is fleeing from someone,"/>
+	<string name="ending_14_string_2" value="i wonder who that might be?"/>
+	<string name="ending_15_string_1" value="after her victory, pinguina became very famous and influential,"/>
+	<string name="ending_15_string_2" value="convincing leaders of the world to sign an agreement against global warming."/>
+	<string name="ending_16_string_1" value="alex found all the lost bells,"/>
+	<string name="ending_16_string_2" value="and he's now ready to head back to the neko house."/>
+	<string name="ending_17_string_1" value="after defeating the evil yokais laal is invited to stay at the village,"/>
+	<string name="ending_17_string_2" value="where he's now treated like a king."/>
+	<string name="ending_18_string_1" value="after his victory firo is unable to control his excitement and goes on a fire spree,"/>
+	<string name="ending_18_string_2" value="setting the whole village on fire."/>
+	<string name="ending_19_string_1" value="looks like ico is chasing someone,"/>
+	<string name="ending_19_string_2" value="i wonder who that might be?"/>
+	<string name="ending_20_string_1" value="despite being very shy franco built up enough confidence,"/>
+	<string name="ending_20_string_2" value="and asked the shop lady out for a date."/>
+	<string name="ending_21_string_1" value="mummy received the key of the giant pyramid from laal,"/>
+	<string name="ending_21_string_2" value="so he could return to his secret chamber."/>
+	<string name="ending_22_string_1" value="despite being half human and half beast, werewolf gained the respect of the other animals,"/>
+	<string name="ending_22_string_2" value="who accepted him as one of them and to live in the bamboo forest."/>
+	<string name="ending_23_string_1" value="tatarigami was no match for the powerful succubus,"/>
+	<string name="ending_23_string_2" value="long live the new queen of all yokais!"/>
+	<string name="ending_24_string_1" value="vampire stayed up all night to fight the yokais,"/>
+	<string name="ending_24_string_2" value="catching a terrible cold. time to tuck in!"/>
+	
+	<string name="credits_line_0" value="version"/>
+	<string name="credits_line_1" value="published by"/>
+	<string name="credits_line_2" value="game by"/>
+	<string name="credits_line_3" value="code and gfx"/>
+	<string name="credits_line_4" value="music"/>
+	<string name="credits_line_5" value="fdg staff"/>
+	<string name="credits_line_6" value="producer"/>
+	<string name="credits_line_7" value="co-producer"/>
+	<string name="credits_line_8" value="legal"/>
+	<string name="credits_line_9" value="project manager"/>
+	<string name="credits_line_10" value="qa manager"/>
+	<string name="credits_line_11" value="qa assistants"/>
+	<string name="credits_line_12" value="qa team"/>
+	<string name="credits_line_13" value="special thanks"/>
+	
+	<string name="boss_name_0" value="kasa-obake"/>
+	<string name="boss_name_1" value="mannendake"/>
+	<string name="boss_name_2" value="onamazu"/>
+	<string name="boss_name_3" value="gashadokuro"/>
+	<string name="boss_name_4" value="yuki onna"/>
+	<string name="boss_name_5" value="tatarigami"/>
+	
+	<string name="area_0" value="village"/>
+	<string name="area_1" value="forest"/>
+	<string name="area_2" value="swamp"/>
+	<string name="area_3" value="cemetery"/>
+	<string name="area_4" value="mountain"/>
+	<string name="area_5" value="volcano"/>
+	
+	<string name="shop_welcome" value="welcome to the market."/>
+	<string name="shop_rare" value="rare secret item."/>
+	<string name="shop_3" value="walk into an item to equip it."/>
+
+	<string name="oldman_0" value="visited rooms tend to spawn less coins."/>
+	<string name="oldman_1" value="luck increases the rate of coins being spawned."/>
+	<string name="oldman_2" value="line up star blocks to get a lot of coins."/>
+	<string name="oldman_3" value="stand on the ? symbol to get infos about the item."/>
+	<string name="oldman_4" value="have you played super cat tales 2?"/>
+	
+	<string name="woodcutter_0" value="wild boars can jump over a block. watch out!"/>
+	<string name="woodcutter_1" value="don't wait too long in a visited room or death will appear."/>
+	<string name="woodcutter_2" value="have you played snow kids?"/>
+	<string name="woodcutter_3" value="don't touch the blue onibi fires floating around."/>
+	<string name="woodcutter_4" value="be sure to always check the map."/>
+	
+	<string name="fisherman_0" value="i'm after the legendary giant catfish onamazu."/>
+	<string name="fisherman_1" value="walking into deep water will slow you down."/>
+	<string name="fisherman_2" value="some yokais cannot step into deep water."/>
+	<string name="fisherman_3" value="there are some nice hot springs nearby."/>
+	<string name="fisherman_4" value="be sure to equip a rare item, if you can."/>
+	
+	<string name="graveyard_0" value="i.. dig.. grave."/>
+	<string name="graveyard_1" value="yokai.. no good."/>
+	<string name="graveyard_2" value="saw.. giant.. skeleton."/>
+	<string name="graveyard_3" value="graveyard.. no safe."/>
+	<string name="graveyard_4" value="ciao.."/>
+	
+	<string name="oldwoman_0" value="do you spare anything warm to drink?"/>
+	<string name="oldwoman_1" value="ha ha! i love snowy nights."/>
+	<string name="oldwoman_2" value="i'm oshiroi baba."/>
+	<string name="oldwoman_3" value="are you scared by my appearance?"/>
+	<string name="oldwoman_4" value="my straw hat broke."/>
+	
+	<string name="master_0" value="i can control the fire element. ha ha!"/>
+	<string name="master_1" value="i forge powerful katanas inside the volcano."/>
+	<string name="master_2" value="some yokais leave a fire trace. don't step on it."/>
+	<string name="master_3" value="i was supposed to go to the lantern festival."/>
+	<string name="master_4" value="remember, not all yokais are evil."/>
+	
+	<string name="item_name_1" value="onigiri"/>
+	<string name="item_description_1" value="start a new room with invincibility on."/>
+	<string name="item_name_2" value="ikura sushi"/>
+	<string name="item_description_2" value="get invincibility every 5 blocks destroyed."/>
+	<string name="item_name_3" value="tamago nigiri"/>
+	<string name="item_description_3" value="invincibility increased of 1 second."/>
+	<string name="item_name_4" value="salmon sushi"/>
+	<string name="item_description_4" value="invincibility increased of 2 seconds."/>
+	<string name="item_name_5" value="tuna sushi"/>
+	<string name="item_description_5" value="invincibility increased of 5 seconds."/>
+	<string name="item_name_6" value="apple"/>
+	<string name="item_description_6" value="get 1 life every 100 coins collected."/>
+	<string name="item_name_7" value="ebi tempura"/>
+	<string name="item_description_7" value="get invincibility after you stand for 5 secs."/>
+	<string name="item_name_8" value="maki roll"/>
+	<string name="item_description_8" value="get invincibility every 10 blocks destroyed."/>
+	<string name="item_name_9" value="cake slice"/>
+	<string name="item_description_9" value="full lives if boss is defeated without damage."/>
+	<string name="item_name_10" value="bag"/>
+	<string name="item_description_10" value="???"/>
+	<string name="item_name_11" value="hot pepper"/>
+	<string name="item_description_11" value="get 1 life every 50 coins collected."/>
+	<string name="item_name_12" value="daikon"/>
+	<string name="item_description_12" value="get 1 life every 200 coins collected."/>
+	<string name="item_name_13" value="melonpan"/>
+	<string name="item_description_13" value="get 1 life every 100 blocks pushed."/>
+	<string name="item_name_14" value="dango"/>
+	<string name="item_description_14" value="get 1 life every 10 new rooms visited."/>
+	<string name="item_name_15" value="taiyaki"/>
+	<string name="item_description_15" value="get 1 life every 50 blocks pushed."/>
+	<string name="item_name_16" value="takoyaki"/>
+	<string name="item_description_16" value="get 1 life every 5 new rooms visited."/>
+	<string name="item_name_17" value="gourd bottle"/>
+	<string name="item_description_17" value="get invicibility every 3 minions defeated."/>
+	<string name="item_name_18" value="shuriken"/>
+	<string name="item_description_18" value="2 minions are defeated at start of old room."/>
+	<string name="item_name_19" value="kunai"/>
+	<string name="item_description_19" value="1 minion defeated at start of old room."/>
+	<string name="item_name_20" value="nunchaku"/>
+	<string name="item_description_20" value="slows down minions of 10%."/>
+	<string name="item_name_21" value="silver sai"/>
+	<string name="item_description_21" value="bullet damage x4."/>
+	<string name="item_name_22" value="sickle"/>
+	<string name="item_description_22" value="10% extra chance of spawning bomb blocks."/>
+	<string name="item_name_23" value="kanabo"/>
+	<string name="item_description_23" value="slows down minions of 50%."/>
+	<string name="item_name_24" value="bow and arrow"/>
+	<string name="item_description_24" value="all minions defeated at start of old room."/>
+	<string name="item_name_25" value="bo"/>
+	<string name="item_description_25" value="slows down minions of 20%."/>
+	<string name="item_name_26" value="flail"/>
+	<string name="item_description_26" value="20% extra chance of spawning bomb blocks."/>
+	<string name="item_name_27" value="bomb"/>
+	<string name="item_description_27" value="50% extra chance of spawning bomb blocks."/>
+	<string name="item_name_28" value="iron sai"/>
+	<string name="item_description_28" value="25% chance reducing boss life of 1 unit."/>
+	<string name="item_name_29" value="golden sai"/>
+	<string name="item_description_29" value="bullet damage x8."/>
+	<string name="item_name_30" value="geta"/>
+	<string name="item_description_30" value="10% speed increased."/>
+	<string name="item_name_31" value="jika-tabi"/>
+	<string name="item_description_31" value="20% speed increased."/>
+	<string name="item_name_32" value="roller skates"/>
+	<string name="item_description_32" value="50% speed increased."/>
+	<string name="item_name_33" value="big sword"/>
+	<string name="item_description_33" value="50% chance reducing boss life of 1 unit."/>
+	<string name="item_name_34" value="katana"/>
+	<string name="item_description_34" value="reduces boss life of 1 unit."/>
+	<string name="item_name_41" value="hand fan"/>
+	<string name="item_description_41" value="10 coins spawn when new room is visited."/>
+	<string name="item_name_42" value="omamori"/>
+	<string name="item_description_42" value="20 coins spawn when new room is visited."/>
+	<string name="item_name_43" value="lucky cat"/>
+	<string name="item_description_43" value="50 coins spawn when new room is visited."/>
+	<string name="item_name_35" value="venetian mask"/>
+	<string name="item_description_35" value="10% extra chance of hourglass blocks."/>
+	<string name="item_name_36" value="hockey mask"/>
+	<string name="item_description_36" value="20% extra chance of hourglass blocks."/>
+	<string name="item_name_37" value="tengu mask"/>
+	<string name="item_description_37" value="50% extra chance of hourglass blocks."/>
+	<string name="item_name_38" value="iron hammer"/>
+	<string name="item_description_38" value="25% chance defeating a minion when dying."/>
+	<string name="item_name_39" value="silver hammer"/>
+	<string name="item_description_39" value="50% chance defeating a minion when dying."/>
+	<string name="item_name_40" value="gold hammer"/>
+	<string name="item_description_40" value="defeat one minion when losing a life."/>
+	<string name="item_name_48" value="travel bag"/>
+	<string name="item_description_48" value="20% extra chance of getting coin blocks."/>
+	<string name="item_name_49" value="daruma doll"/>
+	<string name="item_description_49" value="50% extra chance of getting coin blocks."/>
+	<string name="item_name_50" value="beetle"/>
+	<string name="item_description_50" value="extra 1 coin spawn when defeating minion."/>
+	<string name="item_name_51" value="scroll"/>
+	<string name="item_description_51" value="extra 2 coins spawn when defeating minion."/>
+	<string name="item_name_52" value="prayer beads"/>
+	<string name="item_description_52" value="extra 5 coins spawn when defeating minion."/>
+	<string name="item_name_53" value="four leaf clover"/>
+	<string name="item_description_53" value="10% luck increase."/>
+	<string name="item_name_54" value="ladybug"/>
+	<string name="item_description_54" value="20% luck increase."/>
+	<string name="item_name_55" value="alex's bell"/>
+	<string name="item_description_55" value="50% luck increase."/>
+	
+	<string name="item_name_44" value="scuba fins"/>
+	<string name="item_description_44" value="no water slow down."/>
+	<string name="item_name_45" value="ice skates"/>
+	<string name="item_description_45" value="no ice drift."/>
+	<string name="item_name_46" value="grey shoes"/>
+	<string name="item_description_46" value="no spike damage."/>
+	<string name="item_name_47" value="red shoes"/>
+	<string name="item_description_47" value="no fire damage."/>
+	
+	
+	<string name="book_title_page_0" value="chochin obake"/>
+	<string name="book_subtitle_page_0" value="lantern"/>
+	<string name="book_text_page_0" value="some old paper lanterns turn into a chochin obake. this yokai rarely causes harm and prefers to just scare humans instead."/>
+
+	<string name="book_title_page_1" value="blue ghost"/>
+	<string name="book_subtitle_page_1" value="spirit"/>
+	<string name="book_text_page_1" value="blue ghost seen nearby villages and forests."/>
+	
+	<string name="book_title_page_2" value="hitotsume kozo"/>
+	<string name="book_subtitle_page_2" value="one eyed boy"/>
+	<string name="book_text_page_2" value="child-like mischievous yokai, seen in dark streets where they surprise people."/>
+	
+	<string name="book_title_page_3" value="daruma doll"/>
+	<string name="book_subtitle_page_3" value="doll"/>
+	<string name="book_text_page_3" value="old wooden doll that got possessed by a spirit."/>
+	
+	<string name="book_title_page_4" value="bamboo sprout"/>
+	<string name="book_subtitle_page_4" value="plant"/>
+	<string name="book_text_page_4" value="bamboo sprout turned into a yokai by mannendake."/>
+	
+	<string name="book_title_page_5" value="rokurokubi"/>
+	<string name="book_subtitle_page_5" value="neck lady"/>
+	<string name="book_text_page_5" value="ordinary lady by day that extends her head far from her body at night to look for food."/>
+	
+	<string name="book_title_page_6" value="boar"/>
+	<string name="book_subtitle_page_6" value="beast"/>
+	<string name="book_text_page_6" value="wild boar mostly found in bamboo forests."/>
+	
+	<string name="book_title_page_7" value="koi carp"/>
+	<string name="book_subtitle_page_7" value="fish"/>
+	<string name="book_text_page_7" value="carp found in ponds, sometimes out of the water."/>
+	
+	<string name="book_title_page_8" value="dorotabo"/>
+	<string name="book_subtitle_page_8" value="muddy monk"/>
+	<string name="book_text_page_8" value="old monks covered in mud roaming rice fields."/>
+	
+	<string name="book_title_page_9" value="kappa"/>
+	<string name="book_subtitle_page_9" value="water goblin"/>
+	<string name="book_text_page_9" value="yokai with frog-like skin, a beak, and a turtle shell on its back. known to sometimes drown people."/>
+	
+	<string name="book_title_page_10" value="purple ghost"/>
+	<string name="book_subtitle_page_10" value="spirit"/>
+	<string name="book_text_page_10" value="purple ghost seen nearby graveyards and forests. smarter than the blue ghost."/>
+	
+	<string name="book_title_page_11" value="yonaki ishi"/>
+	<string name="book_subtitle_page_11" value="giant boulder"/>
+	<string name="book_text_page_11" value="moving stones possessed by spirits, known to cry at night."/>
+	
+	<string name="book_title_page_12" value="skeleton"/>
+	<string name="book_subtitle_page_12" value="undead"/>
+	<string name="book_text_page_12" value="skeleton of a former villager, found in graveyards. known to surprise and attack humans."/>
+	
+	<string name="book_title_page_13" value="karasu tengu"/>
+	<string name="book_subtitle_page_13" value="crow yokai"/>
+	<string name="book_text_page_13" value="yokai resembling a crow, wearing a robe and flying high in the sky."/>
+	
+	<string name="book_title_page_14" value="nojukubi"/>
+	<string name="book_subtitle_page_14" value="elemental yokai"/>
+	<string name="book_text_page_14" value="flame found in roads, paths, and forests. originated from a campfire left unguarded."/>
+	
+	<string name="book_title_page_15" value="blue oni"/>
+	<string name="book_subtitle_page_15" value="ogre"/>
+	<string name="book_text_page_15" value="demon-like spirit with blue skin and one horn. known to chase and attack humans with a big club."/> 
+	
+	<string name="book_title_page_16" value="red oni"/>
+	<string name="book_subtitle_page_16" value="ogre"/>
+	<string name="book_text_page_16" value="demon-like spirit with red skin and two horns. usually wearing a tiger skin loincloth."/> 
+	
+	<string name="book_title_page_17" value="death"/>
+	<string name="book_subtitle_page_17" value="hurry up enemy"/>
+	<string name="book_text_page_17" value="death waits in the dark, suddenly appearing to harvest your soul."/> 
+	
+	<string name="book_title_page_18" value="tanuki"/>
+	<string name="book_subtitle_page_18" value="raccoon dog"/>
+	<string name="book_text_page_18" value="guardian of the village's shrine. tanuki sometimes wears a straw hat."/> 
+	
+	<string name="book_title_page_19" value="ninja"/>
+	<string name="book_subtitle_page_19" value="warrior"/>
+	<string name="book_text_page_19" value="specialized in espionage and deception, deemed dishonorable by the samurai."/> 
+	
+	<string name="book_title_page_20" value="kitsune"/>
+	<string name="book_subtitle_page_20" value="fox"/>
+	<string name="book_text_page_20" value="magic fox respected by all villagers. their favorite food is fried tofu."/> 
+	
+	<string name="book_title_page_21" value="mia"/>
+	<string name="book_subtitle_page_21" value="human wizard"/>
+	<string name="book_text_page_21" value="respected teacher of magic arts. she came to visit the village on holiday."/> 
+	
+	<string name="book_title_page_22" value="panda"/>
+	<string name="book_subtitle_page_22" value="beast"/>
+	<string name="book_text_page_22" value="big and peaceful creature. panda is often seen nearby rivers of the bamboo forest."/> 
+	
+	<string name="book_title_page_23" value="bear"/>
+	<string name="book_subtitle_page_23" value="beast"/>
+	<string name="book_text_page_23" value="powerful creature with strong brute force. bear is known to protect the forest."/> 
+	
+	<string name="book_title_page_24" value="sumo"/>
+	<string name="book_subtitle_page_24" value="human"/>
+	<string name="book_text_page_24" value="sumo master, owner of the gym of the village. known to love sushi."/> 
+	
+	<string name="book_title_page_25" value="cactus"/>
+	<string name="book_subtitle_page_25" value="plant"/>
+	<string name="book_text_page_25" value="plant born in nugget canyon. no one knows what's the purpose of his journey."/> 
+	
+	<string name="book_title_page_26" value="samurai"/>
+	<string name="book_subtitle_page_26" value="warrior"/>
+	<string name="book_text_page_26" value="powerful warrior belonging to an aristocratic family trying to take control over the region."/> 
+	
+	<string name="book_title_page_27" value="skull-boi"/>
+	<string name="book_subtitle_page_27" value="undead"/>
+	<string name="book_text_page_27" value="peaceful undead skeleton known to love music and big metropolis."/> 
+	
+	<string name="book_title_page_28" value="kappa"/>
+	<string name="book_subtitle_page_28" value="water goblin"/>
+	<string name="book_text_page_28" value="this kappa grew up alongside a human family, in a pond nearby their house."/> 
+	
+	<string name="book_title_page_29" value="fox lady"/>
+	<string name="book_subtitle_page_29" value="forest elf"/>
+	<string name="book_text_page_29" value="fox lady is not seen very often and many mysteries surround her. she lives in the bamboo forest."/> 
+	
+	<string name="book_title_page_30" value="baburu"/>
+	<string name="book_subtitle_page_30" value="bufoid wizard"/>
+	<string name="book_text_page_30" value="most of his time is spent training and meditating. known to emerge from the ocean just when his help is needed."/> 
+	
+	<string name="book_title_page_31" value="gionathan"/>
+	<string name="book_subtitle_page_31" value="indie dev"/>
+	<string name="book_text_page_31" value="human game developer, spends most of his time programming and creating pixel art."/> 
+	
+	<string name="book_title_page_32" value="pinguino"/>
+	<string name="book_subtitle_page_32" value="penguin"/>
+	<string name="book_text_page_32" value="accountant at a popsicle factory. never missed a day of work."/> 
+	
+	<string name="book_title_page_33" value="pinguina"/>
+	<string name="book_subtitle_page_33" value="penguin"/>
+	<string name="book_text_page_33" value="activist doing her best to save the planet and the environment."/> 
+	
+	<string name="book_title_page_34" value="alex"/>
+	<string name="book_subtitle_page_34" value="cat"/>
+	<string name="book_text_page_34" value="lives inside the neko house. always willing to help others and on the look for bells."/> 
+	
+	<string name="book_title_page_35" value="laal"/>
+	<string name="book_subtitle_page_35" value="human wizard"/>
+	<string name="book_text_page_35" value="wizard from ramal town. laal can control the fire element and loves spicy food."/> 
+	
+	<string name="book_title_page_36" value="firo"/>
+	<string name="book_subtitle_page_36" value="dragon"/>
+	<string name="book_text_page_36" value="firo loves to melt ice blocks. rather dangerous when goes berserk."/>
+	
+	<string name="book_title_page_37" value="ico"/>
+	<string name="book_subtitle_page_37" value="dragon"/>
+	<string name="book_text_page_37" value="playful dragon often shooting huge snowballs that inflict damages to the target."/>
+	
+	<string name="book_title_page_38" value="franco"/>
+	<string name="book_subtitle_page_38" value="monster"/>
+	<string name="book_text_page_38" value="the result of an experiment. despite his appearance franco is a kind soul."/> 
+	
+	<string name="book_title_page_39" value="mummy"/>
+	<string name="book_subtitle_page_39" value="monster"/>
+	<string name="book_text_page_39" value="this mummy was discovered inside the giant pyramid next to ramal town."/> 
+	
+	<string name="book_title_page_40" value="werewolf"/>
+	<string name="book_subtitle_page_40" value="lycanthrope"/>
+	<string name="book_text_page_40" value="human with the ability to shapeshift into a wolf. loves hiking during nights of a full moon."/> 
+	
+	
+	<string name="book_title_page_41" value="succubus"/>
+	<string name="book_subtitle_page_41" value="demon"/>
+	<string name="book_text_page_41" value="human-like demon appearing in dreams of her victims, seducing them."/> 
+	
+	<string name="book_title_page_42" value="vampire"/>
+	<string name="book_subtitle_page_42" value="undead"/>
+	<string name="book_text_page_42" value="often seen nearby the castle of guldburg, this vampire is known to oversleep and don't wake up at midnight."/> 
+	
+	</strings>

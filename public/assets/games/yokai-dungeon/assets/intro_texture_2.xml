@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:84b60a8cc9544b39cb3aa8c6e3494352$ -->
+<TextureAtlas imagePath="intro_texture_2.png">
+    <SubTexture name="ending0_scene1" x="244" y="1132" width="240" height="224"/>
+    <SubTexture name="ending10_scene1" x="2" y="1810" width="240" height="224"/>
+    <SubTexture name="ending11_scene1" x="2" y="1584" width="240" height="224"/>
+    <SubTexture name="ending12_scene1" x="2" y="1358" width="240" height="224"/>
+    <SubTexture name="ending13_scene1" x="2" y="1132" width="240" height="224"/>
+    <SubTexture name="ending14_scene1" x="728" y="906" width="240" height="224"/>
+    <SubTexture name="ending15_scene1" x="486" y="906" width="240" height="224"/>
+    <SubTexture name="ending16_scene1" x="244" y="906" width="240" height="224"/>
+    <SubTexture name="ending17_scene1" x="2" y="906" width="240" height="224"/>
+    <SubTexture name="ending18_scene1" x="728" y="680" width="240" height="224"/>
+    <SubTexture name="ending19_scene1" x="486" y="680" width="240" height="224"/>
+    <SubTexture name="ending1_scene1" x="244" y="680" width="240" height="224"/>
+    <SubTexture name="ending20_scene1" x="2" y="680" width="240" height="224"/>
+    <SubTexture name="ending21_scene1" x="728" y="454" width="240" height="224"/>
+    <SubTexture name="ending22_scene1" x="486" y="454" width="240" height="224"/>
+    <SubTexture name="ending23_scene1" x="244" y="454" width="240" height="224"/>
+    <SubTexture name="ending24_scene1" x="2" y="454" width="240" height="224"/>
+    <SubTexture name="ending2_scene1" x="728" y="228" width="240" height="224"/>
+    <SubTexture name="ending3_scene1" x="486" y="228" width="240" height="224"/>
+    <SubTexture name="ending4_scene1" x="244" y="228" width="240" height="224"/>
+    <SubTexture name="ending5_scene1" x="2" y="228" width="240" height="224"/>
+    <SubTexture name="ending6_scene1" x="728" y="2" width="240" height="224"/>
+    <SubTexture name="ending7_scene1" x="486" y="2" width="240" height="224"/>
+    <SubTexture name="ending8_scene1" x="244" y="2" width="240" height="224"/>
+    <SubTexture name="ending9_scene1" x="2" y="2" width="240" height="224"/>
+</TextureAtlas>

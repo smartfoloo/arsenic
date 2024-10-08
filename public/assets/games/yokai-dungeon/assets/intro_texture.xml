@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://texturepacker.com-->
+<!-- $TexturePacker:SmartUpdate:d3eca4b382909a97e28e1412181880be$ -->
+<TextureAtlas imagePath="intro_texture.png">
+    <SubTexture name="dark_moon" x="902" y="2" width="90" height="90"/>
+    <SubTexture name="introLanternSpriteAnim_a" x="633" y="838" width="64" height="105"/>
+    <SubTexture name="introLanternSpriteAnim_b" x="567" y="838" width="64" height="105"/>
+    <SubTexture name="introLanternSpriteAnim_c" x="501" y="838" width="64" height="105"/>
+    <SubTexture name="introLanternSpriteAnim_d" x="567" y="838" width="64" height="105"/>
+    <SubTexture name="introLightningLightSpriteAnim_a" x="421" y="999" width="1" height="1" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="introLightningLightSpriteAnim_b" x="403" y="988" width="16" height="16"/>
+    <SubTexture name="introLightningLightSpriteAnim_c" x="421" y="999" width="1" height="1" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="introLightningLightSpriteAnim_d" x="385" y="1006" width="16" height="16"/>
+    <SubTexture name="introLightningSpriteAnim_a" x="295" y="838" width="54" height="148" frameX="-1" frameY="0" frameWidth="64" frameHeight="148"/>
+    <SubTexture name="introLightningSpriteAnim_b" x="455" y="838" width="44" height="148" frameX="-6" frameY="0" frameWidth="64" frameHeight="148"/>
+    <SubTexture name="introLightningSpriteAnim_c" x="405" y="838" width="48" height="148" frameX="-4" frameY="0" frameWidth="64" frameHeight="148"/>
+    <SubTexture name="introLightningSpriteAnim_d" x="351" y="838" width="52" height="148" frameX="-2" frameY="0" frameWidth="64" frameHeight="148"/>
+    <SubTexture name="intro_black_area" x="385" y="988" width="16" height="16"/>
+    <SubTexture name="intro_black_color_1" x="367" y="1006" width="16" height="16"/>
+    <SubTexture name="intro_black_color_2" x="505" y="1008" width="8" height="8"/>
+    <SubTexture name="intro_charm" x="2" y="838" width="137" height="184"/>
+    <SubTexture name="intro_frame_1" x="367" y="988" width="16" height="16"/>
+    <SubTexture name="intro_frame_2" x="425" y="999" width="16" height="9"/>
+    <SubTexture name="intro_frame_3" x="349" y="1006" width="16" height="16"/>
+    <SubTexture name="intro_frame_4" x="414" y="1006" width="9" height="16"/>
+    <SubTexture name="intro_frame_5" x="349" y="988" width="16" height="16"/>
+    <SubTexture name="intro_frame_6" x="421" y="988" width="16" height="9"/>
+    <SubTexture name="intro_frame_7" x="331" y="1006" width="16" height="16"/>
+    <SubTexture name="intro_frame_8" x="403" y="1006" width="9" height="16"/>
+    <SubTexture name="intro_grey_color_1" x="331" y="988" width="16" height="16"/>
+    <SubTexture name="intro_ice_1" x="313" y="1006" width="16" height="16"/>
+    <SubTexture name="intro_ice_color_1" x="313" y="988" width="16" height="16"/>
+    <SubTexture name="intro_night_sky" x="495" y="1008" width="8" height="8"/>
+    <SubTexture name="intro_palette_1" x="1008" y="2" width="8" height="72"/>
+    <SubTexture name="intro_palette_2" x="439" y="988" width="245" height="8"/>
+    <SubTexture name="intro_scene_1" x="628" y="2" width="272" height="416"/>
+    <SubTexture name="intro_scene_2" x="2" y="2" width="350" height="416"/>
+    <SubTexture name="intro_scene_3" x="550" y="420" width="272" height="416"/>
+    <SubTexture name="intro_scene_4" x="354" y="2" width="272" height="416"/>
+    <SubTexture name="intro_scene_5" x="276" y="420" width="272" height="416"/>
+    <SubTexture name="intro_scene_6" x="2" y="420" width="272" height="416"/>
+    <SubTexture name="intro_tanuki" x="141" y="838" width="152" height="182"/>
+    <SubTexture name="intro_white_color_1" x="295" y="1006" width="16" height="16"/>
+    <SubTexture name="intro_yellow_color_1" x="295" y="988" width="16" height="16"/>
+    <SubTexture name="neutronizedLogo" x="824" y="688" width="182" height="266"/>
+    <SubTexture name="neutronizedLogoShadow" x="824" y="420" width="182" height="266"/>
+    <SubTexture name="potionPaletteIntroHudSprite_a" x="478" y="998" width="33" height="8"/>
+    <SubTexture name="potionPaletteIntroHudSprite_b" x="460" y="1008" width="33" height="8"/>
+    <SubTexture name="potionPaletteIntroHudSprite_c" x="443" y="998" width="33" height="8"/>
+    <SubTexture name="potionPaletteIntroHudSprite_d" x="425" y="1010" width="33" height="8"/>
+</TextureAtlas>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+  <element name="background_6element_1" type="0" x="0" y="0" isFlipped="false" isFlippedVer="false" width="360" height="456"/>
+  <element name="background_6element_2" type="0" x="48" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="72" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="96" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="120" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="144" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="168" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="192" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="216" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="240" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="264" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="72" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="96" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="120" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="144" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="168" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="192" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="216" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="240" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="264" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="336" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="288" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="264" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="240" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="216" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="192" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="168" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="144" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="288" y="96" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="336" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="288" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="264" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="240" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="216" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="192" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="168" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="144" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="48" y="96" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="96" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="144" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="192" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="240" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="120" y="288" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="168" y="288" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="216" y="288" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="96" y="264" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="144" y="264" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="192" y="264" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="240" y="264" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="120" y="240" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="168" y="240" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="216" y="240" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="96" y="216" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="144" y="216" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="192" y="216" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="240" y="216" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="120" y="192" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="168" y="192" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="216" y="192" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="96" y="168" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="144" y="168" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="192" y="168" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="240" y="168" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="120" y="144" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="168" y="144" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="216" y="144" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="96" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="144" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="192" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_6element_2" type="0" x="240" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_1" type="0" x="288" y="96" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_3" type="0" x="288" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_2" type="0" x="288" y="144" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_outer_tile_1" type="0" x="0" y="0" isFlipped="false" isFlippedVer="false" width="360" height="48"/>
+  <element name="background_outer_tile_2" type="0" x="24" y="48" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_outer_tile_3_" type="0" x="48" y="48" isFlipped="false" isFlippedVer="false" width="72" height="27"/>
+  <element name="background_outer_tile_4" type="0" x="24" y="72" isFlipped="false" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_5" type="0" x="24" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_outer_tile_6" type="0" x="96" y="377" isFlipped="false" isFlippedVer="false" width="72" height="18"/>
+  <element name="background_outer_tile_3_" type="0" x="96" y="48" isFlipped="false" isFlippedVer="false" width="72" height="27"/>
+  <element name="background_outer_tile_3_" type="0" x="192" y="48" isFlipped="false" isFlippedVer="false" width="72" height="27"/>
+  <element name="background_outer_tile_3_" type="0" x="240" y="48" isFlipped="false" isFlippedVer="false" width="72" height="27"/>
+  <element name="background_outer_tile_4" type="0" x="24" y="144" isFlipped="false" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_4" type="0" x="24" y="240" isFlipped="false" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_4" type="0" x="24" y="288" isFlipped="false" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_6" type="0" x="48" y="377" isFlipped="false" isFlippedVer="false" width="72" height="18"/>
+  <element name="background_outer_tile_6" type="0" x="192" y="377" isFlipped="false" isFlippedVer="false" width="72" height="18"/>
+  <element name="background_outer_tile_6" type="0" x="240" y="377" isFlipped="false" isFlippedVer="false" width="72" height="18"/>
+  <element name="background_outer_tile_2" type="0" x="336" y="48" isFlipped="true" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_outer_tile_4" type="0" x="336" y="72" isFlipped="true" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_5" type="0" x="336" y="360" isFlipped="true" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_outer_tile_4" type="0" x="336" y="144" isFlipped="true" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_4" type="0" x="336" y="240" isFlipped="true" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_4" type="0" x="336" y="288" isFlipped="true" isFlippedVer="false" width="24" height="72"/>
+  <element name="background_outer_tile_1" type="0" x="0" y="384" isFlipped="false" isFlippedVer="false" width="360" height="120"/>
+  <element name="background_outer_tile_1" type="0" x="336" y="48" isFlipped="false" isFlippedVer="false" width="24" height="336"/>
+  <element name="background_outer_tile_1" type="0" x="0" y="48" isFlipped="false" isFlippedVer="false" width="24" height="336"/>
+  <element name="background_lava_element_5" type="0" x="72" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_5" type="0" x="72" y="72" isFlipped="true" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_5" type="0" x="264" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_5" type="0" x="264" y="360" isFlipped="true" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_5" type="0" x="288" y="336" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_5" type="0" x="288" y="336" isFlipped="true" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="288" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="264" y="96" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="72" y="96" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="96" y="96" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="72" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_1element_6" type="0" x="163" y="93" isFlipped="false" isFlippedVer="false" width="10" height="7"/>
+  <element name="background_1element_6" type="0" x="271" y="225" isFlipped="false" isFlippedVer="false" width="10" height="7"/>
+  <element name="background_1element_5" type="0" x="296" y="213" isFlipped="false" isFlippedVer="false" width="8" height="6"/>
+  <element name="background_1element_6" type="0" x="283" y="201" isFlipped="false" isFlippedVer="false" width="10" height="7"/>
+  <element name="background_tile_2" type="0" x="240" y="96" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="264" y="120" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="264" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="264" y="288" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="192" y="336" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="168" y="336" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="48" y="312" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="72" y="336" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="48" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="48" y="336" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="48" y="168" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="288" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_5" type="0" x="264" y="72" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_5" type="0" x="264" y="72" isFlipped="true" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_1" type="0" x="48" y="192" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_3" type="0" x="48" y="216" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_lava_element_2" type="0" x="48" y="240" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_tile_2" type="0" x="144" y="360" isFlipped="false" isFlippedVer="false" width="24" height="24"/>
+  <element name="background_1element_6" type="0" x="295" y="321" isFlipped="false" isFlippedVer="false" width="10" height="7"/>
+  <element name="background_1element_6" type="0" x="139" y="357" isFlipped="false" isFlippedVer="false" width="10" height="7"/>
+  <element name="background_1element_5" type="0" x="152" y="345" isFlipped="false" isFlippedVer="false" width="8" height="6"/>
+  <element name="background_1element_5" type="0" x="176" y="105" isFlipped="false" isFlippedVer="false" width="8" height="6"/>
+  <element name="background_1element_5" type="0" x="200" y="93" isFlipped="false" isFlippedVer="false" width="8" height="6"/>
+  <element name="background_1element_5" type="0" x="56" y="105" isFlipped="false" isFlippedVer="false" width="8" height="6"/>
+  <element name="background_1element_5" type="0" x="80" y="201" isFlipped="false" isFlippedVer="false" width="8" height="6"/>
+  <element name="DoorTopScript" type="1" x="168" y="48" width="3" height="0" rotation="0"/>
+  <element name="DoorRightScript" type="1" x="24" y="216" width="2" height="0" rotation="0"/>
+  <element name="DoorLeftScript" type="1" x="312" y="216" width="4" height="0" rotation="0"/>
+  <element name="DoorBottomScript" type="1" x="168" y="384" width="1" height="0" rotation="0"/>
+  <element name="CollisionArea" type="0" x="24" y="48" width="312" height="24" rotation="0"/>
+  <element name="CollisionArea" type="0" x="24" y="384" width="312" height="24" rotation="0"/>
+  <element name="CollisionArea" type="0" x="24" y="72" width="24" height="312" rotation="0"/>
+  <element name="CollisionArea" type="0" x="312" y="72" width="24" height="312" rotation="0"/>
+  <element name="LevelEndScript" type="0" x="360" y="504" width="0" height="0" rotation="0"/>
+  <element name="LevelStartScript" type="0" x="0" y="0" width="0" height="0" rotation="0"/>
+  <element name="CameraOuterArea" type="0" x="24" y="24" width="312" height="432" rotation="0"/>
+  <element name="CameraInnerArea" type="0" x="120" y="144" width="120" height="168" rotation="0"/>
+  <element frame="1" name="isBlockScript" type="76" x="240" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="77" x="96" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="76" x="96" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="77" x="240" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="75" x="240" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="75" x="96" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="82" x="72" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="83" x="264" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript1" type="7" x="240" y="192" width="0" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript2" type="7" x="240" y="216" width="1" height="0" rotation="0"/>
+  <element frame="1" name="isBlockScript" type="82" x="288" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="77" x="96" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="77" x="240" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="76" x="96" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="75" x="96" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="76" x="240" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="75" x="240" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="72" x="144" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="72" x="216" y="120" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="73" x="168" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="83" x="72" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="82" x="96" y="360" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="82" x="240" y="336" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="82" x="120" y="72" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="82" x="216" y="72" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript1" type="7" x="240" y="240" width="0" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript1" type="7" x="216" y="312" width="0" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript1" type="7" x="96" y="240" width="0" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript2" type="7" x="96" y="216" width="1" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript1" type="7" x="96" y="192" width="0" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript2" type="7" x="120" y="120" width="1" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript2" type="7" x="216" y="120" width="1" height="0" rotation="0"/>
+  <element frame="1" name="CastleSpikesCollisionScript1" type="7" x="120" y="312" width="0" height="0" rotation="0"/>
+  <element frame="1" name="isBlockScript" type="80" x="168" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="81" x="144" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="81" x="192" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="79" x="144" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="79" x="192" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="80" x="168" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="81" x="144" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="81" x="192" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="79" x="144" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="79" x="192" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="72" x="144" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="72" x="216" y="312" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="73" x="168" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="79" x="120" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="isBlockScript" type="79" x="216" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="HeroScript" type="0" x="168" y="216" width="0" height="0" rotation="0"/>
+  <element frame="1" name="RedOniEnemyScript1" type="14" x="120" y="144" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="RedOniEnemyScript1" type="14" x="216" y="288" width="3" height="0" rotation="0" ai="0"/>
+  <element frame="1" name="FireEnemyScript2" type="17" x="216" y="144" width="1" height="4" rotation="0" ai="1"/>
+  <element frame="1" name="FireEnemyScript2" type="17" x="120" y="288" width="3" height="4" rotation="0" ai="1"/>
+  <element frame="1" name="FireEnemyScript2" type="17" x="120" y="144" width="1" height="2" rotation="0" ai="1"/>
+  <element frame="1" name="FireEnemyScript2" type="17" x="216" y="288" width="3" height="2" rotation="0" ai="1"/>
+  <element frame="2" name="isBlockScript" type="76" x="240" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="77" x="96" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="76" x="96" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="77" x="240" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="75" x="240" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="75" x="96" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="82" x="72" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="83" x="264" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript1" type="7" x="240" y="192" width="0" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript2" type="7" x="240" y="216" width="1" height="0" rotation="0"/>
+  <element frame="2" name="isBlockScript" type="82" x="288" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="77" x="96" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="77" x="240" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="76" x="96" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="75" x="96" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="76" x="240" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="75" x="240" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="72" x="144" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="72" x="216" y="120" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="73" x="168" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="83" x="72" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="82" x="96" y="360" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="82" x="240" y="336" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="82" x="120" y="72" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="82" x="216" y="72" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript1" type="7" x="240" y="240" width="0" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript1" type="7" x="216" y="312" width="0" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript1" type="7" x="96" y="240" width="0" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript2" type="7" x="96" y="216" width="1" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript1" type="7" x="96" y="192" width="0" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript2" type="7" x="120" y="120" width="1" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript2" type="7" x="216" y="120" width="1" height="0" rotation="0"/>
+  <element frame="2" name="CastleSpikesCollisionScript1" type="7" x="120" y="312" width="0" height="0" rotation="0"/>
+  <element frame="2" name="isBlockScript" type="80" x="168" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="81" x="144" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="81" x="192" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="79" x="144" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="79" x="192" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="80" x="168" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="81" x="144" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="81" x="192" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="79" x="144" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="79" x="192" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="72" x="144" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="72" x="216" y="312" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="73" x="168" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="79" x="144" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="79" x="192" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="81" x="216" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="isBlockScript" type="80" x="120" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="HeroScript" type="0" x="168" y="216" width="0" height="0" rotation="0"/>
+  <element frame="2" name="RedOniEnemyScript1" type="14" x="120" y="144" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="RedOniEnemyScript1" type="14" x="216" y="288" width="3" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="RedOniEnemyScript1" type="14" x="216" y="144" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="2" name="RedOniEnemyScript1" type="14" x="120" y="288" width="3" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="76" x="240" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="77" x="96" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="76" x="96" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="77" x="240" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="75" x="240" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="75" x="96" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="82" x="72" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="83" x="264" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript1" type="7" x="240" y="192" width="0" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript2" type="7" x="240" y="216" width="1" height="0" rotation="0"/>
+  <element frame="3" name="isBlockScript" type="82" x="288" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="77" x="96" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="77" x="240" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="76" x="96" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="75" x="96" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="76" x="240" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="75" x="240" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="72" x="144" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="72" x="216" y="120" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="73" x="168" y="120" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="83" x="72" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="82" x="96" y="360" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="82" x="240" y="336" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="82" x="120" y="72" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="82" x="216" y="72" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript1" type="7" x="240" y="240" width="0" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript1" type="7" x="216" y="312" width="0" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript1" type="7" x="96" y="240" width="0" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript2" type="7" x="96" y="216" width="1" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript1" type="7" x="96" y="192" width="0" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript2" type="7" x="120" y="120" width="1" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript2" type="7" x="216" y="120" width="1" height="0" rotation="0"/>
+  <element frame="3" name="CastleSpikesCollisionScript1" type="7" x="120" y="312" width="0" height="0" rotation="0"/>
+  <element frame="3" name="isBlockScript" type="80" x="168" y="240" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="81" x="144" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="81" x="192" y="264" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="79" x="144" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="79" x="192" y="144" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="80" x="168" y="192" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="81" x="144" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="81" x="192" y="168" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="79" x="144" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="79" x="192" y="288" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="72" x="144" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="72" x="216" y="312" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="73" x="168" y="312" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="79" x="144" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="79" x="192" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="81" x="216" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="isBlockScript" type="80" x="120" y="216" width="0" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="HeroScript" type="0" x="168" y="216" width="0" height="0" rotation="0"/>
+  <element frame="3" name="RedOniEnemyScript1" type="14" x="120" y="144" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="RedOniEnemyScript1" type="14" x="216" y="288" width="3" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="FireEnemyScript2" type="17" x="120" y="144" width="1" height="2" rotation="0" ai="1"/>
+  <element frame="3" name="FireEnemyScript2" type="17" x="216" y="288" width="3" height="2" rotation="0" ai="1"/>
+  <element frame="3" name="RedOniEnemyScript1" type="14" x="216" y="144" width="1" height="0" rotation="0" ai="0"/>
+  <element frame="3" name="RedOniEnemyScript1" type="14" x="120" y="288" width="3" height="0" rotation="0" ai="0"/>
+</map>
