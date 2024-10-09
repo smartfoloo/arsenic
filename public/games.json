@@ -333,6 +333,14 @@
     ]
   },
   {
+    "title": "Speed King",
+    "id": "speed-king",
+    "tags": [
+      "platformer",
+      "puzzle"
+    ]
+  },
+  {
     "title": "Dino Bros",
     "id": "dino-bros",
     "tags": [
@@ -860,6 +868,22 @@
     "tags": [
       "action",
       "classic"
+    ]
+  },
+  {
+    "title": "Rooftop Snipers",
+    "id": "rooftop-snipers",
+    "tags": [
+      "2-player",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Rooftop Snipers 2",
+    "id": "rooftop-snipers-2",
+    "tags": [
+      "2-player",
+      "shooter"
     ]
   }
 ]
