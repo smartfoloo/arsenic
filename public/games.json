@@ -48,6 +48,14 @@
     ]
   },
   {
+    "title": "GoBattle",
+    "id": "gobattle",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
+  },
+  {
     "title": "Dadish 3D",
     "id": "dadish-3d",
     "tags": [
@@ -341,14 +349,6 @@
     ]
   },
   {
-    "title": "Dino Bros",
-    "id": "dino-bros",
-    "tags": [
-      "platformer",
-      "puzzle"
-    ]
-  },
-  {
     "title": "Bank Robbery 2",
     "id": "bank-robbery-2",
     "tags": [
@@ -370,6 +370,14 @@
     "tags": [
       "action",
       "driving"
+    ]
+  },
+  {
+    "title": "Super Liquid Soccer",
+    "id": "super-liquid-soccer",
+    "tags": [
+      "action",
+      "sports"
     ]
   },
   {
