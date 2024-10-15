@@ -3,7 +3,9 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta property="og:image" content="./assets/favicon.png">
+  <meta property="og:title" content="arsenic" />
+  <meta property="og:image" content="./assets/favicon.png" />
+  <meta property="og:description" content="./assets/favicon.png" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>arsenic</title>
@@ -13,6 +15,7 @@
   <link rel="stylesheet" href="./css/themes.css" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V45JNZYC0T"></script>
@@ -99,6 +102,10 @@
               <i class="bi bi-incognito"></i>
               Cloaking
             </button>
+            <button class="tab-link" onclick="openTab(event, 'data')">
+              <i class="bi bi-database-fill-gear"></i>
+              Data
+            </button>
             <button class="tab-link" onclick="openTab(event, 'about')">
               <i class="bi bi-info-circle"></i>
               About
@@ -109,6 +116,9 @@
             <div class="setting-card">
               <h2>Theme</h2>
               <div class="theme-buttons">
+                <button onclick="setTheme('catppuccin-frappe')" style="background: #232634; color: #c6d0f5;">
+                  <h4>Catppuccin Frappe</h4>
+                </button>
                 <button onclick="setTheme('catppuccin-macchiato')" style="background: #181926; color: #cad3f5">
                   <h4>Catpuccin Macchiato</h4>
                 </button>
@@ -166,6 +176,24 @@
                   <option value="google-classroom">Google Drive</option>
                   <option value="khan-academy">Khan Academy</option>
                 </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="data" class="tab-content">
+            <div class="setting-card">
+              <h2>Cookies</h2>
+              <p>This allows you to export and import data, which means you can save progress across different links!</p>
+              <div class="buttons">
+                <button id="downloadSave">
+                  <i class="bi bi-download"></i>
+                  Download Cookie
+                </button>
+                <button id="upload" onclick="uploadMainSave()">
+                  <i class="bi bi-upload"></i>
+                  Upload Cookie
+                </button>
+                <input type="file" class="hiddenUpload" style="display:none;" />
               </div>
             </div>
           </div>

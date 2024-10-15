@@ -1,0 +1,44 @@
+
+frontname(CHAMPIONS LEAGUE)
+
+name(Champions League)
+
+team(AC Milan,80)
+team(Ajax,87)
+team(Atalanta,70)
+team(Atletico Madrid,88)
+team(Barcelona,73)
+team(Bayern Munich,91)
+team(Benfica,89)
+team(Besiktas,54)
+team(Borussia Dortmund,82)
+team(Chelsea,90)
+team(Club Brugge,61)
+team(Dynamo Kyiv,57)
+team(Inter Milan,84)
+team(Juventus,85)
+team(Lille,82)
+team(Liverpool,100)
+team(Malmo FF,56)
+team(Manchester City,94)
+team(Manchester United,87)
+team(Paris SG,88)
+team(Porto,64)
+team(RB Leipzig,71)
+team(RB Salzburg,83)
+team(Real Madrid,97)
+team(Sevilla,68)
+team(Shakhtar Donetsk,59)
+team(Sheriff Tiraspol,76)
+team(Sporting CP,79)
+team(VfL Wolfsburg,67)
+team(Villarreal,92)
+team(Young Boys,62)
+team(Zenit,65)
+
+
+
+
+
+
+

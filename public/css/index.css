@@ -49,6 +49,17 @@ h6 {
   font-family: 'Inter';
   cursor: pointer;
   transition: 250ms;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.page .buttons, 
+.page .theme-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .page button:hover {
@@ -373,17 +384,25 @@ select:hover {
 
 .tab-link {
   padding: 11px 10px;
-  font-size: 16px;
-  font-weight: 700;
-  outline: none;
   border-radius: 10px;
   background: var(--background2);
   color: var(--text);
-  border: none;
   font-family: 'Inter';
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+  border: none;
   width: 100%;
   cursor: pointer;
   transition: 250ms;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.tab-link:hover {
+  background: var(--background3);
 }
 
 .tab-link:active {
@@ -394,8 +413,8 @@ select:hover {
   background: var(--background4) !important;
 }
 
-.tab-link:hover {
-  background: var(--background3);
+.tab-link i {
+  font-size: 18px;
 }
 
 .tab-content {
@@ -490,5 +509,46 @@ select:hover {
 
   .credit-card {
     width: calc(50% - 15px);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  nav {
+    width: 50px;
+  }
+
+  .main-content {
+    width: calc(100% - 50px);
+  }
+
+  .logo h2,
+  .logo h6 {
+    display: none;
+  }
+
+  .tab-btn p {
+    display: none;
+  }
+
+  .tab-btn i {
+    margin: 10px 0px;
+  }
+
+  .tabs {
+    height: calc(100vh - 230px);
+  }
+
+  .bottom {
+    flex-direction: column;
+    padding: 0px;
+    align-self: flex-end;
+  }
+
+  .game-btn {
+    width: calc(50% - 30px);
+  }
+
+  .credit-card {
+    width: 100%;
   }
 }

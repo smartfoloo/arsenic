@@ -473,3 +473,57 @@ function loadScriptWithDelay(url, delay) {
 }
 
 loadScriptWithDelay('./js/animation.js', 200);
+
+// Cookies
+
+function prepareCookieSave() {
+  var cookieSave = {};
+  cookieData = document.cookie;
+  cookieData = btoa(cookieData);
+  cookieSave.cookies = cookieData;
+  cookieSave = btoa(JSON.stringify(cookieSave));
+  cookieSave = CryptoJS.AES.encrypt(cookieSave, "cookieSecretKey").toString();
+  return cookieSave;
+}
+
+function triggerDownload() {
+  var saveData = new Blob([prepareCookieSave()]);
+  var saveURL = URL.createObjectURL(saveData);
+  var fakeLink = document.createElement("a");
+  fakeLink.href = saveURL;
+  fakeLink.download = "cookies.save";
+  fakeLink.click();
+  URL.revokeObjectURL(saveURL);
+}
+
+function processUpload(data, key) {
+  if (key) {
+    data = CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
+  } else {
+    data = CryptoJS.AES.decrypt(data, "cookieSecretKey").toString(CryptoJS.enc.Utf8);
+  }
+  var cookieSave = JSON.parse(atob(data));
+  var cookieData = atob(cookieSave.cookies);
+  document.cookie = cookieData;
+}
+
+function uploadMainSave(key) {
+  var hiddenInput = document.querySelector(".hiddenUpload");
+  hiddenInput.click();
+  hiddenInput.addEventListener("change", function (event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      if (key) {
+        processUpload(e.target.result, key);
+      } else {
+        processUpload(e.target.result);
+      }
+      alert("Upload Successful!");
+    };
+    reader.readAsText(file);
+  });
+}
+
+document.getElementById("downloadSave").addEventListener("click", triggerDownload);

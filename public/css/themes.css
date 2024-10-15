@@ -1,3 +1,13 @@
+body[theme="catppuccin-frappe"] {
+  --background: #232634;
+  --background2: #303446;
+  --background3: #414559;
+  --background4: #51576d;
+  --theme: rgb(140, 170, 238);
+  --shadow: rgba(140, 170, 238, 0.5);
+  --text: #c6d0f5;
+}
+
 body[theme="catppuccin-macchiato"] {
   --background: #181926; /* crust */
   --background2: #24273a; /* base */
