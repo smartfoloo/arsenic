@@ -462,6 +462,89 @@ function setTheme(theme) {
   localStorage.setItem('theme', theme);
 }
 
+// Particles
+
+let particlesActive = localStorage.getItem('particlesActive') === 'true';
+
+function loadParticles() {
+  particlesJS('particles-js', {
+    particles: {
+      number: {
+        value: 100,
+        density: {
+          enable: true,
+          value_area: 800,
+        },
+      },
+      color: {
+        value: '#daa8f4',
+      },
+      shape: {
+        type: 'circle',
+      },
+      opacity: {
+        value: 0.7,
+      },
+      size: {
+        value: 1.5,
+      },
+      move: {
+        enable: true,
+        direction: 'bottom',
+        speed: 0.5,
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      line_linked: {
+        enable: false,
+      },
+    },
+    interactivity: {
+      detect_on: 'canvas',
+      events: {
+        onhover: {
+          enable: false,
+        },
+        onclick: {
+          enable: false,
+        },
+      },
+    },
+    retina_detect: true,
+  });
+}
+
+function destroyParticles() {
+  const particlesDiv = document.getElementById('particles-js');
+  if (window.pJSDom && window.pJSDom.length > 0) {
+    window.pJSDom[0].pJS.fn.vendors.destroypJS();
+    window.pJSDom = [];
+    particlesDiv.innerHTML = '';
+  }
+}
+
+function updateParticleLocalStorage(status) {
+  localStorage.setItem('particlesActive', status);
+}
+
+document.getElementById('toggle-particles').addEventListener('change', (e) => {
+  particlesActive = e.target.checked;
+  if (particlesActive) {
+    loadParticles();
+  } else {
+    destroyParticles();
+  }
+  updateParticleLocalStorage(particlesActive);
+});
+
+if (particlesActive) {
+  document.getElementById('toggle-particles').checked = true;
+  loadParticles();
+} else {
+  document.getElementById('toggle-particles').checked = false;
+}
+
 // Load animation.js after
 
 function loadScriptWithDelay(url, delay) {

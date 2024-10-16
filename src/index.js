@@ -9,9 +9,8 @@ const app = express();
 
 app.use(express.static("./public"));
 
-// Error for everything else
-app.get('*', function (req, res) {
-  res.status(404).sendFile(join(__dirname, "../public/404.html"));
+app.get('*', (req, res) => {
+  res.status(404).sendFile(join(__dirname, "public", "404.html"));
 });
 
 const server = createServer();

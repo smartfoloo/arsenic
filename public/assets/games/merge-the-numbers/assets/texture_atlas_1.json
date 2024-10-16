@@ -1,0 +1,2267 @@
+{
+	"textures": [
+		{
+			"image": "texture_atlas_1.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 2048,
+				"h": 2048
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "grid",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 605,
+						"h": 772
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 605,
+						"h": 772
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 605,
+						"h": 772
+					}
+				},
+				{
+					"filename": "header",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 534,
+						"h": 108
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 534,
+						"h": 108
+					},
+					"frame": {
+						"x": 608,
+						"y": 1,
+						"w": 534,
+						"h": 108
+					}
+				},
+				{
+					"filename": "timer",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 529,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 529,
+						"h": 64
+					},
+					"frame": {
+						"x": 1144,
+						"y": 1,
+						"w": 529,
+						"h": 64
+					}
+				},
+				{
+					"filename": "logo_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 589,
+						"h": 283
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 88,
+						"w": 319,
+						"h": 103
+					},
+					"frame": {
+						"x": 1675,
+						"y": 1,
+						"w": 319,
+						"h": 103
+					}
+				},
+				{
+					"filename": "sparks_down_12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 22,
+						"y": 19,
+						"w": 50,
+						"h": 41
+					},
+					"frame": {
+						"x": 1996,
+						"y": 1,
+						"w": 50,
+						"h": 41
+					}
+				},
+				{
+					"filename": "txt_game-over",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 527,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 527,
+						"h": 77
+					},
+					"frame": {
+						"x": 1144,
+						"y": 67,
+						"w": 527,
+						"h": 77
+					}
+				},
+				{
+					"filename": "sparks_radial_23",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 32,
+						"w": 49,
+						"h": 23
+					},
+					"frame": {
+						"x": 1996,
+						"y": 44,
+						"w": 49,
+						"h": 23
+					}
+				},
+				{
+					"filename": "sparks_down_11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 15,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 1996,
+						"y": 69,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
+					"filename": "txt_pause",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 307,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 307,
+						"h": 77
+					},
+					"frame": {
+						"x": 1673,
+						"y": 106,
+						"w": 307,
+						"h": 77
+					}
+				},
+				{
+					"filename": "sparks_down_09",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 10,
+						"w": 64,
+						"h": 49
+					},
+					"frame": {
+						"x": 1982,
+						"y": 119,
+						"w": 64,
+						"h": 49
+					}
+				},
+				{
+					"filename": "sparks_radial_05",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 22,
+						"y": 22,
+						"w": 60,
+						"h": 49
+					},
+					"frame": {
+						"x": 1982,
+						"y": 170,
+						"w": 60,
+						"h": 49
+					}
+				},
+				{
+					"filename": "logo_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 589,
+						"h": 283
+					},
+					"spriteSourceSize": {
+						"x": 130,
+						"y": 176,
+						"w": 450,
+						"h": 88
+					},
+					"frame": {
+						"x": 608,
+						"y": 111,
+						"w": 450,
+						"h": 88
+					}
+				},
+				{
+					"filename": "sparks_radial_19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 16,
+						"w": 80,
+						"h": 72
+					},
+					"frame": {
+						"x": 1060,
+						"y": 111,
+						"w": 80,
+						"h": 72
+					}
+				},
+				{
+					"filename": "txt_win",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 403,
+						"h": 79
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 403,
+						"h": 79
+					},
+					"frame": {
+						"x": 1142,
+						"y": 146,
+						"w": 403,
+						"h": 79
+					}
+				},
+				{
+					"filename": "sparks_radial_09",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 15,
+						"y": 10,
+						"w": 80,
+						"h": 69
+					},
+					"frame": {
+						"x": 1060,
+						"y": 185,
+						"w": 80,
+						"h": 69
+					}
+				},
+				{
+					"filename": "logo_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 589,
+						"h": 283
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 178,
+						"w": 115,
+						"h": 98
+					},
+					"frame": {
+						"x": 1547,
+						"y": 146,
+						"w": 115,
+						"h": 98
+					}
+				},
+				{
+					"filename": "win_01",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 207,
+						"h": 203
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 207,
+						"h": 203
+					},
+					"frame": {
+						"x": 1664,
+						"y": 185,
+						"w": 207,
+						"h": 203
+					}
+				},
+				{
+					"filename": "logo_number_top",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 93,
+						"h": 92
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 93,
+						"h": 92
+					},
+					"frame": {
+						"x": 1873,
+						"y": 185,
+						"w": 93,
+						"h": 92
+					}
+				},
+				{
+					"filename": "sparks_radial_20",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 21,
+						"y": 16,
+						"w": 79,
+						"h": 63
+					},
+					"frame": {
+						"x": 1968,
+						"y": 221,
+						"w": 79,
+						"h": 63
+					}
+				},
+				{
+					"filename": "btn_back",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 1873,
+						"y": 279,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "block_1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1966,
+						"y": 286,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_10",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1966,
+						"y": 366,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "btn_back_hover",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 1873,
+						"y": 371,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "block_11",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1966,
+						"y": 446,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "win_aura_white",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 205,
+						"h": 206
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 205,
+						"h": 206
+					},
+					"frame": {
+						"x": 1142,
+						"y": 227,
+						"w": 205,
+						"h": 206
+					}
+				},
+				{
+					"filename": "btn_play",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 155,
+						"h": 155
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 155,
+						"h": 155
+					},
+					"frame": {
+						"x": 1349,
+						"y": 227,
+						"w": 155,
+						"h": 155
+					}
+				},
+				{
+					"filename": "btn_play_hover",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 155,
+						"h": 155
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 155,
+						"h": 155
+					},
+					"frame": {
+						"x": 1506,
+						"y": 246,
+						"w": 155,
+						"h": 155
+					}
+				},
+				{
+					"filename": "sparks_down_18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 46,
+						"y": 52,
+						"w": 15,
+						"h": 16
+					},
+					"frame": {
+						"x": 1506,
+						"y": 227,
+						"w": 15,
+						"h": 16
+					}
+				},
+				{
+					"filename": "sparks_down_19",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 46,
+						"y": 58,
+						"w": 15,
+						"h": 15
+					},
+					"frame": {
+						"x": 1523,
+						"y": 227,
+						"w": 15,
+						"h": 15
+					}
+				},
+				{
+					"filename": "hand_tutorial_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 153,
+						"h": 136
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 11,
+						"w": 153,
+						"h": 125
+					},
+					"frame": {
+						"x": 1349,
+						"y": 384,
+						"w": 153,
+						"h": 125
+					}
+				},
+				{
+					"filename": "win_aura_color",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 203,
+						"h": 204
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 203,
+						"h": 204
+					},
+					"frame": {
+						"x": 1663,
+						"y": 390,
+						"w": 203,
+						"h": 204
+					}
+				},
+				{
+					"filename": "btn_home",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 1868,
+						"y": 463,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "sparks_radial_11",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 8,
+						"w": 86,
+						"h": 75
+					},
+					"frame": {
+						"x": 1961,
+						"y": 526,
+						"w": 86,
+						"h": 75
+					}
+				},
+				{
+					"filename": "btn_home_hover",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 1868,
+						"y": 555,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "block_frame",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 84,
+						"h": 84
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 84,
+						"h": 84
+					},
+					"frame": {
+						"x": 1961,
+						"y": 603,
+						"w": 84,
+						"h": 84
+					}
+				},
+				{
+					"filename": "hand_tutorial",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 151,
+						"h": 136
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 151,
+						"h": 136
+					},
+					"frame": {
+						"x": 1504,
+						"y": 403,
+						"w": 151,
+						"h": 136
+					}
+				},
+				{
+					"filename": "win_aura_gradient",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 201,
+						"h": 201
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 201,
+						"h": 201
+					},
+					"frame": {
+						"x": 608,
+						"y": 201,
+						"w": 201,
+						"h": 201
+					}
+				},
+				{
+					"filename": "btn_menu",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 811,
+						"y": 201,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "btn_menu_hover",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 904,
+						"y": 201,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "sparks_down_08",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 18,
+						"y": 8,
+						"w": 60,
+						"h": 46
+					},
+					"frame": {
+						"x": 997,
+						"y": 201,
+						"w": 60,
+						"h": 46
+					}
+				},
+				{
+					"filename": "sparks_down_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 24,
+						"y": 12,
+						"w": 58,
+						"h": 46
+					},
+					"frame": {
+						"x": 997,
+						"y": 249,
+						"w": 58,
+						"h": 46
+					}
+				},
+				{
+					"filename": "sparks_radial_10",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 13,
+						"y": 9,
+						"w": 83,
+						"h": 72
+					},
+					"frame": {
+						"x": 1057,
+						"y": 256,
+						"w": 83,
+						"h": 72
+					}
+				},
+				{
+					"filename": "btn_next",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 811,
+						"y": 293,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "btn_next_hover",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 904,
+						"y": 293,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "logo_number_bot",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 57,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 57,
+						"h": 57
+					},
+					"frame": {
+						"x": 997,
+						"y": 297,
+						"w": 57,
+						"h": 57
+					}
+				},
+				{
+					"filename": "sparks_radial_17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 4,
+						"w": 84,
+						"h": 84
+					},
+					"frame": {
+						"x": 1056,
+						"y": 330,
+						"w": 84,
+						"h": 84
+					}
+				},
+				{
+					"filename": "sparks_radial_22",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 43,
+						"y": 19,
+						"w": 57,
+						"h": 36
+					},
+					"frame": {
+						"x": 997,
+						"y": 356,
+						"w": 57,
+						"h": 36
+					}
+				},
+				{
+					"filename": "btn_refresh",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 811,
+						"y": 385,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "btn_refresh_hover",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 904,
+						"y": 385,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "sparks_down_07",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 6,
+						"w": 56,
+						"h": 44
+					},
+					"frame": {
+						"x": 997,
+						"y": 394,
+						"w": 56,
+						"h": 44
+					}
+				},
+				{
+					"filename": "sparks_radial_18",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 4,
+						"w": 84,
+						"h": 84
+					},
+					"frame": {
+						"x": 1055,
+						"y": 416,
+						"w": 84,
+						"h": 84
+					}
+				},
+				{
+					"filename": "sparks_radial_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 25,
+						"y": 27,
+						"w": 52,
+						"h": 42
+					},
+					"frame": {
+						"x": 997,
+						"y": 440,
+						"w": 52,
+						"h": 42
+					}
+				},
+				{
+					"filename": "btn_tutorial",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 608,
+						"y": 404,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "btn_tutorial_hover",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 91,
+						"h": 90
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 91,
+						"h": 90
+					},
+					"frame": {
+						"x": 701,
+						"y": 404,
+						"w": 91,
+						"h": 90
+					}
+				},
+				{
+					"filename": "sparks_radial_16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 5,
+						"w": 91,
+						"h": 83
+					},
+					"frame": {
+						"x": 794,
+						"y": 477,
+						"w": 91,
+						"h": 83
+					}
+				},
+				{
+					"filename": "sparks_radial_15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 5,
+						"w": 91,
+						"h": 82
+					},
+					"frame": {
+						"x": 887,
+						"y": 477,
+						"w": 91,
+						"h": 82
+					}
+				},
+				{
+					"filename": "sparks_radial_21",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 19,
+						"w": 70,
+						"h": 60
+					},
+					"frame": {
+						"x": 980,
+						"y": 484,
+						"w": 70,
+						"h": 60
+					}
+				},
+				{
+					"filename": "sparks_radial_14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 6,
+						"w": 91,
+						"h": 81
+					},
+					"frame": {
+						"x": 608,
+						"y": 496,
+						"w": 91,
+						"h": 81
+					}
+				},
+				{
+					"filename": "sparks_radial_13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 6,
+						"w": 90,
+						"h": 80
+					},
+					"frame": {
+						"x": 701,
+						"y": 496,
+						"w": 90,
+						"h": 80
+					}
+				},
+				{
+					"filename": "sparks_radial_12",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 11,
+						"y": 8,
+						"w": 88,
+						"h": 77
+					},
+					"frame": {
+						"x": 1141,
+						"y": 435,
+						"w": 88,
+						"h": 77
+					}
+				},
+				{
+					"filename": "block_12",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1052,
+						"y": 502,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "btn_start_selected",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 54
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 54
+					},
+					"frame": {
+						"x": 980,
+						"y": 546,
+						"w": 69,
+						"h": 54
+					}
+				},
+				{
+					"filename": "block_13",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 887,
+						"y": 561,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_14",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 793,
+						"y": 562,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_15",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 701,
+						"y": 578,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_16",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 608,
+						"y": 579,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_17",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1231,
+						"y": 435,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "sparks_down_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 29,
+						"y": 1,
+						"w": 36,
+						"h": 32
+					},
+					"frame": {
+						"x": 1311,
+						"y": 435,
+						"w": 36,
+						"h": 32
+					}
+				},
+				{
+					"filename": "sparks_radial_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 34,
+						"w": 32,
+						"h": 29
+					},
+					"frame": {
+						"x": 1311,
+						"y": 469,
+						"w": 32,
+						"h": 29
+					}
+				},
+				{
+					"filename": "sparks_down_02",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 1,
+						"w": 27,
+						"h": 27
+					},
+					"frame": {
+						"x": 1311,
+						"y": 500,
+						"w": 27,
+						"h": 27
+					}
+				},
+				{
+					"filename": "block_18",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1132,
+						"y": 514,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_19",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1051,
+						"y": 582,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 967,
+						"y": 602,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_20",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 873,
+						"y": 641,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_21",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 781,
+						"y": 642,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_22",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 688,
+						"y": 658,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_23",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 608,
+						"y": 659,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_24",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1212,
+						"y": 515,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_25",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1131,
+						"y": 594,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_26",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1047,
+						"y": 662,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_27",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 953,
+						"y": 682,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_28",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 861,
+						"y": 721,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_29",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 768,
+						"y": 722,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 688,
+						"y": 738,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_30",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 608,
+						"y": 739,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1340,
+						"y": 511,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "sparks_down_15",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 31,
+						"y": 38,
+						"w": 43,
+						"h": 35
+					},
+					"frame": {
+						"x": 1292,
+						"y": 529,
+						"w": 43,
+						"h": 35
+					}
+				},
+				{
+					"filename": "sparks_radial_03",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 29,
+						"y": 32,
+						"w": 42,
+						"h": 34
+					},
+					"frame": {
+						"x": 1292,
+						"y": 566,
+						"w": 42,
+						"h": 34
+					}
+				},
+				{
+					"filename": "block_5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1211,
+						"y": 595,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1127,
+						"y": 674,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_7",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1420,
+						"y": 511,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_8",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 1033,
+						"y": 742,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "block_9",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 78,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 78,
+						"h": 78
+					},
+					"frame": {
+						"x": 941,
+						"y": 762,
+						"w": 78,
+						"h": 78
+					}
+				},
+				{
+					"filename": "sparks_radial_08",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 12,
+						"w": 78,
+						"h": 65
+					},
+					"frame": {
+						"x": 848,
+						"y": 801,
+						"w": 78,
+						"h": 65
+					}
+				},
+				{
+					"filename": "logo_number_mid",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 77,
+						"h": 77
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 77,
+						"h": 77
+					},
+					"frame": {
+						"x": 768,
+						"y": 802,
+						"w": 77,
+						"h": 77
+					}
+				},
+				{
+					"filename": "sparks_radial_07",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 15,
+						"w": 74,
+						"h": 59
+					},
+					"frame": {
+						"x": 688,
+						"y": 818,
+						"w": 74,
+						"h": 59
+					}
+				},
+				{
+					"filename": "sparks_radial_06",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 18,
+						"w": 67,
+						"h": 55
+					},
+					"frame": {
+						"x": 1500,
+						"y": 541,
+						"w": 67,
+						"h": 55
+					}
+				},
+				{
+					"filename": "sparks_down_06",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 22,
+						"y": 5,
+						"w": 52,
+						"h": 40
+					},
+					"frame": {
+						"x": 1569,
+						"y": 541,
+						"w": 52,
+						"h": 40
+					}
+				},
+				{
+					"filename": "sparks_down_17",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 47,
+						"w": 38,
+						"h": 36
+					},
+					"frame": {
+						"x": 1623,
+						"y": 541,
+						"w": 38,
+						"h": 36
+					}
+				},
+				{
+					"filename": "sparks_down_16",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 30,
+						"y": 43,
+						"w": 37,
+						"h": 34
+					},
+					"frame": {
+						"x": 1623,
+						"y": 579,
+						"w": 37,
+						"h": 34
+					}
+				},
+				{
+					"filename": "sparks_down_14",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 25,
+						"y": 26,
+						"w": 48,
+						"h": 43
+					},
+					"frame": {
+						"x": 1569,
+						"y": 583,
+						"w": 48,
+						"h": 43
+					}
+				},
+				{
+					"filename": "sparks_down_13",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 25,
+						"y": 22,
+						"w": 47,
+						"h": 43
+					},
+					"frame": {
+						"x": 1336,
+						"y": 591,
+						"w": 47,
+						"h": 43
+					}
+				},
+				{
+					"filename": "sparks_down_04",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 27,
+						"y": 2,
+						"w": 41,
+						"h": 36
+					},
+					"frame": {
+						"x": 1291,
+						"y": 602,
+						"w": 41,
+						"h": 36
+					}
+				},
+				{
+					"filename": "sparks_down_05",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 24,
+						"y": 3,
+						"w": 47,
+						"h": 39
+					},
+					"frame": {
+						"x": 1385,
+						"y": 591,
+						"w": 47,
+						"h": 39
+					}
+				},
+				{
+					"filename": "chain_cell",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 25,
+						"h": 78
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 6,
+						"w": 25,
+						"h": 64
+					},
+					"frame": {
+						"x": 1434,
+						"y": 591,
+						"w": 25,
+						"h": 64
+					}
+				},
+				{
+					"filename": "sparks_radial_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 38,
+						"y": 37,
+						"w": 22,
+						"h": 22
+					},
+					"frame": {
+						"x": 1461,
+						"y": 591,
+						"w": 22,
+						"h": 22
+					}
+				},
+				{
+					"filename": "sparks_down_01",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 100,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 36,
+						"y": 1,
+						"w": 20,
+						"h": 22
+					},
+					"frame": {
+						"x": 1385,
+						"y": 632,
+						"w": 20,
+						"h": 22
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:ef1ddd9e863d4e54b52e6ad93ca4f566:be86345a1060e743b723c2692a7f7957:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	}
+}

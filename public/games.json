@@ -123,7 +123,8 @@
     "title": "Zooplop",
     "id": "zooplop",
     "tags": [
-      "puzzle"
+      "puzzle",
+      "merge"
     ]
   },
   {
@@ -283,10 +284,34 @@
     ]
   },
   {
+    "title": "Merge the Numbers",
+    "id": "merge-the-numbers",
+    "tags": [
+      "puzzle",
+      "merge"
+    ]
+  },
+  {
+    "title": "Merge Tycoon",
+    "id": "merge-tycoon",
+    "tags": [
+      "merge"
+    ]
+  },
+  {
+    "title": "Tower Defense Mingling",
+    "id": "tower-defense-mingling",
+    "tags": [
+      "management",
+      "merge"
+    ]
+  },
+  {
     "title": "Watermelon Game",
     "id": "watermelon-game",
     "tags": [
-      "puzzle"
+      "puzzle",
+      "merge"
     ]
   },
   {
@@ -696,8 +721,9 @@
     "title": "Candy Crush",
     "id": "candy-crush",
     "tags": [
+      "classic",
       "puzzle",
-      "classic"
+      "merge"
     ]
   },
   {

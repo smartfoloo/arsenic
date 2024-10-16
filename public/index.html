@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta property="og:title" content="arsenic" />
-  <meta property="og:image" content="./assets/favicon.png" />
-  <meta property="og:description" content="./assets/favicon.png" />
+  <meta property="og:image" content="/assets/favicon.png" />
+  <meta property="og:description" content="an open-source, privacy focused, feature rich, online gaming website built in Node.js." />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>arsenic</title>
@@ -16,6 +16,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V45JNZYC0T"></script>
@@ -31,6 +32,7 @@
 <body>
   <div class="container" id="container">
     <nav>
+      <div id="particles-js"></div>
       <div class="top">
         <a href="/" class="logo">
           <img src="./assets/favicon.png" alt="nobelium">
@@ -151,6 +153,13 @@
                   <h4>Teal</h4>
                 </div>
               </div>
+            </div>
+            <div class="setting-card">
+              <h2>Particles</h2>
+              <label class="switch">
+                <input type="checkbox" id="toggle-particles">
+                <span class="slider round"></span>
+              </label>
             </div>
           </div>
 
