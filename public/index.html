@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta property="og:title" content="arsenic" />
   <meta property="og:image" content="/assets/favicon.png" />
-  <meta property="og:description" content="an open-source, privacy focused, feature rich, online gaming website built in Node.js." />
+  <meta property="og:description" content="a privacy focused, feature rich, web proxy built in Node.js." />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>arsenic</title>
@@ -31,8 +31,8 @@
 
 <body>
   <div class="container" id="container">
+    <div id="particles-js"></div>
     <nav>
-      <div id="particles-js"></div>
       <div class="top">
         <a href="/" class="logo">
           <img src="./assets/favicon.png" alt="nobelium">
@@ -47,6 +47,21 @@
               <p class="category"></p>
             </div>
           </button>
+          <button class="tab-btn" id="game-tab" onclick="openPage('game-page')">
+            <div class="left">
+              <i class="bi bi-controller"></i>
+              <p>Games</p>
+              <p class="category"></p>
+            </div>
+          </button>
+          <button class="tab-btn" id="game-tab" onclick="openPage('proxy-page')">
+            <div class="left">
+              <i class="bi bi-server"></i>
+              <p>Proxy</p>
+              <p class="category"></p>
+            </div>
+          </button>
+          <hr>
           <div id="tabs-container"></div>
         </div>
       </div>
@@ -63,10 +78,25 @@
       </div>
     </nav>
     <div class="main-content" id="main-content">
+      <input id="search-address" type="text" placeholder="Search Google or type a URL" style="display: none;"/>
       <div class="page" id="home-page">
         <h1>Welcome</h1>
         <p>
-        <div id="clock"></div>
+          <div id="clock"></div>
+        </p>
+        <div class="buttons">
+          <button onclick="openPage('game-page')">
+            <i class="bi bi-controller"></i>
+            Play Games
+          </button>
+          <button onclick="openPage('proxy-page')"  style="background: var(--theme); color: var(--background);">
+            <i class="bi bi-server"></i>
+            Browse the web
+          </button>
+        </div>
+      </div>
+      <div class="page" id="game-page">
+        <h1>Games</h1>
         </p>
         <div class="input-container">
           <input type="text" id="searchInput" placeholder="Search for a game...">
@@ -88,8 +118,52 @@
             <option value="clicker">Clicker</option>
           </select>
         </div>
-        <div class="game-list" id="game-list">
-
+        <div class="game-list" id="game-list"></div>
+      </div>
+      <div class="page" id="proxy-page">
+        <h1>Proxy</h1>
+        <form id="uv-form">
+          <i class="bi bi-search"></i>
+          <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
+          <input id="uv-address" type="text" placeholder="Search Google or type a URL" />
+        </form>
+        <div>
+          <p id="uv-error"></p>
+          <pre id="uv-error-code"></pre>
+        </div>
+        <div class="shortcuts">
+          <button onclick="openUV('https://google.com/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/google.png" alt="" class="shortcut-image">
+            <p>Google</p>
+          </button>
+          <button onclick="openUV('https://youtube.com/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/youtube.png" alt="" class="shortcut-image">
+            <p>YouTube</p>
+          </button>
+          <button onclick="openUV('https://x.com/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/twitter.png" alt="" class="shortcut-image">
+            <p>Twitter</p>
+          </button>
+          <button onclick="openUV('https://poki.com/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/poki.png" alt="" class="shortcut-image">
+            <p>Poki</p>
+          </button>
+          <button onclick="openUV('https://gemini.google.com/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/gemini.png" alt="" class="shortcut-image">
+            <p>Gemini</p>
+          </button>
+          <button onclick="openUV('https://discord.com/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/discord.png" alt="" class="shortcut-image">
+            <p>Discord</p>
+          </button>
+          <button onclick="openUV('https://c.ai/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/characterai.png" alt="" class="shortcut-image">
+            <p>character.ai</p>
+          </button>
+          <button onclick="openUV('https://github.com/')" class="shortcut" title="shortcut">
+            <img src="./assets/tab-logos/github.png" alt="" class="shortcut-image">
+            <p>GitHub</p>
+          </button>
         </div>
       </div>
       <div class="page" id="settings-page">
@@ -104,13 +178,13 @@
               <i class="bi bi-incognito"></i>
               Cloaking
             </button>
-            <button class="tab-link" onclick="openTab(event, 'data')">
-              <i class="bi bi-database-fill-gear"></i>
-              Data
+            <button class="tab-link" onclick="openTab(event, 'proxy')">
+              <i class="bi bi-server"></i>
+              Proxy
             </button>
-            <button class="tab-link" onclick="openTab(event, 'about')">
+            <button class="tab-link" onclick="openTab(event, 'misc')">
               <i class="bi bi-info-circle"></i>
-              About
+              Misc
             </button>
           </div>
 
@@ -189,7 +263,22 @@
             </div>
           </div>
 
-          <div id="data" class="tab-content">
+          <div id="proxy" class="tab-content">
+            <div class="setting-card">
+              <h2>Search Engine</h2>
+              <p>Choose your search engine for our proxy.</p>
+              <div class="buttons">
+                <select id="searchEngine" title="search-engines" onchange="saveSearchEngine(this.value)">
+                  <option value="google">Google</option>
+                  <option value="bing">Bing</option>
+                  <option value="duckduckgo">DuckDuckGo</option>
+                  <option value="yahoo">Yahoo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="misc" class="tab-content">
             <div class="setting-card">
               <h2>Cookies</h2>
               <p>This allows you to export and import data, which means you can save progress across different links!</p>
@@ -205,9 +294,6 @@
                 <input type="file" class="hiddenUpload" style="display:none;" />
               </div>
             </div>
-          </div>
-
-          <div id="about" class="tab-content">
             <div class="setting-card">
               <h2>Status</h2>
               <a href="https://arsenic.betteruptime.com/" target="_blank">
@@ -221,40 +307,7 @@
               <h2>
                 Credits
               </h2>
-              <div class="cards-container">
-                <div class="credit-card">
-                  <img src="./assets/credits/smartfoloo.webp" alt="" class="credit-pfp">
-                  <b>
-                    <p>smxrtfoloo</p>
-                  </b>
-                  <p class="discord-user">smartfoloo</p>
-                  <p>creator and main developer.</p>
-                </div>
-                <div class="credit-card">
-                  <img src="./assets/credits/silvereen.webp" alt="" class="credit-pfp">
-                  <b>
-                    <p>silvereen</p>
-                  </b>
-                  <p class="discord-user">silvereen_</p>
-                  <p>developer. made theme system work.</p>
-                </div>
-                <div class="credit-card">
-                  <img src="./assets/credits/immstella.webp" alt="" class="credit-pfp">
-                  <b>
-                    <p>skye</p>
-                  </b>
-                  <p class="discord-user">imm.stella</p>
-                  <p>designed our wallpapers.</p>
-                </div>
-                <div class="credit-card">
-                  <img src="./assets/credits/molkify.webp" alt="" class="credit-pfp">
-                  <b>
-                    <p>iris 🌸</p>
-                  </b>
-                  <p class="discord-user">molkify</p>
-                  <p>added one game.</p>
-                </div>
-              </div>
+              <div class="cards-container" id="credits-container"></div>
             </div>
           </div>
         </div>
@@ -263,6 +316,11 @@
     </div>
   </div>
 </body>
+<script src="uv/uv.bundle.js" defer></script>
+<script src="uv/uv.config.js" defer></script>
+<script src="uv/register-sw.js" defer></script>
+<script src="uv/search.js" defer></script>
+<script src="uv/proxy.js" defer></script>
 <script src="./js/system.js"></script>
 <script src="./js/themes.js"></script>
 

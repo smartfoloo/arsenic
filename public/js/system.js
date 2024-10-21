@@ -87,9 +87,99 @@ document.addEventListener('DOMContentLoaded', function () {
       setCloak(selectedValue);
     }
   });
+
+  if (localStorage.getItem("searchEngine")) {
+    document.getElementById("searchEngine").value = localStorage.getItem("searchEngine");
+  } else {
+    document.getElementById("searchEngine").value = "google";
+  }
 });
 
+// Particles
+
+let particlesActive = localStorage.getItem('particlesActive') === 'true';
+
+function loadParticles() {
+  particlesJS('particles-js', {
+    particles: {
+      number: {
+        value: 100,
+        density: {
+          enable: true,
+          value_area: 800,
+        },
+      },
+      color: {
+        value: '#daa8f4',
+      },
+      shape: {
+        type: 'circle',
+      },
+      opacity: {
+        value: 0.7,
+      },
+      size: {
+        value: 1.5,
+      },
+      move: {
+        enable: true,
+        direction: 'bottom',
+        speed: 0.5,
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      line_linked: {
+        enable: false,
+      },
+    },
+    interactivity: {
+      detect_on: 'canvas',
+      events: {
+        onhover: {
+          enable: false,
+        },
+        onclick: {
+          enable: false,
+        },
+      },
+    },
+    retina_detect: true,
+  });
+}
+
+function destroyParticles() {
+  const particlesDiv = document.getElementById('particles-js');
+  if (window.pJSDom && window.pJSDom.length > 0) {
+    window.pJSDom[0].pJS.fn.vendors.destroypJS();
+    window.pJSDom = [];
+    particlesDiv.innerHTML = '';
+  }
+}
+
+function updateParticleLocalStorage(status) {
+  localStorage.setItem('particlesActive', status);
+}
+
+document.getElementById('toggle-particles').addEventListener('change', (e) => {
+  particlesActive = e.target.checked;
+  if (particlesActive) {
+    loadParticles();
+  } else {
+    destroyParticles();
+  }
+  updateParticleLocalStorage(particlesActive);
+});
+
+if (particlesActive) {
+  document.getElementById('toggle-particles').checked = true;
+  loadParticles();
+} else {
+  document.getElementById('toggle-particles').checked = false;
+}
+
 // Display time
+
 function displayTime() {
   const now = new Date();
   const hours = now.getHours();
@@ -106,6 +196,7 @@ displayTime();
 setInterval(displayTime, 1000);
 
 // Load games
+
 const gameList = document.getElementById('game-list');
 
 async function loadGames() {
@@ -278,6 +369,35 @@ function refresh() {
   if (gameEmbed) {
     gameEmbed.src += '';
   }
+}
+
+// Proxy 
+
+const searchEngineUrls = {
+  google: "https://www.google.com/search?q=%s",
+  bing: "https://www.bing.com/search?q=%s",
+  duckduckgo: "https://duckduckgo.com/?q=%s",
+  yahoo: "https://search.yahoo.com/search?p=%s"
+};
+
+const searchEngineInput = document.getElementById("uv-search-engine");
+const addressInput = document.getElementById("uv-address");
+
+function updateUvAddress() {
+  const savedSearchEngine = localStorage.getItem("searchEngine");
+
+  if (searchEngineUrls[savedSearchEngine]) {
+    searchEngineInput.value = searchEngineUrls[savedSearchEngine];
+    addressInput.placeholder = `Search ${savedSearchEngine.charAt(0).toUpperCase() + savedSearchEngine.slice(1)} or type a URL`;
+  } else {
+    searchEngineInput.value = searchEngineUrls.google;
+    addressInput.placeholder = "Search Google or type a URL";
+  }
+}
+
+function saveSearchEngine(selectedEngine) {
+  localStorage.setItem('searchEngine', selectedEngine);
+  updateUvAddress()
 }
 
 // Settings page
@@ -462,88 +582,9 @@ function setTheme(theme) {
   localStorage.setItem('theme', theme);
 }
 
-// Particles
+// Credits
 
-let particlesActive = localStorage.getItem('particlesActive') === 'true';
-
-function loadParticles() {
-  particlesJS('particles-js', {
-    particles: {
-      number: {
-        value: 100,
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      color: {
-        value: '#daa8f4',
-      },
-      shape: {
-        type: 'circle',
-      },
-      opacity: {
-        value: 0.7,
-      },
-      size: {
-        value: 1.5,
-      },
-      move: {
-        enable: true,
-        direction: 'bottom',
-        speed: 0.5,
-        random: true,
-        straight: false,
-        out_mode: 'out',
-      },
-      line_linked: {
-        enable: false,
-      },
-    },
-    interactivity: {
-      detect_on: 'canvas',
-      events: {
-        onhover: {
-          enable: false,
-        },
-        onclick: {
-          enable: false,
-        },
-      },
-    },
-    retina_detect: true,
-  });
-}
-
-function destroyParticles() {
-  const particlesDiv = document.getElementById('particles-js');
-  if (window.pJSDom && window.pJSDom.length > 0) {
-    window.pJSDom[0].pJS.fn.vendors.destroypJS();
-    window.pJSDom = [];
-    particlesDiv.innerHTML = '';
-  }
-}
-
-function updateParticleLocalStorage(status) {
-  localStorage.setItem('particlesActive', status);
-}
-
-document.getElementById('toggle-particles').addEventListener('change', (e) => {
-  particlesActive = e.target.checked;
-  if (particlesActive) {
-    loadParticles();
-  } else {
-    destroyParticles();
-  }
-  updateParticleLocalStorage(particlesActive);
-});
-
-if (particlesActive) {
-  document.getElementById('toggle-particles').checked = true;
-  loadParticles();
-} else {
-  document.getElementById('toggle-particles').checked = false;
-}
+const _0x5c36c7 = _0x4905; (function (_0x11fed3, _0x29adf3) { const _0xfe6445 = _0x4905, _0x2752d2 = _0x11fed3(); while (!![]) { try { const _0x40b3a4 = -parseInt(_0xfe6445(0x17c)) / 0x1 * (-parseInt(_0xfe6445(0x190)) / 0x2) + -parseInt(_0xfe6445(0x181)) / 0x3 + parseInt(_0xfe6445(0x182)) / 0x4 + parseInt(_0xfe6445(0x189)) / 0x5 + -parseInt(_0xfe6445(0x17d)) / 0x6 * (-parseInt(_0xfe6445(0x18b)) / 0x7) + -parseInt(_0xfe6445(0x18f)) / 0x8 * (parseInt(_0xfe6445(0x187)) / 0x9) + parseInt(_0xfe6445(0x18d)) / 0xa * (-parseInt(_0xfe6445(0x17a)) / 0xb); if (_0x40b3a4 === _0x29adf3) break; else _0x2752d2['push'](_0x2752d2['shift']()); } catch (_0x4fb83d) { _0x2752d2['push'](_0x2752d2['shift']()); } } }(_0x4664, 0x9202a)); const creditsList = document[_0x5c36c7(0x17e)](_0x5c36c7(0x188)); async function loadCredits() { const _0x150751 = _0x5c36c7; try { const _0x43015f = await fetch(_0x150751(0x18a)), _0x47e6a3 = await _0x43015f[_0x150751(0x180)](); _0x47e6a3[_0x150751(0x17b)](_0xd1b73b => { const _0x4eb457 = _0x150751, _0x13b1bf = '\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22credit-card\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22./assets/credits/' + _0xd1b73b[_0x4eb457(0x184)] + _0x4eb457(0x185) + _0xd1b73b['name'] + _0x4eb457(0x179) + _0xd1b73b[_0x4eb457(0x184)] + _0x4eb457(0x178) + _0xd1b73b[_0x4eb457(0x191)] + _0x4eb457(0x186); creditsList[_0x4eb457(0x18e)] += _0x13b1bf; }), console[_0x150751(0x183)](_0x150751(0x17f)); } catch (_0x8af039) { console['error'](_0x150751(0x18c), _0x8af039); } } function _0x4905(_0x3f8123, _0x51cccf) { const _0x46646d = _0x4664(); return _0x4905 = function (_0x490515, _0x281e90) { _0x490515 = _0x490515 - 0x178; let _0x437ea5 = _0x46646d[_0x490515]; return _0x437ea5; }, _0x4905(_0x3f8123, _0x51cccf); } function _0x4664() { const _0x27621b = ['json', '2532525vKBRLh', '1075380UWKkdE', 'log', 'user', '.webp\x22\x20alt=\x22\x22\x20class=\x22credit-pfp\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<b>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>', '</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20', '441YwIIHI', 'credits-container', '4989685aVyEBI', './assets/credits/data.json', '2534PVuuLy', 'Error\x20loading\x20credits:', '16649060PeKxwN', 'innerHTML', '10064PSwcAl', '5162MRnjUx', 'desc', '</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p>', '</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</b>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p\x20class=\x22discord-user\x22>', '11IfcfHX', 'forEach', '417NzgaIE', '13686kqoVbw', 'getElementById', 'hello']; _0x4664 = function () { return _0x27621b; }; return _0x4664(); } loadCredits();
 
 // Load animation.js after
 

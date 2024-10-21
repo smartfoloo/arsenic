@@ -10,6 +10,7 @@
     "start": "node src/index.js"
   },
   "dependencies": {
+    "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
     "@tomphttp/bare-server-node": "2.0.2",
     "express": "^4.19.2"
   }

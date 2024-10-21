@@ -1,6 +1,7 @@
 const { createBareServer } = require("@tomphttp/bare-server-node");
 const express = require("express");
 const { createServer } = require("node:http");
+const { uvPath } = require("@titaniumnetwork-dev/ultraviolet");
 const { hostname } = require("node:os");
 const { join } = require("path");
 
@@ -8,6 +9,7 @@ const bare = createBareServer("/bare/");
 const app = express();
 
 app.use(express.static("./public"));
+app.use("/uv/", express.static(uvPath));
 
 app.get('*', (req, res) => {
   res.status(404).sendFile(join(__dirname, "public", "404.html"));

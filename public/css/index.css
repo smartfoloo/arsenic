@@ -78,6 +78,7 @@ h6 {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  overflow: hidden;
   z-index: 1;
 }
 
@@ -107,6 +108,11 @@ nav .logo img {
 
 nav .logo .logo-name {
   color: var(--text);
+}
+
+nav .tabs hr {
+  border: 1px solid var(--shadow);
+  border-radius: 1px;
 }
 
 .container {
@@ -152,6 +158,11 @@ nav .logo .logo-name {
 
 .tab-btn p {
   margin: 10px 0px;
+}
+
+.tab-btn img {
+  height: 16px;
+  width: 16px;
 }
 
 .left {
@@ -233,11 +244,28 @@ h2 {
   font-size: 20px;
 }
 
+#home-page .buttons {
+  margin: 25px 0px;
+  gap: 20px;
+}
+
+#home-page button {
+  font-weight: 700;
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+
+#home-page button:hover {
+  transform: scale(1.05);
+}
+
 .page {
   display: none;
 }
 
 #home-page,
+#game-page,
+#proxy-page,
 #settings-page {
   display: block;
   padding: 100px;
@@ -377,6 +405,56 @@ select:hover {
 
 .game-btn:active {
   transform: scale(0.95);
+}
+
+/* proxy */
+
+#uv-form {
+  padding: 11px 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 10px;
+  background: var(--background2);
+  color: var(--text);
+  border: none;
+  font-family: 'Inter';
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  color: var(--shadow);
+  margin: 50px 0px;
+}
+
+#uv-form i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+#uv-address {
+  background: transparent;
+  border-radius: 0px;
+  padding: 0px;
+  line-height: 1;
+}
+
+.shortcuts {
+  display: flex;
+  gap: 20px;
+}
+
+.page .shortcut {
+  display: flex;
+  padding: 15px;
+  gap: 20px;
+  flex-direction: column;
+  font-size: 14px;
+  width: calc(12.5% - 17.5px);
+}
+
+.shortcut img {
+  height: 30px;
+  width: 30px;
+  border-radius: 10px;
 }
 
 /* settings */
