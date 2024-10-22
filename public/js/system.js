@@ -99,6 +99,24 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     document.getElementById("proxy-backend").value = "ultraviolet";
   }
+
+  const proxyBackend = localStorage.getItem("proxy");
+
+  if (proxyBackend === "dynamic") {
+    document.getElementById('proxy-status').innerHTML = `
+      <p>
+        Using
+        <b style="color: var(--theme);">Dynamic</b>
+      </p>
+    `
+  } else {
+    document.getElementById('proxy-status').innerHTML = `
+      <p>
+        Using
+        <b style="color: var(--theme);">Ultraviolet</b>
+      </p>
+    `
+  }
 });
 
 // Particles
@@ -406,8 +424,29 @@ function saveSearchEngine(selectedEngine) {
   updateUvAddress()
 }
 
+function updateProxyStatus() {
+  const proxyBackend = localStorage.getItem("proxy");
+  
+  if (proxyBackend === "dynamic") {
+    document.getElementById('proxy-status').innerHTML = `
+      <p>
+        Using
+        <b style="color: var(--theme);">Dynamic</b>
+      </p>
+    `;
+  } else {
+    document.getElementById('proxy-status').innerHTML = `
+      <p>
+        Using
+        <b style="color: var(--theme);">Ultraviolet</b>
+      </p>
+    `;
+  }
+}
+
 function setProxy(proxy) {
   localStorage.setItem('proxy', proxy);
+  updateProxyStatus();
 }
 
 // Settings page

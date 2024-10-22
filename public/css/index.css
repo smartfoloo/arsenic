@@ -457,6 +457,15 @@ select:hover {
   border-radius: 10px;
 }
 
+#proxy-status {
+  background: var(--background2);
+  margin: 40px 0px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  width: fit-content;
+}
+
 /* settings */
 
 .settings-container {

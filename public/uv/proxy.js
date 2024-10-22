@@ -147,7 +147,7 @@ function toggleEruda(frameId) {
 
 */
 
-function openUV(url) {
+function openProxyPage(url) {
   registerSW()
     .then(() => {
       const proxyTabId = url.replace(/\s+/g, '-').toLowerCase();
@@ -180,7 +180,7 @@ function openUV(url) {
       tabsContainer.appendChild(newTab);
 
       const newEmbed = document.createElement('iframe');
-      newEmbed.src = "/service/uv/" + __uv$config.encodeUrl(url);
+      newEmbed.src = getProxyUrl(url);
       newEmbed.id = `${proxyTabId}-embed`;
       newEmbed.classList.add('game-embed');
       newEmbed.style.display = 'none';
