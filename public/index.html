@@ -265,6 +265,16 @@
 
           <div id="proxy" class="tab-content">
             <div class="setting-card">
+              <h2>Proxy Backend</h2>
+              <p>Changing the proxy backend will make some sites faster but some may be slower. Ultraviolet is used by default.</p>
+              <div class="buttons">
+                <select id="proxy-backend" title="proxy-backend" onchange="setProxy(this.value)">
+                  <option value="ultraviolet">Ultraviolet</option>
+                  <option value="dynamic">Dynamic</option>
+                </select>
+              </div>
+            </div>
+            <div class="setting-card">
               <h2>Search Engine</h2>
               <p>Choose your search engine for our proxy.</p>
               <div class="buttons">
@@ -318,10 +328,11 @@
 </body>
 <script src="uv/uv.bundle.js" defer></script>
 <script src="uv/uv.config.js" defer></script>
-<script src="uv/register-sw.js" defer></script>
+<script src="dynamic/dynamic.worker.js" defer></script>
+<script src="dynamic/dynamic.config.js" defer></script>
 <script src="uv/search.js" defer></script>
 <script src="uv/proxy.js" defer></script>
 <script src="./js/system.js"></script>
-<script src="./js/themes.js"></script>
+<script src="/register-sw.js" defer></script>
 
 </html>

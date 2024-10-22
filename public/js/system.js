@@ -93,6 +93,12 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     document.getElementById("searchEngine").value = "google";
   }
+
+  if (localStorage.getItem("proxy")) {
+    document.getElementById("proxy-backend").value = localStorage.getItem("proxy");
+  } else {
+    document.getElementById("proxy-backend").value = "ultraviolet";
+  }
 });
 
 // Particles
@@ -398,6 +404,10 @@ function updateUvAddress() {
 function saveSearchEngine(selectedEngine) {
   localStorage.setItem('searchEngine', selectedEngine);
   updateUvAddress()
+}
+
+function setProxy(proxy) {
+  localStorage.setItem('proxy', proxy);
 }
 
 // Settings page

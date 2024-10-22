@@ -38,6 +38,17 @@ class UrlInfoHelper {
 
 const helper = new UrlInfoHelper();
 
+function getProxyUrl(url) {
+  const proxyType = localStorage.getItem('proxy');
+
+  if (proxyType === "dynamic") {
+    return "/service/dynamic/" + __uv$config.encodeUrl(url);
+  } else {
+    return "/service/uv/" + __uv$config.encodeUrl(url);
+  }
+  
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -80,7 +91,7 @@ form.addEventListener("submit", async (event) => {
   tabsContainer.appendChild(newTab);
 
   const newEmbed = document.createElement('iframe');
-  newEmbed.src = "/uv/service/" + __uv$config.encodeUrl(url);
+  newEmbed.src = getProxyUrl(url);
   newEmbed.id = `${proxyTabId}-embed`;
   newEmbed.classList.add('game-embed');
   newEmbed.style.display = 'none';
@@ -133,6 +144,7 @@ function toggleEruda(frameId) {
     };
   }
 }
+
 */
 
 function openUV(url) {
@@ -168,7 +180,7 @@ function openUV(url) {
       tabsContainer.appendChild(newTab);
 
       const newEmbed = document.createElement('iframe');
-      newEmbed.src = "/uv/service/" + __uv$config.encodeUrl(url);
+      newEmbed.src = "/service/uv/" + __uv$config.encodeUrl(url);
       newEmbed.id = `${proxyTabId}-embed`;
       newEmbed.classList.add('game-embed');
       newEmbed.style.display = 'none';
