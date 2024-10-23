@@ -158,11 +158,13 @@ nav .tabs hr {
 
 .tab-btn p {
   margin: 10px 0px;
+  font-weight: 600;
 }
 
 .tab-btn img {
   height: 16px;
   width: 16px;
+  margin: 10.75px 0px;
 }
 
 .left {
@@ -249,14 +251,34 @@ h2 {
   gap: 20px;
 }
 
-#home-page button {
-  font-weight: 700;
-  padding: 10px 15px;
-  border-radius: 15px;
+.page .start {
+  background: var(--theme);
+  border-radius: 100px;
+  box-shadow: var(--shadow) 0 -25px 18px -14px inset, var(--shadow) 0 1px 2px, var(--shadow) 0 2px 4px, var(--shadow) 0 4px 8px, var(--shadow) 0 8px 16px, var(--shadow) 0 16px 32px;
+  color: var(--background);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 11px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  font-weight: 600;
 }
 
-#home-page button:hover {
-  transform: scale(1.05);
+.page .start:hover {
+  transform: scale(1.05) rotate(-1deg);
+  background: var(--theme);
+}
+
+.page .start:active {
+  transform: scale(1);
 }
 
 .page {
@@ -480,25 +502,13 @@ select:hover {
   gap: 20px;
   padding: 15px;
   background: var(--background2);
-  border-radius: 20px;
+  border-radius: 40px;
 }
 
 .tab-link {
-  padding: 11px 10px;
-  border-radius: 10px;
-  background: var(--background2);
-  color: var(--text);
-  font-family: 'Inter';
-  font-size: 16px;
+  border-radius: 100px !important;
   font-weight: 700;
-  outline: none;
-  border: none;
   width: 100%;
-  cursor: pointer;
-  transition: 250ms;
-  display: flex;
-  align-items: center;
-  gap: 5px;
   justify-content: center;
 }
 
@@ -617,6 +627,63 @@ input:checked+.slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+}
+
+.page .dropdown-button {
+  width: 100%;
+  text-align: left;
+  justify-content: space-between;
+  border: 1px solid var(--shadow);
+  border-radius: 15px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: var(--background2);
+  border: 1px solid var(--shadow);
+  z-index: 1;
+  width: 100%;
+  max-height: 200px;
+  border-radius: 15px;
+  overflow-y: auto;
+  padding: 5px;
+  margin: 5px 0px;;
+  list-style: none;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.dropdown-menu li {
+  padding: 5px 10px;
+  font-size: 16px;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu li:hover {
+  background-color: var(--background3);
+}
+
+.dropdown-selected {
+  font-weight: bold;
+  color: var
+}
+
+.dropdown.open .dropdown-menu {
+  display: block;
 }
 
 .credit-card {

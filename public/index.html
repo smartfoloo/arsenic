@@ -80,18 +80,15 @@
     <div class="main-content" id="main-content">
       <input id="search-address" type="text" placeholder="Search Google or type a URL" style="display: none;"/>
       <div class="page" id="home-page">
-        <h1>Welcome</h1>
+        <h1>Welcome!</h1>
         <p>
           <div id="clock"></div>
         </p>
+        <p style="margin: 15px 0px; font-weight: 600;;">an open-source, privacy focused, feature rich, web proxy built in Node.js.</p>
         <div class="buttons">
-          <button onclick="openPage('game-page')">
-            <i class="bi bi-controller"></i>
-            Play Games
-          </button>
-          <button onclick="openPage('proxy-page')"  style="background: var(--theme); color: var(--background);">
-            <i class="bi bi-server"></i>
-            Browse the web
+          <button class="start" role="button" onclick="openPage('proxy-page')">
+            <i class="bi bi-rocket-takeoff"></i>
+            Start Your Journey
           </button>
         </div>
       </div>
@@ -165,7 +162,12 @@
             <p>GitHub</p>
           </button>
         </div>
-        <div id="proxy-status"></div>
+        <div id="proxy-status">
+          <p>
+            Using
+            <b style="color: var(--theme);">Ultraviolet</b>
+          </p>
+        </div>
       </div>
       <div class="page" id="settings-page">
         <h1>Settings</h1>
@@ -251,15 +253,22 @@
             <div class="setting-card">
               <h2>Tab Cloaking</h2>
               <p>Disguise your tabs as something educational!</p>
-              <div class="buttons">
-                <select id="tab-cloak">
-                  <option value="default">Default</option>
-                  <option value="canvas">Canvas</option>
-                  <option value="google-classroom">Google Classroom</option>
-                  <option value="google">Google</option>
-                  <option value="google-classroom">Google Drive</option>
-                  <option value="khan-academy">Khan Academy</option>
-                </select>
+              <div class="dropdown" id="tab-cloak">
+                <button class="dropdown-button">
+                  <span class="dropdown-selected">Default</span>
+                  <i class="bi bi-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu"></ul>
+                <!--
+                <ul class="dropdown-menu">
+                  <li value="default">Default</li>
+                  <li value="canvas">Canvas</li>
+                  <li value="google-classroom">Google Classroom</li>
+                  <li value="google">Google</li>
+                  <li value="google-classroom">Google Drive</li>
+                  <li value="khan-academy">Khan Academy</li>
+                </ul>
+                -->
               </div>
             </div>
           </div>
@@ -268,23 +277,37 @@
             <div class="setting-card">
               <h2>Proxy Backend</h2>
               <p>Changing the proxy backend will make some sites faster but some may be slower. Ultraviolet is used by default.</p>
-              <div class="buttons">
-                <select id="proxy-backend" title="proxy-backend" onchange="setProxy(this.value)">
-                  <option value="ultraviolet">Ultraviolet</option>
-                  <option value="dynamic">Dynamic</option>
-                </select>
+              <div class="dropdown" id="proxy-backend">
+                <button class="dropdown-button">
+                  <span class="dropdown-selected">Ultraviolet</span>
+                  <i class="bi bi-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu"></ul>
+                <!--
+                <ul class="dropdown-menu">
+                  <li value="ultraviolet">Ultraviolet</li>
+                  <li value="dynamic">Dynamic</li>
+                </ul>
+                -->
               </div>
             </div>
             <div class="setting-card">
               <h2>Search Engine</h2>
               <p>Choose your search engine for our proxy.</p>
-              <div class="buttons">
-                <select id="searchEngine" title="search-engines" onchange="saveSearchEngine(this.value)">
-                  <option value="google">Google</option>
-                  <option value="bing">Bing</option>
-                  <option value="duckduckgo">DuckDuckGo</option>
-                  <option value="yahoo">Yahoo</option>
-                </select>
+              <div class="dropdown" id="search-engine">
+                <button class="dropdown-button">
+                  <span class="dropdown-selected">Google</span>
+                  <i class="bi bi-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu"></ul>
+                <!--
+                <ul class="dropdown-menu">
+                  <li value="google">Google</li>
+                  <li value="bing">Bing</li>
+                  <li value="duckduckgo">DuckDuckGo</li>
+                  <li value="yahoo">Yahoo</li>
+                </ul>
+                -->
               </div>
             </div>
           </div>

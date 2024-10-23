@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('link[rel="icon"]').href = tabData.icon;
   }
 
-  const selectElement = document.getElementById('tab-cloak');
+  // const selectElement = document.getElementById('tab-cloak');
 
   const savedTab = tabData.title;
 
@@ -79,28 +79,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  selectElement.addEventListener('change', function () {
+  document.querySelector('.tab-link').click();
+
+  /* selectElement.addEventListener('change', function () {
     const selectedValue = this.value;
     if (selectedValue === 'default') {
       resetTab();
     } else {
       setCloak(selectedValue);
     }
-  });
+  }); */
 
-  if (localStorage.getItem("searchEngine")) {
-    document.getElementById("searchEngine").value = localStorage.getItem("searchEngine");
-  } else {
-    document.getElementById("searchEngine").value = "google";
-  }
-
-  if (localStorage.getItem("proxy")) {
-    document.getElementById("proxy-backend").value = localStorage.getItem("proxy");
-  } else {
-    document.getElementById("proxy-backend").value = "ultraviolet";
-  }
-
-  const proxyBackend = localStorage.getItem("proxy");
+  const proxyBackend = localStorage.getItem("proxy-backend") || 'ultraviolet';
 
   if (proxyBackend === "dynamic") {
     document.getElementById('proxy-status').innerHTML = `
@@ -117,6 +107,17 @@ document.addEventListener('DOMContentLoaded', function () {
       </p>
     `
   }
+
+  const aboutblankEnabled = localStorage.getItem('aboutblankEnabled');
+
+  if (aboutblankEnabled === 'true' || aboutblankEnabled === '' || aboutblankEnabled === null) {
+    document.getElementById('enableAboutBlank').disabled = true;
+    document.getElementById('disableAboutBlank').disabled = false;
+  } else {
+    document.getElementById('enableAboutBlank').disabled = false;
+    document.getElementById('disableAboutBlank').disabled = true;
+  }
+
 });
 
 // Particles
@@ -408,7 +409,7 @@ const searchEngineInput = document.getElementById("uv-search-engine");
 const addressInput = document.getElementById("uv-address");
 
 function updateUvAddress() {
-  const savedSearchEngine = localStorage.getItem("searchEngine");
+  const savedSearchEngine = localStorage.getItem("search-engine");
 
   if (searchEngineUrls[savedSearchEngine]) {
     searchEngineInput.value = searchEngineUrls[savedSearchEngine];
@@ -419,14 +420,9 @@ function updateUvAddress() {
   }
 }
 
-function saveSearchEngine(selectedEngine) {
-  localStorage.setItem('searchEngine', selectedEngine);
-  updateUvAddress()
-}
-
 function updateProxyStatus() {
-  const proxyBackend = localStorage.getItem("proxy");
-  
+  const proxyBackend = localStorage.getItem("proxy-backend") || 'ultraviolet';
+
   if (proxyBackend === "dynamic") {
     document.getElementById('proxy-status').innerHTML = `
       <p>
@@ -444,9 +440,157 @@ function updateProxyStatus() {
   }
 }
 
-function setProxy(proxy) {
-  localStorage.setItem('proxy', proxy);
+// Dropdown Handling
+
+/*
+
+function initializeDropdown(dropdownId, localStorageKey, defaultValue, callback) {
+  const dropdown = document.getElementById(dropdownId);
+  const button = dropdown.querySelector('.dropdown-button');
+  const menu = dropdown.querySelector('.dropdown-menu');
+  const selected = dropdown.querySelector('.dropdown-selected');
+
+  const savedValue = localStorage.getItem(localStorageKey) || defaultValue;
+  selected.textContent = savedValue;
+
+  button.addEventListener('click', () => {
+
+    document.querySelectorAll('.dropdown-menu').forEach(menuItem => {
+      if (menuItem !== menu) {
+        menuItem.style.display = 'none';
+      }
+    });
+
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+  menu.addEventListener('click', (event) => {
+    if (event.target.tagName === 'LI') {
+      const selectedValue = event.target.getAttribute('value') || event.target.textContent;
+      selected.textContent = selectedValue;
+      localStorage.setItem(localStorageKey, selectedValue);
+      callback(selectedValue);
+      menu.style.display = 'none';
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!dropdown.contains(event.target)) {
+      menu.style.display = 'none';
+    }
+  });
+}
+
+initializeDropdown('proxy-backend', 'proxy', 'ultraviolet', setProxy);
+initializeDropdown('search-engine', 'searchEngine', 'google', saveSearchEngine);
+initializeDropdown('tab-cloak', 'tab-name', 'default', saveTabCloak);
+
+
+function setProxy(value) {
+  console.log(`Selected proxy: ${value}`);
   updateProxyStatus();
+}
+
+function saveSearchEngine(value) {
+  console.log(`Selected search engine: ${value}`);
+  updateUvAddress();
+}
+
+function saveTabCloak(value) {
+  if (value === 'default') {
+    resetTab();
+  } else {
+    setCloak(value);
+  }
+}
+
+*/
+
+async function loadDropdownOptions() {
+  const response = await fetch('/settings.json');
+  return await response.json();
+}
+
+function createDropdownOptions(menu, options) {
+  options.forEach(option => {
+    const li = document.createElement('li');
+    li.textContent = option.name;
+    li.setAttribute('value', option.value);
+    menu.appendChild(li);
+  });
+}
+
+function initializeDropdown(dropdownId, localStorageKey, defaultValue, callback, options) {
+  const dropdown = document.getElementById(dropdownId);
+  const button = dropdown.querySelector('.dropdown-button');
+  const menu = dropdown.querySelector('.dropdown-menu');
+  const selected = dropdown.querySelector('.dropdown-selected');
+
+  const savedValue = localStorage.getItem(localStorageKey) || defaultValue;
+  const selectedOption = options.find(option => option.value === savedValue) || {};
+  selected.textContent = selectedOption.name || savedValue;
+
+  button.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+  menu.addEventListener('click', (event) => {
+    if (event.target.tagName === 'LI') {
+      const selectedValue = event.target.getAttribute('value');
+      const selectedName = event.target.textContent;
+      selected.textContent = selectedName;
+      localStorage.setItem(localStorageKey, selectedValue);
+      callback(selectedValue);
+      menu.style.display = 'none';
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!dropdown.contains(event.target)) {
+      menu.style.display = 'none';
+    }
+  });
+}
+
+async function initializeAllDropdowns() {
+  const options = await loadDropdownOptions();
+  for (const dropdownId in options) {
+    const dropdownOptions = options[dropdownId];
+    let callback;
+
+    if (dropdownId === 'proxy-backend') {
+      callback = setProxy;
+    } else if (dropdownId === 'search-engine') {
+      callback = saveSearchEngine;
+    } else if (dropdownId === 'tab-cloak') {
+      callback = saveTabCloak;
+    }
+
+    initializeDropdown(dropdownId, dropdownId, dropdownOptions[0].value, callback, dropdownOptions);
+
+    const menu = document.getElementById(dropdownId).querySelector('.dropdown-menu');
+    createDropdownOptions(menu, dropdownOptions);
+  }
+}
+
+initializeAllDropdowns();
+
+function setProxy(value) {
+  console.log(`Selected proxy: ${value}`);
+  updateProxyStatus();
+}
+
+function saveSearchEngine(value) {
+  console.log(`Selected search engine: ${value}`);
+  updateUvAddress();
+}
+
+function saveTabCloak(value) {
+  if (value === 'default') {
+    resetTab();
+  } else {
+    setCloak(value);
+  }
 }
 
 // Settings page
@@ -466,10 +610,6 @@ function openTab(evt, tabName) {
   document.getElementById(tabName).style.display = 'flex';
   evt.currentTarget.classList.add('tab-active');
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelector('.tab-link').click();
-});
 
 // Wallpapers
 
@@ -501,16 +641,6 @@ function enableAboutBlank() {
 function disableAboutBlank() {
   localStorage.setItem('aboutblankEnabled', 'false');
   location.reload();
-}
-
-const aboutblankEnabled = localStorage.getItem('aboutblankEnabled');
-
-if (aboutblankEnabled === 'true' || aboutblankEnabled === '' || aboutblankEnabled === null) {
-  document.getElementById('enableAboutBlank').disabled = true;
-  document.getElementById('disableAboutBlank').disabled = false;
-} else {
-  document.getElementById('enableAboutBlank').disabled = false;
-  document.getElementById('disableAboutBlank').disabled = true;
 }
 
 // Tab cloak

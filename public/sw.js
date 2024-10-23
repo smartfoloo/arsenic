@@ -16,4 +16,8 @@ self.addEventListener('fetch', event => {
     event.respondWith(uv.fetch(event));
     console.log("Tried to fetch UV");
   }
+  if (event.request.url.startsWith(location.origin + '/service/aero/')) {
+    event.respondWith(uv.fetch(event));
+    console.log("Tried to fetch Aero");
+  }
 });

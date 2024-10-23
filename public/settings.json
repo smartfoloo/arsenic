@@ -1,0 +1,56 @@
+{
+  "proxy-backend": [
+    {
+      "name": "Ultraviolet",
+      "value": "ultraviolet"
+    },
+    {
+      "name": "Dynamic",
+      "value": "dynamic"
+    }
+  ],
+  "search-engine": [
+    {
+      "name": "Google",
+      "value": "google"
+    },
+    {
+      "name": "Bing",
+      "value": "bing"
+    },
+    {
+      "name": "Yahoo",
+      "value": "yahoo"
+    },
+    {
+      "name": "DuckDuckGo",
+      "value": "duckduckgo"
+    }
+  ],
+  "tab-cloak": [
+    {
+      "name": "Default",
+      "value": "default"
+    },
+    {
+      "name": "Canvas",
+      "value": "canvas"
+    },
+    {
+      "name": "Google Classroom",
+      "value": "google-classroom"
+    },
+    {
+      "name": "Google",
+      "value": "google"
+    },
+    {
+      "name": "Google Drive",
+      "value": "google-drive"
+    },
+    {
+      "name": "Khan Academy",
+      "value": "khan-academy"
+    }
+  ]
+}

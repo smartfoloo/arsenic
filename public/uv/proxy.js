@@ -39,10 +39,12 @@ class UrlInfoHelper {
 const helper = new UrlInfoHelper();
 
 function getProxyUrl(url) {
-  const proxyType = localStorage.getItem('proxy');
+  const proxyType = localStorage.getItem('proxy-backend');
 
   if (proxyType === "dynamic") {
     return "/service/dynamic/" + __uv$config.encodeUrl(url);
+  } else if (proxyType === "aero") {
+    return "/aero/" + __uv$config.encodeUrl(url);
   } else {
     return "/service/uv/" + __uv$config.encodeUrl(url);
   }
