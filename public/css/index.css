@@ -28,6 +28,11 @@ a {
   color: var(--text);
 }
 
+svg {
+  height: 16px;
+  width: 16px;
+}
+
 h1 {
   font-size: 56px;
   font-family: 'Montserrat';
@@ -222,6 +227,11 @@ nav .tabs hr {
 
 .action-btn:active {
   transform: scale(0.9);
+}
+
+.action-btn svg {
+  height: 20px;
+  width: 20px;
 }
 
 .main-content {
@@ -452,6 +462,11 @@ select:hover {
   line-height: 1;
 }
 
+#uv-form svg {
+  width: 18px;
+  height: 18px;
+}
+
 #uv-address {
   background: transparent;
   border-radius: 0px;
@@ -524,8 +539,9 @@ select:hover {
   background: var(--background4) !important;
 }
 
-.tab-link i {
-  font-size: 18px;
+.tab-link svg {
+  height: 18px;
+  width: 18px;
 }
 
 .tab-content {

@@ -42,21 +42,21 @@
         <div class="tabs">
           <button class="tab-btn" id="home-tab" onclick="openPage('home-page')">
             <div class="left">
-              <i class="bi bi-house"></i>
+              <i data-lucide="house"></i>
               <p>Home</p>
               <p class="category"></p>
             </div>
           </button>
           <button class="tab-btn" id="game-tab" onclick="openPage('game-page')">
             <div class="left">
-              <i class="bi bi-controller"></i>
+              <i data-lucide="gamepad-2"></i>
               <p>Games</p>
               <p class="category"></p>
             </div>
           </button>
           <button class="tab-btn" id="game-tab" onclick="openPage('proxy-page')">
             <div class="left">
-              <i class="bi bi-server"></i>
+              <i data-lucide="server"></i>
               <p>Proxy</p>
               <p class="category"></p>
             </div>
@@ -67,13 +67,13 @@
       </div>
       <div class="bottom">
         <button class="action-btn" onclick="openPage('settings-page')">
-          <i class="bi bi-gear"></i>
+          <i data-lucide="settings"></i>
         </button>
         <button class="action-btn" onclick="refresh()">
-          <i class="bi bi-arrow-clockwise"></i>
+          <i data-lucide="rotate-cw"></i>
         </button>
         <button class="action-btn" onclick="fullscreen()">
-          <i class="bi bi-fullscreen"></i>
+          <i data-lucide="maximize"></i>
         </button>
       </div>
     </nav>
@@ -87,7 +87,7 @@
         <p style="margin: 15px 0px; font-weight: 600;;">an open-source, privacy focused, feature rich, web proxy built in Node.js.</p>
         <div class="buttons">
           <button class="start" role="button" onclick="openPage('proxy-page')">
-            <i class="bi bi-rocket-takeoff"></i>
+            <i data-lucide="rocket"></i>
             Start Your Journey
           </button>
         </div>
@@ -120,7 +120,7 @@
       <div class="page" id="proxy-page">
         <h1>Proxy</h1>
         <form id="uv-form">
-          <i class="bi bi-search"></i>
+          <i data-lucide="search"></i>
           <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
           <input id="uv-address" type="text" placeholder="Search Google or type a URL" />
         </form>
@@ -174,19 +174,19 @@
         <div class="settings-container">
           <div class="settings-tabs">
             <button class="tab-link" onclick="openTab(event, 'appearance')">
-              <i class="bi bi-palette"></i>
+              <i data-lucide="palette"></i>
               Appearance
             </button>
             <button class="tab-link" onclick="openTab(event, 'cloaking')">
-              <i class="bi bi-incognito"></i>
+              <i data-lucide="eye-off"></i>
               Cloaking
             </button>
             <button class="tab-link" onclick="openTab(event, 'proxy')">
-              <i class="bi bi-server"></i>
+              <i data-lucide="server"></i>
               Proxy
             </button>
             <button class="tab-link" onclick="openTab(event, 'misc')">
-              <i class="bi bi-info-circle"></i>
+              <i data-lucide="info"></i>
               Misc
             </button>
           </div>
@@ -256,19 +256,9 @@
               <div class="dropdown" id="tab-cloak">
                 <button class="dropdown-button">
                   <span class="dropdown-selected">Default</span>
-                  <i class="bi bi-caret-down"></i>
+                  <i data-lucide="chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu"></ul>
-                <!--
-                <ul class="dropdown-menu">
-                  <li value="default">Default</li>
-                  <li value="canvas">Canvas</li>
-                  <li value="google-classroom">Google Classroom</li>
-                  <li value="google">Google</li>
-                  <li value="google-classroom">Google Drive</li>
-                  <li value="khan-academy">Khan Academy</li>
-                </ul>
-                -->
               </div>
             </div>
           </div>
@@ -280,15 +270,9 @@
               <div class="dropdown" id="proxy-backend">
                 <button class="dropdown-button">
                   <span class="dropdown-selected">Ultraviolet</span>
-                  <i class="bi bi-caret-down"></i>
+                  <i data-lucide="chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu"></ul>
-                <!--
-                <ul class="dropdown-menu">
-                  <li value="ultraviolet">Ultraviolet</li>
-                  <li value="dynamic">Dynamic</li>
-                </ul>
-                -->
               </div>
             </div>
             <div class="setting-card">
@@ -297,32 +281,30 @@
               <div class="dropdown" id="search-engine">
                 <button class="dropdown-button">
                   <span class="dropdown-selected">Google</span>
-                  <i class="bi bi-caret-down"></i>
+                  <i data-lucide="chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu"></ul>
-                <!--
-                <ul class="dropdown-menu">
-                  <li value="google">Google</li>
-                  <li value="bing">Bing</li>
-                  <li value="duckduckgo">DuckDuckGo</li>
-                  <li value="yahoo">Yahoo</li>
-                </ul>
-                -->
               </div>
             </div>
           </div>
 
           <div id="misc" class="tab-content">
             <div class="setting-card">
+              <h2>
+                Credits
+              </h2>
+              <div class="cards-container" id="credits-container"></div>
+            </div>
+            <div class="setting-card">
               <h2>Cookies</h2>
               <p>This allows you to export and import data, which means you can save progress across different links!</p>
               <div class="buttons">
                 <button id="downloadSave">
-                  <i class="bi bi-download"></i>
+                  <i data-lucide="download"></i>
                   Download Cookie
                 </button>
                 <button id="upload" onclick="uploadMainSave()">
-                  <i class="bi bi-upload"></i>
+                  <i data-lucide="download"></i>
                   Upload Cookie
                 </button>
                 <input type="file" class="hiddenUpload" style="display:none;" />
@@ -332,16 +314,20 @@
               <h2>Status</h2>
               <a href="https://arsenic.betteruptime.com/" target="_blank">
                 <button>
-                  <i class="bi bi-box-arrow-up-right"></i>
+                  <i data-lucide="external-link"></i>
                   Open
                 </button>
               </a>
             </div>
             <div class="setting-card">
-              <h2>
-                Credits
-              </h2>
-              <div class="cards-container" id="credits-container"></div>
+              <h2>Discord</h2>
+              <p>Join our discord server for more links and updates!</p>
+              <a href="https://discord.gg/VA2JXq52j4" target="_blank">
+                <button>
+                  <i data-lucide="external-link"></i>
+                  Open
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -350,6 +336,10 @@
     </div>
   </div>
 </body>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
 <script src="uv/uv.bundle.js" defer></script>
 <script src="uv/uv.config.js" defer></script>
 <script src="dynamic/dynamic.worker.js" defer></script>
