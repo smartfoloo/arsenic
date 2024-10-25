@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  --background: #181926;
-  --background2: #24273a;
-  --background3: #363a4f;
-  --background4: #494d64;
-  --theme: rgb(138, 173, 244);
-  --shadow: rgba(138, 173, 244, 0.5);
-  --text: #cad3f5;
+  --background: #1A1A1A;
+  --background2: #2B2B2B;
+  --background3: #3C3C3C;
+  --background4: #4D4D4D;
+  --theme: rgb(230, 126, 34);
+  --shadow: #1E6F4A;
+  --text: #CCCCCC;
 }
 
 * {
@@ -172,6 +172,10 @@ nav .tabs hr {
   margin: 10.75px 0px;
 }
 
+.tab-btn svg {
+  margin: 10px 0px;
+}
+
 .left {
   display: flex;
   gap: 10px;
@@ -238,7 +242,7 @@ nav .tabs hr {
   flex-grow: 1;
   margin: 15px;
   border-radius: 15px;
-  background-image: url(/assets/blue.png);
+  background-image: url(/assets/orange.png);
   background-repeat: no-repeat;
   background-size: cover;
   width: calc(100vw - 30px);
@@ -264,7 +268,7 @@ h2 {
 .page .start {
   background: var(--theme);
   border-radius: 100px;
-  box-shadow: var(--shadow) 0 -25px 18px -14px inset, var(--shadow) 0 1px 2px, var(--shadow) 0 2px 4px, var(--shadow) 0 4px 8px, var(--shadow) 0 8px 16px, var(--shadow) 0 16px 32px;
+  box-shadow: var(--theme) 0 -25px 18px -14px inset, var(--shadow) 0 1px 2px, var(--shadow) 0 2px 4px, var(--shadow) 0 4px 8px, var(--shadow) 0 8px 16px, var(--shadow) 0 16px 32px;
   color: var(--background);
   cursor: pointer;
   display: flex;
@@ -477,6 +481,7 @@ select:hover {
 .shortcuts {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .page .shortcut {
@@ -747,6 +752,10 @@ input:checked+.slider:before {
   .credit-card {
     width: calc(50% - 15px);
   }
+
+  .page .shortcut {
+    width: calc(16.6667% - 16.6667px)
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -787,5 +796,9 @@ input:checked+.slider:before {
 
   .credit-card {
     width: 100%;
+  }
+
+  .page .shortcut {
+    width: calc(25% - 15px)
   }
 }

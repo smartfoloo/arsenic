@@ -1,3 +1,13 @@
+body[theme="halloween"] {
+  --background: #1A1A1A;
+  --background2: #2B2B2B;
+  --background3: #3C3C3C;
+  --background4: #4D4D4D;
+  --theme: rgb(230, 126, 34);
+  --shadow: #1E6F4A;
+  --text: #CCCCCC;
+}
+
 body[theme="catppuccin-frappe"] {
   --background: #232634;
   --background2: #303446;
