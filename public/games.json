@@ -48,19 +48,80 @@
     ]
   },
   {
+    "title": "Blumgi Paintball",
+    "id": "blumgi-paintball",
+    "tags": [
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Blumgi Soccer",
+    "id": "blumgi-soccer",
+    "tags": [
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Blumgi Dragon",
+    "id": "blumgi-dragon",
+    "tags": [
+      "2-player",
+      "action"
+    ]
+  },
+  {
+    "title": "Blumgi Bloom",
+    "id": "blumgi-bloom",
+    "tags": [
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Blumgi Ball",
+    "id": "blumgi-ball",
+    "tags": [
+      "sports"
+    ]
+  },
+  {
+    "title": "Blumgi Castle",
+    "id": "blumgi-castle",
+    "tags": [
+      "2-player",
+      "action"
+    ]
+  },
+  {
+    "title": "Blumgi Rocket",
+    "id": "blumgi-rocket",
+    "tags": [
+      "platformer",
+      "driving"
+    ]
+  },
+  {
+    "title": "Blumgi Slime",
+    "id": "blumgi-slime",
+    "tags": [
+      "2-player",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Swingo",
+    "id": "swingo",
+    "tags": [
+      "platformer"
+    ]
+  },
+  {
     "title": "Zombie Rush",
     "id": "zombie-rush",
     "tags": [
       "action",
       "shooter"
-    ]
-  },
-  {
-    "title": "GoBattle",
-    "id": "gobattle",
-    "tags": [
-      "2-player",
-      "sports"
     ]
   },
   {
@@ -163,67 +224,6 @@
     "id": "yokai-dungeon",
     "tags": [
       "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Blumgi Soccer",
-    "id": "blumgi-soccer",
-    "tags": [
-      "sports",
-      "action"
-    ]
-  },
-  {
-    "title": "Blumgi Dragon",
-    "id": "blumgi-dragon",
-    "tags": [
-      "2-player",
-      "action"
-    ]
-  },
-  {
-    "title": "Blumgi Bloom",
-    "id": "blumgi-bloom",
-    "tags": [
-      "puzzle"
-    ]
-  },
-  {
-    "title": "Blumgi Ball",
-    "id": "blumgi-ball",
-    "tags": [
-      "sports"
-    ]
-  },
-  {
-    "title": "Blumgi Castle",
-    "id": "blumgi-castle",
-    "tags": [
-      "2-player",
-      "action"
-    ]
-  },
-  {
-    "title": "Blumgi Rocket",
-    "id": "blumgi-rocket",
-    "tags": [
-      "platformer",
-      "driving"
-    ]
-  },
-  {
-    "title": "Blumgi Slime",
-    "id": "blumgi-slime",
-    "tags": [
-      "2-player",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Swingo",
-    "id": "swingo",
-    "tags": [
       "platformer"
     ]
   },
