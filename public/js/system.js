@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  openPage('home-page'); 
+  openPage('home-page');
 
   const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'blue';
   changeWallpaper(savedWallpaper);
@@ -790,13 +790,25 @@ function prepareCookieSave() {
 }
 
 function triggerDownload() {
-  var saveData = new Blob([prepareCookieSave()]);
-  var saveURL = URL.createObjectURL(saveData);
-  var fakeLink = document.createElement("a");
-  fakeLink.href = saveURL;
-  fakeLink.download = "cookies.save";
-  fakeLink.click();
-  URL.revokeObjectURL(saveURL);
+  Swal.fire({
+    title: "Warning!",
+    html: "This save file may include <strong>very sensitive information</strong> such as your Discord token. \n Sharing this save file with anyone will give them access to any and all accounts you have signed into using the proxy.",
+    showCancelButton: true,
+    confirmButtonText: "Download",
+    icon: "warning"
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire("Downloaded", "<i>Don't share this file with anyone</i>", "success");
+      var saveData = new Blob([prepareCookieSave()]);
+      var saveURL = URL.createObjectURL(saveData);
+      var fakeLink = document.createElement("a");
+      fakeLink.href = saveURL;
+      fakeLink.download = "cookies.save";
+      fakeLink.click();
+      URL.revokeObjectURL(saveURL);
+    }
+  });
 }
 
 function processUpload(data, key) {
