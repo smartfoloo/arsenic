@@ -299,11 +299,15 @@ h2 {
   display: none;
 }
 
-#home-page,
+#home-page {
+  padding: 100px;
+  line-height: 1.5;
+}
+
 #game-page,
 #proxy-page,
 #settings-page {
-  display: block;
+  display: none;
   padding: 100px;
   line-height: 1.5;
 }

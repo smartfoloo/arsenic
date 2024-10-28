@@ -51,7 +51,7 @@
     "title": "Blumgi Paintball",
     "id": "blumgi-paintball",
     "tags": [
-      "action",
+      "2-player",
       "sports"
     ]
   },
@@ -122,6 +122,22 @@
     "tags": [
       "action",
       "shooter"
+    ]
+  },
+  {
+    "title": "Animals Volleyball",
+    "id": "animals-volleyball",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
+  },
+  {
+    "title": "Jump Only",
+    "id": "jump-only",
+    "tags": [
+      "action",
+      "platformer"
     ]
   },
   {
@@ -260,6 +276,13 @@
     ]
   },
   {
+    "title": "Subway Surfers",
+    "id": "subway-surfers",
+    "tags": [
+      "action"
+    ]
+  },
+  {
     "title": "Super Tunnel Rush",
     "id": "super-tunnel-rush",
     "tags": [
@@ -395,6 +418,13 @@
     "tags": [
       "action",
       "shooter"
+    ]
+  },
+  {
+    "title": "Gladihoppers",
+    "id": "gladihoppers",
+    "tags": [
+      "action"
     ]
   },
   {

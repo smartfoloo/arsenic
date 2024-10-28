@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   openPage('home-page'); 
 
-  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'blue';
+  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'orange';
   changeWallpaper(savedWallpaper);
 
   const savedTheme = localStorage.getItem('theme');
@@ -205,6 +205,8 @@ if (particlesActive) {
 
 // Display time
 
+/*
+
 function displayTime() {
   const now = new Date();
   const hours = now.getHours();
@@ -219,6 +221,8 @@ function displayTime() {
 
 displayTime();
 setInterval(displayTime, 1000);
+
+*/
 
 // Load games
 
@@ -311,7 +315,7 @@ function openPage(pageId) {
   const embeds = document.querySelectorAll('#embed-container iframe');
   const embedContainer = document.getElementById('embed-container');
 
-  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page') ? 'none' : 'block';
+  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page') ? 'none' : 'block';
 
   pages.forEach(page => {
     page.style.display = 'none';

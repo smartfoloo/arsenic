@@ -12,7 +12,7 @@ app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
 
 app.get('*', (req, res) => {
-  res.status(404).sendFile(join(__dirname, "public", "404.html"));
+  res.status(404).sendFile(join("/public", "404.html"));
 });
 
 const server = createServer();
