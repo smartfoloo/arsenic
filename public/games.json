@@ -56,6 +56,13 @@
     ]
   },
   {
+    "title": "Blumgi Racers",
+    "id": "blumgi-racers",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
     "title": "Blumgi Soccer",
     "id": "blumgi-soccer",
     "tags": [
@@ -225,6 +232,14 @@
     "tags": [
       "action",
       "classic"
+    ]
+  },
+  {
+    "title": "Water Polo Ragdoll",
+    "id": "water-polo-ragdoll",
+    "tags": [
+      "2-player",
+      "sports"
     ]
   },
   {
