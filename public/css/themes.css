@@ -4,6 +4,7 @@ body[theme="halloween"] {
   --background3: #3C3C3C;
   --background4: #4D4D4D;
   --theme: rgb(230, 126, 34);
+  --secondary-theme: rgb(39, 174, 96);
   --shadow: #1E6F4A;
   --text: #CCCCCC;
 }
@@ -14,6 +15,7 @@ body[theme="catppuccin-frappe"] {
   --background3: #414559;
   --background4: #51576d;
   --theme: rgb(140, 170, 238);
+  --secondary-theme: rgb(166, 209, 137);
   --shadow: rgba(140, 170, 238, 0.5);
   --text: #c6d0f5;
 }
@@ -24,6 +26,7 @@ body[theme="catppuccin-macchiato"] {
   --background3: #363a4f; /* surface 0 */
   --background4: #494d64; /* surface 1 */
   --theme: rgb(138, 173, 244); /* blue */
+  --secondary-theme: rgb(166, 218, 149); /* green */
   --shadow: rgba(138, 173, 244, 0.5); /* blue with less opacity */
   --text: #cad3f5; /* text */
 }
@@ -34,6 +37,7 @@ body[theme="catppuccin-mocha"] {
   --background3: #313244;
   --background4: #45475a;
   --theme: rgb(137, 180, 250);
+  --secondary-theme: rgb(166, 227, 161);
   --shadow: rgba(137, 180, 250, 0.5);
   --text: #cdd6f4;
 }

@@ -7,6 +7,7 @@
   --background3: #3C3C3C;
   --background4: #4D4D4D;
   --theme: rgb(230, 126, 34);
+  --secondary-theme: rgb(39, 174, 96);
   --shadow: #1E6F4A;
   --text: #CCCCCC;
 }
@@ -48,7 +49,7 @@ h6 {
   padding: 11px 10px;
   font-size: 16px;
   outline: none;
-  border-radius: 10px;
+  border-radius: 15px;
   background: var(--background2);
   color: var(--text);
   border: none;
@@ -261,12 +262,30 @@ h2 {
   font-size: 20px;
 }
 
+.page {
+  display: none;
+}
+
+#home-page {
+  padding: 100px;
+  line-height: 1.5;
+  height: 100%;
+}
+
+#home-page .welcome {
+  background: linear-gradient(45deg, var(--theme), var(--secondary-theme));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
+
 #home-page .buttons {
   margin: 25px 0px;
   gap: 20px;
 }
 
-.page .start {
+#home-page .start {
   background: var(--theme);
   border-radius: 100px;
   box-shadow: var(--theme) 0 -25px 18px -14px inset, var(--shadow) 0 1px 2px, var(--shadow) 0 2px 4px, var(--shadow) 0 4px 8px, var(--shadow) 0 8px 16px, var(--shadow) 0 16px 32px;
@@ -287,22 +306,37 @@ h2 {
   font-weight: 600;
 }
 
-.page .start:hover {
+#home-page .start:hover {
   transform: scale(1.05) rotate(-1deg);
   background: var(--theme);
 }
 
-.page .start:active {
+#home-page .start:active {
   transform: scale(1);
 }
 
-.page {
-  display: none;
+.home-page-container {
+  height: calc(100vh - 230px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-#home-page {
-  padding: 100px;
-  line-height: 1.5;
+.partners {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.partners a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.partners a:hover {
+  text-decoration: underline;
 }
 
 #game-page,
@@ -311,6 +345,7 @@ h2 {
   display: none;
   padding: 100px;
   line-height: 1.5;
+  flex-direction: column;
 }
 
 #embed-container {
