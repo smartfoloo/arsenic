@@ -274,15 +274,44 @@ function populateCategories() {
 
 // Filter games
 
+const categoryButtons = document.querySelectorAll('.category-btn');
+let selectedCategories = new Set();
+
+categoryButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const category = button.dataset.category;
+
+    if (category !== 'all') {
+      if (selectedCategories.has(category)) {
+        selectedCategories.delete(category);
+        button.classList.remove('selected-category');
+      } else {
+        selectedCategories.add(category);
+        button.classList.add('selected-category');
+      }
+    } else {
+
+      selectedCategories.clear();
+      categoryButtons.forEach(btn => {
+        if (btn.dataset.category !== 'all') {
+          btn.classList.remove('selected-category');
+        }
+      });
+      button.classList.remove('selected-category');
+    }
+
+    filterGames();
+  });
+});
+
 function filterGames() {
-  const selectedCategory = categoryFilter.value.toLowerCase();
   const searchTerm = searchInput.value.toLowerCase();
 
   gameList.querySelectorAll('.game-btn').forEach(game => {
     const gameCategories = game.dataset.categories.split(',');
     const gameTitle = game.querySelector('.title').textContent.toLowerCase();
 
-    const matchesCategory = selectedCategory === 'all' || gameCategories.includes(selectedCategory);
+    const matchesCategory = selectedCategories.size === 0 || Array.from(selectedCategories).every(category => gameCategories.includes(category));
     const matchesSearch = gameTitle.includes(searchTerm);
 
     if (matchesCategory && matchesSearch) {
@@ -292,15 +321,6 @@ function filterGames() {
     }
   });
 }
-
-
-// Event listener for category filter
-
-const categoryFilter = document.getElementById('category-filter');
-categoryFilter.addEventListener('change', function () {
-  const selectedCategory = this.value;
-  filterGames(selectedCategory);
-});
 
 // Search for games
 

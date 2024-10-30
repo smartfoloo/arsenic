@@ -78,6 +78,40 @@ h6 {
   color: var(--shadow);
 }
 
+input {
+  padding: 11px 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 10px;
+  background: var(--background2);
+  color: var(--text);
+  border: none;
+  font-family: 'Inter';
+  width: 100%;
+}
+
+::placeholder {
+  color: var(--shadow);
+}
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 10px;
+  background: var(--background2);
+  color: var(--text);
+  font-family: 'Inter' !important;
+  border: none;
+  width: 30%;
+  cursor: pointer;
+  transition: 150ms;
+}
+
+select:hover {
+  background: var(--background3);
+}
+
 #particles-js {
   position: absolute;
   top: 0;
@@ -362,6 +396,32 @@ iframe {
   border-radius: 15px;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin: 50px 0px;
+}
+
+#category-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#category-buttons button {
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 100px;
+}
+
+.selected-category {
+  background: var(--theme) !important;
+  color: var(--background) !important;
+}
+
 .game-list {
   list-style-type: none;
   padding: 0;
@@ -370,55 +430,6 @@ iframe {
   flex-wrap: wrap;
   gap: 30px;
   margin: 20px 0px;
-}
-
-.input-container {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin: 50px 0px;
-}
-
-input {
-  padding: 11px 10px;
-  font-size: 16px;
-  outline: none;
-  border-radius: 10px;
-  background: var(--background2);
-  color: var(--text);
-  border: none;
-  font-family: 'Inter';
-  width: 100%;
-}
-
-::placeholder {
-  color: var(--shadow);
-}
-
-select {
-  padding: 10px;
-  font-size: 16px;
-  outline: none;
-  border-radius: 10px;
-  background: var(--background2);
-  color: var(--text);
-  font-family: 'Inter' !important;
-  border: none;
-  width: 30%;
-  cursor: pointer;
-  transition: 150ms;
-}
-
-select:hover {
-  background: var(--background3);
-}
-
-.setting-card select {
-  background: var(--background3);
-}
-
-.setting-card select:hover {
-  background: var(--background4);
 }
 
 .game-btn {
@@ -432,21 +443,6 @@ select:hover {
   box-shadow: 0 0 20px var(--shadow);
   background: var(--background2);
   text-overflow: ellipsis;
-}
-
-.hidden {
-  opacity: 0;
-  transition: opacity 1s;
-}
-
-.show {
-  opacity: 1;
-}
-
-@media(prefers-reduced-motion) {
-  .hidden {
-    transition: none;
-  }
 }
 
 .game-btn:hover {
@@ -481,6 +477,21 @@ select:hover {
 
 .game-btn:active {
   transform: scale(0.95);
+}
+
+.hidden {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.show {
+  opacity: 1;
+}
+
+@media(prefers-reduced-motion) {
+  .hidden {
+    transition: none;
+  }
 }
 
 /* proxy */
@@ -602,6 +613,14 @@ select:hover {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.setting-card select {
+  background: var(--background3);
+}
+
+.setting-card select:hover {
+  background: var(--background4);
 }
 
 .cards-container {
