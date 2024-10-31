@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns='https://www.w3.org/1999/xhtml' lang='' xml:lang=''>
+<head>
+	<meta charset='utf-8' />
+	<meta name='viewport' content='width=device-width, user-scalable=no' />
+	<title>Raw2022</title>
+	<style type='text/css'>
+
+		body {
+			touch-action: none;
+			margin: 0;
+			border: 0 none;
+			padding: 0;
+			text-align: center;
+			background-image: url("data:image/png;base64,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");
+			background-size: cover;
+		}
+
+		#canvas {
+			display: block;
+			margin: 0;
+			color: white;
+		}
+
+		#canvas:focus {
+			outline: none;
+		}
+
+		.godot {
+			font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
+			color: #e0e0e0;
+			background-color: #3b3943;
+			background-image: linear-gradient(to bottom, #403e48, #35333c);
+			border: 1px solid #45434e;
+			box-shadow: 0 0 1px 1px #2f2d35;
+		}
+
+
+		/* Status display
+		 * ============== */
+
+		#status {
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			/* don't consume click events - make children visible explicitly */
+			visibility: hidden;
+		}
+
+		#status-progress {
+			width: 366px;
+			height: 16px;
+			background-color: #625565;
+			border: 1px solid #3e3546;
+			padding: 1px;
+			box-shadow: 0 0 2px 1px #625565;
+			visibility: visible;
+		}
+
+		@media only screen and (orientation:portrait) {
+			#status-progress {
+				width: 61.8%;
+			}
+		}
+
+		#status-progress-inner {
+			height: 100%;
+			width: 0;
+			box-sizing: border-box;
+			transition: width 0.5s linear;
+			background-color: #1ebc73;
+			border: 1px solid #1ebc73;
+		}
+
+		#status-indeterminate {
+			height: 42px;
+			visibility: visible;
+			position: relative;
+		}
+
+		#status-indeterminate > div {
+			width: 4.5px;
+			height: 0;
+			border-style: solid;
+			border-width: 9px 3px 0 3px;
+			border-color: #2b2b2b transparent transparent transparent;
+			transform-origin: center 21px;
+			position: absolute;
+		}
+
+		#status-indeterminate > div:nth-child(1) { transform: rotate( 22.5deg); }
+		#status-indeterminate > div:nth-child(2) { transform: rotate( 67.5deg); }
+		#status-indeterminate > div:nth-child(3) { transform: rotate(112.5deg); }
+		#status-indeterminate > div:nth-child(4) { transform: rotate(157.5deg); }
+		#status-indeterminate > div:nth-child(5) { transform: rotate(202.5deg); }
+		#status-indeterminate > div:nth-child(6) { transform: rotate(247.5deg); }
+		#status-indeterminate > div:nth-child(7) { transform: rotate(292.5deg); }
+		#status-indeterminate > div:nth-child(8) { transform: rotate(337.5deg); }
+
+		#status-notice {
+			margin: 0 100px;
+			line-height: 1.3;
+			visibility: visible;
+			padding: 4px 6px;
+			visibility: visible;
+		}
+	</style>
+	<!-- Poki SDK include -->
+	<script src="./sdk.js"></script>
+	<script>
+		window.addEventListener('keydown', ev => {
+			if (['ArrowDown', 'ArrowUp', ' '].includes(ev.key)) {
+				ev.preventDefault();
+			}
+		});
+		window.addEventListener('wheel', ev => ev.preventDefault(), { passive: false });
+	</script>
+
+<link id='-gd-engine-icon' rel='icon' type='image/png' href='index.icon.png' />
+<link rel='apple-touch-icon' href='index.apple-touch-icon.png'/>
+
+	<script> 
+		//place sitelock code here.
+	</script>
+	
+</head>
+<body>
+	<canvas id='canvas'>
+		HTML5 canvas appears to be unsupported in the current browser.<br />
+		Please try updating or use a different browser.
+	</canvas>
+	<div id='status'>
+		<div id='status-progress' style='display: none;' oncontextmenu='event.preventDefault();'><div id ='status-progress-inner'></div></div>
+		<div id='status-indeterminate' style='display: none;' oncontextmenu='event.preventDefault();'>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div id='status-notice' class='godot' style='display: none;'></div>
+	</div>
+
+	<script type='text/javascript' src='index.js'></script>
+	<script type='text/javascript'>//<![CDATA[
+
+		const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":15513712,"index.wasm":13793958},"focusCanvas":true,"gdnativeLibs":[]};
+		var engine = new Engine(GODOT_CONFIG);
+
+		function startGameLoading() {
+			const INDETERMINATE_STATUS_STEP_MS = 100;
+			var statusProgress = document.getElementById('status-progress');
+			var statusProgressInner = document.getElementById('status-progress-inner');
+			var statusIndeterminate = document.getElementById('status-indeterminate');
+			var statusNotice = document.getElementById('status-notice');
+
+			var initializing = true;
+			var statusMode = 'hidden';
+
+			var animationCallbacks = [];
+			function animate(time) {
+				animationCallbacks.forEach(callback => callback(time));
+				requestAnimationFrame(animate);
+			}
+			requestAnimationFrame(animate);
+
+			function setStatusMode(mode) {
+
+				if (statusMode === mode || !initializing)
+					return;
+				[statusProgress, statusIndeterminate, statusNotice].forEach(elem => {
+					elem.style.display = 'none';
+				});
+				animationCallbacks = animationCallbacks.filter(function(value) {
+					return (value != animateStatusIndeterminate);
+				});
+				switch (mode) {
+					case 'progress':
+						statusProgress.style.display = 'block';
+						break;
+					case 'indeterminate':
+						statusIndeterminate.style.display = 'block';
+						animationCallbacks.push(animateStatusIndeterminate);
+						break;
+					case 'notice':
+						statusNotice.style.display = 'block';
+						break;
+					case 'hidden':
+						break;
+					default:
+						throw new Error('Invalid status mode');
+				}
+				statusMode = mode;
+			}
+
+			function animateStatusIndeterminate(ms) {
+				var i = Math.floor(ms / INDETERMINATE_STATUS_STEP_MS % 8);
+				if (statusIndeterminate.children[i].style.borderTopColor == '') {
+					Array.prototype.slice.call(statusIndeterminate.children).forEach(child => {
+						child.style.borderTopColor = '';
+					});
+					statusIndeterminate.children[i].style.borderTopColor = '#dfdfdf';
+				}
+			}
+
+			function setStatusNotice(text) {
+				while (statusNotice.lastChild) {
+					statusNotice.removeChild(statusNotice.lastChild);
+				}
+				var lines = text.split('\n');
+				lines.forEach((line) => {
+					statusNotice.appendChild(document.createTextNode(line));
+					statusNotice.appendChild(document.createElement('br'));
+				});
+			};
+
+			function displayFailureNotice(err) {
+				var msg = err.message || err;
+				console.error(msg);
+				setStatusNotice(msg);
+				setStatusMode('notice');
+				initializing = false;
+			};
+
+			if (!Engine.isWebGLAvailable()) {
+				displayFailureNotice('WebGL not available');
+			} else {
+				setStatusMode('indeterminate');
+				PokiSDK.gameLoadingStart();
+				engine.startGame({
+					'onProgress': function (current, total) {
+						if (total > 0) {
+							statusProgressInner.style.width = current/total * 100 + '%';
+							setStatusMode('progress');
+							if (current === total) {
+								// wait for progress bar animation
+								setTimeout(() => {
+									setStatusMode('indeterminate');
+								}, 500);
+							}
+						} else {
+							setStatusMode('indeterminate');
+						}
+					},
+				}).then(() => {
+					setStatusMode('hidden');
+					initializing = false;
+					PokiSDK.gameLoadingFinished();
+				}, displayFailureNotice);
+			}
+		}
+
+
+		//Poki SDK Init.
+		if(window.PokiSDK){
+			PokiSDK.init().then(()=>{
+				startGameLoading()
+			}).catch(()=>{
+				engine.startGame();
+			})
+		}else{
+			engine.startGame();
+		}
+		let hn = window.location.hostname
+		if(hn == "localhost" || hn == "127.0.0.1"){
+			PokiSDK.setDebug(true)
+		}
+//]]></script>
+</body>
+</html>
+

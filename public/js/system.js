@@ -99,6 +99,13 @@ document.addEventListener('DOMContentLoaded', function () {
         <b style="color: var(--theme);">Dynamic</b>
       </p>
     `
+  } else if (proxyBackend === "scramjet") {
+    document.getElementById('proxy-status').innerHTML = `
+      <p>
+        Using
+        <b style="color: var(--theme);">Scramjet</b>
+      </p>
+    `
   } else {
     document.getElementById('proxy-status').innerHTML = `
       <p>
