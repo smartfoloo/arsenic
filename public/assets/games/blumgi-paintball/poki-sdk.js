@@ -117,7 +117,7 @@
       i = "poki-sdk-core-".concat(e, ".js");
     n && (i = "poki-sdk-kids-".concat(e, ".js")), o && (i = "poki-sdk-playground-".concat(e, ".js")), r && (i = "poki-sdk-hoist-".concat(e, ".js"));
     new URL(document.currentScript.src);
-    return "./".concat("/").concat(i)
+    return "./".concat(i)
   }(),
     u = document.createElement("script");
   u.setAttribute("src", a), u.setAttribute("type", "text/javascript"), u.setAttribute("crossOrigin", "anonymous"), u.onload = function () {
