@@ -1,0 +1,24 @@
+
+.hint {
+	margin: 10px;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	font-size: 40px;
+	color: #fff;
+	text-shadow:0 0 5px #000;
+	pointer-events: none;
+
+	left: -10px;
+	opacity: 0;
+}
+.hint.show {
+	left: 0;
+	opacity: 1;
+	transition: opacity 0.25s ease-in-out, left 0.25s ease-in-out;
+}
+.hint.hide {
+	left: -10px;
+	opacity: 0;
+	transition: opacity 0.25s ease-in-out, left 0.25s ease-in-out;
+}
