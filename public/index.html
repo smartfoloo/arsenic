@@ -72,6 +72,9 @@
         <button class="action-btn" onclick="refresh()">
           <i data-lucide="rotate-cw"></i>
         </button>
+        <button class="action-btn" onclick="inspect()">
+          <i data-lucide="code"></i>
+        </button>
         <button class="action-btn" onclick="fullscreen()">
           <i data-lucide="maximize"></i>
         </button>
@@ -208,9 +211,6 @@
             <div class="setting-card">
               <h2>Theme</h2>
               <div class="theme-buttons">
-                <button onclick="setTheme('halloween'); changeWallpaper('orange');" style="background: #1A1A1A; color: #F2F2F2;">
-                  <h4>Halloween</h4>
-                </button>
                 <button onclick="setTheme('catppuccin-frappe')" style="background: #232634; color: #c6d0f5;">
                   <h4>Catppuccin Frappe</h4>
                 </button>
@@ -249,6 +249,7 @@
             </div>
             <div class="setting-card">
               <h2>Particles</h2>
+              <p>Disabling particles will improve performance for low-end devices.</p>
               <label class="switch">
                 <input type="checkbox" id="toggle-particles">
                 <span class="slider round"></span>
@@ -370,12 +371,9 @@
 <script src="dynamic/dynamic.worker.js" defer></script>
 <script src="dynamic/dynamic.config.js" defer></script>
 <script src="scramjet/scramjet.config.js" defer></script>
-<script src="scramjet/scramjet.worker.js" defer></script>
-<script src="scramjet/scramjet.shared.js" defer></script>
-<script src="scramjet/scramjet.codecs.js" defer></script>
-<script src="uv/search.js" defer></script>
-<script src="uv/proxy.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/proxy.js" defer></script>
 <script src="./js/system.js"></script>
-<script src="/register-sw.js" defer></script>
+<script src="./register-sw.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

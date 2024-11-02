@@ -2,14 +2,14 @@
 @import '@sweetalert2/theme-borderless/borderless.scss';
 
 :root {
-  --background: #1A1A1A;
-  --background2: #2B2B2B;
-  --background3: #3C3C3C;
-  --background4: #4D4D4D;
-  --theme: rgb(230, 126, 34);
-  --secondary-theme: rgb(39, 174, 96);
-  --shadow: #1E6F4A;
-  --text: #CCCCCC;
+  --background: #181926; 
+  --background2: #24273a; 
+  --background3: #363a4f; 
+  --background4: #494d64;
+  --theme: rgb(138, 173, 244);
+  --secondary-theme: rgb(166, 218, 149);
+  --shadow: rgba(138, 173, 244, 0.5);
+  --text: #cad3f5;
 }
 
 * {
@@ -190,7 +190,6 @@ nav .tabs hr {
   align-items: center;
   justify-content: space-between;
   background: var(--background);
-  z-index: 5;
 }
 
 .tab-btn:hover {
@@ -278,7 +277,7 @@ nav .tabs hr {
   flex-grow: 1;
   margin: 15px;
   border-radius: 15px;
-  background-image: url(/assets/orange.png);
+  background-image: url(/assets/blue.png);
   background-repeat: no-repeat;
   background-size: cover;
   width: calc(100vw - 30px);

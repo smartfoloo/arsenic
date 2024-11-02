@@ -4,12 +4,15 @@ const { createServer } = require("node:http");
 const { uvPath } = require("@titaniumnetwork-dev/ultraviolet");
 const { hostname } = require("node:os");
 const { join } = require("path");
+const wisp = require("wisp-server-node");
+const { baremuxPath } = require('@mercuryworkshop/bare-mux/node');
 
 const bare = createBareServer("/bare/");
 const app = express();
 
 app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
+app.use('/baremux/', express.static(baremuxPath));
 
 app.get('*', (req, res) => {
   res.status(404).sendFile(join("/public", "404.html"));
@@ -28,6 +31,8 @@ server.on("request", (req, res) => {
 server.on("upgrade", (req, socket, head) => {
   if (bare.shouldRoute(req)) {
     bare.routeUpgrade(req, socket, head);
+  } else if (req.url.endsWith('/wisp/')) {
+    wisp.routeRequest(req, socket, head);
   } else {
     socket.end();
   }

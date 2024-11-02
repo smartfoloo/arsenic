@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   openPage('home-page');
 
-  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'orange';
+  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'blue';
   changeWallpaper(savedWallpaper);
 
   const savedTheme = localStorage.getItem('theme');
@@ -129,7 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Particles
 
-let particlesActive = localStorage.getItem('particlesActive') === 'true';
+let particlesActive = localStorage.getItem('particlesActive');
+particlesActive = particlesActive === null ? true : particlesActive === 'true';
 
 function loadParticles() {
   particlesJS('particles-js', {
@@ -342,6 +343,10 @@ function openPage(pageId) {
   const embeds = document.querySelectorAll('#embed-container iframe');
   const embedContainer = document.getElementById('embed-container');
 
+  document.querySelectorAll('.current-game-embed').forEach(element => {
+    element.classList.remove('current-game-embed');
+  });
+
   embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page') ? 'none' : 'block';
 
   pages.forEach(page => {
@@ -354,6 +359,7 @@ function openPage(pageId) {
   const selectedPage = document.getElementById(pageId);
   if (selectedPage) {
     selectedPage.style.display = 'block';
+    selectedPage.classList.add('current-game-embed');
   }
 }
 
@@ -461,6 +467,13 @@ function updateProxyStatus() {
         <b style="color: var(--theme);">Dynamic</b>
       </p>
     `;
+  } else if (proxyBackend === "scramjet") {
+    document.getElementById('proxy-status').innerHTML = `
+      <p>
+        Using
+        <b style="color: var(--theme);">Scramjet</b>
+      </p>
+    `;
   } else {
     document.getElementById('proxy-status').innerHTML = `
       <p>
@@ -472,70 +485,6 @@ function updateProxyStatus() {
 }
 
 // Dropdown Handling
-
-/*
-
-function initializeDropdown(dropdownId, localStorageKey, defaultValue, callback) {
-  const dropdown = document.getElementById(dropdownId);
-  const button = dropdown.querySelector('.dropdown-button');
-  const menu = dropdown.querySelector('.dropdown-menu');
-  const selected = dropdown.querySelector('.dropdown-selected');
-
-  const savedValue = localStorage.getItem(localStorageKey) || defaultValue;
-  selected.textContent = savedValue;
-
-  button.addEventListener('click', () => {
-
-    document.querySelectorAll('.dropdown-menu').forEach(menuItem => {
-      if (menuItem !== menu) {
-        menuItem.style.display = 'none';
-      }
-    });
-
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-  });
-
-  menu.addEventListener('click', (event) => {
-    if (event.target.tagName === 'LI') {
-      const selectedValue = event.target.getAttribute('value') || event.target.textContent;
-      selected.textContent = selectedValue;
-      localStorage.setItem(localStorageKey, selectedValue);
-      callback(selectedValue);
-      menu.style.display = 'none';
-    }
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!dropdown.contains(event.target)) {
-      menu.style.display = 'none';
-    }
-  });
-}
-
-initializeDropdown('proxy-backend', 'proxy', 'ultraviolet', setProxy);
-initializeDropdown('search-engine', 'searchEngine', 'google', saveSearchEngine);
-initializeDropdown('tab-cloak', 'tab-name', 'default', saveTabCloak);
-
-
-function setProxy(value) {
-  console.log(`Selected proxy: ${value}`);
-  updateProxyStatus();
-}
-
-function saveSearchEngine(value) {
-  console.log(`Selected search engine: ${value}`);
-  updateUvAddress();
-}
-
-function saveTabCloak(value) {
-  if (value === 'default') {
-    resetTab();
-  } else {
-    setCloak(value);
-  }
-}
-
-*/
 
 async function loadDropdownOptions() {
   const response = await fetch('/settings.json');

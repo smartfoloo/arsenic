@@ -1,6 +1,6 @@
 "use strict";
 
-let devToolsEnabled;
+let inspectEnabled = false;
 
 /**
  * @type {HTMLFormElement}
@@ -43,8 +43,6 @@ function getProxyUrl(url) {
 
   if (proxyType === "dynamic") {
     return "/service/dynamic/" + __uv$config.encodeUrl(url);
-  } else if (proxyType === "aero") {
-    return "/aero/" + __uv$config.encodeUrl(url);
   } else if (proxyType === "scramjet") {
     return "/service/scramjet/" + __uv$config.encodeUrl(url);
   } else {
@@ -119,37 +117,33 @@ form.addEventListener("submit", async (event) => {
   openPage(`${proxyTabId}-embed`);
 });
 
-/* 
-
-function toggleEruda(frameId) {
-  const targetIframe = document.getElementById(frameId);
+function inspect() {
+  const targetIframe = document.querySelector('.current-game-embed');
+  console.log(targetIframe);
 
   if (targetIframe) {
-    targetIframe.onload = function () {
-      const iframeDoc = targetIframe.contentDocument || targetIframe.contentWindow.document;
+    const iframeDoc = targetIframe.contentDocument || targetIframe.contentWindow.document;
 
-      if (!debugToolsEnabled) {
-        const debugScript = document.createElement('script');
-        debugScript.src = "//cdn.jsdelivr.net/npm/eruda";
-        debugScript.onload = function () {
-          const initializeScript = document.createElement('script');
-          initializeScript.innerHTML = "eruda.init(); eruda.show();";
-          iframeDoc.head.appendChild(initializeScript);
-        };
-        iframeDoc.head.appendChild(debugScript);
-      } else {
-        const debugConsole = iframeDoc.getElementById('eruda');
-        if (debugConsole) {
-          debugConsole.remove();
-        }
+    if (inspectEnabled === false) {
+      const erudaScript = document.createElement('script');
+      erudaScript.src = "//cdn.jsdelivr.net/npm/eruda";
+      erudaScript.onload = function () {
+        const initializeScript = document.createElement('script');
+        initializeScript.innerHTML = "eruda.init(); eruda.show();";
+        iframeDoc.head.appendChild(initializeScript);
+      };
+      iframeDoc.head.appendChild(erudaScript);
+      console.log('Appended Eruda Script');
+    } else {
+      const erudaContainer = iframeDoc.getElementById('eruda');
+      if (erudaContainer) {
+        erudaContainer.remove();
       }
+    }
 
-      devToolsEnabled = !devToolsEnabled;
-    };
+    inspectEnabled = !inspectEnabled;
   }
 }
-
-*/
 
 function openProxyPage(url) {
   registerSW()
