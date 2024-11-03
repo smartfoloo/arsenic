@@ -251,8 +251,8 @@
     ]
   },
   {
-    "title": "Yokai Dungeon",
-    "id": "yokai-dungeon",
+    "title": "Level Devil",
+    "id": "level-devil",
     "tags": [
       "action",
       "platformer"
@@ -272,30 +272,6 @@
     "tags": [
       "action",
       "shooter"
-    ]
-  },
-  {
-    "title": "Bullet Bros",
-    "id": "bullet-bros",
-    "tags": [
-      "action",
-      "shooter"
-    ]
-  },
-  {
-    "title": "Flip Bros",
-    "id": "flip-bros",
-    "tags": [
-      "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Space Major Miner",
-    "id": "space-major-miner",
-    "tags": [
-      "action",
-      "platformer"
     ]
   },
   {
@@ -385,6 +361,14 @@
     ]
   },
   {
+    "title": "Race Survival Arena King",
+    "id": "race-survival-arena-king",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
     "title": "Push Your Luck",
     "id": "push-your-luck",
     "tags": [
@@ -428,6 +412,14 @@
     ]
   },
   {
+    "title": "Bank Robbery 3",
+    "id": "bank-robbery-3",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
     "title": "Bank Robbery 2",
     "id": "bank-robbery-2",
     "tags": [
@@ -451,19 +443,74 @@
     ]
   },
   {
-    "title": "Retro Highway",
-    "id": "retro-highway",
+    "title": "Chicken Merge",
+    "id": "chicken-merge",
+    "tags": [
+      "merge"
+    ]
+  },
+  {
+    "title": "Monkey Mart",
+    "id": "monkey-mart",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Vex X3M",
+    "id": "vex-x3m",
     "tags": [
       "action",
       "driving"
     ]
   },
   {
-    "title": "Super Liquid Soccer",
-    "id": "super-liquid-soccer",
+    "title": "Vex 8",
+    "id": "vex-8",
     "tags": [
       "action",
-      "sports"
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 7",
+    "id": "vex-7",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 6",
+    "id": "vex-6",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 5",
+    "id": "vex-5",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 4",
+    "id": "vex-4",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 3",
+    "id": "vex-3",
+    "tags": [
+      "action",
+      "platformer"
     ]
   },
   {
@@ -523,6 +570,70 @@
     ]
   },
   {
+    "title": "Day of Meat: Castle",
+    "id": "day-of-meat-castle",
+    "tags": [
+      "idle",
+      "management"
+    ]
+  },
+  {
+    "title": "Day of Meat: Radiation",
+    "id": "day-of-meat-radiation",
+    "tags": [
+      "idle",
+      "management"
+    ]
+  },
+  {
+    "title": "Retro Highway",
+    "id": "retro-highway",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Super Liquid Soccer",
+    "id": "super-liquid-soccer",
+    "tags": [
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Yokai Dungeon",
+    "id": "yokai-dungeon",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Bullet Bros",
+    "id": "bullet-bros",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Flip Bros",
+    "id": "flip-bros",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Space Major Miner",
+    "id": "space-major-miner",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
     "title": "Retro Bowl",
     "id": "retro-bowl",
     "tags": [
@@ -542,13 +653,6 @@
     "tags": [
       "action",
       "driving"
-    ]
-  },
-  {
-    "title": "Chicken Merge",
-    "id": "chicken-merge",
-    "tags": [
-      "merge"
     ]
   },
   {
@@ -627,14 +731,6 @@
     ]
   },
   {
-    "title": "Monkey Mart",
-    "id": "monkey-mart",
-    "tags": [
-      "management",
-      "idle"
-    ]
-  },
-  {
     "title": "Cow Bay",
     "id": "cow-bay",
     "tags": [
@@ -677,54 +773,6 @@
   {
     "title": "Space Thing",
     "id": "space-thing",
-    "tags": [
-      "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Vex 3",
-    "id": "vex-3",
-    "tags": [
-      "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Vex 4",
-    "id": "vex-4",
-    "tags": [
-      "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Vex 5",
-    "id": "vex-5",
-    "tags": [
-      "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Vex 6",
-    "id": "vex-6",
-    "tags": [
-      "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Vex 7",
-    "id": "vex-7",
-    "tags": [
-      "action",
-      "platformer"
-    ]
-  },
-  {
-    "title": "Vex 8",
-    "id": "vex-8",
     "tags": [
       "action",
       "platformer"
