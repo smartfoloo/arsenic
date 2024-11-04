@@ -486,7 +486,7 @@ iframe {
 }
 
 .game-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.995);
 }
 
 .hidden {

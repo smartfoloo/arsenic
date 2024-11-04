@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Particles
 
 let particlesActive = localStorage.getItem('particlesActive');
-particlesActive = particlesActive === null ? true : particlesActive === 'true';
+particlesActive = particlesActive === null ? false : particlesActive === 'true';
 
 function loadParticles() {
   particlesJS('particles-js', {
@@ -595,13 +595,14 @@ function openTab(evt, tabName) {
 
 function changeWallpaper(color) {
   const mainContent = document.getElementById('main-content');
-  mainContent.style.backgroundImage = `url('./assets/${color}.png')`;
+  mainContent.style.backgroundImage = `url('./assets/wallpapers/${color}.png')`;
   localStorage.setItem('selectedWallpaper', color);
 
   const wallpaperCards = document.querySelectorAll('.wallpaper-card');
   wallpaperCards.forEach(card => {
     card.classList.remove('selected');
-    if (card.querySelector('h4').textContent.toLowerCase() === color) {
+    const cardText = card.querySelector('h4').textContent.toLowerCase().replace(/\s+/g, '-');
+    if (cardText === color) {
       card.classList.add('selected');
     }
   });
