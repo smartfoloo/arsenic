@@ -152,6 +152,20 @@
     ]
   },
   {
+    "title": "Chicken Merge 2",
+    "id": "chicken-merge-2",
+    "tags": [
+      "merge"
+    ]
+  },
+  {
+    "title": "Chicken Merge",
+    "id": "chicken-merge",
+    "tags": [
+      "merge"
+    ]
+  },
+  {
     "title": "Dadish 3D",
     "id": "dadish-3d",
     "tags": [
@@ -464,13 +478,6 @@
     "tags": [
       "action",
       "adventure"
-    ]
-  },
-  {
-    "title": "Chicken Merge",
-    "id": "chicken-merge",
-    "tags": [
-      "merge"
     ]
   },
   {
