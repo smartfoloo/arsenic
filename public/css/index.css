@@ -273,6 +273,10 @@ nav .tabs hr {
   width: 20px;
 }
 
+.refresh:hover svg {
+  transform: rotate(360deg);
+}
+
 .main-content {
   flex-grow: 1;
   margin: 15px;
@@ -472,6 +476,9 @@ iframe {
 .game-btn .category {
   font-size: 12px;
   font-weight: 300;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .game-btn:active {

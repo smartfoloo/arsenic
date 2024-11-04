@@ -3,8 +3,9 @@
     "title": "Yohoho.io",
     "id": "yohoho-io",
     "tags": [
-      "multiplayer",
-      "action"
+      "action",
+      "adventure",
+      "multiplayer"
     ]
   },
   {
@@ -20,7 +21,7 @@
     "id": "animal-arena",
     "tags": [
       "2-player",
-      "action"
+      "arcade"
     ]
   },
   {
@@ -28,38 +29,33 @@
     "id": "poor-bunny",
     "tags": [
       "2-player",
-      "sports"
-    ]
-  },
-  {
-    "title": "Tightrope Theatre",
-    "id": "tightrope-theatre",
-    "tags": [
       "action",
-      "platformer"
+      "arcade",
+      "sports"
     ]
   },
   {
     "title": "Ducklings.io",
     "id": "ducklings-io",
     "tags": [
-      "multiplayer",
-      "idle"
+      "multiplayer"
     ]
   },
   {
     "title": "Blumgi Paintball",
     "id": "blumgi-paintball",
     "tags": [
-      "sports",
-      "2-player"
+      "2-player",
+      "arcade",
+      "sports"
     ]
   },
   {
     "title": "Blumgi Racers",
     "id": "blumgi-racers",
     "tags": [
-      "driving"
+      "driving",
+      "platformer"
     ]
   },
   {
@@ -75,13 +71,15 @@
     "id": "blumgi-dragon",
     "tags": [
       "2-player",
-      "action"
+      "action",
+      "arcade"
     ]
   },
   {
     "title": "Blumgi Bloom",
     "id": "blumgi-bloom",
     "tags": [
+      "arcade",
       "puzzle"
     ]
   },
@@ -97,7 +95,8 @@
     "id": "blumgi-castle",
     "tags": [
       "2-player",
-      "action"
+      "action",
+      "arcade"
     ]
   },
   {
@@ -113,6 +112,7 @@
     "id": "blumgi-slime",
     "tags": [
       "2-player",
+      "arcade",
       "platformer"
     ]
   },
@@ -120,6 +120,7 @@
     "title": "Swingo",
     "id": "swingo",
     "tags": [
+      "arcade",
       "platformer"
     ]
   },
@@ -127,7 +128,9 @@
     "title": "Zombie Rush",
     "id": "zombie-rush",
     "tags": [
+      "2-player",
       "action",
+      "adventure",
       "shooter"
     ]
   },
@@ -136,6 +139,7 @@
     "id": "animals-volleyball",
     "tags": [
       "2-player",
+      "action",
       "sports"
     ]
   },
@@ -143,7 +147,7 @@
     "title": "Jump Only",
     "id": "jump-only",
     "tags": [
-      "action",
+      "arcade",
       "platformer"
     ]
   },
@@ -152,6 +156,7 @@
     "id": "dadish-3d",
     "tags": [
       "action",
+      "adventure",
       "platformer"
     ]
   },
@@ -160,6 +165,7 @@
     "id": "dadish",
     "tags": [
       "action",
+      "adventure",
       "platformer"
     ]
   },
@@ -168,6 +174,7 @@
     "id": "dadish-2",
     "tags": [
       "action",
+      "adventure",
       "platformer"
     ]
   },
@@ -176,6 +183,7 @@
     "id": "dadish-3",
     "tags": [
       "action",
+      "adventure",
       "platformer"
     ]
   },
@@ -200,7 +208,8 @@
     "id": "tag",
     "tags": [
       "2-player",
-      "action"
+      "platformer",
+      "sports"
     ]
   },
   {
@@ -208,15 +217,16 @@
     "id": "tag-2",
     "tags": [
       "2-player",
-      "action"
+      "platformer",
+      "sports"
     ]
   },
   {
     "title": "Zooplop",
     "id": "zooplop",
     "tags": [
-      "puzzle",
-      "merge"
+      "merge",
+      "puzzle"
     ]
   },
   {
@@ -239,6 +249,7 @@
     "id": "water-polo-ragdoll",
     "tags": [
       "2-player",
+      "action",
       "sports"
     ]
   },
@@ -255,6 +266,8 @@
     "id": "level-devil",
     "tags": [
       "action",
+      "adventure",
+      "arcade",
       "platformer"
     ]
   },
@@ -262,6 +275,7 @@
     "title": "ArmedForces.io",
     "id": "armed-forces-io",
     "tags": [
+      "action",
       "multiplayer",
       "shooter"
     ]
@@ -278,22 +292,23 @@
     "title": "Subway Surfers",
     "id": "subway-surfers",
     "tags": [
-      "action"
+      "action",
+      "adventure",
+      "platformer"
     ]
   },
   {
     "title": "Super Tunnel Rush",
     "id": "super-tunnel-rush",
     "tags": [
-      "action",
-      "driving"
+      "driving",
+      "sports"
     ]
   },
   {
     "title": "Unicycle Legend",
     "id": "unicycle-legend",
     "tags": [
-      "action",
       "sports"
     ]
   },
@@ -301,7 +316,6 @@
     "title": "Unicycle Hero",
     "id": "unicycle-hero",
     "tags": [
-      "action",
       "sports"
     ]
   },
@@ -310,6 +324,7 @@
     "id": "goober-world",
     "tags": [
       "action",
+      "adventure",
       "platformer"
     ]
   },
@@ -325,6 +340,7 @@
     "title": "Merge Tycoon",
     "id": "merge-tycoon",
     "tags": [
+      "idle",
       "merge"
     ]
   },
@@ -332,7 +348,7 @@
     "title": "Tower Defense Mingling",
     "id": "tower-defense-mingling",
     "tags": [
-      "management",
+      "action",
       "merge"
     ]
   },
@@ -340,8 +356,8 @@
     "title": "Watermelon Game",
     "id": "watermelon-game",
     "tags": [
-      "puzzle",
-      "merge"
+      "merge",
+      "puzzle"
     ]
   },
   {
@@ -357,6 +373,7 @@
     "id": "battle-wheels",
     "tags": [
       "2-player",
+      "arcade",
       "driving"
     ]
   },
@@ -379,6 +396,7 @@
     "title": "Gobble",
     "id": "gobble",
     "tags": [
+      "arcade",
       "puzzle"
     ]
   },
@@ -386,6 +404,7 @@
     "title": "Monster Tracks",
     "id": "monster-tracks",
     "tags": [
+      "arcade",
       "driving"
     ]
   },
@@ -393,6 +412,7 @@
     "title": "Drive Mad",
     "id": "drive-mad",
     "tags": [
+      "arcade",
       "driving"
     ]
   },
@@ -400,13 +420,16 @@
     "title": "Recoil",
     "id": "recoil",
     "tags": [
-      "action"
+      "action",
+      "arcade",
+      "puzzle"
     ]
   },
   {
     "title": "Speed King",
     "id": "speed-king",
     "tags": [
+      "arcade",
       "platformer",
       "puzzle"
     ]
@@ -439,7 +462,8 @@
     "title": "Gladihoppers",
     "id": "gladihoppers",
     "tags": [
-      "action"
+      "action",
+      "adventure"
     ]
   },
   {
@@ -453,6 +477,7 @@
     "title": "Monkey Mart",
     "id": "monkey-mart",
     "tags": [
+      "arcade",
       "management",
       "idle"
     ]
@@ -525,7 +550,7 @@
     "title": "Crossy Road",
     "id": "crossy-road",
     "tags": [
-      "action",
+      "arcade",
       "classic"
     ]
   },
@@ -533,23 +558,24 @@
     "title": "OvO",
     "id": "ovo",
     "tags": [
-      "action",
-      "platformer"
+      "arcade",
+      "platformer",
+      "sports"
     ]
   },
   {
     "title": "OvO Dimensions",
     "id": "ovo-dimensions",
     "tags": [
-      "action",
-      "platformer"
+      "arcade",
+      "platformer",
+      "sports"
     ]
   },
   {
     "title": "Table Tennis World Tour",
     "id": "table-tennis-world-tour",
     "tags": [
-      "action",
       "sports"
     ]
   },
@@ -557,7 +583,6 @@
     "title": "Economical",
     "id": "economical",
     "tags": [
-      "action",
       "platformer"
     ]
   },
@@ -565,7 +590,6 @@
     "title": "Economical 2",
     "id": "economical-2",
     "tags": [
-      "action",
       "platformer"
     ]
   },
@@ -590,6 +614,8 @@
     "id": "retro-highway",
     "tags": [
       "action",
+      "adventure",
+      "arcade",
       "driving"
     ]
   },
@@ -597,7 +623,6 @@
     "title": "Super Liquid Soccer",
     "id": "super-liquid-soccer",
     "tags": [
-      "action",
       "sports"
     ]
   },
@@ -605,8 +630,7 @@
     "title": "Yokai Dungeon",
     "id": "yokai-dungeon",
     "tags": [
-      "action",
-      "platformer"
+      "adventure"
     ]
   },
   {
@@ -614,6 +638,7 @@
     "id": "bullet-bros",
     "tags": [
       "action",
+      "platformer",
       "shooter"
     ]
   },
@@ -622,6 +647,7 @@
     "id": "flip-bros",
     "tags": [
       "action",
+      "adventure",
       "platformer"
     ]
   },
@@ -644,7 +670,9 @@
     "title": "Poor Eddie",
     "id": "poor-eddie",
     "tags": [
-      "action"
+      "action",
+      "adventure",
+      "arcade"
     ]
   },
   {
@@ -659,8 +687,7 @@
     "title": "Sausage Flip",
     "id": "sausage-flip",
     "tags": [
-      "action",
-      "platformer"
+      "arcade"
     ]
   },
   {
@@ -720,6 +747,7 @@
     "id": "ovo-dimensions",
     "tags": [
       "action",
+      "arcade",
       "platformer"
     ]
   },
@@ -727,7 +755,8 @@
     "title": "Gold Digger FRVR",
     "id": "gold-digger-frvr",
     "tags": [
-      "action"
+      "action",
+      "adventure"
     ]
   },
   {
@@ -775,6 +804,7 @@
     "id": "space-thing",
     "tags": [
       "action",
+      "arcade",
       "platformer"
     ]
   },
@@ -1002,7 +1032,8 @@
     "title": "Iron Snout",
     "id": "iron-snout",
     "tags": [
-      "action"
+      "action",
+      "adventure"
     ]
   },
   {
@@ -1045,6 +1076,14 @@
     ]
   },
   {
+    "title": "Tightrope Theatre",
+    "id": "tightrope-theatre",
+    "tags": [
+      "arcade",
+      "puzzle"
+    ]
+  },
+  {
     "title": "Time Shooter 2",
     "id": "time-shooter-2",
     "tags": [
@@ -1066,6 +1105,14 @@
     "tags": [
       "action",
       "shooter"
+    ]
+  },
+  {
+    "title": "One Chance",
+    "id": "one-chance",
+    "tags": [
+      "adventure",
+      "flash"
     ]
   }
 ]
