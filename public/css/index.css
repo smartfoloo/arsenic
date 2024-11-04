@@ -359,20 +359,24 @@ h2 {
   justify-content: space-between;
 }
 
-.partners {
+.partners, 
+.resources {
   display: flex;
   align-items: center;
   gap: 30px;
+  line-height: 2;
 }
 
-.partners a {
+.partners a,
+.resources a {
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 14px;
 }
 
-.partners a:hover {
+.partners a:hover,
+.resources a:hover {
   text-decoration: underline;
 }
 
