@@ -1083,5 +1083,45 @@
       "adventure",
       "flash"
     ]
+  },
+  {
+    "title": "Fleeing the Complex",
+    "id": "fleeing-the-complex",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Infiltrating the Airship",
+    "id": "infiltrating-the-airship",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Stealing the Diamond",
+    "id": "stealing-the-diamond",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Escaping the Prison",
+    "id": "escaping-the-prison",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Breaking the Bank",
+    "id": "breaking-the-bank",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
   }
 ]
