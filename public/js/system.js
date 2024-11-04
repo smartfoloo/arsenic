@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   openPage('home-page');
 
-  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'blue';
+  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'winterfall';
   changeWallpaper(savedWallpaper);
 
   const savedTheme = localStorage.getItem('theme');
