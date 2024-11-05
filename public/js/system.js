@@ -347,7 +347,7 @@ function openPage(pageId) {
     element.classList.remove('current-game-embed');
   });
 
-  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page') ? 'none' : 'block';
+  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page') ? 'none' : 'flex';
 
   pages.forEach(page => {
     page.style.display = 'none';
@@ -402,6 +402,8 @@ function closeTab(gameId) {
 
   const embed = document.getElementById(`${gameId}-embed`);
   if (embed) embed.remove();
+
+  document.getElementById('loader-container').style.display = "none";
 
   openPage('home-page');
 }

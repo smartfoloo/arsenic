@@ -14,10 +14,6 @@ app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
 app.use('/baremux/', express.static(baremuxPath));
 
-app.get('*', (req, res) => {
-  res.status(404).sendFile(join("/public", "404.html"));
-});
-
 const server = createServer();
 
 server.on("request", (req, res) => {

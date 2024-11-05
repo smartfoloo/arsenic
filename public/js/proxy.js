@@ -63,58 +63,7 @@ form.addEventListener("submit", async (event) => {
   }
 
   const url = search(address.value, searchEngine.value);
-  const proxyTabId = address.value.replace(/\s+/g, '-').toLowerCase();
-  const tabsContainer = document.getElementById('tabs-container');
-  const embedContainer = document.getElementById('embed-container');
-
-  if (document.getElementById(`${proxyTabId}-tab`)) {
-    openPage(`${proxyTabId}-embed`);
-    return;
-  }
-
-  const icon = helper.extractFavicon(url);
-
-  const newTab = document.createElement('button');
-  newTab.classList.add('tab-btn');
-  newTab.id = `${proxyTabId}-tab`;
-
-  newTab.innerHTML = `
-    <div class="left">
-      <img src="${icon}" alt="Favicon" class="tab-favicon">
-      <p>Loading...</p> <!-- Initial title while loading -->
-    </div>
-    <button class="close-tab" onclick="closeTab('${proxyTabId}')">
-      <i class="bi bi-x-lg"></i>
-    </button>
-  `;
-
-  newTab.onclick = function () { openPage(`${proxyTabId}-embed`); };
-
-  tabsContainer.appendChild(newTab);
-
-  const newEmbed = document.createElement('iframe');
-  newEmbed.src = getProxyUrl(url);
-  newEmbed.id = `${proxyTabId}-embed`;
-  newEmbed.classList.add('game-embed');
-  newEmbed.style.display = 'none';
-
-  newEmbed.sandbox = "allow-same-origin allow-scripts";
-
-  embedContainer.appendChild(newEmbed);
-  newEmbed.style.display = 'block';
-
-  newEmbed.onload = () => {
-    try {
-      const title = newEmbed.contentDocument.title; 
-      newTab.querySelector('p').textContent = title; 
-      console.log('Fetched title:', title); 
-    } catch (e) {
-      console.error('Error fetching title from iframe:', e);
-      newTab.querySelector('p').textContent = 'Untitled';
-    }
-  };
-
-  openPage(`${proxyTabId}-embed`);
+  openProxyPage(url);
 });
 
 function inspect() {
@@ -148,7 +97,7 @@ function inspect() {
 function openProxyPage(url) {
   registerSW()
     .then(() => {
-      const proxyTabId = url.replace(/\s+/g, '-').toLowerCase();
+      const proxyTabId = address.value.replace(/\s+/g, '-').toLowerCase();
       const tabsContainer = document.getElementById('tabs-container');
       const embedContainer = document.getElementById('embed-container');
 
@@ -165,11 +114,11 @@ function openProxyPage(url) {
 
       newTab.innerHTML = `
         <div class="left">
-          <img src="${icon}" alt="Favicon" class="tab-favicon">
-          <p>Loading...</p> <!-- Initial title while loading -->
+            <img src="${icon}" alt="Favicon" class="tab-favicon">
+            <p>Loading...</p> <!-- Initial title while loading -->
         </div>
         <button class="close-tab" onclick="closeTab('${proxyTabId}')">
-          <i class="bi bi-x-lg"></i>
+            <i class="bi bi-x-lg"></i>
         </button>
       `;
 
@@ -188,7 +137,12 @@ function openProxyPage(url) {
       embedContainer.appendChild(newEmbed);
       newEmbed.style.display = 'block';
 
+      const loaderContainer = document.getElementById('loader-container');
+
+      loaderContainer.style.display = 'block';
+
       newEmbed.onload = () => {
+        loaderContainer.style.display = 'none';
         try {
           const title = newEmbed.contentDocument.title;
           newTab.querySelector('p').textContent = title;

@@ -393,7 +393,8 @@ h2 {
   width: 100%;
   height: 100%;
   border-radius: 15px;
-  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
 iframe {
@@ -567,6 +568,37 @@ iframe {
   border-radius: 20px;
   font-weight: 700;
   width: fit-content;
+}
+
+.loader {
+  border: 6px solid transparent;
+  border-top: 6px solid var(--theme);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-container {
+  position: absolute;
+  display: none;
+  background: var(--background2);
+  padding: 20px;
+  border-radius: 20px;
 }
 
 /* settings */
