@@ -1,0 +1,9 @@
+<div class="view-outer">
+	<div class="view">
+		<div class="view-title stroke-sub"></div>
+		<div class="view-content">
+			<div id="session-invite"></div>
+		</div>
+		<div class="view-end-button taibtn stroke-sub"></div>
+	</div>
+</div>

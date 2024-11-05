@@ -1,0 +1,15 @@
+<div id="game">
+	<div id="songbg">
+		<div id="layer1"></div>
+		<div id="layer2"></div>
+	</div>
+	<div id="song-stage"></div>
+	<div id="touch-drum">
+		<div id="touch-drum-img"></div>
+	</div>
+	<canvas id="canvas"></canvas>
+	<div id="song-lyrics"></div>
+	<div id="touch-buttons">
+		<div id="touch-full-btn"></div><div id="touch-pause-btn"></div>
+	</div>
+</div>

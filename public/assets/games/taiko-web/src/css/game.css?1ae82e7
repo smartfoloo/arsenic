@@ -1,0 +1,141 @@
+#game{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+	background-size: calc(100vh / 720 * 512);
+	background-position: center;
+}
+#screen.view{
+	background-image: none;
+	background-color: #000;
+}
+#canvas{
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	touch-action: none;
+}
+#touch-drum{
+	display: none;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 50%;
+	height: 50%;
+	text-align: center;
+	margin: auto;
+	overflow: hidden;
+}
+#touch-drum-img{
+	width: 100%;
+	height: 100%;
+	background-position: top;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#touch-buttons{
+	display: none;
+	position: absolute;
+	top: 8vh;
+	right: 2vh;
+	opacity: 0.5;
+	z-index: 5;
+}
+#touch-buttons div{
+	display: inline-block;
+	width: 12.5vmin;
+	height: 12.5vmin;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.portrait #touch-buttons{
+	top: 11vh;
+}
+.touchp2 #touch-buttons{
+	top: -1.9vh;
+}
+.touch-visible #touch-drum,
+.touch-visible #touch-buttons{
+	display: block;
+}
+.touch-visible .window{
+	width: 80vmin;
+	height: 53vmin;
+}
+.touch-visible #pause-menu .window button{
+	font-size: 5vmin;
+}
+.touch-visible #pause-menu .window button.selected{
+	color: #000;
+	background: #fff;
+	border-color: #ae7a26;
+}
+.touch-results #touch-pause-btn{
+	display: none;
+}
+#fade-screen{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: transparent;
+	pointer-events: none;
+	z-index: 2;
+	transition: 1s background-color linear;
+}
+.fix-animations *{
+	animation: none !important;
+}
+#song-lyrics{
+	position: absolute;
+	right: calc((100vw - 1280 / 720 * 100vh) / 2 + 100px * var(--scale));
+	bottom: calc(44 / 720 * 100vh - 30px * var(--scale));
+	left: calc((100vw - 1280 / 720 * 100vh) / 2 + 100px * var(--scale));
+	text-align: center;
+	font-family: Meiryo, sans-serif;
+	font-weight: bold;
+	font-size: calc(45px * var(--scale));
+	line-height: 1.2;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+#game.portrait #song-lyrics{
+	right: calc(20px * var(--scale));
+	left: calc(20px * var(--scale));
+}
+#song-lyrics .stroke,
+#song-lyrics .fill{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+#song-lyrics .stroke{
+	-webkit-text-stroke: calc(7px * var(--scale)) #00a;
+}
+#song-lyrics .fill{
+	color: #fff;
+}
+#song-lyrics ruby{
+	display: inline-flex;
+	flex-direction: column-reverse;
+}
+#song-lyrics rt{
+	line-height: 1;
+}
+.pixelated #canvas,
+.pixelated .donbg>div,
+.pixelated #songbg>div,
+.pixelated #song-stage,
+.pixelated #touch-drum-img,
+.pixelated #flowers1-in,
+.pixelated #flowers2-in,
+.pixelated #mikoshi-in,
+.pixelated #tetsuo-in,
+.pixelated #hana-in{
+	image-rendering: pixelated;
+}

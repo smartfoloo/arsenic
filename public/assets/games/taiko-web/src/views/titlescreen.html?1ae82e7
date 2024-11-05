@@ -1,0 +1,8 @@
+<div id="title-screen">
+	<canvas id="logo"></canvas>
+	<div class="click-to-continue stroke-sub" id="title-proceed"></div>
+	<div id="title-disclaimer">
+		<span class="stroke-sub" id="title-disclaimer-text"></span>
+		<span class="stroke-sub" id="title-disclaimer-copyright"></span>
+	</div>
+</div>

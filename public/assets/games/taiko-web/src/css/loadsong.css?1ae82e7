@@ -1,0 +1,40 @@
+#load-song{
+	width: 100%;
+	height: 100%;
+}
+#loading-song{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 20vmax;
+	height: 15vmax;
+	background: rgba(0, 0, 0, 0.75);
+	border-radius: 5px;
+	border: 3px solid white;
+	color: #fff;
+	z-index: 1;
+}
+#loading-don{
+	width: 10vmax;
+	height: calc(10vmax / 120 * 115);
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.loading-text{
+	position: relative;
+	font-size: 1.5vmax;
+	text-align: center;
+	z-index: 1;
+}
+#p2-cancel-button{
+	display: none;
+	position: absolute;
+	bottom: -55px;
+}

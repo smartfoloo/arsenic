@@ -1,0 +1,364 @@
+#songbg,
+#songbg>*,
+.donbg,
+.donbg *,
+#song-stage{
+	position: absolute;
+	right: 0;
+	left: 0;
+	width: 100%;
+	max-width: calc(100vh / 9 * 32);
+}
+#songbg{
+	height: 50.1%;
+}
+#songbg>*{
+	top: 0;
+}
+#songbg,
+#songbg>*{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	bottom: 0;
+}
+#song-stage{
+	height: calc(44 / 720 * 100vh);
+	background-position: center bottom;
+	background-repeat-y: no-repeat;
+	background-size: auto 100%;
+	bottom: 0;
+}
+.portrait #songbg{
+	height: 63.4%;
+	max-height: calc(50% + 24vw);
+}
+.touchp2 #songbg{
+	height: calc(50% - 5.9vw);
+	min-height: 39.5%;
+}
+.multiplayer.portrait #songbg{
+	height: calc(50% - 37vw);
+	min-height: calc(29% + 1px);
+}
+.multiplayer:not(.touchp2):not(.portrait) #songbg,
+.multiplayer:not(.touchp2):not(.portrait) #song-stage{
+	display: none;
+}
+.game-paused *{
+	animation-play-state: paused !important;
+}
+@keyframes songbg-strobe{
+	0%{opacity: 1}
+	25%{opacity: 0}
+	50%{opacity: 0.66}
+	75%{opacity: 0}
+}
+@keyframes songbg-pulse{
+	0%{opacity: 1}
+	50%{opacity: 0}
+}
+.songbg-1 #layer2,
+.songbg-2 #layer2,
+.songbg-3 #layer2{
+	animation: 0.4s linear songbg-strobe infinite;
+	mix-blend-mode: difference;
+}
+.songbg-4 #layer2{
+	animation: 0.4s linear songbg-pulse infinite;
+	mix-blend-mode: difference;
+}
+.songbg-5 #layer2{
+	animation: 1s linear songbg-pulse infinite;
+	mix-blend-mode: color-dodge;
+}
+.songbg-strobe #layer2{
+	animation: 0.4s linear songbg-strobe infinite;
+}
+.songbg-pulse #layer2{
+	animation: 0.4s linear songbg-pulse infinite;
+}
+.songbg-slowfade #layer2{
+	animation: 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) songbg-pulse infinite;
+}
+.touch-visible #layer2{
+	display: none;
+	background-image: none;
+	animation: none;
+}
+.donbg{
+	top: 0;
+	height: calc(50% - 13.7vw);
+	min-height: 25.6%;
+}
+.multiplayer .donbg{
+	min-height: 27.2%;
+}
+.portrait .donbg{
+	height: calc(50% - 48.9vw);
+	min-height: 22.5%;
+}
+.donbg *{
+	top: 0;
+	bottom: 0;
+	background-repeat-y: no-repeat;
+}
+.donbg.donbg-bottom{
+	top: auto;
+	bottom: 0;
+}
+.portrait .donbg.donbg-bottom {
+	top: calc(50% + -1vw);
+	bottom: auto;
+}
+@keyframes donbg-scroll{
+	from{background-position-x: 0}
+	to{background-position-x: calc(var(--h) / var(--sh1) * var(--sw) * -1)}
+}
+@keyframes donbg-scroll1{
+	from{background-position-x: 0}
+	to{background-position-x: calc(var(--h) / var(--sh1) * var(--sw1) * -1)}
+}
+@keyframes donbg-scroll2{
+	from{background-position-x: 0}
+	to{background-position-x: calc(var(--h) / var(--sh1) * var(--sw2) * -1)}
+}
+@keyframes donbg-raise{
+	from{background-position-y: 0}
+	to{background-position-y: var(--raised)}
+}
+@keyframes donbg-anim3{
+	0%{background-position-y: 0}
+	13%{background-position-y: var(--raised)}
+	15%{background-position-y: var(--raised)}
+	45%{background-position-y: 0}
+	50%{background-position-y: 0}
+	65%{background-position-y: calc(var(--raised) / 2)}
+	80%{background-position-y: 0}
+}
+@keyframes donbg-anim5{
+	0%{background-position-y: 0}
+	13%{background-position-y: var(--raised)}
+	17%{background-position-y: var(--raised)}
+	30%{background-position-y: 0}
+}
+.donlayer1{
+	animation: 5s linear donbg-scroll infinite;
+	background-size: auto 100%;
+}
+.donlayer2{
+	background-size: auto calc(var(--sh2) / var(--sh1) * 100%);
+	--raised: calc((var(--sh2) - var(--sh1)) / var(--sh2) * var(--h) * -1);
+}
+.donlayer3{
+	background-color: #000;
+	opacity: 0;
+	transition: 0.15s opacity linear;
+}
+.donbg-dark .donlayer3{
+	opacity: 0.5;
+}
+.donbg-1 .donlayer2,
+.donbg-2 .donlayer2,
+.donbg-4 .donlayer2,
+.donbg-6 .donlayer2,
+.donbg-raise .donlayer2{
+	animation: 5s linear donbg-scroll infinite, 1s linear donbg-raise infinite alternate;
+}
+.donbg-3 .donlayer2,
+.donbg-anim3 .donlayer2{
+	animation: 3.4s linear donbg-scroll infinite, 1.8s linear donbg-anim3 infinite;
+}
+.donbg-5 .donlayer2,
+.donbg-anim5 .donlayer2{
+	animation: 2.7s linear donbg-scroll infinite, 2.2s linear donbg-anim5 infinite;
+}
+.donbg-equalscroll .donlayer1{
+	animation: 5.3s linear donbg-scroll1 infinite;
+}
+.donbg-equalscroll .donlayer2{
+	animation: 5.3s linear donbg-scroll2 infinite;
+}
+.donbg-fastscroll .donlayer1{
+	animation: 2s linear donbg-scroll1 infinite;
+}
+.donbg-fastscroll .donlayer2{
+	animation: 1s linear donbg-scroll2 infinite;
+}
+
+#tetsuohana{
+	position: absolute;
+	right: calc(-12px * var(--scale));
+	left: calc(-12px * var(--scale));
+	margin: auto;
+	z-index: 1;
+	overflow: hidden;
+	pointer-events: none;
+	top: calc(50% - 15px * var(--scale));
+	width: calc(1304px * var(--scale));
+	height: calc(375px * var(--scale));
+	--frame: 0;
+	--low: calc(36px * var(--scale));
+}
+#tetsuo,
+#hana{
+	position: absolute;
+	top: 0;
+	width: calc(292px * var(--scale));
+	height: calc(425px * var(--scale));
+	transform: translateY(calc(360px * var(--scale)));
+}
+#tetsuo-in,
+#hana-in{
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: calc(292px * var(--scale) * 2);
+	background-position-y: calc(-425px * var(--frame) * var(--scale));
+}
+#tetsuo{
+	left: calc(173px * var(--scale));
+}
+#hana{
+	right: calc(178px * var(--scale));
+}
+#hana-in{
+	background-position-x: calc(-292px * var(--scale));
+}
+#mikoshi{
+	position: absolute;
+	top: 0;
+	left: calc(390px * var(--scale));
+	width: calc(553px * var(--scale));
+	height: calc(416px * var(--scale));
+	transform: translateY(calc(461px * var(--scale)));
+}
+#mikoshi-in{
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+#flowers1,
+#flowers2{
+	position: absolute;
+	top: calc(218px * var(--scale));
+	width: calc(483px * var(--scale));
+	height: calc(159px * var(--scale));
+	transform: translateY(calc(243px * var(--scale))) scaleX(var(--flip));
+}
+#flowers1-in,
+#flowers2-in{
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: calc(483px * var(--scale));
+	background-position-y: calc(-159px * var(--frame) * var(--scale));
+}
+#flowers1{
+	left: 0;
+	--flip: 1;
+}
+#flowers2{
+	right: calc(4px * var(--scale));
+	--flip: -1;
+}
+#tetsuohana.fadein,
+#tetsuohana.dance,
+#tetsuohana.dance2,
+#tetsuohana.failed{
+	height: calc(461px * var(--scale));
+}
+#tetsuohana.fadein #tetsuo,
+#tetsuohana.fadein #hana{
+	transition: 0.5s transform cubic-bezier(0.2, 0.6, 0.4, 1.2);
+	transform: translateY(var(--low));
+}
+@keyframes tetsuohana-dance{
+	0%{transform: translateY(var(--low))}
+	50%{transform: translateY(0)}
+	100%{transform: translateY(0)}
+}
+@keyframes tetsuohana-failed1{
+	0%{transform: translateY(calc(10px * var(--scale)))}
+	50%{transform: translateY(0)}
+	100%{transform: translateY(0)}
+}
+@keyframes tetsuohana-failed2{
+	0%{transform: translateY(0)}
+	49%{transform: translateY(0)}
+	50%{transform: translateY(calc(5px * var(--scale)))}
+	100%{transform: translateY(calc(15px * var(--scale)))}
+}
+@keyframes tetsuohana-flowers{
+	0%{background-position-y: 0}
+	50%{background-position-y: calc(-159px * var(--scale))}
+	100%{background-position-y: calc(-318px * var(--scale))}
+}
+@keyframes tetsuohana-mikoshi{
+	0%{transform: translateY(calc(425px * var(--scale)))}
+	100%{transform: translateY(0)}
+}
+#tetsuohana.dance #tetsuo,
+#tetsuohana.dance #hana,
+#tetsuohana.dance2 #tetsuo,
+#tetsuohana.dance2 #hana{
+	--frame: 1;
+	transform: translateY(var(--low));
+	animation: 0.5s ease-out tetsuohana-dance infinite forwards;
+}
+#tetsuohana.dance #tetsuo-in,
+#tetsuohana.dance #hana-in,
+#tetsuohana.dance2 #tetsuo-in,
+#tetsuohana.dance2 #hana-in{
+	transform: translateY(0);
+	animation: 0.5s ease-out tetsuohana-dance infinite forwards reverse;
+}
+#tetsuohana.dance #flowers1,
+#tetsuohana.dance #flowers2{
+	transform: translateY(0) scaleX(var(--flip));
+	transition: 0.34s transform ease-out;
+}
+#tetsuohana.dance2 #flowers1,
+#tetsuohana.dance2 #flowers2{
+	transform: translateY(0) scaleX(var(--flip));
+}
+#tetsuohana.dance #flowers1-in,
+#tetsuohana.dance #flowers2-in{
+	animation: 0.25s 0.4s step-end tetsuohana-flowers both;
+}
+#tetsuohana.dance2 #flowers1-in,
+#tetsuohana.dance2 #flowers2-in{
+	background-position-y: calc(-318px * var(--scale));
+}
+#tetsuohana.dance #mikoshi-out{
+	animation: 0.4s 0.4s ease-out tetsuohana-mikoshi both;
+}
+#tetsuohana.dance #mikoshi{
+	transform: translateY(var(--low));
+	animation: 0.5s 0.8s ease-out tetsuohana-dance infinite forwards;
+}
+#tetsuohana.dance #mikoshi-in{
+	transform: translateY(0);
+	animation: 0.5s 0.8s ease-out tetsuohana-dance infinite forwards reverse;
+}
+#tetsuohana.dance2 #mikoshi{
+	transform: translateY(var(--low));
+	animation: 0.5s -0.2s ease-out tetsuohana-dance infinite forwards;
+}
+#tetsuohana.dance2 #mikoshi-in{
+	transform: translateY(0);
+	animation: 0.5s -0.2s ease-out tetsuohana-dance infinite forwards reverse;
+}
+#tetsuohana.failed #tetsuo,
+#tetsuohana.failed #hana{
+	--frame: 2;
+	top: calc(26px * var(--scale));
+	transform: translateY(calc(46px * var(--scale)));
+	animation: 1.25s ease-out tetsuohana-failed1 forwards infinite;
+}
+#tetsuohana.failed #tetsuo-in,
+#tetsuohana.failed #hana-in{
+	transform: translateY(0);
+	animation: 1.25s ease-in tetsuohana-failed2 forwards infinite;
+}
