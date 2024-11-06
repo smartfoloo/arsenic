@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:a014524e96120d39183d8cc776f8b638:c18186e204ab3d12dd59c674f005e506:fe2fb6abbe1fcfbfbb808caeb44d3ecc$ -->
+<TextureAtlas imagePath="entities.png" width="1024" height="1024">
+    <SubTexture name="accordion_body" x="399" y="281" width="32" height="16"/>
+    <SubTexture name="accordion_shadow_body" x="625" y="58" width="32" height="16"/>
+    <SubTexture name="accordionBlueCollisionShadowSpriteAnim_a" x="361" y="234" width="32" height="8"/>
+    <SubTexture name="accordionBlueCollisionSpriteAnim_a" x="535" y="576" width="32" height="8"/>
+    <SubTexture name="beetleEnemyShadowSpriteWalkAnim_a" x="641" y="665" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="beetleEnemyShadowSpriteWalkAnim_b" x="668" y="636" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="beetleEnemyShadowSpriteWalkAnim_c" x="687" y="498" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="beetleEnemyShadowSpriteWalkAnim_d" x="703" y="419" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="beetleEnemySpriteWalkAnim_a" x="730" y="295" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="beetleEnemySpriteWalkAnim_b" x="746" y="253" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="beetleEnemySpriteWalkAnim_c" x="769" y="4" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="beetleEnemySpriteWalkAnim_d" x="769" y="29" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="blue_tile_1" x="168" y="66" width="64" height="32"/>
+    <SubTexture name="blue_tile_2" x="436" y="386" width="32" height="32"/>
+    <SubTexture name="blue_tile_3" x="42" y="131" width="32" height="64"/>
+    <SubTexture name="blueSparkleParticleSpriteBigAnim_a" x="726" y="751" width="10" height="10"/>
+    <SubTexture name="blueSparkleParticleSpriteBigAnim_b" x="759" y="744" width="10" height="10"/>
+    <SubTexture name="blueSparkleParticleSpriteSmallAnim_a" x="291" y="727" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="blueSparkleParticleSpriteSmallAnim_b" x="628" y="667" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="boneBulletShadowSpriteAnim_a" x="304" y="721" width="20" height="13" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="boneBulletSpriteAnim_a" x="330" y="721" width="20" height="13" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="boss1EnemyShadowSpriteJumpAnim_a" x="367" y="4" width="48" height="43" frameX="-5" frameY="-17" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemyShadowSpritePreJumpAnim_a" x="421" y="51" width="44" height="39" frameX="-10" frameY="-18" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemyShadowSpriteStandAnim_a" x="368" y="346" width="42" height="43" frameX="-11" frameY="-14" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemyShadowSpriteWalkAnim_a" x="368" y="346" width="42" height="43" frameX="-11" frameY="-14" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemyShadowSpriteWalkAnim_b" x="316" y="304" width="42" height="44" frameX="-11" frameY="-13" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemyShadowSpriteWalkAnim_c" x="124" y="452" width="42" height="44" frameX="-11" frameY="-13" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemyShadowSpriteWalkAnim_d" x="399" y="234" width="44" height="41" frameX="-10" frameY="-16" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteHitAnim_a" x="366" y="53" width="48" height="43" frameX="-5" frameY="-17" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteHitAnim_b" x="366" y="102" width="48" height="43" frameX="-5" frameY="-17" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteJumpAnim_a" x="365" y="151" width="48" height="43" frameX="-5" frameY="-17" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpritePreJumpAnim_a" x="420" y="96" width="44" height="39" frameX="-10" frameY="-18" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteStandAnim_a" x="368" y="395" width="42" height="43" frameX="-11" frameY="-14" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteWalkAnim_a" x="368" y="395" width="42" height="43" frameX="-11" frameY="-14" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteWalkAnim_b" x="202" y="407" width="42" height="44" frameX="-11" frameY="-13" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteWalkAnim_c" x="420" y="141" width="42" height="44" frameX="-11" frameY="-13" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss1EnemySpriteWalkAnim_d" x="421" y="4" width="44" height="41" frameX="-10" frameY="-16" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss2_body" x="293" y="232" width="40" height="2"/>
+    <SubTexture name="boss2_body_shadow" x="293" y="240" width="40" height="2"/>
+    <SubTexture name="boss2EnemyShadowSpriteAttackAnim_a" x="204" y="248" width="53" height="32" frameX="-3" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemyShadowSpriteAttackAnim_b" x="308" y="42" width="52" height="32" frameX="-4" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemyShadowSpriteAttackAnim_c" x="308" y="118" width="51" height="32" frameX="-5" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemyShadowSpriteStandAnim_a" x="204" y="248" width="53" height="32" frameX="-3" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemySpriteAttackAnim_a" x="308" y="4" width="53" height="32" frameX="-3" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemySpriteAttackAnim_b" x="308" y="80" width="52" height="32" frameX="-4" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemySpriteAttackAnim_c" x="296" y="156" width="51" height="32" frameX="-5" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemySpriteHurtAnim_a" x="293" y="194" width="51" height="32" frameX="-5" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss2EnemySpriteStandAnim_a" x="308" y="4" width="53" height="32" frameX="-3" frameY="0" frameWidth="64" frameHeight="32"/>
+    <SubTexture name="boss3Arm" x="419" y="191" width="38" height="27"/>
+    <SubTexture name="boss3ArmShadow" x="362" y="444" width="38" height="27"/>
+    <SubTexture name="boss3Body" x="436" y="424" width="32" height="12"/>
+    <SubTexture name="boss3BodyShadow" x="578" y="250" width="32" height="12"/>
+    <SubTexture name="boss3EnemyShadowSpriteStandAnim_a" x="192" y="286" width="40" height="55" frameX="-12" frameY="-3" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss3EnemySpriteHurtAnim_a" x="4" y="335" width="40" height="55" frameX="-12" frameY="-3" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss3EnemySpriteStandAnim_a" x="50" y="332" width="40" height="55" frameX="-12" frameY="-3" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss3Leg" x="118" y="145" width="6" height="6"/>
+    <SubTexture name="boss3LegShadow" x="118" y="157" width="6" height="6"/>
+    <SubTexture name="boss3Shoe" x="641" y="636" width="21" height="23"/>
+    <SubTexture name="boss3ShoeShadow" x="513" y="684" width="21" height="23"/>
+    <SubTexture name="boss3String" x="118" y="131" width="1" height="8"/>
+    <SubTexture name="boss4EnemyShadowSpriteHurtAnim_a" x="96" y="332" width="44" height="54" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemyShadowSpriteStandAnim_a" x="96" y="332" width="44" height="54" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemyShadowSpriteStandAnim_b" x="42" y="271" width="44" height="55" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemyShadowSpriteStandAnim_c" x="184" y="347" width="44" height="54" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemyShadowSpriteStandAnim_d" x="92" y="271" width="44" height="55" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemySpriteHurtAnim_a" x="4" y="396" width="44" height="54" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemySpriteStandAnim_a" x="54" y="393" width="44" height="54" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemySpriteStandAnim_b" x="142" y="269" width="44" height="55" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemySpriteStandAnim_c" x="104" y="392" width="44" height="54" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="boss4EnemySpriteStandAnim_d" x="263" y="248" width="44" height="55" frameX="-10" frameY="-6" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="brick_tile_1" x="168" y="104" width="64" height="32"/>
+    <SubTexture name="brick_tile_2" x="4" y="603" width="32" height="32"/>
+    <SubTexture name="brick_tile_3" x="80" y="131" width="32" height="64"/>
+    <SubTexture name="bubbleParticleSpriteAnim_a" x="839" y="323" width="8" height="8"/>
+    <SubTexture name="bubbleParticleSpriteAnim_b" x="848" y="279" width="8" height="8"/>
+    <SubTexture name="bufoEnemyShadowSpriteJumpAnim_a" x="608" y="638" width="27" height="23" frameX="-11" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="bufoEnemyShadowSpriteStandAnim_a" x="585" y="551" width="29" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="bufoEnemyShadowSpriteStandAnim_b" x="667" y="270" width="29" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="bufoEnemySpriteJumpAnim_a" x="640" y="607" width="27" height="23" frameX="-11" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="bufoEnemySpriteStandAnim_a" x="701" y="4" width="29" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="bufoEnemySpriteStandAnim_b" x="701" y="29" width="29" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="candleWallBackgroundSpriteAnim_a" x="42" y="598" width="32" height="32"/>
+    <SubTexture name="candleWallBackgroundSpriteAnim_b" x="80" y="598" width="32" height="32"/>
+    <SubTexture name="candleWallBackgroundSpriteAnim_c" x="118" y="598" width="32" height="32"/>
+    <SubTexture name="candleWallBackgroundSpriteAnim_d" x="156" y="596" width="32" height="32"/>
+    <SubTexture name="candleWallBackgroundSpriteAnim_e" x="478" y="280" width="32" height="32"/>
+    <SubTexture name="cardBulletShadowSpriteAnim_a" x="618" y="683" width="17" height="19" frameX="-3" frameY="-2" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="cardBulletSpriteAnim_a" x="188" y="804" width="17" height="19" frameX="-3" frameY="-2" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="cardParticleSpriteAnim_a" x="776" y="262" width="15" height="10"/>
+    <SubTexture name="cardParticleSpriteAnim_b" x="745" y="501" width="15" height="10"/>
+    <SubTexture name="cardParticleSpriteAnim_c" x="786" y="322" width="15" height="10"/>
+    <SubTexture name="castle_background_1" x="741" y="540" width="16" height="16"/>
+    <SubTexture name="castle_background_2" x="741" y="540" width="16" height="16"/>
+    <SubTexture name="castle_background_3" x="624" y="80" width="32" height="16"/>
+    <SubTexture name="castle_background_4" x="624" y="102" width="32" height="16"/>
+    <SubTexture name="castle_background_5" x="606" y="409" width="32" height="8"/>
+    <SubTexture name="castle_background_6" x="642" y="256" width="32" height="8"/>
+    <SubTexture name="castle_background_7" x="738" y="584" width="16" height="16"/>
+    <SubTexture name="castle_background_8" x="738" y="606" width="16" height="16"/>
+    <SubTexture name="castle_background_9" x="724" y="253" width="16" height="9" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="castle_background_10" x="339" y="232" width="16" height="10" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="castle_background_11" x="644" y="408" width="16" height="9" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="castle_background_12" x="146" y="502" width="16" height="32"/>
+    <SubTexture name="castle_background_13" x="740" y="562" width="16" height="16"/>
+    <SubTexture name="castle_background_14" x="805" y="392" width="12" height="11" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="castle_background_15" x="593" y="609" width="11" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="castle_background_16" x="356" y="721" width="19" height="11" frameX="-3" frameY="-3" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="castle_background_17" x="172" y="249" width="22" height="12" frameX="-1" frameY="-2" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="chain_shadow_tile_1" x="720" y="659" width="16" height="17"/>
+    <SubTexture name="chain_shadow_tile_2" x="298" y="365" width="12" height="16" frameX="-2" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="chain_tile_1" x="741" y="517" width="16" height="17"/>
+    <SubTexture name="chain_tile_2" x="280" y="467" width="12" height="16" frameX="-2" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="clownEnemyShadowSpriteStandAnim_a" x="206" y="587" width="29" height="32" frameX="-9" frameY="-9" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkDxAnim_a" x="206" y="509" width="29" height="33" frameX="-10" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkDxAnim_b" x="276" y="568" width="31" height="32" frameX="-10" frameY="-9" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkDxAnim_c" x="241" y="513" width="31" height="33" frameX="-9" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkDxAnim_d" x="206" y="509" width="29" height="33" frameX="-10" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkSxAnim_a" x="206" y="548" width="29" height="33" frameX="-8" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkSxAnim_b" x="431" y="519" width="30" height="32" frameX="-7" frameY="-9" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkSxAnim_c" x="362" y="477" width="29" height="33" frameX="-8" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemyShadowSpriteWalkSxAnim_d" x="206" y="548" width="29" height="33" frameX="-8" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteStandAnim_a" x="241" y="591" width="29" height="32" frameX="-9" frameY="-9" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkDxAnim_a" x="320" y="510" width="29" height="33" frameX="-10" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkDxAnim_b" x="511" y="508" width="31" height="32" frameX="-10" frameY="-9" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkDxAnim_c" x="447" y="442" width="31" height="33" frameX="-9" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkDxAnim_d" x="320" y="510" width="29" height="33" frameX="-10" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkSxAnim_a" x="278" y="529" width="29" height="33" frameX="-8" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkSxAnim_b" x="351" y="554" width="30" height="32" frameX="-7" frameY="-9" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkSxAnim_c" x="241" y="552" width="29" height="33" frameX="-8" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="clownEnemySpriteWalkSxAnim_d" x="278" y="529" width="29" height="33" frameX="-8" frameY="-8" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="coinItemShadowSpriteAnim_a" x="822" y="155" width="15" height="13" frameX="0" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemShadowSpriteAnim_b" x="474" y="788" width="13" height="13" frameX="-1" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemShadowSpriteAnim_c" x="682" y="734" width="11" height="13" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemShadowSpriteAnim_d" x="291" y="708" width="7" height="13" frameX="-4" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemShadowSpriteAnim_e" x="682" y="734" width="11" height="13" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemShadowSpriteAnim_f" x="474" y="788" width="13" height="13" frameX="-1" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemSpriteAnim_a" x="821" y="174" width="15" height="13" frameX="0" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemSpriteAnim_b" x="763" y="556" width="13" height="13" frameX="-1" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemSpriteAnim_c" x="722" y="682" width="11" height="13" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemSpriteAnim_d" x="211" y="804" width="7" height="13" frameX="-4" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemSpriteAnim_e" x="722" y="701" width="11" height="13" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="coinItemSpriteAnim_f" x="762" y="575" width="13" height="13" frameX="-1" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="confettiParticleShadowSpriteAnim_a" x="146" y="384" width="6" height="2"/>
+    <SubTexture name="confettiParticleSpriteAnim_a" x="158" y="384" width="6" height="2"/>
+    <SubTexture name="confettiParticleSpriteAnim_b" x="170" y="384" width="6" height="2"/>
+    <SubTexture name="confettiParticleSpriteAnim_c" x="298" y="387" width="6" height="2"/>
+    <SubTexture name="crateCollisionShadowSpriteAnim_a" x="511" y="4" width="32" height="32"/>
+    <SubTexture name="crateCollisionSpriteAnim_a" x="511" y="42" width="32" height="32"/>
+    <SubTexture name="crystal_shadow_tile_1" x="761" y="409" width="16" height="17"/>
+    <SubTexture name="crystal_shadow_tile_2" x="726" y="628" width="16" height="16"/>
+    <SubTexture name="crystal_shadow_tile_3" x="761" y="432" width="16" height="17"/>
+    <SubTexture name="crystal_tile_1" x="757" y="455" width="16" height="17"/>
+    <SubTexture name="crystal_tile_2" x="700" y="707" width="16" height="16"/>
+    <SubTexture name="crystal_tile_3" x="756" y="478" width="16" height="17"/>
+    <SubTexture name="curtain_bottom" x="624" y="124" width="32" height="16"/>
+    <SubTexture name="curtain_bottom_single" x="449" y="234" width="8" height="16"/>
+    <SubTexture name="curtain_mid" x="624" y="146" width="32" height="16"/>
+    <SubTexture name="curtain_mid_single" x="449" y="256" width="8" height="16"/>
+    <SubTexture name="curtain_top" x="623" y="168" width="32" height="16"/>
+    <SubTexture name="curtain_top_single" x="170" y="741" width="8" height="16"/>
+    <SubTexture name="dark_matter_body" x="340" y="782" width="18" height="18"/>
+    <SubTexture name="dark_matter_eye" x="761" y="240" width="10" height="7"/>
+    <SubTexture name="dark_matter_eye_black" x="184" y="330" width="1" height="4"/>
+    <SubTexture name="dark_tile_1" x="550" y="735" width="16" height="16"/>
+    <SubTexture name="darkMatterTraceParticleShadowSpriteAnim_a" x="641" y="714" width="16" height="16"/>
+    <SubTexture name="darkMatterTraceParticleShadowSpriteAnim_b" x="528" y="735" width="16" height="16"/>
+    <SubTexture name="darkMatterTraceParticleShadowSpriteAnim_c" x="778" y="493" width="14" height="14" frameX="-1" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="darkMatterTraceParticleShadowSpriteAnim_d" x="760" y="624" width="12" height="12" frameX="-2" frameY="-2" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="darkMatterTraceParticleShadowSpriteAnim_e" x="839" y="215" width="10" height="10" frameX="-3" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="darkMatterTraceParticleShadowSpriteAnim_f" x="118" y="169" width="6" height="6" frameX="-5" frameY="-5" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="dissolvePurpleStarParticleShadowSpriteAnim_a" x="818" y="215" width="15" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="dissolvePurpleStarParticleShadowSpriteAnim_b" x="818" y="215" width="15" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="dissolvePurpleStarParticleShadowSpriteAnim_c" x="818" y="215" width="15" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="dissolvePurpleStarParticleSpriteAnim_a" x="817" y="234" width="15" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="dissolvePurpleStarParticleSpriteAnim_b" x="788" y="284" width="15" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="dissolvePurpleStarParticleSpriteAnim_c" x="786" y="303" width="15" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="energyBulletShadowSpriteAnim_a" x="572" y="734" width="16" height="16"/>
+    <SubTexture name="energyBulletShadowSpriteAnim_b" x="594" y="733" width="16" height="16"/>
+    <SubTexture name="energyBulletSpriteAnim_a" x="616" y="733" width="16" height="16"/>
+    <SubTexture name="energyBulletSpriteAnim_b" x="663" y="712" width="16" height="16"/>
+    <SubTexture name="energyParticleSpriteAnim_a" x="861" y="128" width="8" height="8"/>
+    <SubTexture name="energyParticleSpriteAnim_b" x="865" y="4" width="8" height="8"/>
+    <SubTexture name="exclamationMarkParticleSpriteAnim_a" x="483" y="741" width="7" height="13"/>
+    <SubTexture name="fabric_tile_1" x="699" y="729" width="16" height="16"/>
+    <SubTexture name="fabric_tile_2" x="621" y="190" width="32" height="16"/>
+    <SubTexture name="fabric_tile_3" x="220" y="457" width="16" height="32"/>
+    <SubTexture name="fabric_tile_4" x="510" y="80" width="32" height="32"/>
+    <SubTexture name="fire_base_shadow_tile_1" x="455" y="717" width="16" height="18"/>
+    <SubTexture name="fire_base_shadow_tile_2" x="698" y="659" width="16" height="18"/>
+    <SubTexture name="fire_base_shadow_tile_3" x="716" y="541" width="18" height="16"/>
+    <SubTexture name="fire_base_tile_1" x="641" y="690" width="16" height="18"/>
+    <SubTexture name="fire_base_tile_2" x="700" y="683" width="16" height="18"/>
+    <SubTexture name="fire_base_tile_3" x="714" y="563" width="18" height="16"/>
+    <SubTexture name="fireCircleCollisionShadowSpriteAnim_a" x="638" y="736" width="16" height="16"/>
+    <SubTexture name="fireCircleCollisionSpriteAnim_a" x="528" y="757" width="16" height="16"/>
+    <SubTexture name="fireCircleCollisionSpriteAnim_b" x="449" y="766" width="16" height="16"/>
+    <SubTexture name="fireFlameBigCollisionSpriteAnim_a" x="118" y="249" width="48" height="14" frameX="-1" frameY="-1" frameWidth="64" frameHeight="16"/>
+    <SubTexture name="fireFlameBigCollisionSpriteAnim_b" x="238" y="156" width="52" height="12" frameX="-1" frameY="-2" frameWidth="64" frameHeight="16"/>
+    <SubTexture name="fireFlameCollisionSpriteAnim_a" x="763" y="539" width="14" height="11" frameX="-1" frameY="-5" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="fireFlameCollisionSpriteAnim_b" x="264" y="812" width="12" height="14" frameX="-2" frameY="-2" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="fireOrbCollisionSpriteAnim_a" x="847" y="48" width="10" height="10" frameX="-1" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="fireOrbCollisionSpriteAnim_b" x="742" y="672" width="12" height="12"/>
+    <SubTexture name="fireOrbCollisionSpriteAnim_c" x="847" y="48" width="10" height="10" frameX="-1" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="fireOrbCollisionSpriteAnim_d" x="849" y="4" width="10" height="10" frameX="-1" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="fireOrbTraceParticleSpriteAnim_a" x="849" y="20" width="10" height="10"/>
+    <SubTexture name="fireOrbTraceParticleSpriteAnim_b" x="847" y="64" width="10" height="10"/>
+    <SubTexture name="fireOrbTraceParticleSpriteAnim_c" x="847" y="80" width="10" height="10"/>
+    <SubTexture name="fishEnemyShadowSpriteSwimAnim_a" x="468" y="146" width="33" height="25" frameX="-7" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemyShadowSpriteSwimAnim_b" x="468" y="177" width="33" height="25" frameX="-8" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemyShadowSpriteSwimAnim_c" x="551" y="376" width="32" height="25" frameX="-9" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemyShadowSpriteSwimAnim_d" x="468" y="146" width="33" height="25" frameX="-7" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemyShadowSpriteSwimAnim_e" x="630" y="302" width="31" height="25" frameX="-8" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemyShadowSpriteSwimAnim_f" x="68" y="746" width="28" height="25" frameX="-9" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemySpriteSwimAnim_a" x="463" y="208" width="33" height="25" frameX="-7" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemySpriteSwimAnim_b" x="560" y="422" width="32" height="25" frameX="-9" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemySpriteSwimAnim_c" x="592" y="268" width="32" height="25" frameX="-9" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemySpriteSwimAnim_d" x="463" y="208" width="33" height="25" frameX="-7" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemySpriteSwimAnim_e" x="630" y="333" width="31" height="25" frameX="-8" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="fishEnemySpriteSwimAnim_f" x="102" y="746" width="28" height="25" frameX="-9" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="frameBackgroundSpriteAnim_a" x="108" y="504" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_b" x="298" y="396" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_c" x="298" y="442" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_d" x="242" y="467" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_e" x="168" y="509" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_f" x="52" y="552" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_g" x="4" y="557" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_h" x="90" y="552" width="32" height="40"/>
+    <SubTexture name="frameBackgroundSpriteAnim_i" x="128" y="550" width="32" height="40"/>
+    <SubTexture name="garden_background_1" x="471" y="766" width="16" height="16"/>
+    <SubTexture name="garden_background_2" x="621" y="212" width="32" height="16"/>
+    <SubTexture name="garden_background_3" x="621" y="234" width="32" height="16"/>
+    <SubTexture name="garden_background_4" x="572" y="756" width="16" height="16"/>
+    <SubTexture name="garden_background_5" x="594" y="755" width="16" height="16"/>
+    <SubTexture name="garden_background_6" x="803" y="409" width="12" height="11" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="garden_background_7" x="774" y="690" width="11" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="garden_background_8" x="735" y="278" width="19" height="11" frameX="-3" frameY="-3" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="garden_background_9" x="369" y="286" width="22" height="12" frameX="-1" frameY="-2" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="garden_background_10" x="663" y="4" width="32" height="8"/>
+    <SubTexture name="garden_background_11" x="509" y="118" width="32" height="32"/>
+    <SubTexture name="garden_background_12" x="350" y="194" width="8" height="32"/>
+    <SubTexture name="garden_background_13" x="493" y="760" width="16" height="16"/>
+    <SubTexture name="garden_background_14" x="550" y="757" width="16" height="16"/>
+    <SubTexture name="garden_background_15" x="336" y="396" width="16" height="32"/>
+    <SubTexture name="garden_background_16" x="220" y="495" width="16" height="8"/>
+    <SubTexture name="garden_background_17" x="571" y="609" width="16" height="8"/>
+    <SubTexture name="garden_background_18" x="594" y="623" width="8" height="16"/>
+    <SubTexture name="garden_background_19" x="499" y="712" width="8" height="16"/>
+    <SubTexture name="garden_background_20" x="865" y="18" width="8" height="8"/>
+    <SubTexture name="glass1ParticleSpriteAnim_a" x="796" y="560" width="12" height="8" frameX="-2" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="glass1ParticleSpriteAnim_b" x="779" y="609" width="12" height="8" frameX="-2" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="glass2ParticleSpriteAnim_a" x="685" y="712" width="8" height="12" frameX="-4" frameY="-2" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="glass2ParticleSpriteAnim_b" x="349" y="806" width="8" height="12" frameX="-4" frameY="-2" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="glass3ParticleSpriteAnim_a" x="827" y="295" width="10" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="glass3ParticleSpriteAnim_b" x="827" y="309" width="10" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="glass_tile_1" x="616" y="755" width="16" height="16"/>
+    <SubTexture name="glass_tile_2" x="418" y="224" width="16" height="4" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="glassCollisionShadowSprite" x="507" y="156" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_a" x="507" y="194" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_b" x="502" y="232" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_c" x="397" y="477" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_d" x="475" y="318" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_e" x="475" y="356" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_f" x="474" y="394" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_g" x="435" y="481" width="32" height="32"/>
+    <SubTexture name="glassCollisionSpriteAnim_h" x="355" y="516" width="32" height="32"/>
+    <SubTexture name="glow_moon" x="4" y="4" width="120" height="121" frameX="-3" frameY="-3" frameWidth="128" frameHeight="128"/>
+    <SubTexture name="gnomeEnemyShadowSpriteStandAnim_a" x="463" y="239" width="33" height="20" frameX="-6" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemyShadowSpriteWalkAnim_a" x="463" y="239" width="33" height="20" frameX="-6" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemyShadowSpriteWalkAnim_b" x="625" y="4" width="32" height="21" frameX="-7" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemyShadowSpriteWalkAnim_c" x="436" y="308" width="33" height="20" frameX="-6" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemyShadowSpriteWalkAnim_d" x="406" y="444" width="35" height="21" frameX="-5" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemySpriteStandAnim_a" x="436" y="334" width="33" height="20" frameX="-6" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemySpriteWalkAnim_a" x="436" y="334" width="33" height="20" frameX="-6" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemySpriteWalkAnim_b" x="625" y="31" width="32" height="21" frameX="-7" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemySpriteWalkAnim_c" x="436" y="360" width="33" height="20" frameX="-6" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeEnemySpriteWalkAnim_d" x="437" y="281" width="35" height="21" frameX="-5" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="gnomeLightSpriteAnim_a" x="313" y="549" width="32" height="32"/>
+    <SubTexture name="gnomeLightSpriteAnim_b" x="194" y="625" width="32" height="32"/>
+    <SubTexture name="gnomeLightSpriteAnim_c" x="4" y="641" width="32" height="32"/>
+    <SubTexture name="gnomeLightSpriteAnim_d" x="42" y="636" width="32" height="32"/>
+    <SubTexture name="gnomeLightSpriteAnim_e" x="80" y="636" width="32" height="32"/>
+    <SubTexture name="grass_tile_1" x="168" y="142" width="64" height="32"/>
+    <SubTexture name="grassDecorationShadowSpriteAnim_a" x="782" y="637" width="11" height="8" frameX="-2" frameY="-8" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="grassDecorationShadowSpriteAnim_b" x="589" y="409" width="11" height="6" frameX="-2" frameY="-10" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="grassDecorationSpriteAnim_a" x="760" y="594" width="13" height="10" frameX="-1" frameY="-6" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="grassDecorationSpriteAnim_b" x="760" y="610" width="13" height="8" frameX="-1" frameY="-8" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="greenSparkleParticleSpriteBigAnim_a" x="847" y="96" width="10" height="10"/>
+    <SubTexture name="greenSparkleParticleSpriteBigAnim_b" x="847" y="112" width="10" height="10"/>
+    <SubTexture name="greenSparkleParticleSpriteSmallAnim_a" x="160" y="791" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="greenSparkleParticleSpriteSmallAnim_b" x="173" y="791" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="greySmokeParticleShadowSpriteAnim_a" x="865" y="32" width="8" height="8" frameX="-2" frameY="-2" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="greySmokeParticleShadowSpriteAnim_b" x="739" y="690" width="12" height="12"/>
+    <SubTexture name="greySmokeParticleSpriteAnim_a" x="863" y="46" width="8" height="8" frameX="-2" frameY="-2" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="greySmokeParticleSpriteAnim_b" x="739" y="708" width="12" height="12"/>
+    <SubTexture name="heartParticleShadowSpriteAnim_a" x="743" y="726" width="12" height="12"/>
+    <SubTexture name="heartParticleSpriteAnim_a" x="760" y="672" width="12" height="12"/>
+    <SubTexture name="heroExplosionParticleShadowSpriteAnim_a" x="189" y="697" width="28" height="28" frameX="-7" frameY="-7" frameWidth="42" frameHeight="42"/>
+    <SubTexture name="heroExplosionParticleShadowSpriteAnim_b" x="280" y="489" width="34" height="34" frameX="-4" frameY="-4" frameWidth="42" frameHeight="42"/>
+    <SubTexture name="heroExplosionParticleShadowSpriteAnim_c" x="250" y="419" width="42" height="42"/>
+    <SubTexture name="heroExplosionParticleShadowSpriteAnim_d" x="172" y="461" width="42" height="42"/>
+    <SubTexture name="heroExplosionParticleSpriteAnim_a" x="4" y="713" width="28" height="28" frameX="-7" frameY="-7" frameWidth="42" frameHeight="42"/>
+    <SubTexture name="heroExplosionParticleSpriteAnim_b" x="166" y="555" width="34" height="34" frameX="-4" frameY="-4" frameWidth="42" frameHeight="42"/>
+    <SubTexture name="heroExplosionParticleSpriteAnim_c" x="60" y="504" width="42" height="42"/>
+    <SubTexture name="heroExplosionParticleSpriteAnim_d" x="4" y="509" width="42" height="42"/>
+    <SubTexture name="heroShadowSpriteBlinkAnim_a" x="38" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteBlinkAnim_b" x="75" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteBlinkAnim_c" x="38" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteBlinkAnim_d" x="75" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteDuckStandAnim_a" x="585" y="501" width="31" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteDuckWalkAnim_a" x="585" y="501" width="31" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteDuckWalkAnim_b" x="630" y="364" width="31" height="20" frameX="-9" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteDuckWalkAnim_c" x="585" y="501" width="31" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteDuckWalkAnim_d" x="598" y="423" width="31" height="20" frameX="-9" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteFallAnim_a" x="112" y="708" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteFloatAnim_a" x="194" y="663" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteFloatAnim_b" x="4" y="679" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteFloatAnim_c" x="194" y="663" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteFloatAnim_d" x="41" y="679" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteHurtAnim_a" x="149" y="708" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteIdleAnim_a" x="38" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteIdleAnim_b" x="461" y="557" width="31" height="27" frameX="-8" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteIdleAnim_c" x="78" y="674" width="31" height="28" frameX="-8" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteIdleAnim_d" x="38" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteIdleAnim_e" x="498" y="553" width="31" height="27" frameX="-10" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteIdleAnim_f" x="115" y="674" width="31" height="28" frameX="-10" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteJumpAnim_a" x="152" y="674" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteStandAnim_a" x="38" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteStandAnim_b" x="659" y="220" width="31" height="26" frameX="-9" frameY="-15" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteSwimAnim_a" x="194" y="663" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteSwimAnim_b" x="586" y="80" width="32" height="28" frameX="-7" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteSwimAnim_c" x="498" y="586" width="31" height="27" frameX="-8" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteSwimAnim_d" x="424" y="591" width="31" height="27" frameX="-8" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteWalkAnim_a" x="38" y="713" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteWalkAnim_b" x="586" y="114" width="32" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteWalkAnim_c" x="585" y="148" width="32" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteWalkAnim_d" x="385" y="622" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteWalkAnim_e" x="349" y="592" width="30" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroShadowSpriteWalkAnim_f" x="312" y="622" width="30" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteBlinkAnim_a" x="730" y="364" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteBlinkAnim_b" x="730" y="389" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteBlinkAnim_c" x="730" y="364" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteBlinkAnim_d" x="730" y="389" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteFallAnim_a" x="703" y="444" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteHurtAnim_a" x="700" y="469" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteJumpAnim_a" x="226" y="762" width="23" height="20" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteStandAnim_a" x="730" y="364" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteStandAnim_b" x="254" y="788" width="23" height="18" frameX="-13" frameY="-23" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteWalkAnim_a" x="730" y="364" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteWalkAnim_b" x="700" y="351" width="24" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteWalkAnim_c" x="700" y="377" width="24" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteWalkAnim_d" x="687" y="523" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteWalkAnim_e" x="317" y="740" width="22" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallShadowSpriteWalkAnim_f" x="345" y="740" width="22" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteBlinkAnim_a" x="685" y="548" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteBlinkAnim_b" x="685" y="573" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteBlinkAnim_c" x="685" y="548" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteBlinkAnim_d" x="685" y="573" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteFallAnim_a" x="673" y="598" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteHurtAnim_a" x="671" y="687" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteJumpAnim_a" x="288" y="740" width="23" height="20" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_a" x="670" y="446" width="24" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_b" x="455" y="741" width="22" height="19" frameX="-14" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_c" x="373" y="764" width="22" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_d" x="132" y="777" width="22" height="21" frameX="-13" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_e" x="698" y="636" width="22" height="17" frameX="-13" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_f" x="226" y="788" width="22" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_g" x="513" y="713" width="20" height="15" frameX="-14" frameY="-26" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_h" x="717" y="494" width="22" height="17" frameX="-13" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteLevelCompleteAnim_i" x="760" y="322" width="20" height="15" frameX="-14" frameY="-26" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteStairsAnim_a" x="373" y="764" width="22" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteStairsAnim_b" x="132" y="777" width="22" height="21" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteStairsAnim_c" x="373" y="764" width="22" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteStairsAnim_d" x="198" y="763" width="22" height="21" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteStandAnim_a" x="685" y="548" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteStandAnim_b" x="283" y="785" width="23" height="18" frameX="-13" frameY="-23" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteWalkAnim_a" x="540" y="710" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteWalkAnim_b" x="668" y="472" width="24" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteWalkAnim_c" x="657" y="498" width="24" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteWalkAnim_d" x="499" y="734" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteWalkAnim_e" x="373" y="738" width="22" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSmallSpriteWalkAnim_f" x="401" y="738" width="22" height="20" frameX="-13" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteBlinkAnim_a" x="348" y="626" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteBlinkAnim_b" x="304" y="656" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteBlinkAnim_c" x="348" y="626" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteBlinkAnim_d" x="304" y="656" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteChangeSizeAnim_a" x="348" y="626" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteChangeSizeAnim_b" x="685" y="548" width="23" height="19" frameX="-13" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteDuckStandAnim_a" x="585" y="526" width="31" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteDuckWalkAnim_a" x="585" y="526" width="31" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteDuckWalkAnim_b" x="598" y="449" width="31" height="20" frameX="-9" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteDuckWalkAnim_c" x="585" y="526" width="31" height="19" frameX="-9" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteDuckWalkAnim_d" x="587" y="475" width="31" height="20" frameX="-9" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteFallAnim_a" x="267" y="675" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteFloatAnim_a" x="387" y="554" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteFloatAnim_b" x="467" y="519" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteFloatAnim_c" x="387" y="554" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteFloatAnim_d" x="548" y="508" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteHurtAnim_a" x="223" y="698" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteIdleAnim_a" x="348" y="626" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteIdleAnim_b" x="461" y="590" width="31" height="27" frameX="-8" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteIdleAnim_c" x="548" y="542" width="31" height="28" frameX="-8" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteIdleAnim_d" x="348" y="626" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteIdleAnim_e" x="573" y="576" width="31" height="27" frameX="-10" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteIdleAnim_f" x="424" y="557" width="31" height="28" frameX="-10" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteJumpAnim_a" x="387" y="588" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_a" x="583" y="182" width="32" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_b" x="535" y="590" width="30" height="27" frameX="-10" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_c" x="498" y="619" width="30" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_d" x="313" y="587" width="30" height="29" frameX="-9" frameY="-12" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_e" x="32" y="747" width="30" height="25" frameX="-9" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_f" x="422" y="624" width="30" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_g" x="701" y="54" width="28" height="23" frameX="-10" frameY="-18" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_h" x="136" y="741" width="28" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteLevelCompleteAnim_i" x="700" y="324" width="24" height="21" frameX="-12" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteStairsAnim_a" x="498" y="619" width="30" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteStairsAnim_b" x="276" y="606" width="30" height="29" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteStairsAnim_c" x="498" y="619" width="30" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteStairsAnim_d" x="232" y="629" width="30" height="29" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteStandAnim_a" x="348" y="626" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteStandAnim_b" x="630" y="270" width="31" height="26" frameX="-9" frameY="-15" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteSwimAnim_a" x="387" y="554" width="31" height="28" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteSwimAnim_b" x="583" y="216" width="32" height="28" frameX="-7" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteSwimAnim_c" x="662" y="88" width="31" height="27" frameX="-8" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteSwimAnim_d" x="662" y="121" width="31" height="27" frameX="-8" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteWalkAnim_a" x="662" y="154" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteWalkAnim_b" x="554" y="308" width="32" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteWalkAnim_c" x="554" y="342" width="32" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteWalkAnim_d" x="661" y="187" width="31" height="27" frameX="-9" frameY="-14" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteWalkAnim_e" x="268" y="641" width="30" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="heroSpriteWalkAnim_f" x="231" y="664" width="30" height="28" frameX="-9" frameY="-13" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="ice_background_1" x="493" y="782" width="16" height="16"/>
+    <SubTexture name="ice_background_2" x="592" y="299" width="32" height="16"/>
+    <SubTexture name="ice_background_3" x="592" y="321" width="32" height="16"/>
+    <SubTexture name="ice_background_4" x="364" y="789" width="16" height="16"/>
+    <SubTexture name="ice_background_5" x="283" y="809" width="16" height="16"/>
+    <SubTexture name="ice_background_6" x="803" y="426" width="12" height="11" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="ice_background_7" x="627" y="390" width="22" height="12" frameX="-1" frameY="-2" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="ice_background_8" x="255" y="768" width="19" height="11" frameX="-3" frameY="-3" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="ice_background_9" x="797" y="609" width="11" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="ice_background_10" x="118" y="636" width="32" height="32"/>
+    <SubTexture name="ice_background_11" x="156" y="634" width="32" height="32"/>
+    <SubTexture name="icicle_tile_1" x="779" y="623" width="12" height="8" frameX="-2" frameY="0" frameWidth="16" frameHeight="17"/>
+    <SubTexture name="icicleCollisionSpriteAnim_a" x="714" y="585" width="18" height="16"/>
+    <SubTexture name="lampWallBackgroundSpriteAnim_a" x="393" y="516" width="32" height="32"/>
+    <SubTexture name="lampWallBackgroundSpriteAnim_b" x="473" y="481" width="32" height="32"/>
+    <SubTexture name="lemonItemShadowSpriteAnim_a" x="825" y="92" width="16" height="15" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="lemonItemSpriteAnim_a" x="823" y="113" width="16" height="15" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="levelCompleteCollisionShadowSpriteAnim_a" x="316" y="354" width="46" height="36" frameX="-1" frameY="-4" frameWidth="48" frameHeight="40"/>
+    <SubTexture name="levelCompleteCollisionSpriteAnim_a" x="364" y="304" width="46" height="36" frameX="-1" frameY="-4" frameWidth="48" frameHeight="40"/>
+    <SubTexture name="levelCompleteStripesSpriteAnim_a" x="783" y="539" width="8" height="12"/>
+    <SubTexture name="levelCompleteStripesSpriteAnim_b" x="782" y="557" width="8" height="12"/>
+    <SubTexture name="levelCompleteStripesSpriteAnim_c" x="670" y="758" width="8" height="12"/>
+    <SubTexture name="levelCompleteStripesSpriteAnim_d" x="684" y="753" width="8" height="12"/>
+    <SubTexture name="levelCompleteStripesSpriteAnim_e" x="698" y="753" width="8" height="12"/>
+    <SubTexture name="levelCompleteStripesSpriteAnim_f" x="712" y="751" width="8" height="12"/>
+    <SubTexture name="moonItemShadowSpriteAnim_a" x="401" y="764" width="18" height="18" frameX="-3" frameY="-3" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="moonItemSpriteAnim_a" x="425" y="764" width="18" height="18" frameX="-3" frameY="-3" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="moonItemSpriteAnim_b" x="569" y="710" width="18" height="18" frameX="-3" frameY="-3" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="moonItemSpriteAnim_c" x="593" y="709" width="18" height="18" frameX="-3" frameY="-3" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="moonItemSpriteAnim_d" x="617" y="709" width="18" height="18" frameX="-3" frameY="-3" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="moonItemSpriteAnim_e" x="759" y="385" width="18" height="18" frameX="-3" frameY="-3" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="moonItemSpriteAnim_f" x="733" y="436" width="18" height="18" frameX="-3" frameY="-3" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="npcCollisionShadowSpriteAnim_a" x="186" y="731" width="22" height="26" frameX="-14" frameY="-15" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="npcCollisionShadowSpriteAnim_b" x="610" y="607" width="24" height="25" frameX="-13" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="npcCollisionSpriteAnim_a" x="4" y="747" width="22" height="26" frameX="-14" frameY="-15" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="npcCollisionSpriteAnim_b" x="534" y="623" width="24" height="25" frameX="-13" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteAimAnim_a" x="471" y="4" width="34" height="29" frameX="-10" frameY="-12" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteAimAnim_b" x="471" y="74" width="33" height="30" frameX="-11" frameY="-11" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteChargeAnim_a" x="214" y="731" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteChargeAnim_b" x="624" y="482" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteChargeAnim_c" x="214" y="731" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteChargeAnim_d" x="624" y="482" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteChargeAnim_e" x="214" y="731" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteChargeAnim_f" x="624" y="482" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteStandAnim_a" x="214" y="731" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteStandAnim_b" x="304" y="689" width="25" height="26" frameX="-11" frameY="-15" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemyShadowSpriteTossAnim_a" x="622" y="512" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteAimAnim_a" x="471" y="39" width="34" height="29" frameX="-10" frameY="-12" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteAimAnim_b" x="470" y="110" width="33" height="30" frameX="-11" frameY="-11" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteChargeAnim_a" x="458" y="624" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteChargeAnim_b" x="622" y="542" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteChargeAnim_c" x="610" y="576" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteChargeAnim_d" x="491" y="652" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteChargeAnim_e" x="699" y="157" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteChargeAnim_f" x="417" y="657" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteStandAnim_a" x="698" y="188" width="27" height="25" frameX="-10" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteStandAnim_b" x="260" y="708" width="25" height="26" frameX="-11" frameY="-15" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="penguinEnemySpriteTossAnim_a" x="450" y="657" width="27" height="24" frameX="-10" frameY="-17" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="pink_tile_1" x="110" y="830" width="16" height="16"/>
+    <SubTexture name="pink_tile_shadow_1" x="638" y="736" width="16" height="16"/>
+    <SubTexture name="plantEnemyShadowSpriteChargeAnim_a" x="769" y="54" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemyShadowSpriteStandAnim_a" x="655" y="524" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemyShadowSpriteStandAnim_b" x="655" y="524" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemyShadowSpriteStandAnim_c" x="655" y="524" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemyShadowSpriteStandAnim_d" x="655" y="524" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemySpriteChargeAnim_a" x="767" y="79" width="24" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemySpriteStandAnim_a" x="655" y="550" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemySpriteStandAnim_b" x="643" y="576" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemySpriteStandAnim_c" x="655" y="550" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="plantEnemySpriteStandAnim_d" x="643" y="576" width="24" height="20" frameX="-12" frameY="-21" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="platformRedCollisionShadowSpriteAnim_a" x="364" y="200" width="48" height="11" frameX="0" frameY="0" frameWidth="48" frameHeight="12"/>
+    <SubTexture name="platformRedCollisionSpriteAnim_a" x="364" y="217" width="48" height="11" frameX="0" frameY="0" frameWidth="48" frameHeight="12"/>
+    <SubTexture name="pot_shadow_tile_1" x="484" y="432" width="32" height="32"/>
+    <SubTexture name="pot_tile_1" x="516" y="270" width="32" height="32"/>
+    <SubTexture name="potionItemShadowSpriteAnim_a" x="32" y="806" width="20" height="19" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="potionItemSpriteAnim_a" x="4" y="807" width="20" height="19" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="potionItemSpriteAnim_b" x="58" y="806" width="20" height="19" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="potionItemSpriteAnim_c" x="84" y="806" width="20" height="19" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="potionItemSpriteAnim_d" x="110" y="805" width="20" height="19" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="potionItemSpriteAnim_e" x="136" y="804" width="20" height="19" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="potionItemSpriteAnim_f" x="162" y="804" width="20" height="19" frameX="-2" frameY="-5" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="pulley_chain" x="118" y="181" width="6" height="6"/>
+    <SubTexture name="pulley_chain_shadow" x="192" y="267" width="6" height="6"/>
+    <SubTexture name="pulley_top" x="440" y="224" width="16" height="4"/>
+    <SubTexture name="pulleyCollisionShadowSpriteAnim_a" x="336" y="498" width="20" height="6"/>
+    <SubTexture name="pulleyCollisionSpriteAnim_a" x="616" y="256" width="20" height="6"/>
+    <SubTexture name="purple_tile_1" x="238" y="4" width="64" height="32"/>
+    <SubTexture name="purple_tile_2" x="549" y="4" width="32" height="32"/>
+    <SubTexture name="purple_tile_3" x="42" y="201" width="32" height="64"/>
+    <SubTexture name="purpleSparkleParticleShadowSpriteBigAnim_a" x="845" y="128" width="10" height="10"/>
+    <SubTexture name="purpleSparkleParticleShadowSpriteBigAnim_b" x="845" y="128" width="10" height="10"/>
+    <SubTexture name="purpleSparkleParticleShadowSpriteSmallAnim_a" x="118" y="169" width="6" height="6" frameX="-2" frameY="-2" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="purpleSparkleParticleShadowSpriteSmallAnim_b" x="118" y="169" width="6" height="6" frameX="-2" frameY="-2" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="purpleSparkleParticleSpriteBigAnim_a" x="843" y="144" width="10" height="10"/>
+    <SubTexture name="purpleSparkleParticleSpriteBigAnim_b" x="843" y="160" width="10" height="10"/>
+    <SubTexture name="purpleSparkleParticleSpriteSmallAnim_a" x="186" y="791" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="purpleSparkleParticleSpriteSmallAnim_b" x="515" y="759" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="puzzle_tile_1" x="564" y="623" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_2" x="524" y="654" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_3" x="483" y="682" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_4" x="335" y="691" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_5" x="365" y="691" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_6" x="395" y="687" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_7" x="425" y="687" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_8" x="554" y="654" width="24" height="24"/>
+    <SubTexture name="puzzle_tile_9" x="170" y="763" width="22" height="22" frameX="0" frameY="-2" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="puzzle_tile_10" x="86" y="777" width="17" height="22" frameX="0" frameY="-2" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="puzzle_tile_11" x="260" y="740" width="22" height="22" frameX="-2" frameY="0" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="puzzle_tile_12" x="109" y="777" width="17" height="22" frameX="-7" frameY="0" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="puzzle_tile_13" x="32" y="778" width="21" height="22" frameX="0" frameY="0" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="puzzle_tile_14" x="736" y="29" width="27" height="16" frameX="0" frameY="0" frameWidth="32" frameHeight="16"/>
+    <SubTexture name="puzzle_tile_15" x="736" y="51" width="27" height="16" frameX="-2" frameY="0" frameWidth="32" frameHeight="16"/>
+    <SubTexture name="puzzle_tile_16" x="59" y="778" width="21" height="22" frameX="-3" frameY="-2" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="redCrossParticleSpriteAnim_a" x="4" y="779" width="22" height="22" frameX="-1" frameY="-1" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="rockEnemyShadowSpriteWalkAnim_a" x="761" y="196" width="24" height="16" frameX="-12" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockEnemyShadowSpriteWalkAnim_b" x="766" y="104" width="24" height="17" frameX="-12" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockEnemyShadowSpriteWalkAnim_c" x="761" y="218" width="24" height="16" frameX="-12" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockEnemyShadowSpriteWalkAnim_d" x="766" y="127" width="24" height="17" frameX="-12" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockEnemySpriteWalkAnim_a" x="730" y="320" width="24" height="16" frameX="-12" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockEnemySpriteWalkAnim_b" x="765" y="150" width="24" height="17" frameX="-12" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockEnemySpriteWalkAnim_c" x="730" y="342" width="24" height="16" frameX="-12" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockEnemySpriteWalkAnim_d" x="762" y="173" width="24" height="17" frameX="-12" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="rockParticleShadowSpriteAnim_a" x="515" y="772" width="7" height="7" frameX="-2" frameY="-2" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="rockParticleShadowSpriteAnim_b" x="757" y="690" width="11" height="11" frameX="0" frameY="0" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="rockParticleSpriteAnim_a" x="819" y="271" width="7" height="7" frameX="-2" frameY="-2" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="rockParticleSpriteAnim_b" x="757" y="707" width="11" height="11" frameX="0" frameY="0" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_a" x="764" y="642" width="12" height="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_b" x="799" y="477" width="12" height="10" frameX="0" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_c" x="781" y="575" width="12" height="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_d" x="680" y="252" width="10" height="12" frameX="-1" frameY="0" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_e" x="798" y="493" width="12" height="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_f" x="798" y="528" width="12" height="10" frameX="0" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_g" x="809" y="284" width="12" height="12"/>
+    <SubTexture name="screwParticleShadowSpriteAnim_h" x="743" y="744" width="10" height="12" frameX="-1" frameY="0" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleSpriteAnim_a" x="819" y="253" width="12" height="12"/>
+    <SubTexture name="screwParticleSpriteAnim_b" x="797" y="544" width="12" height="10" frameX="0" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleSpriteAnim_c" x="809" y="302" width="12" height="12"/>
+    <SubTexture name="screwParticleSpriteAnim_d" x="638" y="758" width="10" height="12" frameX="-1" frameY="0" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleSpriteAnim_e" x="807" y="320" width="12" height="12"/>
+    <SubTexture name="screwParticleSpriteAnim_f" x="781" y="593" width="12" height="10" frameX="0" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="screwParticleSpriteAnim_g" x="806" y="338" width="12" height="12"/>
+    <SubTexture name="screwParticleSpriteAnim_h" x="654" y="758" width="10" height="12" frameX="-1" frameY="0" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="seaPlantDecorationShadowSpriteAnim_a" x="381" y="721" width="8" height="10" frameX="0" frameY="-6" frameWidth="8" frameHeight="16"/>
+    <SubTexture name="seaPlantDecorationShadowSpriteAnim_b" x="673" y="623" width="8" height="7" frameX="0" frameY="-9" frameWidth="8" frameHeight="16"/>
+    <SubTexture name="seaPlantDecorationSpriteAnim_a" x="825" y="323" width="8" height="10" frameX="0" frameY="-6" frameWidth="8" frameHeight="16"/>
+    <SubTexture name="seaPlantDecorationSpriteAnim_b" x="687" y="623" width="8" height="7" frameX="0" frameY="-9" frameWidth="8" frameHeight="16"/>
+    <SubTexture name="seedBulletShadowSpriteAnim_a" x="783" y="451" width="14" height="15" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="seedBulletSpriteAnim_a" x="779" y="472" width="14" height="15" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="shadow_tile_1" x="4" y="832" width="16" height="16"/>
+    <SubTexture name="sky_background_1" x="4" y="832" width="16" height="16"/>
+    <SubTexture name="slimeEnemyShadowSpriteWalkAnim_a" x="733" y="414" width="22" height="16" frameX="-13" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeEnemyShadowSpriteWalkAnim_b" x="395" y="717" width="24" height="15" frameX="-12" frameY="-26" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeEnemyShadowSpriteWalkAnim_c" x="733" y="414" width="22" height="16" frameX="-13" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeEnemyShadowSpriteWalkAnim_d" x="799" y="48" width="20" height="17" frameX="-14" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeEnemySpriteWalkAnim_a" x="760" y="278" width="22" height="16" frameX="-13" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeEnemySpriteWalkAnim_b" x="425" y="717" width="24" height="15" frameX="-12" frameY="-26" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeEnemySpriteWalkAnim_c" x="760" y="278" width="22" height="16" frameX="-13" frameY="-25" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeEnemySpriteWalkAnim_d" x="797" y="101" width="20" height="17" frameX="-14" frameY="-24" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="slimeParticleShadowSpriteAnim_a" x="865" y="32" width="8" height="8"/>
+    <SubTexture name="slimeParticleShadowSpriteAnim_b" x="863" y="60" width="8" height="8"/>
+    <SubTexture name="slimeParticleSpriteAnim_a" x="863" y="74" width="8" height="8"/>
+    <SubTexture name="slimeParticleSpriteAnim_b" x="863" y="88" width="8" height="8"/>
+    <SubTexture name="smokeExplosionShadowSpriteAnim_a" x="549" y="42" width="32" height="32"/>
+    <SubTexture name="smokeExplosionShadowSpriteAnim_b" x="385" y="655" width="26" height="26" frameX="-3" frameY="-3" frameWidth="32" frameHeight="32"/>
+    <SubTexture name="smokeExplosionShadowSpriteAnim_c" x="429" y="738" width="20" height="20" frameX="-6" frameY="-6" frameWidth="32" frameHeight="32"/>
+    <SubTexture name="smokeExplosionSpriteAnim_a" x="548" y="80" width="32" height="32"/>
+    <SubTexture name="smokeExplosionSpriteAnim_b" x="341" y="659" width="26" height="26" frameX="-3" frameY="-3" frameWidth="32" frameHeight="32"/>
+    <SubTexture name="smokeExplosionSpriteAnim_c" x="540" y="684" width="20" height="20" frameX="-6" frameY="-6" frameWidth="32" frameHeight="32"/>
+    <SubTexture name="smokeParticleShadowSpriteAnim_a" x="842" y="176" width="10" height="10"/>
+    <SubTexture name="smokeParticleShadowSpriteAnim_b" x="865" y="32" width="8" height="8" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="smokeParticleShadowSpriteAnim_c" x="118" y="169" width="6" height="6" frameX="-2" frameY="-2" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="smokeParticleSpriteAnim_a" x="842" y="192" width="10" height="10"/>
+    <SubTexture name="smokeParticleSpriteAnim_b" x="863" y="102" width="8" height="8" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="smokeParticleSpriteAnim_c" x="353" y="156" width="6" height="6" frameX="-2" frameY="-2" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="snow_glow" x="204" y="180" width="61" height="62" frameX="-1" frameY="-1" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="snow_platform_collision" x="168" y="4" width="64" height="56"/>
+    <SubTexture name="snow_tile_1" x="238" y="42" width="64" height="32"/>
+    <SubTexture name="snowballBulletShadowSpriteAnim_a" x="566" y="684" width="20" height="20" frameX="-2" frameY="-2" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="snowballBulletSpriteAnim_a" x="592" y="683" width="20" height="20" frameX="-2" frameY="-2" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="snowballCollisionShadowSpriteAnim_a" x="732" y="460" width="18" height="18"/>
+    <SubTexture name="snowballCollisionSpriteAnim_a" x="717" y="517" width="18" height="18"/>
+    <SubTexture name="snowflakeParticleSpriteAnim_a" x="785" y="513" width="7" height="7"/>
+    <SubTexture name="snowmanEnemyShadowSpriteStandAnim_a" x="4" y="456" width="22" height="47" frameX="-13" frameY="-1" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemyShadowSpriteWalkAnim_a" x="4" y="456" width="22" height="47" frameX="-13" frameY="-1" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemyShadowSpriteWalkAnim_b" x="60" y="453" width="26" height="45" frameX="-11" frameY="-3" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemyShadowSpriteWalkAnim_c" x="4" y="456" width="22" height="47" frameX="-13" frameY="-1" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemyShadowSpriteWalkAnim_d" x="154" y="392" width="20" height="48" frameX="-14" frameY="0" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemySpriteStandAnim_a" x="32" y="456" width="22" height="47" frameX="-13" frameY="-1" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemySpriteWalkAnim_a" x="32" y="456" width="22" height="47" frameX="-13" frameY="-1" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemySpriteWalkAnim_b" x="92" y="453" width="26" height="45" frameX="-11" frameY="-3" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemySpriteWalkAnim_c" x="32" y="456" width="22" height="47" frameX="-13" frameY="-1" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowmanEnemySpriteWalkAnim_d" x="234" y="347" width="20" height="48" frameX="-14" frameY="0" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="snowParticleShadowSpriteAnim_a" x="806" y="356" width="12" height="12"/>
+    <SubTexture name="snowParticleShadowSpriteAnim_b" x="839" y="231" width="10" height="10" frameX="-1" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="snowParticleSpriteAnim_a" x="806" y="374" width="12" height="12"/>
+    <SubTexture name="snowParticleSpriteAnim_b" x="838" y="247" width="10" height="10" frameX="-1" frameY="-1" frameWidth="12" frameHeight="12"/>
+    <SubTexture name="spikedBlockCollisionShadowSpriteAnim_a" x="260" y="309" width="50" height="50"/>
+    <SubTexture name="spikedBlockCollisionSpriteAnim_a" x="313" y="248" width="50" height="50"/>
+    <SubTexture name="spikes_shadow_tile_1" x="700" y="403" width="16" height="10" frameX="0" frameY="-6" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="spikes_tile_1" x="606" y="667" width="16" height="10" frameX="0" frameY="-6" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="splashParticleSpriteAnim_a" x="336" y="468" width="20" height="24" frameX="-2" frameY="0" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="spot_tile_1" x="700" y="295" width="24" height="23" frameX="0" frameY="0" frameWidth="24" frameHeight="24"/>
+    <SubTexture name="spot_tile_2" x="635" y="423" width="29" height="22" frameX="0" frameY="-2" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="spot_tile_3" x="477" y="712" width="16" height="23" frameX="0" frameY="0" frameWidth="16" frameHeight="24"/>
+    <SubTexture name="spot_tile_4" x="26" y="832" width="16" height="16"/>
+    <SubTexture name="spot_tile_5" x="271" y="228" width="16" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="spot_tile_6" x="305" y="766" width="16" height="13" frameX="0" frameY="-1" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="spot_tile_7" x="803" y="443" width="12" height="11" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="spot_tile_8" x="803" y="460" width="12" height="11" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="spot_tile_9" x="815" y="544" width="11" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="spot_tile_10" x="799" y="574" width="11" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="spot_tile_11" x="336" y="434" width="20" height="28"/>
+    <SubTexture name="spot_tile_12" x="671" y="661" width="20" height="20"/>
+    <SubTexture name="spot_tile_13" x="320" y="488" width="10" height="16"/>
+    <SubTexture name="spot_tile_14" x="702" y="607" width="18" height="16"/>
+    <SubTexture name="spot_tile_15" x="92" y="831" width="12" height="16"/>
+    <SubTexture name="spot_tile_16" x="861" y="142" width="8" height="8"/>
+    <SubTexture name="spot_tile_17" x="312" y="785" width="22" height="18"/>
+    <SubTexture name="spot_tile_18" x="699" y="135" width="28" height="16"/>
+    <SubTexture name="springCollisionShadowSpriteAnim_a" x="463" y="265" width="32" height="9" frameX="0" frameY="-15" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="springCollisionShadowSpriteAnim_b" x="735" y="73" width="26" height="23" frameX="-3" frameY="-1" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="springCollisionShadowSpriteAnim_c" x="732" y="163" width="24" height="24" frameX="-4" frameY="0" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="springCollisionShadowSpriteAnim_d" x="701" y="83" width="28" height="20" frameX="-2" frameY="-4" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="springCollisionSpriteAnim_a" x="551" y="407" width="32" height="9" frameX="0" frameY="-15" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="springCollisionSpriteAnim_b" x="733" y="134" width="26" height="23" frameX="-3" frameY="-1" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="springCollisionSpriteAnim_c" x="731" y="193" width="24" height="24" frameX="-4" frameY="0" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="springCollisionSpriteAnim_d" x="699" y="109" width="28" height="20" frameX="-2" frameY="-4" frameWidth="32" frameHeight="24"/>
+    <SubTexture name="stairs_shadow_tile_1" x="777" y="240" width="22" height="16"/>
+    <SubTexture name="stairs_tile_1" x="797" y="79" width="22" height="16"/>
+    <SubTexture name="stairs_tile_2" x="799" y="4" width="22" height="16"/>
+    <SubTexture name="stairs_tile_3" x="799" y="26" width="22" height="16"/>
+    <SubTexture name="starBackgroundSpriteBig1Anim_a" x="859" y="156" width="8" height="8"/>
+    <SubTexture name="starBackgroundSpriteBig1Anim_b" x="859" y="170" width="8" height="8"/>
+    <SubTexture name="starBackgroundSpriteBig2Anim_a" x="858" y="184" width="8" height="8"/>
+    <SubTexture name="starBackgroundSpriteBig2Anim_b" x="858" y="198" width="8" height="8"/>
+    <SubTexture name="starBackgroundSpriteSmall1Anim_a" x="785" y="526" width="7" height="7" frameX="0" frameY="0" frameWidth="8" frameHeight="8"/>
+    <SubTexture name="starBackgroundSpriteSmall1Anim_b" x="855" y="240" width="7" height="7" frameX="0" frameY="0" frameWidth="8" frameHeight="8"/>
+    <SubTexture name="starBackgroundSpriteSmall2Anim_a" x="854" y="253" width="7" height="7" frameX="0" frameY="0" frameWidth="8" frameHeight="8"/>
+    <SubTexture name="starBackgroundSpriteSmall2Anim_b" x="853" y="266" width="7" height="7" frameX="0" frameY="0" frameWidth="8" frameHeight="8"/>
+    <SubTexture name="torchColumnBackgroundSpriteAnim_a" x="547" y="118" width="32" height="32"/>
+    <SubTexture name="torchColumnBackgroundSpriteAnim_b" x="545" y="156" width="32" height="32"/>
+    <SubTexture name="torchColumnBackgroundSpriteAnim_c" x="545" y="194" width="32" height="32"/>
+    <SubTexture name="torchColumnBackgroundSpriteAnim_d" x="540" y="232" width="32" height="32"/>
+    <SubTexture name="torchColumnBackgroundSpriteAnim_e" x="516" y="308" width="32" height="32"/>
+    <SubTexture name="torchWallBackgroundSpriteAnim_a" x="513" y="346" width="32" height="32"/>
+    <SubTexture name="torchWallBackgroundSpriteAnim_b" x="513" y="384" width="32" height="32"/>
+    <SubTexture name="torchWallBackgroundSpriteAnim_c" x="511" y="470" width="32" height="32"/>
+    <SubTexture name="torchWallBackgroundSpriteAnim_d" x="522" y="422" width="32" height="32"/>
+    <SubTexture name="torchWallBackgroundSpriteAnim_e" x="554" y="270" width="32" height="32"/>
+    <SubTexture name="toy_background_1" x="48" y="831" width="16" height="16"/>
+    <SubTexture name="toy_background_2" x="589" y="387" width="32" height="16"/>
+    <SubTexture name="toy_background_3" x="560" y="453" width="32" height="16"/>
+    <SubTexture name="toy_background_4" x="176" y="829" width="16" height="16"/>
+    <SubTexture name="toy_background_5" x="198" y="829" width="16" height="16"/>
+    <SubTexture name="toy_background_6" x="798" y="511" width="12" height="11" frameX="-2" frameY="-3" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="toy_background_7" x="696" y="250" width="22" height="12" frameX="-1" frameY="-2" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="toy_background_8" x="823" y="392" width="11" height="8" frameX="-3" frameY="-4" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="toy_background_9" x="280" y="768" width="19" height="11" frameX="-3" frameY="-3" frameWidth="24" frameHeight="16"/>
+    <SubTexture name="toy_background_10" x="592" y="343" width="32" height="16"/>
+    <SubTexture name="toy_background_11" x="592" y="365" width="32" height="16"/>
+    <SubTexture name="toy_background_12" x="663" y="18" width="32" height="8"/>
+    <SubTexture name="toy_background_13" x="663" y="32" width="32" height="8"/>
+    <SubTexture name="toy_background_14" x="663" y="46" width="32" height="8"/>
+    <SubTexture name="toy_background_15" x="663" y="60" width="32" height="8"/>
+    <SubTexture name="toy_background_16" x="118" y="197" width="80" height="46" frameX="0" frameY="0" frameWidth="80" frameHeight="48"/>
+    <SubTexture name="toy_background_17" x="822" y="134" width="15" height="15" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="toy_background_18" x="70" y="831" width="16" height="16"/>
+    <SubTexture name="toy_background_19" x="132" y="830" width="16" height="16"/>
+    <SubTexture name="toy_background_20" x="154" y="829" width="16" height="16"/>
+    <SubTexture name="toy_shadow_tile_1" x="416" y="303" width="14" height="17" frameX="-1" frameY="0" frameWidth="16" frameHeight="17"/>
+    <SubTexture name="toy_shadow_tile_2" x="416" y="395" width="14" height="16" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="toy_shadow_tile_3" x="416" y="326" width="14" height="17" frameX="-1" frameY="0" frameWidth="16" frameHeight="17"/>
+    <SubTexture name="toy_tile_1" x="416" y="349" width="14" height="17" frameX="-1" frameY="0" frameWidth="16" frameHeight="17"/>
+    <SubTexture name="toy_tile_2" x="416" y="417" width="14" height="16" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="toy_tile_3" x="416" y="372" width="14" height="17" frameX="-1" frameY="0" frameWidth="16" frameHeight="17"/>
+    <SubTexture name="toyEnemyShadowSpriteImpactAnim_a" x="733" y="109" width="27" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemyShadowSpriteJumpAnim_a" x="698" y="219" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemyShadowSpriteJumpAnim_b" x="667" y="295" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemyShadowSpriteJumpAnim_c" x="667" y="326" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemyShadowSpriteJumpAnim_d" x="667" y="295" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemyShadowSpriteStandAnim_a" x="670" y="419" width="27" height="21" frameX="-12" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemySpriteImpactAnim_a" x="736" y="4" width="27" height="19" frameX="-12" frameY="-22" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemySpriteJumpAnim_a" x="667" y="357" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemySpriteJumpAnim_b" x="667" y="388" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemySpriteJumpAnim_c" x="635" y="451" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemySpriteJumpAnim_d" x="667" y="388" width="27" height="25" frameX="-12" frameY="-16" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="toyEnemySpriteStandAnim_a" x="702" y="268" width="27" height="21" frameX="-12" frameY="-20" frameWidth="48" frameHeight="48"/>
+    <SubTexture name="treadmillMidCollisionShadowSpriteAnim_a" x="4" y="832" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_a" x="220" y="823" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_b" x="242" y="813" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_c" x="305" y="809" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_d" x="327" y="809" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_e" x="386" y="789" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_f" x="408" y="788" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_g" x="430" y="788" width="16" height="16"/>
+    <SubTexture name="treadmillMidCollisionSpriteAnim_h" x="452" y="788" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionShadowSpriteAnim_a" x="660" y="736" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_a" x="721" y="729" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_b" x="742" y="650" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_c" x="763" y="517" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_d" x="783" y="385" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_e" x="797" y="262" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_f" x="818" y="193" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_g" x="827" y="4" width="16" height="16"/>
+    <SubTexture name="treadmillSideCollisionSpriteAnim_h" x="827" y="26" width="16" height="16"/>
+    <SubTexture name="trunk_shadow_tile_1" x="271" y="174" width="16" height="48"/>
+    <SubTexture name="trunk_shadow_tile_3" x="455" y="687" width="16" height="24"/>
+    <SubTexture name="trunk_shadow_tile_5" x="146" y="330" width="32" height="48"/>
+    <SubTexture name="trunk_tile_1" x="238" y="286" width="16" height="48"/>
+    <SubTexture name="trunk_tile_2" x="825" y="48" width="16" height="16"/>
+    <SubTexture name="trunk_tile_3" x="584" y="653" width="16" height="24"/>
+    <SubTexture name="trunk_tile_4" x="825" y="70" width="16" height="16"/>
+    <SubTexture name="trunk_tile_5" x="260" y="365" width="32" height="48"/>
+    <SubTexture name="trunk_tile_6" x="180" y="407" width="16" height="48"/>
+    <SubTexture name="tutorialCollisionShadowSpriteAnim_a" x="791" y="216" width="20" height="16"/>
+    <SubTexture name="tutorialCollisionShadowSpriteAnim_b" x="760" y="343" width="20" height="15" frameX="0" frameY="-1" frameWidth="20" frameHeight="16"/>
+    <SubTexture name="tutorialCollisionSpriteAnim_a" x="760" y="300" width="20" height="16"/>
+    <SubTexture name="tutorialCollisionSpriteAnim_b" x="759" y="364" width="20" height="15" frameX="0" frameY="-1" frameWidth="20" frameHeight="16"/>
+    <SubTexture name="vein_tile_1" x="199" y="790" width="16" height="8"/>
+    <SubTexture name="vein_tile_2" x="663" y="74" width="32" height="8"/>
+    <SubTexture name="vein_tile_3" x="549" y="475" width="32" height="16"/>
+    <SubTexture name="vein_tile_4" x="855" y="212" width="8" height="8"/>
+    <SubTexture name="vein_tile_5" x="168" y="180" width="24" height="8"/>
+    <SubTexture name="vein_tile_6" x="535" y="546" width="7" height="16"/>
+    <SubTexture name="vein_tile_7" x="247" y="731" width="7" height="16"/>
+    <SubTexture name="vein_tile_8" x="848" y="293" width="7" height="7"/>
+    <SubTexture name="vine_shadow_tile_1" x="796" y="124" width="20" height="17"/>
+    <SubTexture name="vine_shadow_tile_2" x="786" y="338" width="14" height="16" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="vine_shadow_tile_3" x="796" y="147" width="20" height="17"/>
+    <SubTexture name="vine_shadow_tile_4" x="786" y="360" width="14" height="16" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="vine_tile_1" x="795" y="170" width="20" height="17"/>
+    <SubTexture name="vine_tile_2" x="783" y="407" width="14" height="16" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="vine_tile_3" x="792" y="193" width="20" height="17"/>
+    <SubTexture name="vine_tile_4" x="783" y="429" width="14" height="16" frameX="-1" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="walkSmokeParticleShadowSpriteAnim_a" x="118" y="169" width="6" height="6"/>
+    <SubTexture name="walkSmokeParticleShadowSpriteAnim_b" x="353" y="168" width="6" height="6"/>
+    <SubTexture name="walkSmokeParticleSpriteAnim_a" x="353" y="180" width="6" height="6"/>
+    <SubTexture name="walkSmokeParticleSpriteAnim_b" x="194" y="595" width="6" height="6"/>
+    <SubTexture name="waterDropParticleSpriteAnim_a" x="194" y="607" width="6" height="6" frameX="-1" frameY="-1" frameWidth="8" frameHeight="8"/>
+    <SubTexture name="waterDropParticleSpriteAnim_b" x="855" y="226" width="8" height="8"/>
+    <SubTexture name="waterfall_1" x="4" y="131" width="32" height="128"/>
+    <SubTexture name="waterfall_1b" x="130" y="4" width="32" height="187"/>
+    <SubTexture name="wood_shadow_tile_4" x="327" y="766" width="16" height="10" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="wood_tile_1" x="238" y="80" width="64" height="32"/>
+    <SubTexture name="wood_tile_2" x="587" y="4" width="32" height="32"/>
+    <SubTexture name="wood_tile_3" x="4" y="265" width="32" height="64"/>
+    <SubTexture name="wood_tile_4" x="349" y="766" width="16" height="10" frameX="0" frameY="0" frameWidth="16" frameHeight="16"/>
+    <SubTexture name="wood_tile_5" x="731" y="223" width="24" height="24"/>
+    <SubTexture name="wood_tile_6" x="369" y="248" width="24" height="32"/>
+    <SubTexture name="yellow_tile_1" x="238" y="118" width="64" height="32"/>
+    <SubTexture name="yellow_tile_2" x="587" y="42" width="32" height="32"/>
+    <SubTexture name="yellow_tile_3" x="80" y="201" width="32" height="64"/>
+    <SubTexture name="yellowSparkleParticleSpriteBigAnim_a" x="837" y="263" width="10" height="10"/>
+    <SubTexture name="yellowSparkleParticleSpriteBigAnim_b" x="832" y="279" width="10" height="10"/>
+    <SubTexture name="yellowSparkleParticleSpriteSmallAnim_a" x="843" y="306" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+    <SubTexture name="yellowSparkleParticleSpriteSmallAnim_b" x="839" y="337" width="7" height="7" frameX="-1" frameY="-1" frameWidth="10" frameHeight="10"/>
+</TextureAtlas>

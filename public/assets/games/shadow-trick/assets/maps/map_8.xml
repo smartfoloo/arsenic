@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+  <tiles>
+    <obj name="dark_tile_1" back="0" x="1280" y="208" w="192" h="64" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="960" y="208" w="224" h="64" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="1184" y="152" w="96" h="120" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="736" y="144" w="224" h="128" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="96" y="16" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="0" y="192" w="416" h="80" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="160" y="176" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="416" y="192" w="320" h="80" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="416" y="144" w="64" h="48" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="320" y="80" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="336" y="80" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="0" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="160" y="208" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="64" y="176" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="192" y="192" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="416" y="16" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="256" y="192" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="736" y="112" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="592" y="32" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_1" back="0" x="240" y="196" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_5" back="0" x="164" y="200" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="224" y="112" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="240" y="112" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="96" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_2" back="0" x="80" y="180" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="128" y="96" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="96" y="96" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_1" back="0" x="112" y="100" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="384" y="112" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="416" y="112" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="352" y="160" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="384" y="176" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="288" y="160" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="toy_tile_1" back="0" x="96" y="47" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="toy_tile_2" back="0" x="96" y="64" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="toy_tile_3" back="0" x="96" y="80" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="480" y="16" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="480" y="-48" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="416" y="-48" w="64" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="160" y="16" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_3" back="0" x="192" y="-48" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="96" y="-48" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="192" y="16" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="384" y="16" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_3" back="0" x="432" y="20" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="purple_tile_3" back="0" x="384" y="-48" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="864" y="128" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="480" y="176" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="832" y="128" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_3" back="0" x="480" y="112" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_4" back="0" x="496" y="116" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="576" y="176" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="672" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="512" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="608" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="928" y="112" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="592" y="64" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="592" y="-32" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_6" back="0" x="596" y="56" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="704" y="112" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="768" y="112" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="128" y="-48" w="64" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="608" y="208" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="704" y="32" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="768" y="32" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_3" back="0" x="800" y="-32" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="704" y="-32" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="800" y="32" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="736" y="-32" w="64" h="64" f_x="0" f_y="0"/>
+    <obj name="toy_tile_1" back="0" x="736" y="63" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="toy_tile_2" back="0" x="736" y="80" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="toy_tile_3" back="0" x="736" y="96" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="960" y="32" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="1024" y="32" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="1024" y="-32" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="960" y="-32" w="64" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="928" y="32" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_3" back="0" x="976" y="36" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="purple_tile_3" back="0" x="928" y="-32" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="928" y="144" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="960" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="1024" y="176" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="1056" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="1120" y="176" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="1152" y="144" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="toy_tile_1" back="0" x="160" y="127" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="toy_tile_2" back="0" x="160" y="144" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="toy_tile_3" back="0" x="160" y="160" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="1216" y="64" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="1248" y="64" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="1184" y="152" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="1216" y="144" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_2" back="0" x="1312" y="64" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_3" back="0" x="1312" y="0" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="1152" y="-32" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="toy_tile_1" back="0" x="1248" y="95" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="toy_tile_2" back="0" x="1248" y="112" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="toy_tile_3" back="0" x="1248" y="128" w="16" h="17" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="1248" y="176" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="1312" y="176" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="1344" y="192" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="1376" y="192" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="1440" y="144" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="1472" y="144" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="1504" y="112" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="1536" y="112" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="1504" y="-16" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="1536" y="16" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_2" back="0" x="1600" y="16" w="32" h="32" f_x="0" f_y="0"/>
+    <obj name="purple_tile_3" back="0" x="1600" y="-48" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="1536" y="-16" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="1472" y="176" w="64" h="96" f_x="0" f_y="0"/>
+    <obj name="dark_tile_1" back="0" x="1536" y="144" w="144" h="128" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="512" y="32" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="528" y="32" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_1" back="0" x="1136" y="180" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_5" back="0" x="1028" y="24" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_2" back="0" x="1104" y="180" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_1" back="0" x="752" y="36" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_4" back="0" x="1040" y="180" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_6" back="0" x="932" y="136" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_2" back="0" x="784" y="116" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_1" back="0" x="624" y="180" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_2" back="0" x="1264" y="68" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="1216" y="-32" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_1" back="0" x="1280" y="-32" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_2" back="0" x="1296" y="-28" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_3" back="0" x="1296" y="68" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_2" back="0" x="1456" y="148" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_4" back="0" x="1552" y="116" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="1408" y="80" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="1424" y="80" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="1408" y="16" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="pink_tile_1" back="0" x="1424" y="16" w="16" h="16" f_x="0" f_y="0"/>
+    <obj name="yellow_tile_3" back="0" x="1600" y="112" w="32" h="64" f_x="0" f_y="0"/>
+    <obj name="purple_tile_1" back="0" x="1632" y="144" w="64" h="32" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_2" back="0" x="1616" y="148" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_12" back="0" x="40" y="176" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_15" back="0" x="208" y="208" w="32" h="16" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_16" back="0" x="96" y="216" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_10" back="0" x="160" y="184" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_11" back="0" x="168" y="96" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_11" back="0" x="408" y="112" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_12" back="0" x="728" y="32" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_15" back="0" x="976" y="192" w="32" h="16" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_16" back="0" x="824" y="120" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_10" back="0" x="928" y="136" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_11" back="0" x="1000" y="32" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_11" back="0" x="1176" y="144" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_12" back="0" x="712" y="176" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_16" back="0" x="540" y="184" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_11" back="0" x="1320" y="64" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_10" back="0" x="1376" y="200" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_10" back="0" x="1600" y="120" w="24" h="24" f_x="1" f_y="0"/>
+    <obj name="puzzle_tile_16" back="0" x="1552" y="24" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_14" back="0" x="1232" y="144" w="32" h="16" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_13" back="0" x="1280" y="176" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_11" back="0" x="1608" y="112" w="24" h="24" f_x="0" f_y="0"/>
+    <obj name="puzzle_tile_10" back="0" x="1600" y="24" w="24" h="24" f_x="0" f_y="0"/>
+  </tiles>
+  <tiles_front/>
+  <collisions>
+    <obj type="13" x="192" y="176" w="96" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="13" x="288" y="144" w="96" h="1" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="13" x="832" y="112" w="96" h="1" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="14" x="608" y="128" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="1" x="536" y="176" w="7" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="14" x="1168" y="32" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="3" x="1184" y="144" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="14" x="1424" y="32" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="13" x="1344" y="176" w="96" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="0" y="176" w="352" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1184" y="144" w="96" h="80" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="672" y="144" w="32" h="32" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="640" y="160" w="32" h="16" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="96" y="96" w="96" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="480" y="176" w="256" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="592" y="0" w="32" h="128" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="704" y="112" w="256" h="64" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="960" y="144" w="32" h="64" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="704" y="0" w="128" h="64" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="992" y="176" w="192" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1152" y="144" w="32" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="224" y="112" w="32" h="16" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="384" y="112" w="128" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="288" y="144" w="223.95" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="96" y="0" w="128" h="48" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="384" y="0" w="128" h="48" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="736" y="64" w="16" h="48" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="928" y="0" w="128" h="64" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="320" y="80" w="32" h="16" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1216" y="64" w="128" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1312" y="0" w="32" h="64" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1152" y="0" w="32" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1280" y="176" w="192" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1440" y="144" w="240" h="80" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1504" y="112" w="128" h="32" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1504" y="0" w="128" h="48" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1248" y="96" w="16" h="48" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="96" y="48" w="16" h="48" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="160" y="128" w="16" h="48" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="544" y="80" w="32" h="32" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="576" y="64" w="32" h="48" rot="3" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="512" y="32" w="32" h="16" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1408" y="80" w="32" h="16" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="12" x="96" y="-64" w="127.95" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="12" x="592" y="-64" w="32" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="12" x="1152" y="-64" w="32" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="12" x="1216" y="-64" w="127.95" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="12" x="1504" y="-64" w="127.95" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1408" y="16" w="32" h="16" rot="1" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="2" x="1568" y="112" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="15" x="624" y="112" w="80" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="15" x="1216" y="0" w="96" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="15" x="1504" y="48" w="128" h="64" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+  </collisions>
+  <decorations/>
+  <enemies>
+    <obj type="8" x="472" y="112" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="8" x="240" y="112" w="1" h="0" rot="0" ai="1" val_1="0" val_2="0" val_3="0"/>
+    <obj type="8" x="904" y="112" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="9" x="1120" y="176" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="8" x="1416" y="176" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+  </enemies>
+  <items>
+    <obj type="1" x="528" y="32" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="880" y="24" w="1" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="1264" y="32" w="2" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+    <obj type="0" x="152" y="72" w="0" h="0" rot="0" ai="0" val_1="0" val_2="0" val_3="0"/>
+  </items>
+  <npcs/>
+  <data>
+    <obj _class="HorPathScript" x="416" y="96" w="64" h="8"/>
+    <obj _class="HorPathScript" x="848" y="96" w="64" h="8"/>
+    <obj _class="HorPathScript" x="1088" y="160" w="48" h="8"/>
+    <obj _class="HorPathScript" x="1360" y="160" w="64" h="8"/>
+    <obj _class="LevelStartScript" x="0" y="0"/>
+    <obj _class="LevelEndScript" x="1664" y="272"/>
+    <obj _class="StartPosition" x="120" y="176" dir="1"/>
+  </data>
+  <layer_0>
+    <tiles>
+      <obj name="toy_background_1" x="512" y="-32" w="96" h="80" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="592" y="-16" w="260" h="144" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="832" y="-16" w="480" h="208" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="-16" y="-16" w="80" h="96" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="192" y="-16" w="320" h="224" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="-16" y="112" w="80" h="80" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="64" y="-16" w="128" h="208" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="496" y="96" w="112" h="96" f_x="0" f_y="0"/>
+      <obj name="toy_background_1" x="1312" y="-16" w="368" h="208" f_x="0" f_y="0"/>
+      <obj name="toy_background_11" x="640" y="-48" w="32" h="104" f_x="0" f_y="0"/>
+      <obj name="toy_background_12" x="640" y="-8" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_13" x="640" y="0" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_14" x="640" y="16" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="640" y="40" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_10" x="640" y="72" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="672" y="56" w="32" h="8" f_x="1" f_y="0"/>
+      <obj name="toy_background_13" x="672" y="64" w="32" h="8" f_x="1" f_y="0"/>
+      <obj name="toy_background_11" x="112" y="0" w="32" h="72" f_x="0" f_y="0"/>
+      <obj name="toy_background_12" x="112" y="8" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_13" x="112" y="16" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_14" x="112" y="32" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="112" y="56" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_10" x="112" y="72" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_11" x="288" y="0" w="32" h="104" f_x="0" f_y="0"/>
+      <obj name="toy_background_12" x="288" y="40" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_13" x="288" y="48" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_14" x="288" y="64" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="288" y="88" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_10" x="288" y="120" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="320" y="104" w="32" h="8" f_x="1" f_y="0"/>
+      <obj name="toy_background_13" x="320" y="112" w="32" h="8" f_x="1" f_y="0"/>
+      <obj name="toy_background_2" x="48" y="112" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="64" y="96" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="16" y="112" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_7" x="70" y="95" w="24" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_8" x="31" y="115" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="432" y="64" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="608" y="128" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="608" y="160" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_5" x="592" y="80" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_5" x="640" y="128" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="624" y="112" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="656" y="112" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="688" y="112" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="592" y="144" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="640" y="160" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="672" y="160" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_8" x="607" y="147" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_7" x="662" y="111" w="24" h="16" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="32" y="128" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="224" y="128" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="320" y="96" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="664" y="0" w="80" h="48" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="824" y="0" w="80" h="48" f_x="1" f_y="0"/>
+      <obj name="toy_background_17" x="736" y="24" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="720" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="752" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="528" y="96" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="560" y="96" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="592" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="336" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="496" y="96" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="560" y="32" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="528" y="32" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="512" y="48" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="592" y="96" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="176" y="144" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="192" y="128" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="352" y="80" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="368" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_9" x="368" y="62" w="24" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="32" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_9" x="39" y="62" w="24" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="0" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="-16" y="112" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="48" y="80" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_5" x="32" y="80" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="-32" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_6" x="210" y="127" w="16" h="16" f_x="1" f_y="0"/>
+      <obj name="toy_background_4" x="544" y="48" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="496" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_4" x="512" y="80" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="768" y="80" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="784" y="64" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_9" x="785" y="62" w="24" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="800" y="80" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="864" y="64" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="1040" y="120" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="1265" y="98" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="1281" y="114" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="1297" y="98" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_6" x="1280" y="96" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="BackgroundFrame1" x="992" y="112" w="32" h="40" f_x="0" f_y="0"/>
+      <obj name="BackgroundFrame1" x="1088" y="112" w="32" h="40" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="976" y="64" w="80" h="48" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="1136" y="64" w="80" h="48" f_x="1" f_y="0"/>
+      <obj name="toy_background_17" x="1048" y="88" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="1032" y="80" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="1064" y="80" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_18" x="974" y="48" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_19" x="974" y="-16" w="16" h="64" f_x="0" f_y="0"/>
+      <obj name="toy_background_20" x="988" y="-16" w="137" h="80" f_x="0" f_y="0"/>
+      <obj name="toy_background_18" x="1138" y="48" w="16" h="16" f_x="1" f_y="0"/>
+      <obj name="toy_background_19" x="1138" y="-16" w="16" h="64" f_x="1" f_y="0"/>
+      <obj name="toy_background_11" x="1136" y="-16" w="32" h="104" f_x="0" f_y="0"/>
+      <obj name="toy_background_10" x="1136" y="88" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_12" x="1136" y="36" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_14" x="1136" y="44" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="1136" y="52" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_13" x="1168" y="76" w="32" h="8" f_x="1" f_y="0"/>
+      <obj name="toy_background_11" x="944" y="-16" w="32" h="104" f_x="0" f_y="0"/>
+      <obj name="toy_background_10" x="944" y="78" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="944" y="66" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_11" x="1440" y="-32" w="32" h="112" f_x="0" f_y="0"/>
+      <obj name="toy_background_10" x="1440" y="80" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_11" x="1344" y="-32" w="32" h="104" f_x="0" f_y="0"/>
+      <obj name="toy_background_10" x="1344" y="78" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="1344" y="72" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_14" x="1440" y="4" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_15" x="1440" y="24" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="toy_background_13" x="1472" y="60" w="32" h="8" f_x="1" f_y="0"/>
+      <obj name="toy_background_13" x="1376" y="52" w="32" h="8" f_x="1" f_y="0"/>
+      <obj name="toy_background_13" x="1344" y="20" w="32" h="8" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="1392" y="32" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="BackgroundCandle1" x="1312" y="120" w="32" h="32" f_x="0" f_y="0"/>
+      <obj name="BackgroundFrame1" x="1376" y="112" w="32" h="40" f_x="0" f_y="0"/>
+      <obj name="toy_background_7" x="1287" y="130" w="24" h="16" f_x="0" f_y="1"/>
+      <obj name="toy_background_2" x="1216" y="16" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="1232" y="0" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_3" x="1248" y="16" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_2" x="1200" y="32" w="32" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_6" x="510" y="62" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_6" x="1247" y="17" w="16" h="16" f_x="1" f_y="0"/>
+      <obj name="toy_background_16" x="960" y="0" w="80" h="48" f_x="1" f_y="0"/>
+      <obj name="toy_background_16" x="136" y="0" w="80" h="48" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="296" y="0" w="80" h="48" f_x="1" f_y="0"/>
+      <obj name="toy_background_16" x="312" y="0" w="80" h="48" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="208" y="24" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="192" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="224" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="472" y="0" w="80" h="48" f_x="1" f_y="0"/>
+      <obj name="toy_background_17" x="384" y="24" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="368" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="400" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="-40" y="0" w="80" h="48" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="120" y="0" w="80" h="48" f_x="1" f_y="0"/>
+      <obj name="toy_background_17" x="32" y="24" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="16" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="48" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_16" x="800" y="0" w="80" h="48" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="872" y="24" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="856" y="16" w="16" h="16" f_x="0" f_y="0"/>
+      <obj name="toy_background_17" x="888" y="16" w="16" h="16" f_x="0" f_y="0"/>
+    </tiles>
+    <elements/>
+  </layer_0>
+</map>
