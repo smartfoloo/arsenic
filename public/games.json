@@ -1176,5 +1176,14 @@
       "adventure",
       "flash"
     ]
+  },
+  {
+    "title": "Run 3",
+    "id": "run-3",
+    "tags": [
+      "adventure",
+      "flash",
+      "platformer"
+    ]
   }
 ]
