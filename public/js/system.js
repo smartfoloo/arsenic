@@ -347,7 +347,7 @@ function openPage(pageId) {
     element.classList.remove('current-game-embed');
   });
 
-  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page') ? 'none' : 'flex';
+  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page' || pageId === 'forum-page') ? 'none' : 'flex';
 
   pages.forEach(page => {
     page.style.display = 'none';
