@@ -61,6 +61,13 @@
               <p class="category"></p>
             </div>
           </button>
+          <button class="tab-btn" id="game-tab" onclick="openPage('forum-page')">
+            <div class="left">
+              <i data-lucide="message-circle"></i>
+              <p>Forum</p>
+              <p class="category"></p>
+            </div>
+          </button>
           <hr>
           <div id="tabs-container"></div>
         </div>
@@ -198,6 +205,9 @@
             <b style="color: var(--theme);">Ultraviolet</b>
           </p>
         </div>
+      </div>
+      <div class="page" id="forum-page">
+        <iframe src="/forum" frameborder="0" style="width: 100% !important; height: 100% !important;"></iframe>
       </div>
       <div class="page" id="settings-page">
         <h1><a href="javascript:alert('Little easter egg hidden by Silvereen 🥚')">S</a>ettings</h1>
