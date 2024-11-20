@@ -422,7 +422,7 @@ const reqFs = (elem) => {
 };
 
 const fullscreen = () => {
-  const elem = document.getElementsByClassName("game-embed")[0];
+  const elem = document.querySelector('.current-game-embed');
   reqFs(elem);
 };
 
