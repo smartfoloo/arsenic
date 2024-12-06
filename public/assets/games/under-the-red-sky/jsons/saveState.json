@@ -1,0 +1,31 @@
+{
+	"settings": {
+		"volume": 0.6,
+		"musicVolume": 0.75,
+		"soundVolume": 1,
+		"sensitivity": 0.1,
+		"graphicsQuality": "medium",
+		"FOV": 94,
+		"language": "en",
+		"FPSLimit": "vsync"
+	},
+	"achievements": {},
+	"totalDeaths": 0,
+	"lastPlayedLevel": "1-0",
+	"levels": {
+		"levelName": {
+			"bestTime": false,
+			"foundSecret": false,
+			"ghost": [
+				{
+					"position": [
+						0,
+						0,
+						0
+					],
+					"time": 0
+				}
+			]
+		}
+	}
+}

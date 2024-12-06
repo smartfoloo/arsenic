@@ -1,0 +1,27 @@
+{
+	"firstDeath": {
+		"onUnlockText": "firstDeath",
+		"beforeUnlockedText": "hidden",
+		"unlockedText": "firstDeath"
+	},
+	"first4Star": {
+		"onUnlockText": "first4Star",
+		"beforeUnlockedText": "hidden",
+		"unlockedText": "first4Star"
+	},
+	"fewDeaths": {
+		"onUnlockText": "fewDeaths",
+		"beforeUnlockedText": "fewDeathsHint",
+		"unlockedText": "fewDeaths"
+	},
+	"manyDeaths": {
+		"onUnlockText": "manyDeaths",
+		"beforeUnlockedText": "hidden",
+		"unlockedText": "manyDeaths"
+	},
+	"allTheDeaths": {
+		"onUnlockText": "allTheDeaths",
+		"beforeUnlockedText": "hidden",
+		"unlockedText": "allTheDeaths"
+	}
+}

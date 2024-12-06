@@ -1,0 +1,1219 @@
+[
+  {
+    "title": "Yohoho.io",
+    "id": "yohoho-io",
+    "tags": [
+      "action",
+      "adventure",
+      "multiplayer"
+    ]
+  },
+  {
+    "title": "Poly Track",
+    "id": "poly-track",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Slow Roads",
+    "id": "slow-roads",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Animal Arena",
+    "id": "animal-arena",
+    "tags": [
+      "2-player",
+      "arcade"
+    ]
+  },
+  {
+    "title": "Poor Bunny",
+    "id": "poor-bunny",
+    "tags": [
+      "2-player",
+      "action",
+      "arcade",
+      "sports"
+    ]
+  },
+  {
+    "title": "Ducklings.io",
+    "id": "ducklings-io",
+    "tags": [
+      "multiplayer"
+    ]
+  },
+  {
+    "title": "Blumgi Paintball",
+    "id": "blumgi-paintball",
+    "tags": [
+      "2-player",
+      "arcade",
+      "sports"
+    ]
+  },
+  {
+    "title": "Blumgi Racers",
+    "id": "blumgi-racers",
+    "tags": [
+      "driving",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Blumgi Soccer",
+    "id": "blumgi-soccer",
+    "tags": [
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Blumgi Dragon",
+    "id": "blumgi-dragon",
+    "tags": [
+      "2-player",
+      "action",
+      "arcade"
+    ]
+  },
+  {
+    "title": "Blumgi Bloom",
+    "id": "blumgi-bloom",
+    "tags": [
+      "arcade",
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Blumgi Ball",
+    "id": "blumgi-ball",
+    "tags": [
+      "sports"
+    ]
+  },
+  {
+    "title": "Blumgi Castle",
+    "id": "blumgi-castle",
+    "tags": [
+      "2-player",
+      "action",
+      "arcade"
+    ]
+  },
+  {
+    "title": "Blumgi Rocket",
+    "id": "blumgi-rocket",
+    "tags": [
+      "platformer",
+      "driving"
+    ]
+  },
+  {
+    "title": "Blumgi Slime",
+    "id": "blumgi-slime",
+    "tags": [
+      "2-player",
+      "arcade",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Swingo",
+    "id": "swingo",
+    "tags": [
+      "arcade",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Zombie Rush",
+    "id": "zombie-rush",
+    "tags": [
+      "2-player",
+      "action",
+      "adventure",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Animals Volleyball",
+    "id": "animals-volleyball",
+    "tags": [
+      "2-player",
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Jump Only",
+    "id": "jump-only",
+    "tags": [
+      "arcade",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Chicken Merge 2",
+    "id": "chicken-merge-2",
+    "tags": [
+      "merge"
+    ]
+  },
+  {
+    "title": "Chicken Merge",
+    "id": "chicken-merge",
+    "tags": [
+      "merge"
+    ]
+  },
+  {
+    "title": "GoBattle",
+    "id": "gobattle",
+    "tags": [
+      "2-player",
+      "arcade"
+    ]
+  },
+  {
+    "title": "Dadish 3D",
+    "id": "dadish-3d",
+    "tags": [
+      "action",
+      "adventure",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Dadish",
+    "id": "dadish",
+    "tags": [
+      "action",
+      "adventure",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Dadish 2",
+    "id": "dadish-2",
+    "tags": [
+      "action",
+      "adventure",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Dadish 3",
+    "id": "dadish-3",
+    "tags": [
+      "action",
+      "adventure",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Super Fowlst",
+    "id": "super-fowlst",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Super Fowlst 2",
+    "id": "super-fowlst-2",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Tag",
+    "id": "tag",
+    "tags": [
+      "2-player",
+      "platformer",
+      "sports"
+    ]
+  },
+  {
+    "title": "Tag 2",
+    "id": "tag-2",
+    "tags": [
+      "2-player",
+      "platformer",
+      "sports"
+    ]
+  },
+  {
+    "title": "Shadow Trick",
+    "id": "shadow-trick",
+    "tags": [
+      "platformer"
+    ]
+  },
+  {
+    "title": "Zooplop",
+    "id": "zooplop",
+    "tags": [
+      "merge",
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Physibox",
+    "id": "physibox",
+    "tags": [
+      "idle"
+    ]
+  },
+  {
+    "title": "Geometry Dash",
+    "id": "geometry-dash",
+    "tags": [
+      "action",
+      "classic"
+    ]
+  },
+  {
+    "title": "Water Polo Ragdoll",
+    "id": "water-polo-ragdoll",
+    "tags": [
+      "2-player",
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Space Wars Battleground",
+    "id": "space-wars-battleground",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Level Devil",
+    "id": "level-devil",
+    "tags": [
+      "action",
+      "adventure",
+      "arcade",
+      "platformer"
+    ]
+  },
+  {
+    "title": "ArmedForces.io",
+    "id": "armed-forces-io",
+    "tags": [
+      "action",
+      "multiplayer",
+      "shooter"
+    ]
+  },
+  {
+    "title": "KS 2 Teams",
+    "id": "ks-2-teams",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Subway Surfers",
+    "id": "subway-surfers",
+    "tags": [
+      "action",
+      "adventure",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Super Tunnel Rush",
+    "id": "super-tunnel-rush",
+    "tags": [
+      "driving",
+      "sports"
+    ]
+  },
+  {
+    "title": "Unicycle Legend",
+    "id": "unicycle-legend",
+    "tags": [
+      "sports"
+    ]
+  },
+  {
+    "title": "Unicycle Hero",
+    "id": "unicycle-hero",
+    "tags": [
+      "sports"
+    ]
+  },
+  {
+    "title": "Goober World",
+    "id": "goober-world",
+    "tags": [
+      "action",
+      "adventure",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Bobble",
+    "id": "bobble",
+    "tags": [
+      "arcade"
+    ]
+  },
+  {
+    "title": "Merge the Numbers",
+    "id": "merge-the-numbers",
+    "tags": [
+      "puzzle",
+      "merge"
+    ]
+  },
+  {
+    "title": "Merge Tycoon",
+    "id": "merge-tycoon",
+    "tags": [
+      "idle",
+      "merge"
+    ]
+  },
+  {
+    "title": "Tower Defense Mingling",
+    "id": "tower-defense-mingling",
+    "tags": [
+      "action",
+      "merge"
+    ]
+  },
+  {
+    "title": "Watermelon Game",
+    "id": "watermelon-game",
+    "tags": [
+      "merge",
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Choppy Orc",
+    "id": "choppy-orc",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Battle Wheels",
+    "id": "battle-wheels",
+    "tags": [
+      "2-player",
+      "arcade",
+      "driving"
+    ]
+  },
+  {
+    "title": "Race Survival Arena King",
+    "id": "race-survival-arena-king",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Push Your Luck",
+    "id": "push-your-luck",
+    "tags": [
+      "luck"
+    ]
+  },
+  {
+    "title": "Gobble",
+    "id": "gobble",
+    "tags": [
+      "arcade",
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Monster Tracks",
+    "id": "monster-tracks",
+    "tags": [
+      "arcade",
+      "driving"
+    ]
+  },
+  {
+    "title": "Drive Mad",
+    "id": "drive-mad",
+    "tags": [
+      "arcade",
+      "driving"
+    ]
+  },
+  {
+    "title": "Recoil",
+    "id": "recoil",
+    "tags": [
+      "action",
+      "arcade",
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Speed King",
+    "id": "speed-king",
+    "tags": [
+      "arcade",
+      "platformer",
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Bank Robbery 3",
+    "id": "bank-robbery-3",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Bank Robbery 2",
+    "id": "bank-robbery-2",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Bank Robbery",
+    "id": "bank-robbery",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Gladihoppers",
+    "id": "gladihoppers",
+    "tags": [
+      "action",
+      "adventure"
+    ]
+  },
+  {
+    "title": "Monkey Mart",
+    "id": "monkey-mart",
+    "tags": [
+      "arcade",
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Vex X3M",
+    "id": "vex-x3m",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Vex 8",
+    "id": "vex-8",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 7",
+    "id": "vex-7",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 6",
+    "id": "vex-6",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 5",
+    "id": "vex-5",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 4",
+    "id": "vex-4",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Vex 3",
+    "id": "vex-3",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Rocket Soccer Derby",
+    "id": "rocket-soccer-derby",
+    "tags": [
+      "driving",
+      "sports"
+    ]
+  },
+  {
+    "title": "Crossy Road",
+    "id": "crossy-road",
+    "tags": [
+      "arcade",
+      "classic"
+    ]
+  },
+  {
+    "title": "OvO",
+    "id": "ovo",
+    "tags": [
+      "arcade",
+      "platformer",
+      "sports"
+    ]
+  },
+  {
+    "title": "OvO Dimensions",
+    "id": "ovo-dimensions",
+    "tags": [
+      "arcade",
+      "platformer",
+      "sports"
+    ]
+  },
+  {
+    "title": "Table Tennis World Tour",
+    "id": "table-tennis-world-tour",
+    "tags": [
+      "sports"
+    ]
+  },
+  {
+    "title": "Economical",
+    "id": "economical",
+    "tags": [
+      "platformer"
+    ]
+  },
+  {
+    "title": "Economical 2",
+    "id": "economical-2",
+    "tags": [
+      "platformer"
+    ]
+  },
+  {
+    "title": "Day of Meat: Castle",
+    "id": "day-of-meat-castle",
+    "tags": [
+      "idle",
+      "management"
+    ]
+  },
+  {
+    "title": "Day of Meat: Radiation",
+    "id": "day-of-meat-radiation",
+    "tags": [
+      "idle",
+      "management"
+    ]
+  },
+  {
+    "title": "Retro Highway",
+    "id": "retro-highway",
+    "tags": [
+      "action",
+      "adventure",
+      "arcade",
+      "driving"
+    ]
+  },
+  {
+    "title": "Super Liquid Soccer",
+    "id": "super-liquid-soccer",
+    "tags": [
+      "sports"
+    ]
+  },
+  {
+    "title": "Yokai Dungeon",
+    "id": "yokai-dungeon",
+    "tags": [
+      "adventure"
+    ]
+  },
+  {
+    "title": "Bullet Bros",
+    "id": "bullet-bros",
+    "tags": [
+      "action",
+      "platformer",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Flip Bros",
+    "id": "flip-bros",
+    "tags": [
+      "action",
+      "adventure",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Space Major Miner",
+    "id": "space-major-miner",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Retro Bowl",
+    "id": "retro-bowl",
+    "tags": [
+      "management",
+      "sports"
+    ]
+  },
+  {
+    "title": "Poor Eddie",
+    "id": "poor-eddie",
+    "tags": [
+      "action",
+      "adventure",
+      "arcade"
+    ]
+  },
+  {
+    "title": "Drift Boss",
+    "id": "drift-boss",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Sausage Flip",
+    "id": "sausage-flip",
+    "tags": [
+      "arcade"
+    ]
+  },
+  {
+    "title": "Stickman Bike",
+    "id": "stickman-bike",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Stickman Hook",
+    "id": "stickman-hook",
+    "tags": [
+      "action"
+    ]
+  },
+  {
+    "title": "Stickman Hook Halloween",
+    "id": "stickman-hook-halloween",
+    "tags": [
+      "action"
+    ]
+  },
+  {
+    "title": "Ball Dodge",
+    "id": "ball-dodge",
+    "tags": [
+      "action"
+    ]
+  },
+  {
+    "title": "Skiddy Taxi",
+    "id": "skiddy-taxi",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
+    "title": "Snow Rider 3D",
+    "id": "snow-rider-3d",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "OvO",
+    "id": "ovo",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "OvO Dimensions",
+    "id": "ovo-dimensions",
+    "tags": [
+      "action",
+      "arcade",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Gold Digger FRVR",
+    "id": "gold-digger-frvr",
+    "tags": [
+      "action",
+      "adventure"
+    ]
+  },
+  {
+    "title": "Cow Bay",
+    "id": "cow-bay",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "CS:GO Clicker",
+    "id": "csgo-clicker",
+    "tags": [
+      "clicker",
+      "idle"
+    ]
+  },
+  {
+    "title": "Soccer Skills World Cup",
+    "id": "soccer-skills-world-cup",
+    "tags": [
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Soccer Skills Euro Cup",
+    "id": "soccer-skills-euro-cup",
+    "tags": [
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Soccer Skills Champions League",
+    "id": "soccer-skills-champions-league",
+    "tags": [
+      "action",
+      "sports"
+    ]
+  },
+  {
+    "title": "Space Thing",
+    "id": "space-thing",
+    "tags": [
+      "action",
+      "arcade",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Tiny Fishing",
+    "id": "tiny-fishing",
+    "tags": [
+      "sports",
+      "idle"
+    ]
+  },
+  {
+    "title": "Turbo Moto Racer",
+    "id": "turbo-moto-racer",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Candy Crush",
+    "id": "candy-crush",
+    "tags": [
+      "classic",
+      "puzzle",
+      "merge"
+    ]
+  },
+  {
+    "title": "Four Colors",
+    "id": "four-colors",
+    "tags": [
+      "classic"
+    ]
+  },
+  {
+    "title": "Master Chess",
+    "id": "master-chess",
+    "tags": [
+      "classic"
+    ]
+  },
+  {
+    "title": "Master Checkers",
+    "id": "master-checkers",
+    "tags": [
+      "classic"
+    ]
+  },
+  {
+    "title": "Cookie Clicker",
+    "id": "cookie-clicker",
+    "tags": [
+      "classic",
+      "idle",
+      "clicker"
+    ]
+  },
+  {
+    "title": "Crazy Bikes",
+    "id": "crazy-bikes",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
+    "title": "Crazy Cars",
+    "id": "crazy-cars",
+    "tags": [
+      "driving"
+    ]
+  },
+  {
+    "title": "Tanuki Sunset",
+    "id": "tanuki-sunset",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Cluster Rush",
+    "id": "cluster-rush",
+    "tags": [
+      "action",
+      "driving"
+    ]
+  },
+  {
+    "title": "Core Ball",
+    "id": "core-ball",
+    "tags": [
+      "action",
+      "classic"
+    ]
+  },
+  {
+    "title": "Stack",
+    "id": "stack",
+    "tags": [
+      "action",
+      "classic"
+    ]
+  },
+  {
+    "title": "Soccer Random",
+    "id": "soccer-random",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
+  },
+  {
+    "title": "Basket Random",
+    "id": "basket-random",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
+  },
+  {
+    "title": "Volley Random",
+    "id": "volley-random",
+    "tags": [
+      "2-player",
+      "sports"
+    ]
+  },
+  {
+    "title": "JustFall.LOL",
+    "id": "justfalllol",
+    "tags": [
+      "action",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Bitlife",
+    "id": "bitlife",
+    "tags": [
+      "management"
+    ]
+  },
+  {
+    "title": "Idle Mining Empire",
+    "id": "idle-mining-empire",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Startup Tycoon",
+    "id": "idle-startup-tycoon",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Farming Business",
+    "id": "idle-farming-business",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Mining Empire",
+    "id": "idle-mining-empire",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Gang",
+    "id": "idle-gang",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Idle Light City",
+    "id": "idle-light-city",
+    "tags": [
+      "management",
+      "idle"
+    ]
+  },
+  {
+    "title": "Iron Snout",
+    "id": "iron-snout",
+    "tags": [
+      "action",
+      "adventure"
+    ]
+  },
+  {
+    "title": "Bacon May Die",
+    "id": "bacon-may-die",
+    "tags": [
+      "action"
+    ]
+  },
+  {
+    "title": "Idle Breakout",
+    "id": "idle-breakout",
+    "tags": [
+      "clicker",
+      "idle"
+    ]
+  },
+  {
+    "title": "Dune",
+    "id": "dune",
+    "tags": [
+      "action",
+      "classic"
+    ]
+  },
+  {
+    "title": "Rooftop Snipers",
+    "id": "rooftop-snipers",
+    "tags": [
+      "2-player",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Rooftop Snipers 2",
+    "id": "rooftop-snipers-2",
+    "tags": [
+      "2-player",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Tightrope Theatre",
+    "id": "tightrope-theatre",
+    "tags": [
+      "arcade",
+      "puzzle"
+    ]
+  },
+  {
+    "title": "Time Shooter 2",
+    "id": "time-shooter-2",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Time Shooter 3",
+    "id": "time-shooter-3",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Funny Shooter 2",
+    "id": "funny-shooter-2",
+    "tags": [
+      "action",
+      "shooter"
+    ]
+  },
+  {
+    "title": "Double Panda",
+    "id": "double-panda",
+    "tags": [
+      "2-player",
+      "action",
+      "adventure",
+      "flash",
+      "platformer"
+    ]
+  },
+  {
+    "title": "Jacksmith",
+    "id": "jacksmith",
+    "tags": [
+      "action",
+      "adventure",
+      "flash",
+      "management"
+    ]
+  },
+  {
+    "title": "Happy Wheels",
+    "id": "happy-wheels",
+    "tags": [
+      "action",
+      "adventure",
+      "flash",
+      "platformer"
+    ]
+  },
+  {
+    "title": "One Chance",
+    "id": "one-chance",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Fleeing the Complex",
+    "id": "fleeing-the-complex",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Infiltrating the Airship",
+    "id": "infiltrating-the-airship",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Stealing the Diamond",
+    "id": "stealing-the-diamond",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Escaping the Prison",
+    "id": "escaping-the-prison",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Breaking the Bank",
+    "id": "breaking-the-bank",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "5b",
+    "id": "5b",
+    "tags": [
+      "adventure",
+      "flash"
+    ]
+  },
+  {
+    "title": "Run 3",
+    "id": "run-3",
+    "tags": [
+      "adventure",
+      "flash",
+      "platformer"
+    ]
+  },
+  {
+    "title": "The Impossible Quiz 2",
+    "id": "the-impossible-quiz-2",
+    "tags": [
+      "flash"
+    ]
+  }
+]

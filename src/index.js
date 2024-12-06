@@ -6,6 +6,9 @@ const { hostname } = require("node:os");
 const { join } = require("path");
 const wisp = require("wisp-server-node");
 const { baremuxPath } = require('@mercuryworkshop/bare-mux/node');
+const fs = require('fs');
+const path = require('path');
+const archiver = require('archiver');
 
 const bare = createBareServer("/bare/");
 const app = express();
@@ -13,6 +16,23 @@ const app = express();
 app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
 app.use('/baremux/', express.static(baremuxPath));
+app.get('/download-static-files', (req, res) => {
+  const folderPath = path.join('public', 'assets', 'static');
+  const zipFileName = 'arsenic_files.zip';
+
+  res.setHeader('Content-Disposition', `attachment; filename=${zipFileName}`);
+  res.setHeader('Content-Type', 'application/zip');
+
+  const archive = archiver('zip', {
+    zlib: { level: 9 }
+  });
+
+  archive.pipe(res);
+
+  archive.directory(folderPath, false);
+
+  archive.finalize();
+});
 
 const server = createServer();
 

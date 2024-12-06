@@ -1,0 +1,212 @@
+{
+	"levelOrder": {
+		"tutorial": [
+			"1-0",
+			"1-1",
+			"1-2",
+			"1-3",
+			"1-4",
+			"1-5"
+		],
+		"floatingBlocks": [
+			"2-1",
+			"2-2",
+			"2-3",
+			"2-4",
+			"2-5"
+		],
+		"outskirts": [
+			"3-1",
+			"3-2",
+			"3-3",
+			"3-4",
+			"3-5"
+		],
+		"city": [
+			"4-1",
+			"4-2",
+			"4-3",
+			"4-4",
+			"4-5",
+			"level0",
+			"level1"
+		]
+	},
+	"1-0": {
+		"name": "testLevel",
+		"message": "blueBox",
+		"1Star": 4,
+		"2Star": 3,
+		"3Star": 2.4,
+		"4Star": 2.3
+	},
+	"1-1": {
+		"name": "testLevel",
+		"message": "jump",
+		"1Star": 9,
+		"2Star": 8,
+		"3Star": 6.6,
+		"4Star": 6.3
+	},
+	"1-2": {
+		"name": "testLevel",
+		"message": "wallRun",
+		"1Star": 9,
+		"2Star": 5.5,
+		"3Star": 4.5,
+		"4Star": 3
+	},
+	"1-3": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 10,
+		"2Star": 8,
+		"3Star": 6.5,
+		"4Star": 5.9
+	},
+	"1-4": {
+		"name": "testLevel",
+		"message": "wallJump",
+		"1Star": 8,
+		"2Star": 5,
+		"3Star": 4,
+		"4Star": 3
+	},
+	"1-5": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 11,
+		"2Star": 8,
+		"3Star": 6,
+		"4Star": 5.6
+	},
+	"level0": {
+		"name": "arrival",
+		"message": "Demo_End",
+		"1Star": 20,
+		"2Star": 16,
+		"3Star": 13,
+		"4Star": 12,
+		"hasSecret": true
+	},
+	"level1": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"2-1": {
+		"name": "testLevel",
+		"message": "Section 2",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"2-2": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"2-3": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"2-4": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"2-5": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"3-1": {
+		"name": "testLevel",
+		"message": "Section 3",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"3-2": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"3-4": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"3-5": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"4-1": {
+		"name": "testLevel",
+		"message": "Section 4",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"4-2": {
+		"name": "testLevel",
+		"message": "Section 4",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"4-3": {
+		"name": "testLevel",
+		"message": "Section 4",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"4-4": {
+		"name": "testLevel",
+		"message": "Section 4",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	},
+	"4-5": {
+		"name": "testLevel",
+		"message": "",
+		"1Star": 30,
+		"2Star": 20,
+		"3Star": 17,
+		"4Star": 14.2
+	}
+}

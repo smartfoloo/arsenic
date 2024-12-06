@@ -25,6 +25,15 @@
     ]
   },
   {
+    "title": "Under the Red Sky",
+    "id": "under-the-red-sky",
+    "tags": [
+      "action",
+      "platformer",
+      "sports"
+    ]
+  },
+  {
     "title": "Animal Arena",
     "id": "animal-arena",
     "tags": [
@@ -363,6 +372,13 @@
       "action",
       "adventure",
       "platformer"
+    ]
+  },
+  {
+    "title": "Bobble",
+    "id": "bobble",
+    "tags": [
+      "arcade"
     ]
   },
   {
@@ -1200,6 +1216,13 @@
       "adventure",
       "flash",
       "platformer"
+    ]
+  },
+  {
+    "title": "The Impossible Quiz 2",
+    "id": "the-impossible-quiz-2",
+    "tags": [
+      "flash"
     ]
   }
 ]

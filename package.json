@@ -17,6 +17,7 @@
     "@mercuryworkshop/bare-mux": "^2.0.9",
     "wisp-server-node": "^1.1.7",
     "express": "^4.19.2",
+    "archiver": "^7.0.1",
     "sweetalert2": "^11.14.4"
   }
 }

@@ -737,6 +737,13 @@ function resetTab() {
   localStorage.setItem("tab", JSON.stringify({}));
 }
 
+// Download Static Files
+
+document.getElementById('downloadFiles').addEventListener('click', function () {
+  window.location.href = '/download-static-files';
+});
+
+
 // Themes
 
 function setTheme(theme) {

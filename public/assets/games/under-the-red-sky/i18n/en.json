@@ -1,0 +1,87 @@
+{
+	"strings": {
+		"inputsKBM": "[icon=keyW] [icon=keyA] [icon=keyS] [icon=keyD] to move\n[icon=keySpace] to jump\n[icon=keyR] to restart the level\n[icon=keyP] to enter pause screen",
+		"inputsTouch": "[b]TOUCH STICK ON THE LEFT[/b] to move\n[b]TAP SCREEN[/b] to jump\n[b]DRAG ON SCREEN[/b] to move the camera",
+		"space": "[icon=keySpace]",
+		"wasd": "[icon=keyW] [icon=keyA] [icon=keyS] [icon=keyD]",
+		"leftStick" : "touching the left side of the screen",
+		"tapScreen": "TAP SCREEN",
+		"noTime": "NO TIME",
+		"bestTime": "BEST TIME: ",
+		"creditsText": "-skybox heavily modified from: https://opengameart.org/content/sky-box-sunny-day\n-dash by qubodup-bounce by duckduckpony\n-wind loop by nsstudios\n-character vocals from Mont Blanc Candies",
+		"levelCleared": "LEVEL CLEARED",
+		"chapterCleared": "CHAPTER CLEARED",
+		"secretFound": "SECRET FOUND",
+		"chapter": "CHAPTER",
+		"nextChapter": "NEXT CHAPTER",
+		"star": {
+			"one": "STAR",
+			"other": "STARS"
+		},
+		"achievements": {
+			"hidden": "HIDDEN ACHIEVEMENT",
+			"unlocked": " ACHIEVEMENTS UNLOCKED",
+			"header": "[b]//ACHIEVEMENT: [/b]",
+			"firstDeath": "FALLING AND GETTING BACK UP",
+			"first4Star": "A LEVEL MASTERED",
+			"fewDeaths": "KEEP GOING (50 FALLS)",
+			"fewDeathsHint": "FALL 50 TIMES",
+			"manyDeaths": "DETERMINATION (250 FALLS)",
+			"allTheDeaths": "NEVER GIVING UP (1000 FALLS)"
+		},
+		"ui": {
+			"menu": "MENU",
+			"continue": "CONTINUE",
+			"settings": "SETTINGS",
+			"play": "PLAY",
+			"levels": "LEVELS",
+			"FPSLimit": "FPS: ",
+			"vsync": "V-SYNC",
+			"60fps": "60",
+			"unlimited": "UNLIMITED",
+			"graphicsQuality": "QUALITY: ",
+			"low": "LOW",
+			"medium": "MEDIUM",
+			"high": "HIGH",
+			"ultra": "ULTRA",
+			"musicVolume": "MUSIC VOLUME",
+			"soundVolume": "SOUND VOLUME",
+			"FOV": "FOV",
+			"lookSensitivity": "LOOK SENSITIVITY",
+			"closeDialog": "CLOSE",
+			"back": "BACK",
+			"wipeSave": "WIPE SAVE",
+			"achievements": "ACHIEVEMENTS",
+			"credits": "CREDITS",
+			"language": "LANGUAGE: ",
+			"en": "ENGLISH",
+			"ger": "GERMAN",
+			"resetDemo": "RESTART DEMO",
+			"failPity": "SKIP LEVEL",
+			"cancel": "CANCEL",
+			"watchAd": "WATCH AD"
+		},
+		"levelMessages": {
+			"blueBox": "Reach the Blue Box, move with {keyMove}",
+			"jump": "{keyJump} to Jump",
+			"wallRun": "Jump into the wall, while facing the wall, to start wallrunning",
+			"wallJump": "Press Jump while wallrunning to jump off into the look direction",
+			"wallClimb": "Run facing a wall to start climbing",
+			"Section 1": "Tutorial",
+			"Section 2": "Floating Blocks",
+			"Section 3": "The Outskirts",
+			"Section 4": "The City",
+			"Demo_End": "Thank you for playing ! Stay tuned for updates :)"
+		},
+		"levelNames": {
+			"testLevel": "TEST LEVEL",
+			"arrival": "ARRIVAL"
+		},
+		"chapterNames": {
+			"tutorial": "TUTORIAL",
+			"floatingBlocks": "FLOATING BLOCKS",
+			"outskirts": "THE OUTSKIRTS",
+			"city": "THE CITY"
+		}
+	}
+}
