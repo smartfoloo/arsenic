@@ -322,7 +322,8 @@ h2 {
   gap: 20px;
 }
 
-#home-page .start {
+#home-page .start,
+.game-loader .start {
   background: var(--theme);
   border-radius: 100px;
   box-shadow: var(--theme) 0 -25px 18px -14px inset, var(--shadow) 0 1px 2px, var(--shadow) 0 2px 4px, var(--shadow) 0 4px 8px, var(--shadow) 0 8px 16px, var(--shadow) 0 16px 32px;
@@ -343,12 +344,14 @@ h2 {
   font-weight: 600;
 }
 
-#home-page .start:hover {
+#home-page .start:hover,
+.game-loader .start:hover {
   transform: scale(1.05) rotate(-1deg);
   background: var(--theme);
 }
 
-#home-page .start:active {
+#home-page .start:active,
+.game-loader .start:active {
   transform: scale(1);
 }
 
@@ -830,6 +833,16 @@ input:checked+.slider:before {
 .discord-user {
   font-size: 12px;
   margin: 0px 0px 10px 0px;
+}
+
+/* loader */
+
+.game-loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 @media screen and (max-width: 1700px) {

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css/index.css">
+  <title>arsenic</title>
+</head>
+<body>
+  <div class="game-loader-content">
+    <div class="game-loader">
+      <h3 id="loader-title"></h3>
+      <button class="start" role="button" onclick="loadGame()">
+        <i data-lucide="play"></i>
+        Play Now
+      </button>
+    </div>
+  </div>
+</body>
+<script src="./js/loader.js"></script>
+<style>
+  * {
+    font-family: 'Inter';
+  }
+
+  body, html {
+    overscroll-behavior: none;
+  }
+
+  body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -10%; 
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background: inherit;
+    filter: blur(50px) grayscale(50%);
+    z-index: -1;
+  }
+</style>
+</html>

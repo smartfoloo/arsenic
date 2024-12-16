@@ -429,7 +429,7 @@ const fullscreen = () => {
 // Refresh
 
 function refresh() {
-  const gameEmbed = document.querySelector('iframe.game-embed');
+  const gameEmbed = document.querySelector('iframe.current-game-embed');
   if (gameEmbed) {
     gameEmbed.src += '';
   }
@@ -597,7 +597,7 @@ function openTab(evt, tabName) {
 
 function changeWallpaper(color) {
   const mainContent = document.getElementById('main-content');
-  mainContent.style.backgroundImage = `url('./assets/wallpapers/${color}.png')`;
+  mainContent.style.backgroundImage = `url('./assets/wallpapers/${color}.webp')`;
   localStorage.setItem('selectedWallpaper', color);
 
   const wallpaperCards = document.querySelectorAll('.wallpaper-card');
