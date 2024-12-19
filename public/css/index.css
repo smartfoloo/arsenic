@@ -385,6 +385,7 @@ h2 {
 
 #game-page,
 #proxy-page,
+#ai-page,
 #settings-page {
   display: none;
   padding: 100px;
@@ -607,6 +608,45 @@ iframe {
   background: var(--background2);
   padding: 20px;
   border-radius: 20px;
+}
+
+/* AI */
+
+.ai-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+#chat-display {
+  min-height: calc(100vh - 301.5px);
+  background: var(--background2);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#ai-page .input-container {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  margin: 0;
+}
+
+#input-box {
+  border-radius: 20px;
+}
+
+#submit-btn {
+  width: 41.5px !important;
+  height: 41.5px !important;
+  border-radius: 20.75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* settings */

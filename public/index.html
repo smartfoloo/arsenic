@@ -68,6 +68,13 @@
               <p class="category"></p>
             </div>
           </button>
+          <button class="tab-btn" id="game-tab" onclick="openPage('ai-page')">
+            <div class="left">
+              <i data-lucide="bot"></i>
+              <p>AI</p>
+              <p class="category"></p>
+            </div>
+          </button>
           <hr>
           <div id="tabs-container"></div>
         </div>
@@ -209,6 +216,17 @@
       <div class="page" id="forum-page">
         <iframe src="/forum" frameborder="0" style="width: 100% !important; height: 100% !important;"></iframe>
       </div>
+      <div class="page" id="ai-page">
+        <div class="ai-container">
+          <div id="chat-display"></div>
+          <div class="input-container">
+            <input type="text" id="input-box" placeholder="Message AI...">
+            <button id="submit-btn">
+              <i data-lucide="send"></i>
+            </button>
+          </div>
+        </div>
+      </div>
       <div class="page" id="settings-page">
         <h1><a href="javascript:alert('Little easter egg hidden by Silvereen 🥚')">S</a>ettings</h1>
         <div class="settings-container">
@@ -249,25 +267,9 @@
             <div class="setting-card">
               <h2>Wallpaper</h2>
               <div class="cards-container">
-                <div class="wallpaper-card"
-                  onclick='changeWallpaper("winterfall")'>
-                  <img src="./assets/wallpapers/winterfall.png" alt="winterfall">
-                  <h4>Winterfall</h4>
-                </div>
-                <div class="wallpaper-card"
-                  onclick='changeWallpaper("northern-lights")'>
-                  <img src="./assets/wallpapers/northern-lights.png" alt="northern-lights">
-                  <h4>Northern Lights</h4>
-                </div>
-                <div class="wallpaper-card"
-                  onclick='changeWallpaper("spookwaves")'>
-                  <img src="./assets/wallpapers/spookwaves.png" alt="spookwaves">
-                  <h4>Spookwaves</h4>
-                </div>
-                <div class="wallpaper-card"
-                  onclick='changeWallpaper("dark-basil")'>
-                  <img src="./assets/wallpapers/dark-basil.png" alt="dark-basil">
-                  <h4>Dark Basil</h4>
+                <div class="wallpaper-card" onclick='changeWallpaper("nightfall")'>
+                  <img src="./assets/wallpapers/nightfall.png" alt="nightfall">
+                  <h4>Nightfall</h4>
                 </div>
                 <div class="wallpaper-card" onclick='changeWallpaper("chroma-glow")'>
                   <img src="./assets/wallpapers/chroma-glow.png" alt="chroma-glow">
@@ -276,10 +278,6 @@
                 <div class="wallpaper-card" onclick='changeWallpaper("twilight")'>
                   <img src="./assets/wallpapers/twilight.png" alt="twilight">
                   <h4>Twilight</h4>
-                </div>
-                <div class="wallpaper-card" onclick='changeWallpaper("nightfall")'>
-                  <img src="./assets/wallpapers/nightfall.png" alt="nightfall">
-                  <h4>Nightfall</h4>
                 </div>
                 <div class="wallpaper-card" onclick='changeWallpaper("ultraradiation")'>
                   <img src="./assets/wallpapers/ultraradiation.png" alt="ultraradiation">

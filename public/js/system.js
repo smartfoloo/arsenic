@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   openPage('home-page');
 
-  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'winterfall';
+  const savedWallpaper = localStorage.getItem('selectedWallpaper') || 'nightfall';
   changeWallpaper(savedWallpaper);
 
   const savedTheme = localStorage.getItem('theme');
@@ -347,7 +347,7 @@ function openPage(pageId) {
     element.classList.remove('current-game-embed');
   });
 
-  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page' || pageId === 'forum-page') ? 'none' : 'flex';
+  embedContainer.style.display = (pageId === 'home-page' || pageId === 'settings-page' || pageId === 'game-page' || pageId === 'proxy-page' || pageId === 'forum-page' || pageId === 'ai-page') ? 'none' : 'flex';
 
   pages.forEach(page => {
     page.style.display = 'none';
@@ -434,6 +434,79 @@ function refresh() {
     gameEmbed.src += '';
   }
 }
+
+// AI
+
+const chatBox = document.getElementById('chat-display');
+const textInput = document.getElementById('input-box');
+const sendBtn = document.getElementById('submit-btn');
+
+const token = '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';
+
+function sendTextMessage() {
+  const message = textInput.value.trim();
+  if (!message) return;
+
+  displayMessage(message, 'user');
+  textInput.value = '';
+
+  fetchResponse(message);
+}
+
+function displayMessage(messageContent, senderType) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${senderType}`;
+  messageDiv.innerHTML = `<p><b>${senderType === 'user' ? 'You' : senderType === 'ai' ? 'AI' : 'Error'}</b>: ${messageContent}</p>`;
+  chatBox.appendChild(messageDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function fetchResponse(userMessage) {
+  const apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
+  const systemPrompt = "You are a helpful AI assistant.";
+
+  const requestData = {
+    model: "mixtral-8x7b-32768",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userMessage }
+    ],
+    temperature: 0.9,
+    max_tokens: 1024,
+    stream: false
+  };
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+
+    const { choices } = await response.json();
+    const reply = choices[0].message.content;
+    displayMessage(reply, 'ai');
+  } catch (err) {
+    console.error('Request Failed:', err);
+    displayMessage(`Failed to get a response. Details: ${err.message}`, 'error');
+  }
+}
+
+textInput.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    sendTextMessage();
+  }
+});
+
+sendBtn.addEventListener('click', sendTextMessage);
 
 // Proxy 
 
