@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import '@sweetalert2/theme-borderless/borderless.scss';
 
 :root {
@@ -393,6 +392,11 @@ h2 {
   flex-direction: column;
 }
 
+#ai-page {
+  background: var(--background2);
+  padding: 20px;
+}
+
 #forum-page {
   width: 100%;
   height: 100%;
@@ -620,7 +624,7 @@ iframe {
 }
 
 #chat-display {
-  min-height: calc(100vh - 301.5px);
+  min-height: calc(100vh - 141.5px);
   background: var(--background2);
   border-radius: 20px;
   padding: 20px;
@@ -637,16 +641,27 @@ iframe {
 }
 
 #input-box {
+  background: var(--background3);
   border-radius: 20px;
 }
 
 #submit-btn {
+  background: var(--background3);
   width: 41.5px !important;
   height: 41.5px !important;
   border-radius: 20.75px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#submit-btn:active {
+  opacity: 0.6;
+}
+
+#submit-btn svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* settings */

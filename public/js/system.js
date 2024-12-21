@@ -247,7 +247,7 @@ async function loadGames() {
 
       const gameHtml = `
         <a onclick="addGameTab('${gameId}', '${game.title}')" class="game-btn hidden" data-categories="${game.tags.join(',')}">
-          <img src="./assets/images/${gameId.replace(/-/g, '')}.png" alt="${game.title}">
+          <img src="./assets/images/${gameId.replace(/-/g, '')}.png" alt="${game.title}" loading="lazy">
           <div class="content">
             <p class="title">${game.title}</p>
             <p class="category">${gameCategories}</p>
