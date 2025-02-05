@@ -131,13 +131,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function getServerInfo() {
   try {
-    const response = await fetch('https://ipapi.co/json/');
+    const response = await fetch('/server-info');
     const data = await response.json();
-
     document.getElementById('server-info').innerText =
-      `Server IP: ${data.ip}\nLocation: ${data.city}, ${data.region}, ${data.country_name}`;
+      `VPS Public IP: ${data.ip}\nLocation: ${data.city}, ${data.region}, ${data.country}`;
   } catch (error) {
-    document.getElementById('server-info').innerText = "Failed to retrieve server details.";
+    document.getElementById('server-info').innerText = "Failed to retrieve VPS details.";
   }
 }
 

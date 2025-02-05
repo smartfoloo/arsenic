@@ -16,22 +16,23 @@ const app = express();
 app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
 app.use('/baremux/', express.static(baremuxPath));
-app.get('/download-static-files', (req, res) => {
-  const folderPath = path.join('public', 'assets', 'static');
-  const zipFileName = 'arsenic_files.zip';
+app.get('/server-info', async (req, res) => {
+  try {
+    const ipResponse = await fetch('https://checkip.amazonaws.com/');
+    const ip = (await ipResponse.text()).trim();
 
-  res.setHeader('Content-Disposition', `attachment; filename=${zipFileName}`);
-  res.setHeader('Content-Type', 'application/zip');
+    const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+    const geoData = await geoResponse.json();
 
-  const archive = archiver('zip', {
-    zlib: { level: 9 }
-  });
-
-  archive.pipe(res);
-
-  archive.directory(folderPath, false);
-
-  archive.finalize();
+    res.json({
+      ip: ip,
+      city: geoData.city,
+      region: geoData.region,
+      country: geoData.country_name
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch server details' });
+  }
 });
 
 const server = createServer();
