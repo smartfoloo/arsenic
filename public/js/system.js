@@ -127,6 +127,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+// Server Info
+
+async function getServerInfo() {
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    const data = await response.json();
+
+    document.getElementById('server-info').innerText =
+      `Server IP: ${data.ip}\nLocation: ${data.city}, ${data.region}, ${data.country_name}`;
+  } catch (error) {
+    document.getElementById('server-info').innerText = "Failed to retrieve server details.";
+  }
+}
+
+getServerInfo();
+
 // Particles
 
 let particlesActive = localStorage.getItem('particlesActive');

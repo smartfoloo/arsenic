@@ -382,6 +382,10 @@ h2 {
   text-decoration: underline;
 }
 
+.server-info p {
+  font-size: 12px;
+}
+
 #game-page,
 #proxy-page,
 #ai-page,
