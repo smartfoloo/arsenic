@@ -21,7 +21,7 @@ app.get('/server-info', async (req, res) => {
     const ipResponse = await fetch('https://checkip.amazonaws.com/');
     const ip = (await ipResponse.text()).trim();
 
-    const geoResponse = await fetch(`https://ipinfo.io/${ip}/json?token=YOUR_IPINFO_TOKEN`);
+    const geoResponse = await fetch(`https://ipwhois.app/json/${ip}`);
     const geoData = await geoResponse.json();
 
     if (!geoData.ip) throw new Error("Invalid API response");
