@@ -21,19 +21,23 @@ app.get('/server-info', async (req, res) => {
     const ipResponse = await fetch('https://checkip.amazonaws.com/');
     const ip = (await ipResponse.text()).trim();
 
-    const geoResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+    const geoResponse = await fetch(`https://ipinfo.io/${ip}/json?token=YOUR_IPINFO_TOKEN`);
     const geoData = await geoResponse.json();
 
+    if (!geoData.ip) throw new Error("Invalid API response");
+
     res.json({
-      ip: ip,
-      city: geoData.city,
-      region: geoData.region,
-      country: geoData.country_name
+      ip: geoData.ip,
+      city: geoData.city || "Unknown",
+      region: geoData.region || "Unknown",
+      country: geoData.country || "Unknown"
     });
   } catch (error) {
+    console.error("Error fetching server info:", error);
     res.status(500).json({ error: 'Failed to fetch server details' });
   }
 });
+
 
 const server = createServer();
 
