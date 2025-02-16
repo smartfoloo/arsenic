@@ -1,4 +1,26 @@
 {
+  "ai-model": [
+    {
+      "name": "Mixtral-8x7b",
+      "value": "mixtral-8x7b-32768",
+      "desc": "Best for daily tasks and fast answers"
+    },
+    {
+      "name": "Llama 3.1 8B Instant",
+      "value": "llama-3.1-8b-instant",
+      "desc": "Best for complex tasks"
+    },
+    {
+      "name": "Llama 3 70B",
+      "value": "llama3-70b-8192",
+      "desc": "Best for deep reasoning"
+    },
+    {
+      "name": "Deepseek R1 Distill Llama 70B",
+      "value": "deepseek-r1-distill-llama-70b",
+      "desc": "Best for CCP Propaganda"
+    }
+  ],
   "proxy-backend": [
     {
       "name": "Ultraviolet",

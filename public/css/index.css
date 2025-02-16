@@ -624,17 +624,66 @@ iframe {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
+}
+
+.ai-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0px;
 }
 
 #chat-display {
-  min-height: calc(100vh - 141.5px);
+  min-height: calc(100vh - 195px);
   background: var(--background2);
   border-radius: 20px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  justify-content: flex-start;
+}
+
+#chat-display.center-message {
+  justify-content: center;
+  align-items: center;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.message.user {
+  justify-content: flex-start;
+}
+
+.message.ai {
+  justify-content: flex-start;
+}
+
+.message.error {
+  justify-content: flex-start;
+}
+
+.message p {
+  text-align: left;
+}
+
+.message h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.message.user p {
+  text-align: right;
+}
+
+.message.ai p {
+  text-align: left;
 }
 
 #ai-page .input-container {
@@ -664,8 +713,8 @@ iframe {
 }
 
 #submit-btn svg {
-  width: 24px;
-  height: 24px;
+  width: 50px;
+  height: 50px;
 }
 
 /* settings */
@@ -856,6 +905,16 @@ input:checked+.slider:before {
   cursor: pointer;
   border-radius: 10px;
   transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu li p {
+  font-weight: 500;
+}
+
+.dropdown-menu li span {
+  font-size: 14px;
 }
 
 .dropdown-menu li:last-child {

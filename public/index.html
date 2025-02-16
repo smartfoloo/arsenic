@@ -41,7 +41,7 @@
         <a href="/" class="logo">
           <img src="./assets/favicon.png" alt="nobelium">
           <h2 class="logo-name">arsenic</h2>
-          <h6>v1.1</h6>
+          <h6>v1.2</h6>
         </a>
         <div class="tabs">
           <button class="tab-btn" id="home-tab" onclick="openPage('home-page')">
@@ -225,11 +225,20 @@
       </div>
       <div class="page" id="ai-page">
         <div class="ai-container">
+          <div class="ai-menu">
+            <div class="dropdown" id="ai-model">
+              <button class="dropdown-button">
+                <span class="dropdown-selected">Mixtral-8x7b</span>
+                <i data-lucide="chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu"></ul>
+            </div>
+          </div>
           <div id="chat-display"></div>
           <div class="input-container">
             <input type="text" id="input-box" placeholder="Message AI...">
             <button id="submit-btn">
-              <i data-lucide="send"></i>
+              <i data-lucide="arrow-up"></i>
             </button>
           </div>
         </div>
