@@ -14,11 +14,6 @@
       "name": "Llama 3 70B",
       "value": "llama3-70b-8192",
       "desc": "Best for deep reasoning"
-    },
-    {
-      "name": "Deepseek R1 Distill Llama 70B",
-      "value": "deepseek-r1-distill-llama-70b",
-      "desc": "Best for CCP Propaganda"
     }
   ],
   "proxy-backend": [
