@@ -624,7 +624,7 @@ iframe {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .ai-menu {
@@ -635,7 +635,7 @@ iframe {
 }
 
 #chat-display {
-  min-height: calc(100vh - 195px);
+  min-height: calc(100vh - 179px);
   background: var(--background2);
   border-radius: 20px;
   padding: 20px;
@@ -686,35 +686,46 @@ iframe {
   text-align: left;
 }
 
-#ai-page .input-container {
+#ai-page .bottom {
+  margin: 0;
+  padding: 0;
+}
+
+#ai-page .bottom .input-container {
   display: flex;
+  width: 100%;
   gap: 10px;
   flex-direction: row;
   margin: 0;
+  padding: 5px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 22.75px;
+  background: var(--background3);
+  color: var(--text);
+  border: none;
+  width: 100%;
 }
 
-#input-box {
-  background: var(--background3);
-  border-radius: 20px;
+#ai-page .bottom .input-container #input-box {
+  background: transparent;
+  padding: 8px 10px;
 }
 
-#submit-btn {
-  background: var(--background3);
-  width: 41.5px !important;
-  height: 41.5px !important;
-  border-radius: 20.75px;
+#ai-page .bottom .input-container #submit-btn {
+  background: var(--theme);
+  color: var(--background);
+  width: 35.5px;
+  height: 35.5px;
+  border-radius: 17.75px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 20px;
 }
 
 #submit-btn:active {
   opacity: 0.6;
-}
-
-#submit-btn svg {
-  width: 50px;
-  height: 50px;
 }
 
 /* settings */
