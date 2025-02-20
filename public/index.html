@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
@@ -144,7 +145,10 @@
         <h1>Games</h1>
         </p>
         <div class="input-container">
-          <input type="text" id="searchInput" placeholder="Search for a game...">
+          <div class="game-search-container">
+            <i data-lucide="search"></i>
+            <input type="text" id="searchInput" class="game-search" placeholder="Search for a game...">
+          </div>
           <div id="category-buttons">
             <button class="category-btn" data-category="all">All</button>
             <button class="category-btn" data-category="2-player">2-Player</button>
@@ -280,27 +284,6 @@
                 <button onclick="setTheme('catppuccin-mocha')" style="background: #11111b; color: #cdd6f4;">
                   <h4>Catppuccin Mocha</h4>
                 </button>
-              </div>
-            </div>
-            <div class="setting-card">
-              <h2>Wallpaper</h2>
-              <div class="cards-container">
-                <div class="wallpaper-card" onclick='changeWallpaper("nightfall")'>
-                  <img src="./assets/wallpapers/nightfall.png" alt="nightfall">
-                  <h4>Nightfall</h4>
-                </div>
-                <div class="wallpaper-card" onclick='changeWallpaper("chroma-glow")'>
-                  <img src="./assets/wallpapers/chroma-glow.png" alt="chroma-glow">
-                  <h4>Chroma Glow</h4>
-                </div>
-                <div class="wallpaper-card" onclick='changeWallpaper("twilight")'>
-                  <img src="./assets/wallpapers/twilight.png" alt="twilight">
-                  <h4>Twilight</h4>
-                </div>
-                <div class="wallpaper-card" onclick='changeWallpaper("ultraradiation")'>
-                  <img src="./assets/wallpapers/ultraradiation.png" alt="ultraradiation">
-                  <h4>Ultraradiation</h4>
-                </div>
               </div>
             </div>
             <div class="setting-card">

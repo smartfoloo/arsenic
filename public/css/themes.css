@@ -1,6 +1,6 @@
 body[theme="catppuccin-frappe"] {
   --background: #232634;
-  --background2: #303446;
+  --background2: #292c3c;
   --background3: #414559;
   --background4: #51576d;
   --theme: rgb(140, 170, 238);
@@ -11,7 +11,7 @@ body[theme="catppuccin-frappe"] {
 
 body[theme="catppuccin-macchiato"] {
   --background: #181926; /* crust */
-  --background2: #24273a; /* base */
+  --background2: #1e2030; /* base */
   --background3: #363a4f; /* surface 0 */
   --background4: #494d64; /* surface 1 */
   --theme: rgb(138, 173, 244); /* blue */
@@ -22,7 +22,7 @@ body[theme="catppuccin-macchiato"] {
 
 body[theme="catppuccin-mocha"] {
   --background: #11111b;
-  --background2: #1e1e2e;
+  --background2: #181825;
   --background3: #313244;
   --background4: #45475a;
   --theme: rgb(137, 180, 250);

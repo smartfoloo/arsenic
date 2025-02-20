@@ -2,7 +2,7 @@
 
 :root {
   --background: #181926; 
-  --background2: #24273a; 
+  --background2: #1e2030; 
   --background3: #363a4f; 
   --background4: #494d64;
   --theme: rgb(138, 173, 244);
@@ -19,7 +19,7 @@
 }
 
 body {
-  font-family: 'Inter';
+  font-family: 'Geist';
   background: var(--background);
   color: var(--text);
 }
@@ -51,8 +51,8 @@ h6 {
   border-radius: 15px;
   background: var(--background2);
   color: var(--text);
-  border: none;
-  font-family: 'Inter';
+  border: 1px solid var(--background3);
+  font-family: 'Geist';
   cursor: pointer;
   transition: 250ms;
   display: flex;
@@ -73,8 +73,8 @@ h6 {
 }
 
 .page button:disabled {
-  background: var(--background4);
-  color: var(--shadow);
+  background: var(--background4) !important;
+  color: var(--shadow) !important;
 }
 
 input {
@@ -83,9 +83,9 @@ input {
   outline: none;
   border-radius: 10px;
   background: var(--background2);
+  border: 1px solid var(--background3);
   color: var(--text);
-  border: none;
-  font-family: 'Inter';
+  font-family: 'Geist';
   width: 100%;
 }
 
@@ -100,7 +100,7 @@ select {
   border-radius: 10px;
   background: var(--background2);
   color: var(--text);
-  font-family: 'Inter' !important;
+  font-family: 'Geist' !important;
   border: none;
   width: 30%;
   cursor: pointer;
@@ -176,7 +176,7 @@ nav .tabs hr {
 }
 
 .tab-btn {
-  font-family: 'Inter';
+  font-family: 'Geist';
   width: 100%;
   border-radius: 15px;
   border: none;
@@ -280,8 +280,7 @@ nav .tabs hr {
   flex-grow: 1;
   margin: 15px;
   border-radius: 15px;
-  background-image: url(/assets/winterfall.png);
-  background-repeat: no-repeat;
+  background: var(--background2);
   background-size: cover;
   width: calc(100vw - 30px);
   overflow: auto;
@@ -429,6 +428,35 @@ iframe {
   margin: 50px 0px;
 }
 
+.game-search-container {
+  padding: 11px 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 10px;
+  background: var(--background2);
+  color: var(--text);
+  border: 1px solid var(--background3);
+  font-family: 'Geist';
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  color: var(--shadow);
+  margin: 0;
+}
+
+.game-search-container svg {
+  width: 18px;
+  height: 18px;
+}
+
+.game-search {
+  background: transparent;
+  border-radius: 0px;
+  padding: 0px;
+  line-height: 1;
+  border: none;
+}
+
 #category-buttons {
   display: flex;
   align-items: center;
@@ -531,8 +559,8 @@ iframe {
   border-radius: 10px;
   background: var(--background2);
   color: var(--text);
-  border: none;
-  font-family: 'Inter';
+  border: 1px solid var(--background3);
+  font-family: 'Geist';
   width: 100%;
   display: flex;
   gap: 10px;
@@ -555,6 +583,7 @@ iframe {
   border-radius: 0px;
   padding: 0px;
   line-height: 1;
+  border: none;
 }
 
 .shortcuts {
@@ -635,10 +664,10 @@ iframe {
 }
 
 #chat-display {
-  min-height: calc(100vh - 179px);
+  min-height: calc(100vh - 183px);
   background: var(--background2);
   border-radius: 20px;
-  padding: 20px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -650,40 +679,72 @@ iframe {
   align-items: center;
 }
 
+.initial-message {
+  font-size: 24px;
+  font-weight: 600;
+}
+
 .message {
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: column;
+  max-width: 80%;
+  margin: 5px;
 }
 
 .message.user {
-  justify-content: flex-start;
-}
-
-.message.ai {
-  justify-content: flex-start;
-}
-
-.message.error {
-  justify-content: flex-start;
-}
-
-.message p {
-  text-align: left;
-}
-
-.message h1 {
-  text-align: center;
-  font-size: 2rem;
-  margin: 0;
-}
-
-.message.user p {
+  align-self: flex-end;
   text-align: right;
 }
 
-.message.ai p {
+.message.ai {
+  align-self: flex-start;
   text-align: left;
+}
+
+.sender-label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: var(--text);
+}
+
+.message-bubble {
+  padding: 10px 14px;
+  border-radius: 15px;
+  max-width: 100%;
+  word-wrap: break-word;
+  display: inline-block;
+  background: var(--theme);
+  color: var(--background);
+}
+
+.message-plain {
+  background: transparent;
+  color: var(--text);
+  padding: 5px 0;
+  word-wrap: break-word;
+}
+
+pre {
+  background: var(--background3);
+  color: var(--text);
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+code {
+  background: var(--background3);
+  color: var(--text);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+pre code {
+  display: block;
+  padding: 0;
 }
 
 #ai-page .bottom {
@@ -701,15 +762,16 @@ iframe {
   font-size: 16px;
   outline: none;
   border-radius: 22.75px;
-  background: var(--background3);
+  background: transparent;
   color: var(--text);
-  border: none;
+  border: 1px solid var(--background3);
   width: 100%;
 }
 
 #ai-page .bottom .input-container #input-box {
   background: transparent;
   padding: 8px 10px;
+  border: none;
 }
 
 #ai-page .bottom .input-container #submit-btn {
@@ -778,6 +840,7 @@ iframe {
 .setting-card {
   background: var(--background2);
   border-radius: 15px;
+  border: 1px solid var(--background3);
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -819,6 +882,10 @@ iframe {
 
 .selected {
   border-color: #f5a97f;
+}
+
+.theme-buttons button {
+  border: none;
 }
 
 .theme-buttons button:hover {
@@ -888,7 +955,7 @@ input:checked+.slider:before {
   width: 100%;
   text-align: left;
   justify-content: space-between;
-  border: 1px solid var(--shadow);
+  border: 1px solid var(--background3);
   border-radius: 15px;
 }
 
@@ -896,7 +963,7 @@ input:checked+.slider:before {
   display: none;
   position: absolute;
   background: var(--background2);
-  border: 1px solid var(--shadow);
+  border: 1px solid var(--background3);
   z-index: 1;
   width: 100%;
   max-height: 200px;

@@ -59,22 +59,22 @@ document.addEventListener('DOMContentLoaded', function () {
   if (savedTab) {
     switch (savedTab) {
       case "Dashboard":
-        selectElement.value = "canvas";
+        /* selectElement.value = "canvas"; */
         break;
       case "Classes":
-        selectElement.value = "google-classroom";
+        /* selectElement.value = "google-classroom"; */
         break;
       case "Google":
-        selectElement.value = "google";
+        /* selectElement.value = "google"; */
         break;
       case "Google Drive":
-        selectElement.value = "google-drive";
+        /* selectElement.value = "google-drive"; */
         break;
       case "Khan Academy":
-        selectElement.value = "khan-academy";
+        /* selectElement.value = "khan-academy"; */
         break;
       default:
-        selectElement.value = "default";
+        /* selectElement.value = "default"; */
         break;
     }
   }
@@ -479,25 +479,44 @@ function sendTextMessage() {
 }
 
 function displayMessage(messageContent, senderType, modelName = '') {
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${senderType}`;
+  const messageWrapper = document.createElement('div');
+  messageWrapper.className = `message ${senderType}`;
 
   let senderLabel = senderType === 'user' ? 'You' : senderType === 'ai' ? 'AI' : 'Info';
-
-  if (senderType === 'info') {
-    const heading = document.createElement('h1');
-    heading.textContent = messageContent;
-    messageDiv.appendChild(heading);
-  } else {
-    if (senderType === 'ai' && modelName) {
-      senderLabel += ` (${modelName})`;
-    }
-
-    messageDiv.innerHTML = `<p><b>${senderLabel}</b>: ${messageContent}</p>`;
+  if (senderType === 'ai' && modelName) {
+    senderLabel += ` (${modelName})`;
   }
 
-  chatBox.appendChild(messageDiv);
+  const senderLabelDiv = document.createElement('div');
+  senderLabelDiv.className = 'sender-label';
+  senderLabelDiv.textContent = senderLabel;
+
+  const messageContentDiv = document.createElement('div');
+  messageContentDiv.className = senderType === 'user' ? 'message-bubble' : 'message-plain';
+  messageContentDiv.innerHTML = formatMessageContent(messageContent);
+
+  messageWrapper.appendChild(senderLabelDiv);
+  messageWrapper.appendChild(messageContentDiv);
+
+  chatBox.appendChild(messageWrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function formatMessageContent(message) {
+
+  message = message.replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
+    return `<pre><code class="language-${lang || 'plaintext'}">${escapeHTML(code)}</code></pre>`;
+  });
+
+  message = message.replace(/`([^`]+)`/g, (match, code) => {
+    return `<code>${escapeHTML(code)}</code>`;
+  });
+
+  return message.replace(/\n/g, '<br>');
+}
+
+function escapeHTML(str) {
+  return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 async function fetchResponse(userMessage) {
@@ -542,13 +561,17 @@ async function fetchResponse(userMessage) {
 function checkForInitialMessage() {
   const messages = chatBox.querySelectorAll('.message');
   if (messages.length === 0) {
-    displayMessage('What can I help with?', 'info');
+    const initialMessage = document.createElement('div');
+    initialMessage.className = 'initial-message';
+    initialMessage.textContent = 'What can I help with?';
+
+    chatBox.appendChild(initialMessage);
     chatBox.classList.add('center-message');
   }
 }
 
 function removeInitialMessage() {
-  const initialMessage = chatBox.querySelector('.message.info');
+  const initialMessage = chatBox.querySelector('.initial-message');
   if (initialMessage) {
     initialMessage.remove();
     chatBox.classList.remove('center-message');
@@ -762,7 +785,9 @@ function openTab(evt, tabName) {
 
 // Wallpapers
 
+
 function changeWallpaper(color) {
+  /*
   const mainContent = document.getElementById('main-content');
   mainContent.style.backgroundImage = `url('./assets/wallpapers/${color}.webp')`;
   localStorage.setItem('selectedWallpaper', color);
@@ -775,6 +800,7 @@ function changeWallpaper(color) {
       card.classList.add('selected');
     }
   });
+  */
 }
 
 // about:blank Cloak
