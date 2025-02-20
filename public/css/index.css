@@ -725,11 +725,48 @@ iframe {
   word-wrap: break-word;
 }
 
+.page .copy-btn {
+  background: transparent;
+  color: var(--text);
+  border: none !important;
+  padding: 5px 10px;
+  font-size: 12px !important;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 200ms;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page .copy-btn:hover {
+  background: var(--background3);
+}
+
+.code-block {
+  position: relative;
+  margin-top: 5px;
+}
+
+.code-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  background: var(--background4);
+  border-radius: 8px 8px 0 0;
+}
+
+br {
+  height: 0;
+}
+
 pre {
   background: var(--background3);
   color: var(--text);
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
   overflow-x: auto;
   white-space: pre-wrap;
 }
@@ -739,7 +776,7 @@ code {
   color: var(--text);
   padding: 2px 5px;
   border-radius: 4px;
-  font-family: monospace;
+  font-family: 'Geist Mono';
 }
 
 pre code {

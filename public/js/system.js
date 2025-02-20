@@ -498,21 +498,46 @@ function displayMessage(messageContent, senderType, modelName = '') {
   messageWrapper.appendChild(senderLabelDiv);
   messageWrapper.appendChild(messageContentDiv);
 
+  if (senderType === 'ai') {
+    const copyMessageBtn = document.createElement('button');
+    copyMessageBtn.className = 'copy-btn';
+    copyMessageBtn.innerHTML = '<i class="bi bi-copy"></i>';
+    copyMessageBtn.onclick = () => copyToClipboard(messageContent);
+    messageWrapper.appendChild(copyMessageBtn);
+  }
+
   chatBox.appendChild(messageWrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function formatMessageContent(message) {
+  return message
+    .replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
+      const escapedCode = escapeHTML(code);
 
-  message = message.replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
-    return `<pre><code class="language-${lang || 'plaintext'}">${escapeHTML(code)}</code></pre>`;
-  });
+      return `
+        <div class="code-block">
+          <div class="code-header">
+            <button class="copy-btn code-copy"><i class="bi bi-copy"></i></button>
+          </div>
+          <pre><code class="language-${lang || 'plaintext'}">${escapedCode}</code></pre>
+        </div>
+      `;
+    })
+    .replace(/`([^`]+)`/g, (match, code) => `<code>${escapeHTML(code)}</code>`)
+}
 
-  message = message.replace(/`([^`]+)`/g, (match, code) => {
-    return `<code>${escapeHTML(code)}</code>`;
-  });
+document.addEventListener("click", function (event) {
+  if (event.target.classList.contains("code-copy")) {
+    const codeBlock = event.target.closest(".code-block").querySelector("pre code").textContent;
+    copyToClipboard(codeBlock);
+  }
+});
 
-  return message.replace(/\n/g, '<br>');
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Copied to clipboard!');
+  }).catch(err => console.error('Copy failed:', err));
 }
 
 function escapeHTML(str) {
