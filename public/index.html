@@ -84,27 +84,32 @@
           <div id="tabs-container"></div>
         </div>
       </div>
-      <div class="bottom">
-        <button class="action-btn" onclick="openPage('settings-page')">
-          <i data-lucide="settings"></i>
-        </button>
-        <button class="action-btn refresh" onclick="refresh()">
-          <i data-lucide="rotate-cw"></i>
-        </button>
-        <button class="action-btn" onclick="inspect()">
-          <i data-lucide="code"></i>
-        </button>
-        <button class="action-btn" onclick="fullscreen()">
-          <i data-lucide="maximize"></i>
-        </button>
-      </div>
+      <div class="sidebar-bottom">
+        <div class="banner">
+          🇺🇦 We stand with Ukraine.
+        </div>
+        <div class="bottom-nav">
+          <button class="action-btn" onclick="openPage('settings-page')">
+            <i data-lucide="settings"></i>
+          </button>
+          <button class="action-btn refresh" onclick="refresh()">
+            <i data-lucide="rotate-cw"></i>
+          </button>
+          <button class="action-btn" onclick="inspect()">
+            <i data-lucide="code"></i>
+          </button>
+          <button class="action-btn" onclick="fullscreen()">
+            <i data-lucide="maximize"></i>
+          </button>
+        </div>
+      </div> 
     </nav>
     <div class="main-content" id="main-content">
       <div class="page" id="home-page">
         <div class="home-page-container">
-          <div>
-            <h1 class="welcome">Welcome!</h1>
-            <p style="margin: 15px 0px; font-weight: 600;">Join our discord!</p>
+          <div class="home-page-left">
+            <h1 class="welcome">Stay connected.</h1>
+            <p style="margin: 15px 0px; font-weight: 600;">arsenic is a free open-source website offering many services in one place.</p>
             <div class="buttons">
               <button class="start" role="button" onclick="openPage('proxy-page')">
                 <i data-lucide="rocket"></i>
@@ -112,7 +117,22 @@
               </button>
             </div>
           </div>
-          <div>
+          <div class="home-page-right">
+            <div class="partners">
+              <b>Partners</b>
+              <a href="https://moonlight.silvereen.net/" target="_blank">
+                <div class="partner">
+                  <img src="./assets/partners/moonlight.png" alt="" class="partner-logo">
+                  Moonlight
+                </div>
+              </a>
+              <a href="https://edu.ajh.college/" target="_blank">
+                <div class="partner">
+                  <img src="./assets/partners/ajh.png" alt="" class="partner-logo">
+                  Ajh's Vault
+                </div>
+              </a>
+            </div>
             <div class="resources">
               <b>Resources</b>
               <a href="https://discord.gg/VA2JXq52j4" target="_blank">
@@ -122,17 +142,6 @@
               <a href="https://docs.arsenic.smartfoloo.space/" target="_blank">
                 <i data-lucide="external-link"></i>
                 Documentation
-              </a>
-            </div>
-            <div class="partners">
-              <b>Partners</b>
-              <a href="https://moonlight.silvereen.net/" target="_blank">
-                <i data-lucide="external-link"></i>
-                Moonlight
-              </a>
-              <a href="https://monkeunblocker.com/" target="_blank">
-                <i data-lucide="external-link"></i>
-                Monke Unblocker
               </a>
             </div>
             <div class="server-info">

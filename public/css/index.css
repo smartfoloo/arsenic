@@ -35,7 +35,7 @@ svg {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 35px;
   font-family: 'Montserrat';
 }
 
@@ -165,7 +165,7 @@ nav .tabs hr {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 188.5px);
   overflow: auto;
 }
 
@@ -236,7 +236,15 @@ nav .tabs hr {
   transform: scale(0.9);
 }
 
-.bottom {
+.banner {
+  font-size: 1.75vh;
+  margin-left: 15px;
+  padding: 10px;
+  border: 1px solid var(--background3);
+  border-radius: 15px;
+}
+
+.bottom-nav {
   padding: 20px;
   display: flex;
   justify-content: space-between;
@@ -323,9 +331,9 @@ h2 {
 #home-page .start,
 .game-loader .start {
   background: var(--theme);
-  border-radius: 100px;
-  box-shadow: var(--theme) 0 -25px 18px -14px inset, var(--shadow) 0 1px 2px, var(--shadow) 0 2px 4px, var(--shadow) 0 4px 8px, var(--shadow) 0 8px 16px, var(--shadow) 0 16px 32px;
   color: var(--background);
+  border: 0;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -334,7 +342,7 @@ h2 {
   text-align: center;
   text-decoration: none;
   transition: all 250ms;
-  border: 0;
+
   font-size: 16px;
   user-select: none;
   -webkit-user-select: none;
@@ -344,8 +352,7 @@ h2 {
 
 #home-page .start:hover,
 .game-loader .start:hover {
-  transform: scale(1.05) rotate(-1deg);
-  background: var(--theme);
+  opacity: 0.8;
 }
 
 #home-page .start:active,
@@ -356,19 +363,61 @@ h2 {
 .home-page-container {
   height: calc(100vh - 230px);
   display: flex;
+  justify-content: space-between;
+}
+
+.home-page-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-page-right {
+  width: 25%;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.partners, 
-.resources {
+.partners {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.partner {
+  padding: 10px;
+  border: 1px solid var(--background3);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
   align-items: center;
-  gap: 30px;
+  transition: 200ms;
+}
+
+.partner:hover {
+  background: var(--background3);
+}
+
+.partner-logo {
+  height: 15%;
+  width: 15%;
+  border-radius: 10px;
+}
+
+.partner p {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.resources {
+  text-align: left !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   line-height: 2;
 }
 
-.partners a,
 .resources a {
   display: flex;
   align-items: center;
@@ -376,7 +425,6 @@ h2 {
   font-size: 14px;
 }
 
-.partners a:hover,
 .resources a:hover {
   text-decoration: underline;
 }
@@ -608,9 +656,9 @@ iframe {
 }
 
 #proxy-status {
-  background: var(--background2);
   margin: 40px 0px;
   padding: 5px 10px;
+  border: 1px solid var(--background3);
   border-radius: 20px;
   font-weight: 700;
   width: fit-content;
@@ -758,11 +806,11 @@ iframe {
   border-radius: 8px 8px 0 0;
 }
 
-br {
+#ai-page br {
   height: 0;
 }
 
-pre {
+#ai-page pre {
   background: var(--background3);
   color: var(--text);
   padding: 10px;
@@ -771,7 +819,7 @@ pre {
   white-space: pre-wrap;
 }
 
-code {
+#ai-page code {
   background: var(--background3);
   color: var(--text);
   padding: 2px 5px;
@@ -779,7 +827,7 @@ code {
   font-family: 'Geist Mono';
 }
 
-pre code {
+#ai-page pre code {
   display: block;
   padding: 0;
 }
@@ -1115,9 +1163,31 @@ input:checked+.slider:before {
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .banner {
+    font-size: 1.5vh;
+  }
+
+  .tabs {
+    height: calc(100vh - 187px);
+  }
+}
+
 @media screen and (max-width: 800px) {
   nav {
     width: 50px;
+  }
+
+  .home-page-container {
+    flex-direction: column;
+  }
+
+  #home-page,
+  #game-page,
+  #proxy-page,
+  #ai-page,
+  #settings-page {
+    padding: 20px !important;
   }
 
   .main-content {
@@ -1141,7 +1211,7 @@ input:checked+.slider:before {
     height: calc(100vh - 230px);
   }
 
-  .bottom {
+  .bottom-nav {
     flex-direction: column;
     padding: 0px;
     align-self: flex-end;
