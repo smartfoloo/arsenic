@@ -2,12 +2,13 @@
 
 :root {
   --background: #181926; 
-  --background2: #1e2030; 
-  --background3: #363a4f; 
+  --background2: #1e2030;
+  --background3: #363a4f;
   --background4: #494d64;
-  --theme: rgb(138, 173, 244);
-  --secondary-theme: rgb(166, 218, 149);
   --shadow: rgba(138, 173, 244, 0.5);
+  --blue: #8aadf4;
+  --green: #a6da95;
+  --mauve: #c6a0f6;
   --text: #cad3f5;
 }
 
@@ -316,7 +317,7 @@ h2 {
 }
 
 #home-page .welcome {
-  background: linear-gradient(45deg, var(--theme), var(--secondary-theme));
+  background: linear-gradient(45deg, var(--blue), var(--green));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -330,7 +331,7 @@ h2 {
 
 #home-page .start,
 .game-loader .start {
-  background: var(--theme);
+  background: var(--blue);
   color: var(--background);
   border: 0;
   border-radius: 10px;
@@ -492,6 +493,11 @@ iframe {
   margin: 0;
 }
 
+.game-search-container.focused {
+  border-color: var(--mauve);
+  box-shadow: 0 0 0 2px rgba(203, 166, 247, 0.25);
+}
+
 .game-search-container svg {
   width: 18px;
   height: 18px;
@@ -519,7 +525,7 @@ iframe {
 }
 
 .selected-category {
-  background: var(--theme) !important;
+  background: var(--blue) !important;
   color: var(--background) !important;
 }
 
@@ -616,6 +622,11 @@ iframe {
   margin: 50px 0px;
 }
 
+#uv-form.focused {
+  border-color: var(--mauve);
+  box-shadow: 0 0 0 2px rgba(203, 166, 247, 0.25);
+}
+
 #uv-form i {
   font-size: 18px;
   line-height: 1;
@@ -666,7 +677,7 @@ iframe {
 
 .loader {
   border: 6px solid transparent;
-  border-top: 6px solid var(--theme);
+  border-top: 6px solid var(--blue);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -762,7 +773,7 @@ iframe {
   max-width: 100%;
   word-wrap: break-word;
   display: inline-block;
-  background: var(--theme);
+  background: var(--blue);
   color: var(--background);
 }
 
@@ -853,6 +864,11 @@ iframe {
   width: 100%;
 }
 
+#ai-page .bottom .input-container.focused {
+  border-color: var(--mauve);
+  box-shadow: 0 0 0 2px rgba(203, 166, 247, 0.25);
+}
+
 #ai-page .bottom .input-container #input-box {
   background: transparent;
   padding: 8px 10px;
@@ -860,7 +876,7 @@ iframe {
 }
 
 #ai-page .bottom .input-container #submit-btn {
-  background: var(--theme);
+  background: var(--blue);
   color: var(--background);
   width: 35.5px;
   height: 35.5px;
@@ -1015,7 +1031,7 @@ iframe {
 }
 
 input:checked+.slider {
-  background-color: var(--theme);
+  background-color: var(--blue);
 }
 
 input:checked+.slider:before {

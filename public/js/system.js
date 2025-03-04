@@ -96,21 +96,21 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('proxy-status').innerHTML = `
       <p>
         Using
-        <b style="color: var(--theme);">Dynamic</b>
+        <b style="color: var(--blue);">Dynamic</b>
       </p>
     `
   } else if (proxyBackend === "scramjet") {
     document.getElementById('proxy-status').innerHTML = `
       <p>
         Using
-        <b style="color: var(--theme);">Scramjet</b>
+        <b style="color: var(--blue);">Scramjet</b>
       </p>
     `
   } else {
     document.getElementById('proxy-status').innerHTML = `
       <p>
         Using
-        <b style="color: var(--theme);">Ultraviolet</b>
+        <b style="color: var(--blue);">Ultraviolet</b>
       </p>
     `
   }
@@ -127,20 +127,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-// Server Info
+// Input focus
 
-async function getServerInfo() {
-  try {
-    const response = await fetch('/server-info');
-    const data = await response.json();
-    document.getElementById('server-info').innerText =
-      `VPS Public IP: ${data.ip}\nLocation: ${data.city}, ${data.region}, ${data.country}`;
-  } catch (error) {
-    document.getElementById('server-info').innerText = "Failed to retrieve VPS details.";
-  }
-}
+const uvForm = document.getElementById('uv-form');
+const formInputs = uvForm.querySelectorAll('input');
 
-getServerInfo();
+formInputs.forEach(input => {
+  input.addEventListener('focus', () => {
+    uvForm.classList.add('focused');
+  });
+
+  input.addEventListener('blur', () => {
+    uvForm.classList.remove('focused');
+  });
+});
+
+const gameSearchContainer = document.querySelector('.game-search-container');
+const searchInput = gameSearchContainer.querySelector('.game-search');
+
+searchInput.addEventListener('focus', () => {
+  gameSearchContainer.classList.add('focused');
+});
+
+searchInput.addEventListener('blur', () => {
+  gameSearchContainer.classList.remove('focused');
+});
 
 // Particles
 
@@ -347,7 +358,6 @@ function filterGames() {
 
 // Search for games
 
-const searchInput = document.getElementById('searchInput');
 searchInput.addEventListener('input', filterGames);
 
 // Open page
@@ -659,21 +669,21 @@ function updateProxyStatus() {
     document.getElementById('proxy-status').innerHTML = `
       <p>
         Using
-        <b style="color: var(--theme);">Dynamic</b>
+        <b style="color: var(--blue);">Dynamic</b>
       </p>
     `;
   } else if (proxyBackend === "scramjet") {
     document.getElementById('proxy-status').innerHTML = `
       <p>
         Using
-        <b style="color: var(--theme);">Scramjet</b>
+        <b style="color: var(--blue);">Scramjet</b>
       </p>
     `;
   } else {
     document.getElementById('proxy-status').innerHTML = `
       <p>
         Using
-        <b style="color: var(--theme);">Ultraviolet</b>
+        <b style="color: var(--blue);">Ultraviolet</b>
       </p>
     `;
   }
