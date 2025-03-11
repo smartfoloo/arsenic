@@ -16,26 +16,28 @@ const app = express();
 app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
 app.use('/baremux/', express.static(baremuxPath));
-app.get('/server-info', async (req, res) => {
-  try {
-    const ipResponse = await fetch('https://checkip.amazonaws.com/');
-    const ip = (await ipResponse.text()).trim();
 
-    const geoResponse = await fetch(`https://ipwhois.app/json/${ip}`);
-    const geoData = await geoResponse.json();
+const pages = [
+  { url: "/", lastmod: "2024-01-01", priority: "1.0" },
+];
 
-    if (!geoData.ip) throw new Error("Invalid API response");
+app.get("/sitemap.xml", (req, res) => {
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${pages
+      .map(
+        (page) => `
+      <url>
+        <loc>https://arsenic.smartfoloo.space${page.url}</loc>
+        <lastmod>${page.lastmod}</lastmod>
+        <priority>${page.priority}</priority>
+      </url>`
+      )
+      .join("")}
+  </urlset>`;
 
-    res.json({
-      ip: geoData.ip,
-      city: geoData.city || "Unknown",
-      region: geoData.region || "Unknown",
-      country: geoData.country || "Unknown"
-    });
-  } catch (error) {
-    console.error("Error fetching server info:", error);
-    res.status(500).json({ error: 'Failed to fetch server details' });
-  }
+  res.header("Content-Type", "application/xml");
+  res.send(sitemap);
 });
 
 
