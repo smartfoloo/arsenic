@@ -21,7 +21,7 @@ const pages = [
   { url: "/", lastmod: "2024-01-01", priority: "1.0" },
 ];
 
-app.get("/sitemap.xml", (req, res) => {
+app.get("./public/sitemap.xml", (req, res) => {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${pages
