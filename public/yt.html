@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classroom</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --ctp-rosewater: #f5e0dc;
+      --ctp-flamingo: #f2cdcd;
+      --ctp-pink: #f5c2e7;
+      --ctp-mauve: #cba6f7;
+      --ctp-red: #f38ba8;
+      --ctp-maroon: #eba0ac;
+      --ctp-peach: #fab387;
+      --ctp-yellow: #f9e2af;
+      --ctp-green: #a6e3a1;
+      --ctp-teal: #94e2d5;
+      --ctp-sky: #89dceb;
+      --ctp-sapphire: #74c7ec;
+      --ctp-blue: #89b4fa;
+      --ctp-lavender: #b4befe;
+      --ctp-text: #cdd6f4;
+      --ctp-subtext1: #bac2de;
+      --ctp-subtext0: #a6adc8;
+      --ctp-overlay2: #9399b2;
+      --ctp-overlay1: #7f849c;
+      --ctp-overlay0: #6c7086;
+      --ctp-surface2: #585b70;
+      --ctp-surface1: #45475a;
+      --ctp-surface0: #313244;
+      --ctp-base: #1e1e2e;
+      --ctp-mantle: #181825;
+      --ctp-crust: #11111b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: var(--ctp-base);
+      color: var(--ctp-text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .browser-chrome {
+      background-color: var(--ctp-mantle);
+      padding: 8px;
+      border-bottom: 1px solid var(--ctp-surface0);
+    }
+
+    .tab-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--ctp-surface0) var(--ctp-crust);
+    }
+
+    .tab-bar::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .tab-bar::-webkit-scrollbar-track {
+      background: var(--ctp-crust);
+    }
+
+    .tab-bar::-webkit-scrollbar-thumb {
+      background-color: var(--ctp-surface0);
+      border-radius: 6px;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      padding: 6px 12px;
+      margin-right: 4px;
+      border-radius: 8px 8px 0 0;
+      background-color: var(--ctp-crust);
+      color: var(--ctp-subtext0);
+      cursor: pointer;
+      min-width: 120px;
+      max-width: 200px;
+      transition: background-color 0.2s;
+    }
+
+    .tab:hover {
+      background-color: var(--ctp-mantle);
+    }
+
+    .tab.active {
+      background-color: var(--ctp-base);
+      color: var(--ctp-text);
+    }
+
+    .tab-title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+    }
+
+    .tab-close {
+      margin-left: 8px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 50%;
+      background-color: transparent;
+      color: var(--ctp-overlay0);
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .tab-close:hover {
+      background-color: var(--ctp-surface0);
+      color: var(--ctp-text);
+    }
+
+    .new-tab-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      color: var(--ctp-subtext0);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .new-tab-btn:hover {
+      background-color: var(--ctp-surface0);
+      color: var(--ctp-text);
+    }
+
+    .address-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .url-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background-color: var(--ctp-crust);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .url-input {
+      flex: 1;
+      background-color: transparent;
+      border: none;
+      color: var(--ctp-text);
+      padding: 8px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .url-input::placeholder {
+      color: var(--ctp-overlay0);
+    }
+
+    .go-btn {
+      background-color: transparent;
+      border: none;
+      color: var(--ctp-subtext0);
+      padding: 8px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .go-btn:hover {
+      color: var(--ctp-text);
+    }
+
+    .fullscreen-btn {
+      background-color: transparent;
+      border: none;
+      color: var(--ctp-subtext0);
+      margin-left: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .fullscreen-btn:hover {
+      background-color: var(--ctp-surface0);
+      color: var(--ctp-text);
+    }
+
+    .browser-content {
+      flex: 1;
+      background-color: var(--ctp-base);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .tab-content {
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+
+    .tab-content.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .empty-tab-title {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: var(--ctp-text);
+    }
+
+    .empty-tab-subtitle {
+      font-size: 14px;
+      max-width: 400px;
+      color: var(--ctp-subtext0);
+    }
+
+    .video-container {
+      position: relative;
+      width: 90%;
+      max-width: 1280px;
+      max-height: 90%;
+      aspect-ratio: 16 / 9;
+      background-color: var(--ctp-crust);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      background-color: var(--ctp-base);
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 600px) {
+      .tab {
+        min-width: 100px;
+        padding: 6px 8px;
+      }
+
+      .video-container {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="browser-chrome">
+    <div class="tab-bar" id="tabBar">
+      <button class="new-tab-btn" id="newTabBtn">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+    <form class="address-bar" id="addressForm">
+      <div class="url-container">
+        <input type="text" class="url-input" id="urlInput" placeholder="Enter YouTube URL...">
+        <button type="submit" class="go-btn">
+          <i class="bi bi-box-arrow-up-right"></i>
+        </button>
+      </div>
+      <button type="button" class="fullscreen-btn" id="fullscreenBtn">
+        <i class="bi bi-fullscreen"></i>
+      </button>
+    </form>
+  </div>
+
+  <div class="browser-content" id="browserContent">
+  </div>
+
+  <script>
+
+    let tabs = [];
+    let activeTabId = null;
+    let isFullscreen = false;
+
+    const tabBar = document.getElementById('tabBar');
+    const newTabBtn = document.getElementById('newTabBtn');
+    const addressForm = document.getElementById('addressForm');
+    const urlInput = document.getElementById('urlInput');
+    const browserContent = document.getElementById('browserContent');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const fullscreenIcon = document.getElementById('fullscreenIcon');
+
+    function initBrowser() {
+
+      createNewTab();
+
+      newTabBtn.addEventListener('click', createNewTab);
+      addressForm.addEventListener('submit', handleUrlSubmit);
+      fullscreenBtn.addEventListener('click', toggleFullscreen);
+    }
+
+    function createNewTab() {
+      const tabId = `tab-${Date.now()}`;
+
+      const tab = document.createElement('div');
+      tab.className = 'tab';
+      tab.dataset.tabId = tabId;
+      tab.innerHTML = `
+        <div class="tab-title">New Tab</div>
+        <button class="tab-close">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      `;
+
+      tabBar.insertBefore(tab, newTabBtn);
+
+      const tabContent = document.createElement('div');
+      tabContent.className = 'tab-content';
+      tabContent.dataset.tabId = tabId;
+      tabContent.innerHTML = `
+        <div class="empty-tab">
+          <div class="empty-tab-title">YouTube Unblocker</div>
+          <div class="empty-tab-subtitle">
+            Paste a YouTube link in the address bar above and press Enter to watch videos in this browser-like interface.
+          </div>
+        </div>
+      `;
+
+      browserContent.appendChild(tabContent);
+
+      tabs.push({
+        id: tabId,
+        url: '',
+        videoId: null
+      });
+
+      setActiveTab(tabId);
+
+      tab.addEventListener('click', () => setActiveTab(tabId));
+      tab.querySelector('.tab-close').addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeTab(tabId);
+      });
+    }
+
+    function setActiveTab(tabId) {
+
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+
+      const selectedTab = document.querySelector(`.tab[data-tab-id="${tabId}"]`);
+      if (selectedTab) {
+        selectedTab.classList.add('active');
+      }
+
+      const selectedContent = document.querySelector(`.tab-content[data-tab-id="${tabId}"]`);
+      if (selectedContent) {
+        selectedContent.classList.add('active');
+      }
+
+      activeTabId = tabId;
+
+      const tab = tabs.find(t => t.id === tabId);
+      if (tab) {
+        urlInput.value = tab.url;
+      }
+    }
+
+    function closeTab(tabId) {
+
+      if (tabs.length === 1) {
+
+        const tabElement = document.querySelector(`.tab[data-tab-id="${tabId}"]`);
+        if (tabElement) {
+          tabElement.remove();
+        }
+
+        const contentElement = document.querySelector(`.tab-content[data-tab-id="${tabId}"]`);
+        if (contentElement) {
+          contentElement.remove();
+        }
+
+        tabs = tabs.filter(tab => tab.id !== tabId);
+
+        createNewTab();
+        return;
+      }
+
+      const tabIndex = tabs.findIndex(tab => tab.id === tabId);
+
+      const tabElement = document.querySelector(`.tab[data-tab-id="${tabId}"]`);
+      if (tabElement) {
+        tabElement.remove();
+      }
+
+      const contentElement = document.querySelector(`.tab-content[data-tab-id="${tabId}"]`);
+      if (contentElement) {
+        contentElement.remove();
+      }
+
+      tabs = tabs.filter(tab => tab.id !== tabId);
+
+      if (activeTabId === tabId) {
+
+        const newActiveTabId = tabs[tabIndex - 1]?.id || tabs[0]?.id;
+        if (newActiveTabId) {
+          setActiveTab(newActiveTabId);
+        }
+      }
+    }
+
+    function handleUrlSubmit(e) {
+      e.preventDefault();
+
+      if (!activeTabId) return;
+
+      const url = urlInput.value.trim();
+      if (!url) return;
+
+      const tabIndex = tabs.findIndex(tab => tab.id === activeTabId);
+      if (tabIndex === -1) return;
+
+      const videoId = extractYouTubeId(url);
+
+      tabs[tabIndex].url = url;
+      tabs[tabIndex].videoId = videoId;
+
+      const tabElement = document.querySelector(`.tab[data-tab-id="${activeTabId}"]`);
+      if (tabElement) {
+        const tabTitle = tabElement.querySelector('.tab-title');
+        if (tabTitle) {
+          tabTitle.textContent = videoId
+            ? `YouTube - ${url.length > 30 ? url.substring(0, 30) + '...' : url}`
+            : 'New Tab';
+        }
+      }
+
+      const contentElement = document.querySelector(`.tab-content[data-tab-id="${activeTabId}"]`);
+      if (contentElement) {
+        if (videoId) {
+          contentElement.innerHTML = `
+            <div class="video-container">
+              <iframe 
+                src="https://www.youtube.com/embed/${videoId}" 
+                title="YouTube video player" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+              ></iframe>
+            </div>
+          `;
+        } else {
+          contentElement.innerHTML = `
+            <div class="empty-tab">
+              <div class="empty-tab-title">Invalid YouTube URL</div>
+              <div class="empty-tab-subtitle">
+                Please enter a valid YouTube URL to watch videos.
+              </div>
+            </div>
+          `;
+        }
+      }
+    }
+
+    function extractYouTubeId(url) {
+      if (!url) return null;
+
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+
+      return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    function toggleFullscreen() {
+      isFullscreen = !isFullscreen;
+
+      if (isFullscreen) {
+        browserContent.classList.add('fullscreen');
+        fullscreenIcon.innerHTML = `
+          <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        `;
+      } else {
+        browserContent.classList.remove('fullscreen');
+        fullscreenIcon.innerHTML = `
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        `;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initBrowser);
+  </script>
+</body>
+
+</html>
