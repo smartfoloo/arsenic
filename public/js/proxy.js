@@ -43,8 +43,6 @@ function getProxyUrl(url) {
 
   if (proxyType === "dynamic") {
     return "/service/dynamic/" + __uv$config.encodeUrl(url);
-  } else if (proxyType === "scramjet") {
-    return "/service/scramjet/" + __uv$config.encodeUrl(url);
   } else {
     return "/service/uv/" + __uv$config.encodeUrl(url);
   }

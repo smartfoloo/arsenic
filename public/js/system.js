@@ -99,13 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
         <b style="color: var(--blue);">Dynamic</b>
       </p>
     `
-  } else if (proxyBackend === "scramjet") {
-    document.getElementById('proxy-status').innerHTML = `
-      <p>
-        Using
-        <b style="color: var(--blue);">Scramjet</b>
-      </p>
-    `
   } else {
     document.getElementById('proxy-status').innerHTML = `
       <p>
@@ -670,13 +663,6 @@ function updateProxyStatus() {
       <p>
         Using
         <b style="color: var(--blue);">Dynamic</b>
-      </p>
-    `;
-  } else if (proxyBackend === "scramjet") {
-    document.getElementById('proxy-status').innerHTML = `
-      <p>
-        Using
-        <b style="color: var(--blue);">Scramjet</b>
       </p>
     `;
   } else {
