@@ -778,6 +778,50 @@ iframe {
   color: var(--background);
 }
 
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--blue);
+  border-radius: 50%;
+  animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typing-bounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+#ai-page strong {
+  font-weight: 700;
+}
+
+.loading-message {
+  margin: 5px;
+}
+
 .message-plain {
   background: transparent;
   color: var(--text);
@@ -794,8 +838,8 @@ iframe {
   border-radius: 5px;
   cursor: pointer;
   transition: 200ms;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -807,7 +851,7 @@ iframe {
 
 .code-block {
   position: relative;
-  margin-top: 5px;
+  margin: 10px 0px;
 }
 
 .code-header {
@@ -837,6 +881,7 @@ iframe {
   padding: 2px 5px;
   border-radius: 4px;
   font-family: 'Geist Mono';
+  font-size: 12px;
 }
 
 #ai-page pre code {

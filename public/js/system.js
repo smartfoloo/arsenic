@@ -460,7 +460,7 @@ const textInput = document.getElementById('input-box');
 const sendBtn = document.getElementById('submit-btn');
 const modelDropdown = document.getElementById('ai-model');
 
-const token = '';
+const token = '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';
 
 function getModel() {
   return localStorage.getItem('ai-model') || 'mixtral-8x7b-32768';

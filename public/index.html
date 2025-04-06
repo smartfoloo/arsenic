@@ -66,13 +66,6 @@
               <p class="category"></p>
             </div>
           </button>
-          <button class="tab-btn" id="game-tab" onclick="openPage('forum-page')">
-            <div class="left">
-              <i data-lucide="message-circle"></i>
-              <p>Forum</p>
-              <p class="category"></p>
-            </div>
-          </button>
           <button class="tab-btn" id="game-tab" onclick="openPage('ai-page')">
             <div class="left">
               <i data-lucide="bot"></i>
@@ -252,15 +245,12 @@
           </p>
         </div>
       </div>
-      <div class="page" id="forum-page">
-        <iframe src="/forum" frameborder="0" style="width: 100% !important; height: 100% !important;"></iframe>
-      </div>
       <div class="page" id="ai-page">
         <div class="ai-container">
           <div class="ai-menu">
             <div class="dropdown" id="ai-model">
               <button class="dropdown-button">
-                <span class="dropdown-selected">Mixtral-8x7b</span>
+                <span class="dropdown-selected">Llama3-8B-8192</span>
                 <i data-lucide="chevron-down"></i>
               </button>
               <ul class="dropdown-menu"></ul>
