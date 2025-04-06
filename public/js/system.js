@@ -547,42 +547,81 @@ function escapeHTML(str) {
   return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+function formatMessageContent(message) {
+  return message
+    .replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
+      const escapedCode = escapeHTML(code)
+
+      return `
+        <div class="code-block">
+          <div class="code-header">
+            <button class="copy-btn code-copy"><i class="bi bi-copy"></i></button>
+          </div>
+          <pre><code class="language-${lang || "plaintext"}">${escapedCode}</code></pre>
+        </div>
+      `
+    })
+    .replace(/`([^`]+)`/g, (match, code) => `<code>${escapeHTML(code)}</code>`)
+    .replace(/\*\*([^*]+)\*\*/g, (match, text) => `<strong>${text}</strong>`)
+}
+
 async function fetchResponse(userMessage) {
-  const model = getModel();
-  const apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
-  const systemPrompt = "You are a helpful AI assistant.";
+  const model = getModel()
+  const apiUrl = "https://api.groq.com/openai/v1/chat/completions"
+  const systemPrompt = "You are a helpful AI assistant."
+
+  const loadingDiv = document.createElement("div")
+  loadingDiv.className = "message ai loading-message"
+  loadingDiv.innerHTML = `
+    <div class="sender-label">AI</div>
+    <div class="message-plain">
+      <div class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  `
+  chatBox.appendChild(loadingDiv)
+  chatBox.scrollTop = chatBox.scrollHeight
 
   const requestData = {
     model: model,
     messages: [
       { role: "system", content: systemPrompt },
-      { role: "user", content: userMessage }
+      { role: "user", content: userMessage },
     ],
     temperature: 0.9,
     max_tokens: 1024,
-    stream: false
-  };
+    stream: false,
+  }
 
   try {
     const response = await fetch(apiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
-    });
+    })
 
     if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status}`);
+      throw new Error(`HTTP Error: ${response.status}`)
     }
 
-    const { choices, model } = await response.json();
-    const reply = choices[0].message.content;
-    displayMessage(reply, 'ai', model);
+    const { choices, model } = await response.json()
+    const reply = choices[0].message.content
+
+    loadingDiv.remove()
+
+    displayMessage(reply, "ai", model)
   } catch (err) {
-    console.error('Request Failed:', err);
-    displayMessage(`Failed to get a response. Details: ${err.message}`, 'error');
+    console.error("Request Failed:", err)
+
+    loadingDiv.remove()
+
+    displayMessage(`Failed to get a response. Details: ${err.message}`, "error")
   }
 }
 
