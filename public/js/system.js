@@ -517,23 +517,6 @@ function displayMessage(messageContent, senderType, modelName = '') {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function formatMessageContent(message) {
-  return message
-    .replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
-      const escapedCode = escapeHTML(code);
-
-      return `
-        <div class="code-block">
-          <div class="code-header">
-            <button class="copy-btn code-copy"><i class="bi bi-copy"></i></button>
-          </div>
-          <pre><code class="language-${lang || 'plaintext'}">${escapedCode}</code></pre>
-        </div>
-      `;
-    })
-    .replace(/`([^`]+)`/g, (match, code) => `<code>${escapeHTML(code)}</code>`)
-}
-
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("code-copy")) {
     const codeBlock = event.target.closest(".code-block").querySelector("pre code").textContent;
