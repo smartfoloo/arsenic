@@ -721,6 +721,7 @@ iframe {
   align-items: center;
   gap: 10px;
   padding: 0px;
+  justify-content: space-between;
 }
 
 #chat-display {
@@ -827,6 +828,30 @@ iframe {
   color: var(--text);
   padding: 5px 0;
   word-wrap: break-word;
+}
+
+.clear-chat {
+  background: var(--background2);
+  color: var(--text);
+  border: 1px solid var(--background3);
+  border-radius: 15px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.3s;
+  margin-left: auto;
+}
+
+.clear-chat:hover {
+  background: var(--background3);
+}
+
+.clear-chat i {
+  height: 16px;
+  width: 16px;
 }
 
 .page .copy-btn {

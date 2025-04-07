@@ -78,9 +78,9 @@
         </div>
       </div>
       <div class="sidebar-bottom">
-        <div class="banner">
+        <!--<div class="banner">
           🇺🇦 We stand with Ukraine.
-        </div>
+        </div>-->
         <div class="bottom-nav">
           <button class="action-btn" onclick="openPage('settings-page')">
             <i data-lucide="settings"></i>
@@ -95,14 +95,15 @@
             <i data-lucide="maximize"></i>
           </button>
         </div>
-      </div> 
+      </div>
     </nav>
     <div class="main-content" id="main-content">
       <div class="page" id="home-page">
         <div class="home-page-container">
           <div class="home-page-left">
             <h1 class="welcome">Stay connected.</h1>
-            <p style="margin: 15px 0px; font-weight: 600;">arsenic is a free open-source website offering many services in one place.</p>
+            <p style="margin: 15px 0px; font-weight: 600;">arsenic is a free open-source website offering many services
+              in one place.</p>
             <div class="buttons">
               <button class="start" role="button" onclick="openPage('proxy-page')">
                 <i data-lucide="rocket"></i>
@@ -317,8 +318,7 @@
           <div id="cloaking" class="tab-content">
             <div class="setting-card">
               <h2>about:blank Cloaking</h2>
-              <p>about:blank cloaking allows you to hide this site from your tab history. Please enable popups for this
-                to work.</p>
+              <p>about:blank cloaking allows you to hide this site from your tab history. Please enable popups for this to work.</p>
               <div class="buttons">
                 <button id="enableAboutBlank" onclick="enableAboutBlank()">Enable</button>
                 <button id="disableAboutBlank" onclick="disableAboutBlank()">Disable</button>
@@ -340,7 +340,8 @@
           <div id="proxy" class="tab-content">
             <div class="setting-card">
               <h2>Proxy Backend</h2>
-              <p>Changing the proxy backend will make some sites faster but some may be slower. Ultraviolet is used by default.</p>
+              <p>Changing the proxy backend will make some sites faster but some may be slower. Ultraviolet is used by
+                default.</p>
               <div class="dropdown" id="proxy-backend">
                 <button class="dropdown-button">
                   <span class="dropdown-selected">Ultraviolet</span>
@@ -383,7 +384,8 @@
             -->
             <div class="setting-card">
               <h2>Cookies</h2>
-              <p>This allows you to export and import data, which means you can save progress across different links!</p>
+              <p>This allows you to export and import data, which means you can save progress across different links!
+              </p>
               <div class="buttons">
                 <button id="downloadSave">
                   <i data-lucide="download"></i>
@@ -448,4 +450,5 @@
 <script src="./js/system.js"></script>
 <script src="./register-sw.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </html>

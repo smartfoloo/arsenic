@@ -2,7 +2,7 @@
   "ai-model": [
     {
       "name": "Llama3-8B-8192",
-      "value": "Llama3-8B-8192",
+      "value": "llama3-8B-8192",
       "desc": "Best for daily tasks and fast answers"
     },
     {

@@ -460,10 +460,12 @@ const textInput = document.getElementById('input-box');
 const sendBtn = document.getElementById('submit-btn');
 const modelDropdown = document.getElementById('ai-model');
 
-const token = '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';
+let chatHistory = [];
+
+const token = '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';
 
 function getModel() {
-  return localStorage.getItem('ai-model') || 'mixtral-8x7b-32768';
+  return localStorage.getItem('ai-model') || 'llama3-8B-8192';
 }
 
 function setModel(model) {
@@ -477,6 +479,8 @@ function sendTextMessage() {
 
   displayMessage(message, 'user');
   textInput.value = '';
+
+  chatHistory.push({ role: "user", content: message })
 
   fetchResponse(message);
 }
@@ -585,12 +589,14 @@ async function fetchResponse(userMessage) {
   chatBox.appendChild(loadingDiv)
   chatBox.scrollTop = chatBox.scrollHeight
 
+  const messages = [
+    { role: "system", content: systemPrompt },
+    ...chatHistory.slice(-10), 
+  ]
+
   const requestData = {
     model: model,
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: userMessage },
-    ],
+    messages: messages,
     temperature: 0.9,
     max_tokens: 1024,
     stream: false,
@@ -610,12 +616,14 @@ async function fetchResponse(userMessage) {
       throw new Error(`HTTP Error: ${response.status}`)
     }
 
-    const { choices, model } = await response.json()
+    const { choices, model: modelName } = await response.json()
     const reply = choices[0].message.content
+
+    chatHistory.push({ role: "assistant", content: reply })
 
     loadingDiv.remove()
 
-    displayMessage(reply, "ai", model)
+    displayMessage(reply, "ai", modelName)
   } catch (err) {
     console.error("Request Failed:", err)
 
@@ -623,6 +631,16 @@ async function fetchResponse(userMessage) {
 
     displayMessage(`Failed to get a response. Details: ${err.message}`, "error")
   }
+}
+
+function clearChat() {
+  while (chatBox.firstChild) {
+    chatBox.removeChild(chatBox.firstChild)
+  }
+
+  chatHistory = []
+
+  checkForInitialMessage()
 }
 
 function checkForInitialMessage() {
@@ -653,6 +671,17 @@ document.addEventListener('DOMContentLoaded', () => {
       setModel(selectedValue);
     }
   });
+
+  const aiMenu = document.querySelector(".ai-menu")
+  const clearChatBtn = document.createElement("button")
+  clearChatBtn.className = "clear-chat"
+  clearChatBtn.innerHTML = '<i data-lucide="trash-2"></i> Clear Chat'
+  clearChatBtn.onclick = clearChat
+  aiMenu.appendChild(clearChatBtn)
+
+  if (window.lucide) {
+    window.lucide.createIcons()
+  }
 
   checkForInitialMessage();
 });
