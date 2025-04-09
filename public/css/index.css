@@ -745,6 +745,53 @@ iframe {
   font-weight: 600;
 }
 
+.typing-animation {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--blue);
+  animation: typing 8s steps(30, end) infinite, blink-caret 0.75s step-end infinite;
+  max-width: fit-content;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+
+  20% {
+    width: 100%;
+  }
+
+  40% {
+    width: 100%;
+  }
+
+  45% {
+    width: 0;
+  }
+
+  50% {
+    width: 0;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes blink-caret {
+
+  from,
+  to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: var(--blue);
+  }
+}
+
 .message {
   display: flex;
   flex-direction: column;

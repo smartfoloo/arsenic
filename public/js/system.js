@@ -627,14 +627,18 @@ function clearChat() {
 }
 
 function checkForInitialMessage() {
-  const messages = chatBox.querySelectorAll('.message');
+  const messages = chatBox.querySelectorAll(".message")
   if (messages.length === 0) {
-    const initialMessage = document.createElement('div');
-    initialMessage.className = 'initial-message';
-    initialMessage.textContent = 'What can I help with?';
+    const initialMessage = document.createElement("div")
+    initialMessage.className = "initial-message"
 
-    chatBox.appendChild(initialMessage);
-    chatBox.classList.add('center-message');
+    const animatedText = document.createElement("span")
+    animatedText.className = "typing-animation"
+    animatedText.textContent = "What can I help with?"
+
+    initialMessage.appendChild(animatedText)
+    chatBox.appendChild(initialMessage)
+    chatBox.classList.add("center-message")
   }
 }
 
