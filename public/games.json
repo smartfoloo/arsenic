@@ -1,7 +1,15 @@
 [
   {
-    "title": "Crazy Cattle 3d",
+    "title": "Crazy Cattle 3D",
     "id": "crazy-cattle-3d",
+    "tags": [
+      "action",
+      "multiplayer"
+    ]
+  },
+  {
+    "title": "Crazy Chicken 3D",
+    "id": "crazy-chicken-3d",
     "tags": [
       "action",
       "multiplayer"
