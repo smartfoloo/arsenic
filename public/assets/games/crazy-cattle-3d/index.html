@@ -89,6 +89,7 @@
       z-index: 1;
     }
 
+    /* Popup styles */
     .popup-container {
       position: fixed;
       top: 20px;
@@ -128,6 +129,7 @@
       height: 25px;
       line-height: 25px;
       text-align: center;
+      /* background-color: rgba(0, 0, 0, 0.7); */
       border-radius: 50%;
       padding: 0;
       display: block;
@@ -146,16 +148,24 @@
   </style>
   <link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
   <link rel="apple-touch-icon" href="index.apple-touch-icon.png" />
+
 </head>
 
 <body>
-  <canvas id="canvas"> Your browser does not support the canvas tag. </canvas>
-  <noscript> Your browser does not support JavaScript. </noscript>
+  <canvas id="canvas">
+    Your browser does not support the canvas tag.
+  </canvas>
+
+  <noscript>
+    Your browser does not support JavaScript.
+  </noscript>
+
   <div id="status">
     <img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
     <progress id="status-progress"></progress>
     <div id="status-notice"></div>
   </div>
+
   <script>
     if (!window.SharedArrayBuffer) {
       document.getElementById('status').style.display = 'none';
@@ -165,25 +175,15 @@
   <script src="coi-serviceworker.min.js"></script>
   <script src="index.js"></script>
   <script>
-    const GODOT_CONFIG = {
-      "args": [],
-      "canvasResizePolicy": 2,
-      "ensureCrossOriginIsolationHeaders": true,
-      "executable": "index",
-      "experimentalVK": false,
-      "fileSizes": {
-        "index.pck": 39414368,
-        "index.wasm": 1650612
-      },
-      "focusCanvas": true,
-      "gdextensionLibs": []
-    };
+    const GODOT_CONFIG = { "args": [], "canvasResizePolicy": 2, "ensureCrossOriginIsolationHeaders": true, "executable": "index", "experimentalVK": false, "fileSizes": { "index.pck": 39414368, "index.wasm": 1650612 }, "focusCanvas": true, "gdextensionLibs": [] };
     const GODOT_THREADS_ENABLED = true;
     const engine = new Engine(GODOT_CONFIG);
+
     (function () {
       const statusOverlay = document.getElementById('status');
       const statusProgress = document.getElementById('status-progress');
       const statusNotice = document.getElementById('status-notice');
+
       let initializing = true;
       let statusMode = '';
 
@@ -225,9 +225,11 @@
         setStatusMode('notice');
         initializing = false;
       }
+
       const missing = Engine.getMissingFeatures({
         threads: GODOT_THREADS_ENABLED,
       });
+
       if (missing.length !== 0) {
         if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
           let serviceWorkerRegistrationPromise;
@@ -236,6 +238,7 @@
           } catch (err) {
             serviceWorkerRegistrationPromise = Promise.reject(new Error('Service worker registration failed.'));
           }
+          // There's a chance that installing the service worker would fix the issue
           Promise.race([
             serviceWorkerRegistrationPromise.then((registration) => {
               if (registration != null) {
@@ -243,15 +246,18 @@
               }
               return registration;
             }).then(() => engine.installServiceWorker()),
+            // For some reason, `getRegistration()` can stall
             new Promise((resolve) => {
               setTimeout(() => resolve(), 2000);
             }),
           ]).then(() => {
+            // Reload if there was no error.
             window.location.reload();
           }).catch((err) => {
             console.error('Error while registering service worker:', err);
           });
         } else {
+          // Display the message as usual
           const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
           displayFailureNotice(missingMsg + missing.join('\n'));
         }
@@ -273,33 +279,39 @@
       }
     }());
 
+    // Popup functionality
     function closePopup() {
       document.getElementById('popup').style.display = 'none';
     }
+
+    // Make the popup draggable
     document.addEventListener('DOMContentLoaded', function () {
       const popup = document.getElementById('popup');
       const header = popup.querySelector('.popup-header');
+
       let isDragging = false;
       let offsetX, offsetY;
+
       header.addEventListener('mousedown', function (e) {
         isDragging = true;
         offsetX = e.clientX - popup.getBoundingClientRect().left;
         offsetY = e.clientY - popup.getBoundingClientRect().top;
       });
+
       document.addEventListener('mousemove', function (e) {
         if (!isDragging) return;
+
         popup.style.left = (e.clientX - offsetX) + 'px';
         popup.style.top = (e.clientY - offsetY) + 'px';
       });
+
       document.addEventListener('mouseup', function () {
         isDragging = false;
       });
     });
   </script>
   <script src="https://cattle-chat.onrender.com/socket.io/socket.io.js"></script>
-  <script>
-    window.CHAT_SERVER_URL = 'https://cattle-chat.onrender.com';
-  </script>
+  <script>window.CHAT_SERVER_URL = 'https://cattle-chat.onrender.com';</script>
   <script src="https://cattle-chat.onrender.com/chat-overlay-bundled.js"></script>
   <script defer src="https://literate-manatee.pikapod.net/script.js"
     data-website-id="89d4a4ff-d4cc-4a21-b175-2f6d53a297fc"></script>
