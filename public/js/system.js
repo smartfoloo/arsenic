@@ -689,9 +689,9 @@ sendBtn.addEventListener('click', () => {
 // Proxy 
 
 const searchEngineUrls = {
+  duckduckgo: "https://duckduckgo.com/?q=%s",
   google: "https://www.google.com/search?q=%s",
   bing: "https://www.bing.com/search?q=%s",
-  duckduckgo: "https://duckduckgo.com/?q=%s",
   yahoo: "https://search.yahoo.com/search?p=%s"
 };
 
@@ -705,8 +705,8 @@ function updateUvAddress() {
     searchEngineInput.value = searchEngineUrls[savedSearchEngine];
     addressInput.placeholder = `Search ${savedSearchEngine.charAt(0).toUpperCase() + savedSearchEngine.slice(1)} or type a URL`;
   } else {
-    searchEngineInput.value = searchEngineUrls.google;
-    addressInput.placeholder = "Search Google or type a URL";
+    searchEngineInput.value = searchEngineUrls.duckduckgo;
+    addressInput.placeholder = "Search DuckDuckGo or type a URL";
   }
 }
 

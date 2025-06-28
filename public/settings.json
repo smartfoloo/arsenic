@@ -28,6 +28,10 @@
   ],
   "search-engine": [
     {
+      "name": "DuckDuckGo",
+      "value": "duckduckgo"
+    },
+    {
       "name": "Google",
       "value": "google"
     },
@@ -38,10 +42,6 @@
     {
       "name": "Yahoo",
       "value": "yahoo"
-    },
-    {
-      "name": "DuckDuckGo",
-      "value": "duckduckgo"
     }
   ],
   "tab-cloak": [
