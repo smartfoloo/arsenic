@@ -465,7 +465,7 @@ let chatHistory = [];
 const token = '';
 
 function getModel() {
-  return localStorage.getItem('ai-model') || 'llama3-8B-8192';
+  return localStorage.getItem('ai-model') || 'llama3.1-8b-instant';
 }
 
 function setModel(model) {

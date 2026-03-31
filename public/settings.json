@@ -1,19 +1,19 @@
 {
   "ai-model": [
     {
-      "name": "Llama3-8B-8192",
-      "value": "llama3-8B-8192",
+      "name": "Llama-3.1-8B-Instant",
+      "value": "llama3.1-8b-instant",
       "desc": "Best for daily tasks and fast answers"
     },
     {
-      "name": "Llama3-70B-8192",
-      "value": "llama3-70b-8192",
-      "desc": "Best for complex tasks"
+      "name": "Qwen3-32B",
+      "value": "qwen3-32b",
+      "desc": "Best for multilingual chats and reasoning"
     },
     {
-      "name": "Gemma 2-9B-IT",
-      "value": "gemma2-9b-it",
-      "desc": "Best for coding"
+      "name": "Kimi-K2-Instruct",
+      "value": "kimi-k2-instruct",
+      "desc": "Best for complex context"
     }
   ],
   "proxy-backend": [
