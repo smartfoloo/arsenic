@@ -2,17 +2,17 @@
   "ai-model": [
     {
       "name": "Llama-3.1-8B-Instant",
-      "value": "llama3.1-8b-instant",
+      "value": "llama-3.1-8b-instant",
       "desc": "Best for daily tasks and fast answers"
     },
     {
       "name": "Qwen3-32B",
-      "value": "qwen3-32b",
+      "value": "qwen/qwen3-32b",
       "desc": "Best for multilingual chats and reasoning"
     },
     {
       "name": "Kimi-K2-Instruct",
-      "value": "kimi-k2-instruct",
+      "value": "moonshotai/kimi-k2-instruct",
       "desc": "Best for complex context"
     }
   ],
