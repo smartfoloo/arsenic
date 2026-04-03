@@ -1167,7 +1167,7 @@ input:checked+.slider:before {
 .dropdown {
   position: relative;
   display: inline-block;
-  width: 200px;
+  width: 300px;
 }
 
 .page .dropdown-button {
