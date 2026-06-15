@@ -23,30 +23,17 @@ const error = document.getElementById("uv-error");
  */
 const errorCode = document.getElementById("uv-error-code");
 
-class UrlInfoHelper {
-  constructor() { }
-
-  extractFavicon(url) {
-    try {
-      return `https://www.google.com/s2/favicons?domain=${url}&sz=24`;
-    } catch (e) {
-      console.log('Error fetching favicon:', e);
-      return '';
-    }
-  }
+function extractFavicon(url) {
+  return `https://www.google.com/s2/favicons?domain=${url}&sz=24`;
 }
-
-const helper = new UrlInfoHelper();
 
 function getProxyUrl(url) {
   const proxyType = localStorage.getItem('proxy-backend');
 
   if (proxyType === "dynamic") {
     return "/service/dynamic/" + __uv$config.encodeUrl(url);
-  } else {
-    return "/service/uv/" + __uv$config.encodeUrl(url);
   }
-  
+  return "/service/uv/" + __uv$config.encodeUrl(url);
 }
 
 form.addEventListener("submit", async (event) => {
@@ -66,7 +53,6 @@ form.addEventListener("submit", async (event) => {
 
 function inspect() {
   const targetIframe = document.querySelector('.current-game-embed');
-  console.log(targetIframe);
 
   if (targetIframe) {
     const iframeDoc = targetIframe.contentDocument || targetIframe.contentWindow.document;
@@ -80,7 +66,6 @@ function inspect() {
         iframeDoc.head.appendChild(initializeScript);
       };
       iframeDoc.head.appendChild(erudaScript);
-      console.log('Appended Eruda Script');
     } else {
       const erudaContainer = iframeDoc.getElementById('eruda');
       if (erudaContainer) {
@@ -104,7 +89,7 @@ function openProxyPage(url) {
         return;
       }
 
-      const icon = helper.extractFavicon(url);
+      const icon = extractFavicon(url);
 
       const newTab = document.createElement('button');
       newTab.classList.add('tab-btn');
@@ -144,7 +129,6 @@ function openProxyPage(url) {
         try {
           const title = newEmbed.contentDocument.title;
           newTab.querySelector('p').textContent = title;
-          console.log('Fetched title:', title);
         } catch (e) {
           console.error('Error fetching title from iframe:', e);
           newTab.querySelector('p').textContent = 'Untitled';

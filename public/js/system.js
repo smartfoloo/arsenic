@@ -278,7 +278,6 @@ async function loadGames() {
     });
 
     populateCategories();
-    console.log("hello")
   } catch (error) {
     console.error('Error loading games:', error);
   }

@@ -10,14 +10,11 @@
     "start": "node src/index.js"
   },
   "dependencies": {
-    "@nebula-services/dynamic": "^0.7.2-patch.2",
-    "@sweetalert2/theme-borderless": "^5.0.18",
+    "@mercuryworkshop/bare-mux": "^2.0.9",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
     "@tomphttp/bare-server-node": "2.0.2",
-    "@mercuryworkshop/bare-mux": "^2.0.9",
-    "wisp-server-node": "^1.1.7",
     "express": "^4.19.2",
-    "archiver": "^7.0.1",
-    "sweetalert2": "^11.14.4"
+    "sweetalert2": "^11.14.4",
+    "wisp-server-node": "^1.1.7"
   }
 }

@@ -3,12 +3,8 @@ const express = require("express");
 const { createServer } = require("node:http");
 const { uvPath } = require("@titaniumnetwork-dev/ultraviolet");
 const { hostname } = require("node:os");
-const { join } = require("path");
 const wisp = require("wisp-server-node");
 const { baremuxPath } = require('@mercuryworkshop/bare-mux/node');
-const fs = require('fs');
-const path = require('path');
-const archiver = require('archiver');
 
 const bare = createBareServer("/bare/");
 const app = express();
