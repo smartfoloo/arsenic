@@ -54,7 +54,7 @@
 
 <section class="page" id="startPage" class:active={visible}>
   <div class="inner">
-    <h1>arsenic<span>.</span></h1>
+    <h1>arsenic<span class="dot">.</span><span class="version">v2 beta</span></h1>
     <div id="startBar">
       <Search />
       <input

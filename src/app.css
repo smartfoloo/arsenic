@@ -501,9 +501,18 @@ svg {
   font-size: 36px;
   font-weight: 700;
   letter-spacing: -0.4px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
 }
-#startPage h1 span {
+#startPage h1 .dot {
   color: var(--accent);
+}
+#startPage h1 .version {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--overlay1);
 }
 #startPage p {
   margin: 0;
