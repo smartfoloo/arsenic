@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 
 import express from "express";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
-import { createBareServer } from "@tomphttp/bare-server-node";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
+import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { scramjetPath } from "@mercuryworkshop/scramjet/path";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 
@@ -19,9 +19,6 @@ logging.set_level(logging.NONE);
 
 const app = express();
 const server = createServer();
-// Legacy bare v2. Only the Dynamic backend speaks it; Scramjet and Ultraviolet
-// go through bare-mux over wisp instead.
-const bare = createBareServer("/bare/");
 
 app.use((req, res, next) => {
   // Cross-origin isolation, so Scramjet can use SharedArrayBuffer for sync XHR.
@@ -38,6 +35,7 @@ app.use("/scram/", express.static(scramjetPath));
 app.use("/uv/", express.static(uvPath));
 app.use("/baremux/", express.static(baremuxPath));
 app.use("/epoxy/", express.static(epoxyPath));
+app.use("/libcurl/", express.static(libcurlPath));
 
 if (dev) {
   const { createServer: createViteServer } = await import("vite");
@@ -51,14 +49,10 @@ if (dev) {
   app.use((req, res) => res.sendFile(`${distPath}index.html`));
 }
 
-server.on("request", (req, res) => {
-  if (bare.shouldRoute(req)) bare.routeRequest(req, res);
-  else app(req, res);
-});
+server.on("request", app);
 
 server.on("upgrade", (req, socket, head) => {
-  if (bare.shouldRoute(req)) bare.routeUpgrade(req, socket, head);
-  else if (req.url.endsWith("/wisp/")) wisp.routeRequest(req, socket, head);
+  if (req.url.endsWith("/wisp/")) wisp.routeRequest(req, socket, head);
   // In dev anything else is Vite's HMR socket, handled by its own listener.
   else if (!dev) socket.end();
 });
@@ -74,7 +68,6 @@ server.on("listening", () => {
 for (const signal of ["SIGINT", "SIGTERM"]) {
   process.on(signal, () => {
     server.close();
-    bare.close();
     process.exit(0);
   });
 }

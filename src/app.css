@@ -96,8 +96,7 @@
 }
 
 /* Backend: the "default" badge only makes sense for Scramjet. */
-[data-backend="ultraviolet"] #backendBadge,
-[data-backend="dynamic"] #backendBadge {
+[data-backend="ultraviolet"] #backendBadge {
   display: none;
 }
 
@@ -789,6 +788,23 @@ svg {
 }
 .select-option[aria-selected="true"] .check {
   opacity: 1;
+}
+
+/* Options carrying a description stack onto two lines; nowrap is inherited, so
+   the menu just grows to the widest one rather than reflowing. */
+.select-option.described {
+  height: auto;
+  padding: 8px;
+  border-radius: 24px;
+}
+.select-option.described .text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.select-option.described small {
+  color: var(--overlay1);
+  font-size: 13px;
 }
 
 .btn {

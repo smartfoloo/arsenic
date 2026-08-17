@@ -1,6 +1,6 @@
 <script>
   import Select from "./Select.svelte";
-  import { BACKEND_OPTIONS } from "../lib/backends.js";
+  import { BACKEND_OPTIONS, TRANSPORT_OPTIONS } from "../lib/backends.js";
   import {
     ACCENTS,
     CLOAK_OPTIONS,
@@ -34,13 +34,25 @@
         <div class="row">
           <div class="label">
             <b>Backend<span class="badge" id="backendBadge">default</span></b>
-            <small>Scramjet is the primary engine. The others are fallbacks.</small>
+            <small>The engine that loads pages for you.</small>
           </div>
           <Select
             id="setBackend"
             options={BACKEND_OPTIONS}
             value={settings.backend}
             onchange={(val) => (settings.backend = val)}
+          />
+        </div>
+        <div class="row">
+          <div class="label">
+            <b>Transport</b>
+            <small>How those pages reach you. Affects open tabs.</small>
+          </div>
+          <Select
+            id="setTransport"
+            options={TRANSPORT_OPTIONS}
+            value={settings.transport}
+            onchange={(val) => (settings.transport = val)}
           />
         </div>
         <div class="row">

@@ -9,7 +9,8 @@ arsenic is an open-source web proxy browser built with Svelte and Node.js.
 ## Features
 
 - 🖥️ Arc-style browser shell with tabs and bookmarks
-- 🛰️ Scramjet by default, with Ultraviolet and Dynamic as fallbacks
+- 🛰️ Scramjet by default, with Ultraviolet as a fallback
+- 🔌 Epoxy or libcurl as the transport, switchable at runtime
 - 🔎 DuckDuckGo, Google, Bing or Yahoo search
 - 🎨 Catppuccin themes, accents and wallpapers
 - 🙈 about:blank and tab cloaking

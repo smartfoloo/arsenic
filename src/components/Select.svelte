@@ -72,11 +72,12 @@
   </button>
 
   <div class="select-menu" id="{id}-menu" role="listbox" tabindex="-1">
-    {#each options as [val, text], i (val)}
+    {#each options as [val, text, description], i (val)}
       <!-- Keyboard interaction lives on the combobox trigger, per the ARIA pattern. -->
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <div
         class="select-option"
+        class:described={description}
         class:active={i === active}
         role="option"
         tabindex="-1"
@@ -84,7 +85,10 @@
         onclick={() => pick(val)}
         onpointermove={() => (active = i)}
       >
-        <span>{text}</span>
+        <span class="text">
+          {text}
+          {#if description}<small>{description}</small>{/if}
+        </span>
         <span class="check"><Check /></span>
       </div>
     {/each}

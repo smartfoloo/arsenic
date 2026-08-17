@@ -1,3 +1,5 @@
+import { BACKEND_OPTIONS, TRANSPORT_OPTIONS, selectTransport } from "./backends.js";
+
 const KEY = "arsenic:settings";
 
 export const MAX_BOOKMARKS = 4;
@@ -40,16 +42,42 @@ const CLOAK_TITLES = {
   "khan-academy": "Khan Academy",
 };
 
+const OPTIONS = {
+  backend: BACKEND_OPTIONS,
+  transport: TRANSPORT_OPTIONS,
+  search: SEARCH_OPTIONS,
+  cloak: CLOAK_OPTIONS,
+  theme: THEME_OPTIONS,
+  wallpaper: WALLPAPER_OPTIONS,
+};
+
+/**
+ * Anything saved under a value we no longer offer is dropped so it falls back
+ * to the default. Without this a browser still holding a retired backend would
+ * hand tabs a `backendName` that resolves to undefined.
+ */
 function stored() {
+  let saved;
   try {
-    return JSON.parse(localStorage.getItem(KEY) || "{}");
+    saved = JSON.parse(localStorage.getItem(KEY) || "{}");
   } catch {
     return {};
   }
+  // A proxied site sharing this origin could have clobbered the key with
+  // anything at all, so don't assume an object came back.
+  if (!saved || typeof saved !== "object") return {};
+
+  for (const [key, options] of Object.entries(OPTIONS)) {
+    if (key in saved && !options.some(([value]) => value === saved[key])) delete saved[key];
+  }
+  if (!ACCENTS.includes(saved.accent)) delete saved.accent;
+
+  return saved;
 }
 
 export const settings = $state({
   backend: "scramjet",
+  transport: "epoxy",
   search: "duckduckgo",
   cloak: "default",
   theme: "mocha",
@@ -68,6 +96,10 @@ $effect.root(() => {
     } catch (error) {
       console.error("couldn't save settings", error);
     }
+  });
+
+  $effect(() => {
+    selectTransport(settings.transport);
   });
 
   // Theme, accent, wallpaper and backend are all pure CSS; picking which one

@@ -1,7 +1,6 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
 const SW_ALLOWED_HOSTNAMES = ["localhost", "127.0.0.1"];
-const EPOXY = "/epoxy/index.mjs";
 
 /** Run an async setup step at most once, no matter how often it's asked for. */
 function once(fn) {
@@ -21,12 +20,47 @@ function script(src) {
   return scripts[src];
 }
 
-/** Scramjet and Ultraviolet share one bare-mux transport over our wisp server. */
-const transport = once(async () => {
-  const scheme = location.protocol === "https:" ? "wss" : "ws";
-  const connection = new BareMuxConnection("/baremux/worker.js");
-  await connection.setTransport(EPOXY, [{ wisp: `${scheme}://${location.host}/wisp/` }]);
-});
+/**
+ * Both backends share one bare-mux connection over our wisp server. Which TLS
+ * client sits on the far end of it is the user's choice; the two differ in
+ * speed and in which sites they trip over, not in what they can address.
+ */
+const TRANSPORTS = {
+  epoxy: ["Epoxy", "/epoxy/index.mjs", "Fine for pages, slow on large downloads."],
+  libcurl: ["libcurl", "/libcurl/index.mjs", "Fine for pages, faster on large downloads."],
+};
+
+let connection;
+let wanted = "epoxy";
+let applied;
+let pending = Promise.resolve();
+
+function transport() {
+  // Serialized, because ready() and a settings change can both land here.
+  pending = pending.then(async () => {
+    connection ??= new BareMuxConnection("/baremux/worker.js");
+    if (applied === wanted) return;
+
+    const scheme = location.protocol === "https:" ? "wss" : "ws";
+    await connection.setTransport(TRANSPORTS[wanted][1], [
+      { wisp: `${scheme}://${location.host}/wisp/` },
+    ]);
+    applied = wanted;
+  });
+
+  return pending;
+}
+
+/**
+ * Switch transports. bare-mux hands the new one to every service worker on its
+ * next request, so open tabs move over without a reload.
+ */
+export function selectTransport(name) {
+  if (!TRANSPORTS[name] || name === wanted) return;
+
+  wanted = name;
+  if (connection) transport();
+}
 
 async function registerSW(path, scope) {
   if (!navigator.serviceWorker) {
@@ -52,6 +86,7 @@ let controller;
 
 const scramjet = {
   label: "Scramjet",
+  description: "Quick on simple pages, can be slow on heavy ones.",
   prefix: SCRAMJET_PREFIX,
   ready: once(async () => {
     await script("/scram/scramjet.all.js");
@@ -76,43 +111,38 @@ const scramjet = {
   decode: (href) => controller.decodeUrl(href),
 };
 
-/** Ultraviolet's xor codec, which Dynamic also happens to use. */
+const UV_PREFIX = "/service/uv/";
+
+/** Ultraviolet's xor codec. */
 const codec = once(async () => {
   await script("/uv/uv.bundle.js");
   await script("/uv.config.js");
 });
 
-function xorBackend({ label, prefix, sw, wisp }) {
-  return {
-    label,
-    prefix,
-    ready: once(async () => {
-      await codec();
-      await registerSW(sw, prefix);
-      if (wisp) await transport();
-    }),
-    attach: (iframe) => iframe,
-    go: (iframe, url) => (iframe.src = prefix + __uv$config.encodeUrl(url)),
-    reload: (iframe) => iframe.contentWindow?.location.reload(),
-    encode: (url) => prefix + __uv$config.encodeUrl(url),
-    decode: (href) => __uv$config.decodeUrl(href.slice((location.origin + prefix).length)),
-  };
-}
-
-export const backends = {
-  scramjet,
-  ultraviolet: xorBackend({
-    label: "Ultraviolet",
-    prefix: "/service/uv/",
-    sw: "/uv.sw.js",
-    wisp: true,
+const ultraviolet = {
+  label: "Ultraviolet",
+  description: "Slower to start, better on heavy pages.",
+  prefix: UV_PREFIX,
+  ready: once(async () => {
+    await codec();
+    await registerSW("/uv.sw.js", UV_PREFIX);
+    await transport();
   }),
-  // Dynamic predates bare-mux and talks to the legacy bare server instead.
-  dynamic: xorBackend({
-    label: "Dynamic",
-    prefix: "/service/dynamic/",
-    sw: "/dynamic.sw.js",
-  }),
+  attach: (iframe) => iframe,
+  go: (iframe, url) => (iframe.src = UV_PREFIX + __uv$config.encodeUrl(url)),
+  reload: (iframe) => iframe.contentWindow?.location.reload(),
+  encode: (url) => UV_PREFIX + __uv$config.encodeUrl(url),
+  decode: (href) => __uv$config.decodeUrl(href.slice((location.origin + UV_PREFIX).length)),
 };
 
-export const BACKEND_OPTIONS = Object.entries(backends).map(([value, { label }]) => [value, label]);
+export const backends = { scramjet, ultraviolet };
+
+export const BACKEND_OPTIONS = Object.entries(backends).map(([value, { label, description }]) => [
+  value,
+  label,
+  description,
+]);
+
+export const TRANSPORT_OPTIONS = Object.entries(TRANSPORTS).map(
+  ([value, [label, , description]]) => [value, label, description],
+);
