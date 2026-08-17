@@ -1,7 +1,7 @@
 {
   "name": "arsenic",
   "version": "2.0.0",
-  "description": "a proxy browser",
+  "description": "A browser-like web proxy built with Svelte and Node.js.",
   "private": true,
   "type": "module",
   "engines": {
