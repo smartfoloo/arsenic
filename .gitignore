@@ -1,3 +1,6 @@
 node_modules/
+dist/
 .DS_Store
-DEAD_CODE_REPORT.md
+AGENTS.md
+CLAUDE.md
+benchmarks/

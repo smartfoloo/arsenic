@@ -1,16 +1,17 @@
-importScripts('/uv/uv.bundle.js');
-importScripts('/uv/uv.config.js');
-importScripts(__uv$config.sw || '/uv/uv.sw.js');
+/* global UVServiceWorker */
+/* /uv/ is Ultraviolet's own dist, served straight out of node_modules. */
+importScripts("/uv/uv.bundle.js");
+importScripts("/uv.config.js");
+importScripts("/uv/uv.sw.js");
 
 const uv = new UVServiceWorker();
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     (async () => {
-      if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
-        return await uv.fetch(event);
-      }
-      return await fetch(event.request);
-    })()
+      if (uv.route(event)) return uv.fetch(event);
+
+      return fetch(event.request);
+    })(),
   );
 });

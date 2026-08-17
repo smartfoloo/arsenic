@@ -1,20 +1,31 @@
 {
   "name": "arsenic",
-  "version": "1.0.0",
-  "description": "an open-source website",
+  "version": "2.0.0",
+  "description": "a proxy browser",
+  "private": true,
+  "type": "module",
   "engines": {
-    "npm": ">=9.0.0",
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
-    "start": "node src/index.js"
+    "dev": "node server/index.js",
+    "build": "vite build",
+    "start": "NODE_ENV=production node server/index.js"
   },
   "dependencies": {
-    "@mercuryworkshop/bare-mux": "^2.0.9",
-    "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
+    "@fontsource/public-sans": "^5.3.0",
+    "@lucide/svelte": "^1.31.0",
+    "@mercuryworkshop/bare-mux": "^2.1.9",
+    "@mercuryworkshop/epoxy-transport": "^2.1.28",
+    "@mercuryworkshop/scramjet": "^1.1.0",
+    "@mercuryworkshop/wisp-js": "^0.4.1",
+    "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "@tomphttp/bare-server-node": "2.0.2",
-    "express": "^4.19.2",
-    "sweetalert2": "^11.14.4",
-    "wisp-server-node": "^1.1.7"
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "svelte": "5.56.8",
+    "vite": "^8.2.1"
   }
 }

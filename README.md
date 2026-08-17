@@ -1,24 +1,23 @@
-<p align="center">
-<kbd>
-<img style="border-radius:50%" height="150px" src="/public/assets/favicon.png">
-</kbd>
-
 <h1 align="center">
 arsenic
 </h1>
-arsenic is an open-source, privacy focused, feature rich, online gaming website built in Node.js. 
+
+arsenic is an open-source web proxy browser built with Svelte and Node.js.
 
 **If you like our project, please consider giving us a star!**
 
 ## Features
 
-- 🖥️ clean and simple UI
-- 🕹️ 100+ games
-- 🗂️ game filtering
-- 🎨 detailed customization
-- 🖥️ stunning wallpapers
+- 🖥️ Arc-style browser shell with tabs and bookmarks
+- 🛰️ Scramjet by default, with Ultraviolet and Dynamic as fallbacks
+- 🔎 DuckDuckGo, Google, Bing or Yahoo search
+- 🎨 Catppuccin themes, accents and wallpapers
 - 🙈 about:blank and tab cloaking
-- 🖥️ activestatus monitoring
-- and more!
 
-For more info, please refer to our [documentation](https://docs.arsenic.smartfoloo.space/)
+## Running
+
+```sh
+npm install
+npm run dev                  # development, http://localhost:8080
+npm run build && npm start   # production
+```

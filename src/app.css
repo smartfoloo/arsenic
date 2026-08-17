@@ -1,0 +1,857 @@
+:root {
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --crust: #11111b;
+  --surface0: #313244;
+  --surface1: #45475a;
+  --surface2: #585b70;
+  --overlay0: #6c7086;
+  --overlay1: #7f849c;
+  --text: #cdd6f4;
+  --subtext1: #bac2de;
+  --subtext0: #a6adc8;
+  --blue: #89b4fa;
+  --lavender: #b4befe;
+  --mauve: #cba6f7;
+  --pink: #f5c2e7;
+  --red: #f38ba8;
+  --peach: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --sapphire: #74c7ec;
+  /* Colors only — hex codes are worth naming so you don't have to
+     remember or picture them. Every size/spacing value below is a
+     literal px written right on its own rule instead, so you can see
+     exactly how big everything is without chasing a variable. */
+  --accent: var(--mauve);
+  --claude: #d1795a;
+}
+
+/* Catppuccin flavors. :root above is Mocha (the default); switching
+   theme is just setting data-theme on <html> — no JS style writes. */
+[data-theme="macchiato"] {
+  --base: #24273a;
+  --mantle: #1e2030;
+  --crust: #181926;
+  --surface0: #363a4f;
+  --surface1: #494d64;
+  --surface2: #5b6078;
+  --overlay0: #6e738d;
+  --overlay1: #8087a2;
+  --text: #cad3f5;
+  --subtext0: #a5adcb;
+}
+[data-theme="frappe"] {
+  --base: #303446;
+  --mantle: #292c3c;
+  --crust: #232634;
+  --surface0: #414559;
+  --surface1: #51576d;
+  --surface2: #626880;
+  --overlay0: #737994;
+  --overlay1: #838ba7;
+  --text: #c6d0f4;
+  --subtext0: #b5bfe2;
+}
+
+/* Accent: swap which palette color --accent points at. */
+[data-accent="blue"] {
+  --accent: var(--blue);
+}
+[data-accent="pink"] {
+  --accent: var(--pink);
+}
+[data-accent="teal"] {
+  --accent: var(--teal);
+}
+[data-accent="peach"] {
+  --accent: var(--peach);
+}
+[data-accent="green"] {
+  --accent: var(--green);
+}
+
+/* Wallpaper: shown behind the start page only. */
+[data-wallpaper="gradient"] #startPage {
+  background: linear-gradient(
+    150deg,
+    var(--base),
+    color-mix(in srgb, var(--accent) 22%, var(--base))
+  );
+}
+[data-wallpaper="mesh"] #startPage {
+  background:
+    radial-gradient(
+      60% 70% at 20% 15%,
+      color-mix(in srgb, var(--accent) 26%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      55% 60% at 85% 80%,
+      color-mix(in srgb, var(--sapphire) 22%, transparent),
+      transparent
+    ),
+    var(--base);
+}
+
+/* Backend: the "default" badge only makes sense for Scramjet. */
+[data-backend="ultraviolet"] #backendBadge,
+[data-backend="dynamic"] #backendBadge {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  corner-shape: squircle;
+}
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--crust);
+  color: var(--text);
+  font-family: 'Public Sans';
+  overflow: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+button {
+  background: none;
+  border: 0;
+}
+
+/* Shared icon presentation — every glyph just sets its own width/height. */
+svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#app {
+  display: grid;
+  grid-template-columns: 312px 1fr;
+  height: 100%;
+  transition: grid-template-columns 0.2s ease;
+}
+#app.collapsed {
+  grid-template-columns: 0 1fr;
+}
+
+/* ---------- sidebar ---------- */
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  padding: 12px 12px; /* single inset — every child is flush to it */
+  background: var(--crust);
+}
+#app.collapsed #sidebar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 12px;
+}
+.navrow .spacer {
+  flex: 1;
+}
+/* .iconbtn centers its icon in a symmetric box, so the hover highlight
+   stays centered on the icon — nudging it over with a margin (rather
+   than asymmetric padding) keeps that symmetry while sliding the whole
+   button onto the same icon column the rows below share. */
+.iconbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 24px; 
+  color: var(--subtext0);
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+.iconbtn:hover {
+  background: var(--surface0);
+  color: var(--text);
+}
+.iconbtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  background: none;
+  color: var(--overlay0);
+}
+/* 18px: every "leading" icon (toggle, search, tab favicon, plus) uses
+   this same size so they read as one column regardless of shape —
+   Lucide's glyphs are only optically balanced against each other when
+   drawn at matching size. */
+.iconbtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+#urlbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 24px;
+  background: var(--surface0);
+  border: 1px solid transparent;
+  transition:
+    border-color 0.12s,
+    background 0.12s;
+}
+#urlbar svg {
+  width: 18px;
+  height: 18px;
+  color: var(--overlay1);
+}
+#bookmarkBtn {
+  flex: none;
+  width: 18px;
+  height: 30px;
+}
+#bookmarkBtn:hover svg {
+  color: var(--text);
+}
+#bookmarkBtn.active svg {
+  fill: var(--accent);
+  color: var(--accent);
+}
+#urlInput {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+}
+#urlInput::placeholder {
+  color: var(--overlay0);
+}
+
+/* ---------- bookmarks ---------- */
+
+#bookmarks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 66px; /* one square unit — tiles span 2 or 4 columns wide but always 1 unit tall */
+  gap: 6px;
+  padding: 12px 0;
+}
+#bookmarks:empty {
+  padding: 12px 0 0; /* no tiles, but the divider keeps its gap from the url bar */
+}
+/* Tile widths in "square units": grid auto-placement wraps a row once
+   it's full, so only the column span needs to be set per tile — a
+   single 4-wide tile fills its own row, two 2-wide tiles share a row,
+   and a lone leftover 2-wide tile just wraps to the next row on its own. */
+#bookmarks[data-count="1"] .bookmark {
+  grid-column: span 4;
+}
+#bookmarks[data-count="2"] .bookmark,
+#bookmarks[data-count="4"] .bookmark {
+  grid-column: span 2;
+}
+#bookmarks[data-count="3"] .bookmark:first-child {
+  grid-column: span 4;
+}
+#bookmarks[data-count="3"] .bookmark:not(:first-child) {
+  grid-column: span 2;
+}
+.bookmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background: var(--surface0);
+  color: var(--crust);
+  transition:
+    transform 0.12s,
+    filter 0.12s;
+}
+.bookmark:hover {
+  filter: brightness(1.12);
+}
+.bookmark.open {
+  filter: brightness(1.5);
+}
+.bookmark.open:hover {
+  filter: brightness(1.65);
+}
+.bookmark svg {
+  width: 40px; /* fixed, not %, so it stays square on wide 2x1/4x1 tiles */
+  height: 40px;
+}
+.bookmark img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.divider {
+  height: 1px;
+  margin-bottom: 12px;
+  background: var(--surface0);
+}
+
+/* ---------- tabs ---------- */
+
+#tablist {
+  flex: 1;
+  overflow-y: auto;
+}
+#tablist::-webkit-scrollbar {
+  width: 6px;
+}
+#tablist::-webkit-scrollbar-thumb {
+  background: var(--surface1);
+  border-radius: 6px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 42px;
+  padding: 0 10px;
+  margin-bottom: 12px;
+  border-radius: 24px;
+  color: var(--subtext0);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.tab:hover {
+  background: var(--mantle);
+  color: var(--text);
+}
+.tab.active {
+  background: var(--surface0) !important;
+  color: var(--text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
+}
+
+.tab .fav {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--crust);
+}
+.tab .fav svg {
+  width: 18px;
+  height: 18px;
+}
+.tab .fav img {
+  width: 18px;
+  aspect-ratio: 1;
+  object-fit: contain;
+} /* a full-bleed image reads bolder than an inset glyph at the same size */
+/* No tile behind it, so the glyph takes the row's own text color. */
+.tab .fav.bare {
+  background: none !important;
+  color: inherit;
+}
+.tab .title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+}
+.tab .close {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px; /* half of 24px: full circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  color: var(--subtext0);
+}
+.tab:hover .close,
+.tab.active .close {
+  opacity: 1;
+}
+.tab .close:hover {
+  background: var(--surface1);
+  color: var(--red);
+}
+.tab .close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- sidebar footer ---------- */
+
+#footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  margin-top: 6px;
+  border-top: 1px solid var(--surface0);
+}
+/* ---------- content ---------- */
+
+#content {
+  position: relative;
+  margin: 12px 12px 12px 0;
+  border-radius: 24px;
+  background: var(--base);
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+}
+#app.collapsed #content {
+  margin-left: 12px;
+}
+#floatToggle {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  border-radius: 42px; /* inset 12px into #content's 54px corner, so the two arcs stay parallel */
+  background: var(--surface0);
+  color: var(--subtext0);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#app.collapsed #floatToggle {
+  display: flex;
+}
+#floatToggle:hover {
+  color: var(--text);
+}
+#floatToggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+#frames {
+  position: absolute;
+  inset: 0;
+}
+#frames iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+  display: none;
+}
+#frames iframe.active {
+  display: block;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  display: none;
+  background: var(--base);
+}
+.page.active {
+  display: block;
+}
+
+/* start page */
+#startPage .inner {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 60px 24px;
+}
+#startPage h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+#startPage h1 span {
+  color: var(--accent);
+}
+#startPage p {
+  margin: 0;
+  color: var(--overlay1);
+  font-size: 16px;
+}
+#startBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(624px, 100%);
+  height: 54px;
+  padding: 0 12px;
+  border-radius: 42px;
+  border: 1px solid var(--surface0);
+  background: var(--mantle);
+}
+#startBar > svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0px 0px 0px 10px;
+  color: var(--overlay1);
+}
+#startSearch {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  outline: 0;
+  font-size: 16px;
+}
+#startSearch::placeholder {
+  color: var(--overlay0);
+}
+
+/* backend picker, chip-sized to sit inside #startBar instead of
+   filling a settings row */
+#setStartBackend.select {
+  flex: none;
+  width: auto;
+}
+#setStartBackend .select-trigger {
+  height: 36px;
+  padding: 0 14px 0 12px;
+  border-radius: 18px;
+  background: var(--mantle);
+  border: 1px solid transparent;
+  font-size: 14px;
+  gap: 8px;
+}
+#setStartBackend .select-trigger:hover,
+#setStartBackend.open .select-trigger {
+  background: var(--surface1);
+}
+#setStartBackend .select-trigger .value {
+  color: var(--subtext0);
+  flex: none;
+}
+#setStartBackend .select-menu {
+  min-width: 160px;
+}
+
+#discordLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 18px;
+  background: var(--surface0);
+  color: var(--subtext0);
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+#discordLink:hover {
+  background: var(--surface1);
+  color: var(--text);
+}
+#discordLink svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* latency readout, pinned to the bottom of the start page */
+#latency {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--overlay0);
+}
+#latency .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--overlay0);
+}
+#latency .good {
+  background: var(--green);
+}
+#latency .fair {
+  background: var(--yellow);
+}
+#latency .poor {
+  background: var(--red);
+}
+
+/* settings page */
+#settingsPage .inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 54px 24px 72px;
+}
+#settingsPage h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  letter-spacing: -0.3px;
+}
+#settingsPage .sub {
+  margin: 0 0 36px;
+  color: var(--overlay1);
+  font-size: 16px;
+}
+.group {
+  margin-bottom: 30px;
+}
+.group h2 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--overlay0);
+}
+.card {
+  background: var(--mantle);
+  border: 1px solid var(--surface0);
+  border-radius: 24px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 18px;
+  border-bottom: 1px solid var(--surface0);
+}
+.row:last-child {
+  border-bottom: 0;
+}
+/* Below ~200px the label can't hold the control on the same line
+   without wrapping word-by-word — drop the control to its own
+   full-width row instead. */
+.row .label {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.row .select,
+.row .btn {
+  flex: 0 0 200px;
+}
+.row .label b {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+}
+.row .label small {
+  color: var(--overlay1);
+  font-size: 14px;
+}
+
+/* custom select */
+.select {
+  position: relative;
+  flex: none;
+  width: 200px;
+}
+.select-trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 36px;
+  padding: 0 12px 0 8px;
+  border-radius: 18px;
+  corner-shape: circle !important;
+  background: var(--mantle);
+  border: 1px solid var(--surface1);
+  font-size: 16px;
+  text-align: left;
+  outline: 0;
+  transition:
+    background 0.12s,
+    border-color 0.12s;
+}
+.select-trigger:hover {
+  background: var(--surface0);
+}
+.select.open .select-trigger,
+.select-trigger:focus-visible {
+  background: var(--surface0);
+}
+.select-trigger .value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.select-trigger .chev {
+  color: var(--overlay1);
+  transition: transform 0.16s ease;
+}
+.select.open .select-trigger .chev {
+  transform: rotate(180deg);
+}
+.select svg {
+  width: 12px;
+  height: 12px;
+}
+
+.select-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 100%;
+  padding: 6px;
+  border-radius: 24px;
+  background: var(--surface0);
+  border: 1px solid var(--surface1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  display: none;
+}
+.select.open .select-menu {
+  display: block;
+}
+.select-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 36px; /* inset 6px into the menu's 42px corner, so the two arcs stay parallel */
+  font-size: 16px;
+  color: var(--subtext1);
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.select-option[aria-selected="true"] {
+  color: var(--text);
+}
+.select-option.active {
+  background: var(--surface1);
+  color: var(--text);
+}
+.select-option .check {
+  display: inline-flex;
+  width: 12px;
+  flex: none;
+  margin-left: auto;
+  opacity: 0;
+  color: var(--accent);
+}
+.select-option[aria-selected="true"] .check {
+  opacity: 1;
+}
+
+.btn {
+  flex: none;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 18px; /* half of 36px: full pill */
+  background: var(--surface0);
+  border: 1px solid var(--surface1);
+  font-size: 16px;
+}
+.btn:hover {
+  background: var(--surface1);
+}
+.badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--crust);
+}
+.swatches {
+  display: flex;
+  gap: 12px;
+}
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 45%;
+  border: 2px solid transparent;
+}
+.swatch.on {
+  border-color: var(--text);
+}
+
+/* Accent utilities — a bookmark tile, tab favicon, or swatch just adds
+   one of these classes instead of JS setting an inline background. */
+.accent-red {
+  background: var(--red);
+}
+.accent-peach {
+  background: var(--peach);
+}
+.accent-yellow {
+  background: var(--yellow);
+}
+.accent-green {
+  background: var(--green);
+}
+.accent-teal {
+  background: var(--teal);
+}
+.accent-sapphire {
+  background: var(--sapphire);
+}
+.accent-blue {
+  background: var(--blue);
+}
+.accent-lavender {
+  background: var(--lavender);
+}
+.accent-mauve {
+  background: var(--mauve);
+}
+.accent-pink {
+  background: var(--pink);
+}
+.accent-subtext0 {
+  background: var(--subtext0);
+}

@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /admin
-Allow: /
-
-Sitemap: https://arsenic.smartfoloo.space/sitemap.xml
