@@ -132,6 +132,10 @@ button {
   border: 0;
 }
 
+::placeholder {
+  color: var(--overlay0);
+}
+
 /* Shared icon presentation — every glyph just sets its own width/height. */
 svg {
   flex: none;
@@ -247,9 +251,6 @@ svg {
   border: 0;
   outline: 0;
   font-size: 16px;
-}
-#urlInput::placeholder {
-  color: var(--overlay0);
 }
 
 /* ---------- bookmarks ---------- */
