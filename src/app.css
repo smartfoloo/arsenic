@@ -891,6 +891,7 @@ svg {
   border: 3px solid var(--surface0);
   border-top-color: var(--accent);
   border-radius: 50%;
+  corner-shape: round; /* a spinning squircle wobbles — this one needs a true circle */
   animation: chatSpin 0.7s linear infinite;
 }
 @keyframes chatSpin {

@@ -130,8 +130,14 @@ export function unbanUser(username) {
   return request("admin/unban", { method: "POST", json: { username } });
 }
 
+// The socket takes a moment to open, but callers (e.g. switchChannel on the
+// very first load) don't wait for it — queue and flush on open rather than
+// silently dropping whatever was sent during that window.
+let sendQueue = [];
+
 function send(payload) {
   if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify(payload));
+  else sendQueue.push(payload);
 }
 
 export function connect() {
@@ -140,7 +146,11 @@ export function connect() {
   const protocol = location.protocol === "https:" ? "wss" : "ws";
   socket = new WebSocket(`${protocol}://${location.host}/chat/ws`);
 
-  socket.onopen = () => (chat.connected = true);
+  socket.onopen = () => {
+    chat.connected = true;
+    for (const payload of sendQueue) socket.send(JSON.stringify(payload));
+    sendQueue = [];
+  };
   socket.onclose = () => {
     chat.connected = false;
     socket = null;
@@ -151,6 +161,7 @@ export function connect() {
 export function disconnect() {
   socket?.close();
   socket = null;
+  sendQueue = [];
   chat.connected = false;
 }
 
