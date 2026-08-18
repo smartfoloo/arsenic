@@ -349,7 +349,7 @@ function renderDecoyPage({ password, cookieName }) {
     document.getElementById("submit").addEventListener("click", () => {
       const pw = document.getElementById("pw").value;
       if (pw === PASSWORD) {
-        document.cookie = COOKIE_NAME + "=1; path=/; max-age=31536000; SameSite=Lax; Secure";
+        document.cookie = COOKIE_NAME + "=1; path=/; SameSite=Lax; Secure";
         window.location.reload();
       } else {
         document.getElementById("err").classList.add("show");

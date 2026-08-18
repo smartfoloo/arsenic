@@ -26,6 +26,10 @@ const port = Number(process.argv[2] || process.env.PORT) || 5000;
 // redirects to the real app on the correct password. Wildcard by
 // construction — it doesn't look at the Host header at all.
 const decoyPort = process.env.ARSENIC_DECOY_PORT ? Number(process.env.ARSENIC_DECOY_PORT) : null;
+if (decoyPort && !process.env.ARSENIC_DECOY_PASSWORD) {
+  console.error("ARSENIC_DECOY_PASSWORD must be set when ARSENIC_DECOY_PORT is used");
+  process.exit(1);
+}
 // Off by default: an open-source clone only gets a working chatroom when its
 // own operator deliberately opts in, not just by having the code.
 const chatEnabled = process.env.ARSENIC_CHAT_ENABLED === "true";
@@ -108,10 +112,6 @@ setInterval(sweepOldMessages, 30 * 60 * 1000);
 server.listen({ port });
 
 if (decoyPort) {
-  if (!process.env.ARSENIC_DECOY_PASSWORD) {
-    console.error("ARSENIC_DECOY_PASSWORD must be set when ARSENIC_DECOY_PORT is used");
-    process.exit(1);
-  }
   const decoyApp = createDecoyApp({
     password: process.env.ARSENIC_DECOY_PASSWORD,
     cookieName: process.env.ARSENIC_DECOY_COOKIE || "reader_session",
