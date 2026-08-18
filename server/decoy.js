@@ -1,21 +1,21 @@
 import express from "express";
 
-// Serves a fake e-reader app, meant to sit on a separate port from the real
-// app — a close UI/UX clone of a cloud ebook reader (own neutral branding,
-// not Amazon's), with a real short story loaded in it. It doesn't filter by
-// Host, so it's wildcard by construction: whichever domain's traffic gets
-// routed to this port (by the operator's own reverse proxy config) sees the
-// same cover story. Clicking the book title opens what looks like an
-// ordinary sign-in modal; the right password redirects to the real app, by
-// default on the same hostname the visitor is currently on (since the real
-// app is expected to be the default for that domain on its standard port).
-// The check is client-side only and not meant to stop anyone who looks at
-// the page source — it's cover for casual visitors, not access control.
-export function createDecoyApp({ password, redirectUrl }) {
+// Serves a fake e-reader app — a close UI/UX clone of a cloud ebook reader
+// (own neutral branding, not Amazon's), with a real short story loaded in
+// it. It doesn't filter by Host, so it's wildcard by construction: whichever
+// domain's traffic gets routed here (by the operator's own reverse proxy
+// config) sees the same cover story. Clicking the book title opens what
+// looks like an ordinary sign-in modal; the right password sets a cookie and
+// reloads in place — it does NOT navigate anywhere. The domain stays the
+// same domain throughout; it's the reverse proxy in front (Caddy) that reads
+// that cookie on the next request and switches which backend it proxies to,
+// decoy or real app, both under the same hostname. The password check itself
+// is entirely client-side and not meant to stop anyone who looks at the page
+// source — it's cover for casual visitors, not access control.
+export function createDecoyApp({ password, cookieName = "reader_session" }) {
   const app = express();
   app.use((req, res) => {
-    const redirect = redirectUrl || `${req.protocol}://${req.hostname}/`;
-    res.type("html").send(renderDecoyPage({ password, redirectUrl: redirect }));
+    res.type("html").send(renderDecoyPage({ password, cookieName }));
   });
   return app;
 }
@@ -79,7 +79,7 @@ const PAGES = [
    <p class="end">The End</p>`,
 ];
 
-function renderDecoyPage({ password, redirectUrl }) {
+function renderDecoyPage({ password, cookieName }) {
   const pagesJson = JSON.stringify(PAGES);
   return `<!doctype html>
 <html lang="en">
@@ -318,7 +318,7 @@ function renderDecoyPage({ password, redirectUrl }) {
 
   <script>
     const PASSWORD = ${JSON.stringify(password)};
-    const REDIRECT = ${JSON.stringify(redirectUrl)};
+    const COOKIE_NAME = ${JSON.stringify(cookieName)};
     const PAGES = ${pagesJson};
 
     let idx = 0;
@@ -349,7 +349,8 @@ function renderDecoyPage({ password, redirectUrl }) {
     document.getElementById("submit").addEventListener("click", () => {
       const pw = document.getElementById("pw").value;
       if (pw === PASSWORD) {
-        window.location.href = REDIRECT;
+        document.cookie = COOKIE_NAME + "=1; path=/; max-age=31536000; SameSite=Lax; Secure";
+        window.location.reload();
       } else {
         document.getElementById("err").classList.add("show");
       }

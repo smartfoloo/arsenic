@@ -114,7 +114,7 @@ if (decoyPort) {
   }
   const decoyApp = createDecoyApp({
     password: process.env.ARSENIC_DECOY_PASSWORD,
-    redirectUrl: process.env.ARSENIC_DECOY_REDIRECT || null,
+    cookieName: process.env.ARSENIC_DECOY_COOKIE || "reader_session",
   });
   decoyApp.listen(decoyPort, () => console.log(`Decoy listening on http://localhost:${decoyPort}`));
 }
