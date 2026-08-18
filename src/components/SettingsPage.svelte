@@ -140,5 +140,23 @@
         </div>
       </div>
     </div>
+
+    <div class="group">
+      <h2>Legal</h2>
+      <div class="card">
+        <div class="row">
+          <div class="label">
+            <b>Terms of Service</b>
+          </div>
+          <a class="btn" href="/legal/terms.html" target="_blank" rel="noopener">View</a>
+        </div>
+        <div class="row">
+          <div class="label">
+            <b>Privacy Policy</b>
+          </div>
+          <a class="btn" href="/legal/privacy.html" target="_blank" rel="noopener">View</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

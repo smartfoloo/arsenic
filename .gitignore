@@ -4,3 +4,4 @@ dist/
 AGENTS.md
 CLAUDE.md
 benchmarks/
+.claude/
