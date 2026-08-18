@@ -74,13 +74,21 @@
               <div class="chatHeaderActions">
                 <button
                   class="chatModeToggle"
-                  onclick={() => runAdminAction(() => clearChannel(activeChannel.id))}
+                  onclick={() => {
+                    if (confirm(`Clear all messages in #${activeChannel.name}?`)) {
+                      runAdminAction(() => clearChannel(activeChannel.id));
+                    }
+                  }}
                 >
                   Clear
                 </button>
                 <button
                   class="chatModeToggle"
-                  onclick={() => runAdminAction(() => deleteChannel(activeChannel.id))}
+                  onclick={() => {
+                    if (confirm(`Delete #${activeChannel.name}? This cannot be undone.`)) {
+                      runAdminAction(() => deleteChannel(activeChannel.id));
+                    }
+                  }}
                 >
                   Delete channel
                 </button>
@@ -120,7 +128,11 @@
                         <button
                           class="chatMessageAction"
                           title="Ban {message.username}"
-                          onclick={() => runAdminAction(() => banUser(message.username))}
+                          onclick={() => {
+                            if (confirm(`Ban ${message.username}? They'll be logged out and their messages hidden.`)) {
+                              runAdminAction(() => banUser(message.username));
+                            }
+                          }}
                         >
                           <UserX />
                         </button>
