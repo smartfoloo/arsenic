@@ -1061,6 +1061,22 @@ svg {
   color: var(--text);
 }
 
+.chatBannedItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--subtext1);
+  font-size: 14px;
+}
+.chatBannedItem span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 #chatProfile {
   display: flex;
   align-items: center;

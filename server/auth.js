@@ -15,9 +15,11 @@ import {
   createUser,
   deleteChannel,
   deleteMessage,
+  dmPartners,
   findUserByUsername,
   getAvatar,
   getUserByUsername,
+  listBannedUsers,
   listChannels,
   messageChannelId,
   setAvatar,
@@ -169,6 +171,10 @@ router.get("/channels", requireAuth, (req, res) => {
   res.json({ channels: listChannels() });
 });
 
+router.get("/dms", requireAuth, (req, res) => {
+  res.json({ partners: dmPartners(req.session.uid) });
+});
+
 router.post("/admin/channels", requireAdmin, (req, res) => {
   const { name } = req.body ?? {};
   if (typeof name !== "string" || !CHANNEL_NAME_PATTERN.test(name)) {
@@ -233,6 +239,10 @@ router.post("/admin/ban", requireAdmin, (req, res) => {
   disconnectUser(target.id);
   broadcast({ type: "userBanned", username: target.username });
   res.json({});
+});
+
+router.get("/admin/banned", requireAdmin, (req, res) => {
+  res.json({ users: listBannedUsers() });
 });
 
 router.post("/admin/unban", requireAdmin, (req, res) => {

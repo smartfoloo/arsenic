@@ -10,7 +10,9 @@ export const chat = $state({
   channelMessages: {},
   activeDmUsername: null,
   dmThreads: {},
+  dmPartners: [],
   dmError: null,
+  bannedUsers: [],
 });
 
 let socket = null;
@@ -45,6 +47,8 @@ export async function checkAuth() {
   if (chat.authUsername) {
     connect();
     fetchChannels();
+    fetchDmPartners();
+    if (chat.isAdmin) fetchBannedUsers();
   }
 }
 
@@ -68,6 +72,8 @@ export async function logout() {
   chat.channelMessages = {};
   chat.activeDmUsername = null;
   chat.dmThreads = {};
+  chat.dmPartners = [];
+  chat.bannedUsers = [];
   disconnect();
 }
 
@@ -82,6 +88,11 @@ export async function fetchChannels() {
   const data = await request("channels");
   chat.channels = data.channels;
   if (!chat.activeChannelId && data.channels.length) switchChannel(data.channels[0].id);
+}
+
+export async function fetchDmPartners() {
+  const data = await request("dms");
+  chat.dmPartners = data.partners;
 }
 
 export function switchChannel(id) {
@@ -128,6 +139,11 @@ export function banUser(username) {
 
 export function unbanUser(username) {
   return request("admin/unban", { method: "POST", json: { username } });
+}
+
+export async function fetchBannedUsers() {
+  const data = await request("admin/banned");
+  chat.bannedUsers = data.users;
 }
 
 // The socket takes a moment to open, but callers (e.g. switchChannel on the
@@ -199,8 +215,13 @@ function handleMessage(data) {
       chat.channelMessages[id] = chat.channelMessages[id].filter((m) => m.username !== data.username);
     }
     delete chat.dmThreads[data.username];
+    chat.dmPartners = chat.dmPartners.filter((username) => username !== data.username);
     if (chat.activeDmUsername === data.username) chat.activeDmUsername = null;
+    if (chat.isAdmin && !chat.bannedUsers.includes(data.username)) {
+      chat.bannedUsers = [...chat.bannedUsers, data.username];
+    }
   } else if (data.type === "userUnbanned") {
     for (const id of Object.keys(chat.channelMessages)) send({ type: "history", channelId: Number(id) });
+    chat.bannedUsers = chat.bannedUsers.filter((username) => username !== data.username);
   }
 }

@@ -109,6 +109,7 @@ const getAvatarStmt = db.prepare(
   "SELECT avatar_path AS path, avatar_mime AS mime, avatar_updated_at AS updatedAt FROM users WHERE id = ?",
 );
 const isBannedStmt = db.prepare("SELECT banned_at FROM users WHERE id = ?");
+const listBannedStmt = db.prepare("SELECT username FROM users WHERE banned_at IS NOT NULL ORDER BY banned_at DESC");
 
 const insertDmStmt = db.prepare(
   "INSERT INTO dm_messages (from_user_id, to_user_id, body, created_at) VALUES (?, ?, ?, ?)",
@@ -126,6 +127,16 @@ const dmHistoryStmt = db.prepare(`
     AND fromUser.banned_at IS NULL AND toUser.banned_at IS NULL
   ORDER BY dm_messages.created_at DESC
   LIMIT ?
+`);
+const dmPartnersStmt = db.prepare(`
+  SELECT DISTINCT users.username
+  FROM dm_messages
+  JOIN users ON users.id = CASE
+    WHEN dm_messages.from_user_id = @uid THEN dm_messages.to_user_id
+    ELSE dm_messages.from_user_id
+  END
+  WHERE (dm_messages.from_user_id = @uid OR dm_messages.to_user_id = @uid)
+    AND users.banned_at IS NULL
 `);
 
 export function getUserByUsername(username) {
@@ -202,6 +213,10 @@ export function isUserBanned(userId) {
   return !!isBannedStmt.get(userId)?.banned_at;
 }
 
+export function listBannedUsers() {
+  return listBannedStmt.all().map((row) => row.username);
+}
+
 export function insertDm({ fromUserId, toUserId, body }) {
   const createdAt = Date.now();
   const { lastInsertRowid } = insertDmStmt.run(fromUserId, toUserId, body, createdAt);
@@ -210,4 +225,8 @@ export function insertDm({ fromUserId, toUserId, body }) {
 
 export function dmHistory(uidA, uidB, limit = 50) {
   return dmHistoryStmt.all(uidA, uidB, uidB, uidA, limit).reverse();
+}
+
+export function dmPartners(userId) {
+  return dmPartnersStmt.all({ uid: userId }).map((row) => row.username);
 }

@@ -2,12 +2,20 @@
   import Plus from "@lucide/svelte/icons/plus";
 
   import ChatPromptModal from "./ChatPromptModal.svelte";
-  import { chat, createChannel, logout, startDm, switchChannel, uploadAvatar } from "../lib/chat.svelte.js";
+  import { chat, createChannel, logout, startDm, switchChannel, unbanUser, uploadAvatar } from "../lib/chat.svelte.js";
 
   let channelModalOpen = $state(false);
   let dmModalOpen = $state(false);
   let avatarInput = $state(null);
   let avatarError = $state(null);
+  let bannedError = $state(null);
+
+  const dmUsernames = $derived([...new Set([...chat.dmPartners, ...Object.keys(chat.dmThreads)])]);
+
+  function onUnban(username) {
+    bannedError = null;
+    unbanUser(username).catch((err) => (bannedError = err.message));
+  }
 
   function onAvatarChange(event) {
     const file = event.target.files[0];
@@ -56,7 +64,7 @@
         </button>
       </div>
       <div class="chatChannelList">
-        {#each Object.keys(chat.dmThreads) as username (username)}
+        {#each dmUsernames as username (username)}
           <button
             class="chatChannelItem"
             class:active={chat.activeDmUsername === username}
@@ -67,6 +75,23 @@
         {/each}
       </div>
     </div>
+
+    {#if chat.isAdmin && chat.bannedUsers.length}
+      <div class="chatSidebarSection">
+        <div class="chatSectionHeading">
+          <h3>Banned users</h3>
+        </div>
+        {#if bannedError}<p class="chatError">{bannedError}</p>{/if}
+        <div class="chatChannelList">
+          {#each chat.bannedUsers as username (username)}
+            <div class="chatBannedItem">
+              <span>{username}</span>
+              <button class="chatModeToggle" onclick={() => onUnban(username)}>Unban</button>
+            </div>
+          {/each}
+        </div>
+      </div>
+    {/if}
   </div>
 
   <div id="chatProfile">
