@@ -12,6 +12,11 @@
   let actionError = $state(null);
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
+  const messagesLoaded = $derived(
+    chat.activeDmUsername
+      ? chat.dmThreads[chat.activeDmUsername] !== undefined
+      : chat.channelMessages[chat.activeChannelId] !== undefined,
+  );
   const currentMessages = $derived(
     chat.activeDmUsername
       ? (chat.dmThreads[chat.activeDmUsername] ?? [])
@@ -44,8 +49,8 @@
 <section class="page" id="chatPage" class:active={activeTab()?.kind === "chat"}>
   <div class="inner">
     {#if !chat.checkedAuth}
-      <div class="chatCentered">
-        <p class="sub">Loading…</p>
+      <div class="chatCentered chatLoadingScreen">
+        <div class="chatSpinner"></div>
       </div>
     {:else if chat.disabled}
       <div class="chatCentered">
@@ -86,6 +91,9 @@
           {#if actionError}<p class="chatError">{actionError}</p>{/if}
 
           <div id="chatMessages" bind:this={listEl}>
+            {#if !messagesLoaded}
+              <div class="chatMessagesLoading"><div class="chatSpinner"></div></div>
+            {/if}
             {#each currentMessages as message (message.id)}
               <div class="chatMessage">
                 {#if message.avatarUrl}

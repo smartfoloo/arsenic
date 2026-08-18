@@ -873,6 +873,31 @@ svg {
   width: 100%;
   padding: 60px 24px;
 }
+.chatLoadingScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.chatMessagesLoading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chatSpinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--surface0);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: chatSpin 0.7s linear infinite;
+}
+@keyframes chatSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 #chatAuthForm {
   display: flex;
   flex-direction: column;
@@ -1058,9 +1083,11 @@ svg {
   white-space: nowrap;
 }
 
-/* modal */
+/* modal — absolute (not fixed) so it's scoped to the chat page's own box
+   (#chatPage already fills #content edge to edge) rather than the whole
+   app window, keeping the sidebar/tab list out from behind the backdrop. */
 .chatModalBackdrop {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -1189,7 +1216,7 @@ svg {
 }
 .chatMessageMeta {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
 }
 .chatMessageMeta b {
