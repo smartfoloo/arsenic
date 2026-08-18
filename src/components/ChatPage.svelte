@@ -5,20 +5,10 @@
   import ChatAuthForm from "./ChatAuthForm.svelte";
   import ChatComposer from "./ChatComposer.svelte";
   import ChatSidebar from "./ChatSidebar.svelte";
-  import {
-    banUser,
-    chat,
-    checkAuth,
-    clearChannel,
-    deleteChannel,
-    deleteMessage,
-    logout,
-    uploadAvatar,
-  } from "../lib/chat.svelte.js";
+  import { banUser, chat, checkAuth, clearChannel, deleteChannel, deleteMessage } from "../lib/chat.svelte.js";
   import { activeTab } from "../lib/tabs.svelte.js";
 
   let listEl = $state(null);
-  let avatarInput = $state(null);
   let actionError = $state(null);
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
@@ -49,25 +39,21 @@
       actionError = err.message;
     }
   }
-
-  function onAvatarChange(event) {
-    const file = event.target.files[0];
-    if (file) runAdminAction(() => uploadAvatar(file));
-    event.target.value = "";
-  }
 </script>
 
 <section class="page" id="chatPage" class:active={activeTab()?.kind === "chat"}>
   <div class="inner">
     {#if !chat.checkedAuth}
-      <p class="sub">Loading…</p>
+      <div class="chatCentered">
+        <p class="sub">Loading…</p>
+      </div>
     {:else if chat.disabled}
-      <div class="chatAuthWrap">
+      <div class="chatCentered">
         <h1>Chat</h1>
         <p class="sub">Chat isn't enabled on this server.</p>
       </div>
     {:else if !chat.authUsername}
-      <div class="chatAuthWrap">
+      <div class="chatCentered">
         <h1>Chat</h1>
         <p class="sub">A public room for everyone using arsenic. Be nice.</p>
         <ChatAuthForm />
@@ -79,8 +65,8 @@
         <div id="chatMain">
           <div id="chatHeader">
             <div class="chatHeaderTitle">{title}</div>
-            <div class="chatHeaderActions">
-              {#if chat.isAdmin && activeChannel}
+            {#if chat.isAdmin && activeChannel}
+              <div class="chatHeaderActions">
                 <button
                   class="chatModeToggle"
                   onclick={() => runAdminAction(() => clearChannel(activeChannel.id))}
@@ -93,27 +79,8 @@
                 >
                   Delete channel
                 </button>
-              {/if}
-              <button
-                class="chatAvatarBtn"
-                title="Change your avatar"
-                onclick={() => avatarInput.click()}
-              >
-                {#if chat.avatarUrl}
-                  <img src={chat.avatarUrl} alt="" />
-                {:else}
-                  <span class="chatAvatarFallback">{chat.authUsername[0]?.toUpperCase()}</span>
-                {/if}
-              </button>
-              <input
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                bind:this={avatarInput}
-                onchange={onAvatarChange}
-                hidden
-              />
-              <button class="chatModeToggle" onclick={logout}>Log out</button>
-            </div>
+              </div>
+            {/if}
           </div>
 
           {#if actionError}<p class="chatError">{actionError}</p>{/if}

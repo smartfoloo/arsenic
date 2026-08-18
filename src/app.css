@@ -852,9 +852,6 @@ svg {
 
 /* chat page */
 #chatPage .inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 32px 24px;
   height: 100%;
   box-sizing: border-box;
   display: flex;
@@ -870,10 +867,11 @@ svg {
   color: var(--overlay1);
   font-size: 16px;
 }
-.chatAuthWrap {
+.chatCentered {
   max-width: 420px;
-  margin: 40px auto 0;
+  margin: 0 auto;
   width: 100%;
+  padding: 60px 24px;
 }
 #chatAuthForm {
   display: flex;
@@ -937,23 +935,71 @@ svg {
   flex: 1;
   min-height: 0;
   display: flex;
-  gap: 16px;
-  background: var(--mantle);
-  border: 1px solid var(--surface0);
-  border-radius: 24px;
-  overflow: hidden;
 }
 
 /* rail */
 #chatSidebar {
-  flex: 0 0 220px;
+  flex: 0 0 240px;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 18px 14px;
+  background: var(--mantle);
   border-right: 1px solid var(--surface0);
+}
+.chatSidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 14px 12px;
+  flex: none;
+}
+.chatSidebarHeader h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.chatIconAdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 6px;
+  background: none;
+  border: 0;
+  color: var(--overlay0);
+  cursor: pointer;
+  flex: none;
+}
+.chatIconAdd:hover {
+  background: var(--surface0);
+  color: var(--text);
+}
+.chatIconAdd svg {
+  width: 16px;
+  height: 16px;
+}
+#chatSidebar > .chatError {
+  padding: 0 14px 8px;
+}
+.chatSidebarScroll {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 4px 14px 14px;
+}
+.chatSectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 6px;
+}
+.chatSectionHeading h3 {
+  margin: 0;
 }
 .chatSidebarSection h3 {
   margin: 0 0 8px;
@@ -991,26 +1037,67 @@ svg {
   background: var(--surface1);
   color: var(--text);
 }
-.chatNewChannel {
+
+#chatProfile {
   display: flex;
-  gap: 6px;
-  margin-top: 8px;
-  padding: 0 4px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--surface0);
+  flex: none;
 }
-.chatNewChannel input {
+.chatProfileName {
   flex: 1;
   min-width: 0;
-  height: 32px;
-  padding: 0 10px;
-  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* modal */
+.chatModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.chatModal {
+  width: min(360px, calc(100% - 48px));
+  background: var(--mantle);
+  border: 1px solid var(--surface0);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+.chatModal h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.chatModal input {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
   border: 1px solid var(--surface0);
   background: var(--base);
   outline: 0;
-  font-size: 13px;
+  font-size: 15px;
 }
-.chatNewChannel .iconbtn {
-  width: 32px;
-  height: 32px;
+.chatModal input:focus {
+  border-color: var(--accent);
+}
+.chatModalActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
 }
 
 /* main pane */
@@ -1025,8 +1112,9 @@ svg {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--surface0);
+  flex: none;
 }
 .chatHeaderTitle {
   font-weight: 600;
@@ -1042,8 +1130,9 @@ svg {
   flex: none;
 }
 .chatAvatarBtn {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   padding: 0;
   overflow: hidden;
@@ -1072,7 +1161,7 @@ svg {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 18px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1085,6 +1174,7 @@ svg {
   flex: none;
   width: 32px;
   height: 32px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
   background: var(--surface0);
@@ -1129,8 +1219,9 @@ svg {
 }
 
 #chatComposer {
-  padding: 14px 18px;
+  padding: 16px 24px;
   border-top: 1px solid var(--surface0);
+  flex: none;
 }
 .chatComposerField {
   position: relative;

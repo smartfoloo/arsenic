@@ -1,79 +1,109 @@
 <script>
   import Plus from "@lucide/svelte/icons/plus";
 
-  import { chat, createChannel, startDm, switchChannel } from "../lib/chat.svelte.js";
+  import ChatPromptModal from "./ChatPromptModal.svelte";
+  import { chat, createChannel, logout, startDm, switchChannel, uploadAvatar } from "../lib/chat.svelte.js";
 
-  let newChannelName = $state("");
-  let newChannelError = $state(null);
-  let creatingChannel = $state(false);
-  let dmTarget = $state("");
+  let channelModalOpen = $state(false);
+  let dmModalOpen = $state(false);
+  let avatarInput = $state(null);
+  let avatarError = $state(null);
 
-  async function submitNewChannel(event) {
-    event.preventDefault();
-    if (!newChannelName.trim()) return;
+  function onAvatarChange(event) {
+    const file = event.target.files[0];
+    event.target.value = "";
+    if (!file) return;
 
-    newChannelError = null;
-    creatingChannel = true;
-    try {
-      await createChannel(newChannelName.trim());
-      newChannelName = "";
-    } catch (err) {
-      newChannelError = err.message === "channel_taken" ? "That channel already exists." : "Invalid name.";
-    } finally {
-      creatingChannel = false;
-    }
-  }
-
-  function submitDm(event) {
-    event.preventDefault();
-    if (!dmTarget.trim()) return;
-
-    startDm(dmTarget);
-    dmTarget = "";
+    avatarError = null;
+    uploadAvatar(file).catch((err) => (avatarError = err.message));
   }
 </script>
 
 <div id="chatSidebar">
-  <div class="chatSidebarSection">
-    <h3>Channels</h3>
-    <div class="chatChannelList">
-      {#each chat.channels as channel (channel.id)}
-        <button
-          class="chatChannelItem"
-          class:active={!chat.activeDmUsername && chat.activeChannelId === channel.id}
-          onclick={() => switchChannel(channel.id)}
-        >
-          # {channel.name}
-        </button>
-      {/each}
+  <div class="chatSidebarHeader">
+    <h2>Chat</h2>
+    <button class="chatIconAdd" title="Message someone" onclick={() => (dmModalOpen = true)}>
+      <Plus />
+    </button>
+  </div>
+  {#if chat.dmError}<p class="chatError">{chat.dmError}</p>{/if}
+
+  <div class="chatSidebarScroll">
+    <div class="chatSidebarSection">
+      <div class="chatSectionHeading">
+        <h3>Channels</h3>
+        {#if chat.isAdmin}
+          <button class="chatIconAdd" title="Create channel" onclick={() => (channelModalOpen = true)}>
+            <Plus />
+          </button>
+        {/if}
+      </div>
+      <div class="chatChannelList">
+        {#each chat.channels as channel (channel.id)}
+          <button
+            class="chatChannelItem"
+            class:active={!chat.activeDmUsername && chat.activeChannelId === channel.id}
+            onclick={() => switchChannel(channel.id)}
+          >
+            # {channel.name}
+          </button>
+        {/each}
+      </div>
     </div>
-    {#if chat.isAdmin}
-      <form class="chatNewChannel" onsubmit={submitNewChannel}>
-        <input type="text" placeholder="new-channel" bind:value={newChannelName} />
-        <button class="iconbtn" type="submit" title="Create channel" disabled={creatingChannel}>
-          <Plus />
-        </button>
-      </form>
-      {#if newChannelError}<p class="chatError">{newChannelError}</p>{/if}
-    {/if}
+
+    <div class="chatSidebarSection">
+      <h3>Direct messages</h3>
+      <div class="chatChannelList">
+        {#each Object.keys(chat.dmThreads) as username (username)}
+          <button
+            class="chatChannelItem"
+            class:active={chat.activeDmUsername === username}
+            onclick={() => startDm(username)}
+          >
+            {username}
+          </button>
+        {/each}
+      </div>
+    </div>
   </div>
 
-  <div class="chatSidebarSection">
-    <h3>Direct messages</h3>
-    <div class="chatChannelList">
-      {#each Object.keys(chat.dmThreads) as username (username)}
-        <button
-          class="chatChannelItem"
-          class:active={chat.activeDmUsername === username}
-          onclick={() => startDm(username)}
-        >
-          {username}
-        </button>
-      {/each}
-    </div>
-    <form class="chatNewChannel" onsubmit={submitDm}>
-      <input type="text" placeholder="Message a user" bind:value={dmTarget} />
-    </form>
-    {#if chat.dmError}<p class="chatError">{chat.dmError}</p>{/if}
+  <div id="chatProfile">
+    <button class="chatAvatarBtn" title="Change your avatar" onclick={() => avatarInput.click()}>
+      {#if chat.avatarUrl}
+        <img src={chat.avatarUrl} alt="" />
+      {:else}
+        <span class="chatAvatarFallback">{chat.authUsername[0]?.toUpperCase()}</span>
+      {/if}
+    </button>
+    <input
+      type="file"
+      accept="image/png,image/jpeg,image/webp"
+      bind:this={avatarInput}
+      onchange={onAvatarChange}
+      hidden
+    />
+    <span class="chatProfileName">{chat.authUsername}</span>
+    <button class="chatModeToggle" onclick={logout}>Log out</button>
   </div>
+  {#if avatarError}<p class="chatError">{avatarError}</p>{/if}
 </div>
+
+{#if channelModalOpen}
+  <ChatPromptModal
+    title="New channel"
+    placeholder="channel-name"
+    submitLabel="Create"
+    onsubmit={(name) => createChannel(name)}
+    onclose={() => (channelModalOpen = false)}
+  />
+{/if}
+
+{#if dmModalOpen}
+  <ChatPromptModal
+    title="Message someone"
+    placeholder="username"
+    submitLabel="Message"
+    onsubmit={(username) => startDm(username)}
+    onclose={() => (dmModalOpen = false)}
+  />
+{/if}
