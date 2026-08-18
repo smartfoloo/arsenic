@@ -4,12 +4,14 @@
 
   import ChatAuthForm from "./ChatAuthForm.svelte";
   import ChatComposer from "./ChatComposer.svelte";
+  import ChatConfirmModal from "./ChatConfirmModal.svelte";
   import ChatSidebar from "./ChatSidebar.svelte";
   import { banUser, chat, checkAuth, clearChannel, deleteChannel, deleteMessage } from "../lib/chat.svelte.js";
   import { activeTab } from "../lib/tabs.svelte.js";
 
   let listEl = $state(null);
   let actionError = $state(null);
+  let confirmAction = $state(null);
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
   const messagesLoaded = $derived(
@@ -74,21 +76,25 @@
               <div class="chatHeaderActions">
                 <button
                   class="chatModeToggle"
-                  onclick={() => {
-                    if (confirm(`Clear all messages in #${activeChannel.name}?`)) {
-                      runAdminAction(() => clearChannel(activeChannel.id));
-                    }
-                  }}
+                  onclick={() =>
+                    (confirmAction = {
+                      title: "Clear channel",
+                      message: `Clear all messages in #${activeChannel.name}?`,
+                      confirmLabel: "Clear",
+                      run: () => clearChannel(activeChannel.id),
+                    })}
                 >
                   Clear
                 </button>
                 <button
                   class="chatModeToggle"
-                  onclick={() => {
-                    if (confirm(`Delete #${activeChannel.name}? This cannot be undone.`)) {
-                      runAdminAction(() => deleteChannel(activeChannel.id));
-                    }
-                  }}
+                  onclick={() =>
+                    (confirmAction = {
+                      title: "Delete channel",
+                      message: `Delete #${activeChannel.name}? This cannot be undone.`,
+                      confirmLabel: "Delete",
+                      run: () => deleteChannel(activeChannel.id),
+                    })}
                 >
                   Delete channel
                 </button>
@@ -128,11 +134,13 @@
                         <button
                           class="chatMessageAction"
                           title="Ban {message.username}"
-                          onclick={() => {
-                            if (confirm(`Ban ${message.username}? They'll be logged out and their messages hidden.`)) {
-                              runAdminAction(() => banUser(message.username));
-                            }
-                          }}
+                          onclick={() =>
+                            (confirmAction = {
+                              title: "Ban user",
+                              message: `Ban ${message.username}? They'll be logged out and their messages hidden.`,
+                              confirmLabel: "Ban",
+                              run: () => banUser(message.username),
+                            })}
                         >
                           <UserX />
                         </button>
@@ -150,4 +158,14 @@
       </div>
     {/if}
   </div>
+
+  {#if confirmAction}
+    <ChatConfirmModal
+      title={confirmAction.title}
+      message={confirmAction.message}
+      confirmLabel={confirmAction.confirmLabel}
+      onconfirm={() => runAdminAction(confirmAction.run)}
+      onclose={() => (confirmAction = null)}
+    />
+  {/if}
 </section>
