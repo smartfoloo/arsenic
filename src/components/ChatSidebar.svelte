@@ -22,9 +22,6 @@
 <div id="chatSidebar">
   <div class="chatSidebarHeader">
     <h2>Chat</h2>
-    <button class="chatIconAdd" title="Message someone" onclick={() => (dmModalOpen = true)}>
-      <Plus />
-    </button>
   </div>
   {#if chat.dmError}<p class="chatError">{chat.dmError}</p>{/if}
 
@@ -54,6 +51,9 @@
     <div class="chatSidebarSection">
       <div class="chatSectionHeading">
         <h3>Direct messages</h3>
+        <button class="chatIconAdd" title="Message someone" onclick={() => (dmModalOpen = true)}>
+          <Plus />
+        </button>
       </div>
       <div class="chatChannelList">
         {#each Object.keys(chat.dmThreads) as username (username)}
