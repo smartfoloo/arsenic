@@ -1,5 +1,6 @@
 import { WebSocketServer } from "ws";
 
+import { isAdmin } from "./admin.js";
 import {
   dmHistory,
   findUserByUsername,
@@ -17,16 +18,24 @@ const wss = new WebSocketServer({ noServer: true });
 const clients = new Set();
 const clientsByUserId = new Map();
 
-function avatarUrl(userId, avatarMime) {
-  return avatarMime ? `/chat/avatars/${userId}` : null;
+function avatarUrl(userId, avatarMime, updatedAt) {
+  return avatarMime ? `/chat/avatars/${userId}?v=${updatedAt ?? 0}` : null;
 }
 
 function withAvatar(row) {
-  return { ...row, avatarUrl: avatarUrl(row.userId, row.avatarMime) };
+  return {
+    ...row,
+    avatarUrl: avatarUrl(row.userId, row.avatarMime, row.avatarUpdatedAt),
+    isAdmin: isAdmin(row.username),
+  };
 }
 
 function withDmAvatar(row) {
-  return { ...row, avatarUrl: avatarUrl(row.fromUserId, row.fromAvatarMime) };
+  return {
+    ...row,
+    avatarUrl: avatarUrl(row.fromUserId, row.fromAvatarMime, row.fromAvatarUpdatedAt),
+    isAdmin: isAdmin(row.fromUsername),
+  };
 }
 
 export function broadcast(payload) {
@@ -94,7 +103,8 @@ wss.on("connection", (ws, req, user) => {
         id,
         userId: ws.user.uid,
         username: ws.user.username,
-        avatarUrl: avatarUrl(ws.user.uid, avatar?.mime),
+        avatarUrl: avatarUrl(ws.user.uid, avatar?.mime, avatar?.updatedAt),
+        isAdmin: isAdmin(ws.user.username),
         body,
         createdAt,
       });
@@ -133,7 +143,8 @@ wss.on("connection", (ws, req, user) => {
         id,
         fromUsername: ws.user.username,
         toUsername: target.username,
-        avatarUrl: avatarUrl(ws.user.uid, avatar?.mime),
+        avatarUrl: avatarUrl(ws.user.uid, avatar?.mime, avatar?.updatedAt),
+        isAdmin: isAdmin(ws.user.username),
         body,
         createdAt,
       };

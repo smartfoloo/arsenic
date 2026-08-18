@@ -52,7 +52,9 @@
     </div>
 
     <div class="chatSidebarSection">
-      <h3>Direct messages</h3>
+      <div class="chatSectionHeading">
+        <h3>Direct messages</h3>
+      </div>
       <div class="chatChannelList">
         {#each Object.keys(chat.dmThreads) as username (username)}
           <button
@@ -82,7 +84,10 @@
       onchange={onAvatarChange}
       hidden
     />
-    <span class="chatProfileName">{chat.authUsername}</span>
+    <span class="chatProfileName">
+      <span class="chatProfileUsername">{chat.authUsername}</span>
+      {#if chat.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
+    </span>
     <button class="chatModeToggle" onclick={logout}>Log out</button>
   </div>
   {#if avatarError}<p class="chatError">{avatarError}</p>{/if}

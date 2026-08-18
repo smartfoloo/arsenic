@@ -996,14 +996,10 @@ svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8px 6px;
+  padding: 0 0 6px;
 }
 .chatSectionHeading h3 {
   margin: 0;
-}
-.chatSidebarSection h3 {
-  margin: 0 0 8px;
-  padding: 0 8px;
   font-size: 12px;
   font-weight: 700;
   color: var(--overlay0);
@@ -1019,7 +1015,7 @@ svg {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 8px 10px;
+  padding: 8px 10px 8px 0;
   border-radius: 10px;
   background: none;
   border: 0;
@@ -1049,8 +1045,14 @@ svg {
 .chatProfileName {
   flex: 1;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 14px;
   font-weight: 600;
+}
+.chatProfileUsername {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1197,6 +1199,17 @@ svg {
 .chatMessageMeta small {
   color: var(--overlay0);
   font-size: 12px;
+}
+.chatAdminBadge {
+  flex: none;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--accent);
+  background: var(--surface1);
+  padding: 2px 6px;
+  border-radius: 6px;
 }
 .chatMessageAction {
   background: none;

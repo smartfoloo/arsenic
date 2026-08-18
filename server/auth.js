@@ -48,7 +48,7 @@ function rateLimited(ip) {
 
 function avatarUrlFor(userId) {
   const avatar = getAvatar(userId);
-  return avatar?.mime ? `/chat/avatars/${userId}` : null;
+  return avatar?.mime ? `/chat/avatars/${userId}?v=${avatar.updatedAt ?? 0}` : null;
 }
 
 function requireAuth(req, res, next) {
@@ -162,7 +162,7 @@ router.post("/avatar", requireAuth, upload.single("avatar"), (req, res) => {
   writeFileSync(path, req.file.buffer);
   setAvatar(req.session.uid, path, req.file.mimetype);
 
-  res.json({ avatarUrl: `/chat/avatars/${req.session.uid}` });
+  res.json({ avatarUrl: avatarUrlFor(req.session.uid) });
 });
 
 router.get("/channels", requireAuth, (req, res) => {
@@ -249,8 +249,10 @@ export function serveAvatar(req, res) {
   const avatar = getAvatar(Number(req.params.uid));
   if (!avatar?.path) return res.status(404).end();
 
+  // The URL carries a ?v= version bumped on every upload, so a given URL's
+  // content never changes — safe to cache aggressively and publicly.
   res.setHeader("Content-Type", avatar.mime);
-  res.setHeader("Cache-Control", "private, max-age=300");
+  res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
   res.sendFile(avatar.path);
 }
 

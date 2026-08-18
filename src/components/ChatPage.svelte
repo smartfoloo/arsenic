@@ -98,6 +98,7 @@
                 <div class="chatMessageBody">
                   <div class="chatMessageMeta">
                     <b>{message.username ?? message.fromUsername}</b>
+                    {#if message.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
                     <small>{formatTime(message.createdAt)}</small>
                     {#if chat.isAdmin && !chat.activeDmUsername}
                       <button

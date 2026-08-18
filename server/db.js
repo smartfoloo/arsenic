@@ -54,6 +54,7 @@ function columnNames(table) {
 const userColumns = columnNames("users");
 if (!userColumns.has("avatar_path")) db.exec("ALTER TABLE users ADD COLUMN avatar_path TEXT");
 if (!userColumns.has("avatar_mime")) db.exec("ALTER TABLE users ADD COLUMN avatar_mime TEXT");
+if (!userColumns.has("avatar_updated_at")) db.exec("ALTER TABLE users ADD COLUMN avatar_updated_at INTEGER");
 if (!userColumns.has("banned_at")) db.exec("ALTER TABLE users ADD COLUMN banned_at INTEGER");
 
 const messageColumns = columnNames("messages");
@@ -80,7 +81,8 @@ const insertMessageStmt = db.prepare(
 );
 const recentMessagesStmt = db.prepare(`
   SELECT messages.id, messages.body, messages.created_at AS createdAt, messages.channel_id AS channelId,
-         users.id AS userId, users.username, users.avatar_mime AS avatarMime
+         users.id AS userId, users.username, users.avatar_mime AS avatarMime,
+         users.avatar_updated_at AS avatarUpdatedAt
   FROM messages
   JOIN users ON users.id = messages.user_id
   WHERE messages.channel_id = ? AND users.banned_at IS NULL
@@ -100,8 +102,12 @@ const countChannelsStmt = db.prepare("SELECT COUNT(*) AS n FROM channels");
 
 const banUserStmt = db.prepare("UPDATE users SET banned_at = ? WHERE id = ?");
 const unbanUserStmt = db.prepare("UPDATE users SET banned_at = NULL WHERE id = ?");
-const setAvatarStmt = db.prepare("UPDATE users SET avatar_path = ?, avatar_mime = ? WHERE id = ?");
-const getAvatarStmt = db.prepare("SELECT avatar_path AS path, avatar_mime AS mime FROM users WHERE id = ?");
+const setAvatarStmt = db.prepare(
+  "UPDATE users SET avatar_path = ?, avatar_mime = ?, avatar_updated_at = ? WHERE id = ?",
+);
+const getAvatarStmt = db.prepare(
+  "SELECT avatar_path AS path, avatar_mime AS mime, avatar_updated_at AS updatedAt FROM users WHERE id = ?",
+);
 const isBannedStmt = db.prepare("SELECT banned_at FROM users WHERE id = ?");
 
 const insertDmStmt = db.prepare(
@@ -111,7 +117,7 @@ const dmHistoryStmt = db.prepare(`
   SELECT dm_messages.id, dm_messages.body, dm_messages.created_at AS createdAt,
          dm_messages.from_user_id AS fromUserId, dm_messages.to_user_id AS toUserId,
          fromUser.username AS fromUsername, toUser.username AS toUsername,
-         fromUser.avatar_mime AS fromAvatarMime
+         fromUser.avatar_mime AS fromAvatarMime, fromUser.avatar_updated_at AS fromAvatarUpdatedAt
   FROM dm_messages
   JOIN users AS fromUser ON fromUser.id = dm_messages.from_user_id
   JOIN users AS toUser ON toUser.id = dm_messages.to_user_id
@@ -185,7 +191,7 @@ export function unbanUser(userId) {
 }
 
 export function setAvatar(userId, path, mime) {
-  setAvatarStmt.run(path, mime, userId);
+  setAvatarStmt.run(path, mime, Date.now(), userId);
 }
 
 export function getAvatar(userId) {
