@@ -23,6 +23,12 @@ export function createDecoyApp({ password, cookieName = "reader_session" }) {
 const BOOK_TITLE = "Kestrel Point";
 const BOOK_AUTHOR = "Idris Calloway";
 
+const FAVICON_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0f6fb2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+  '<path d="M2 5c2-1 5-1.5 8-1v15c-3-.5-6 0-8 1V5z"/>' +
+  '<path d="M22 5c-2-1-5-1.5-8-1v15c3-.5 6 0 8 1V5z"/>' +
+  "</svg>";
+
 const PAGES = [
   `<h2>Kestrel Point</h2>
    <p class="byline">a novella</p>
@@ -87,6 +93,16 @@ function renderDecoyPage({ password, cookieName }) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${BOOK_TITLE} — Cloud Reader</title>
+<meta name="description" content="Read ${BOOK_TITLE} and thousands of other titles online — no downloads, no sign-up required.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="book">
+<meta property="og:site_name" content="Cloud Reader">
+<meta property="og:title" content="${BOOK_TITLE} — Cloud Reader">
+<meta property="og:description" content="A quiet lighthouse-keeper novella, free to read online.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="${BOOK_TITLE} — Cloud Reader">
+<meta name="twitter:description" content="A quiet lighthouse-keeper novella, free to read online.">
+<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(FAVICON_SVG)}">
 <style>
   :root {
     --bg: #ffffff;
