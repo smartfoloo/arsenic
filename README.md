@@ -19,6 +19,6 @@ arsenic is an open-source web proxy browser built with Svelte and Node.js.
 
 ```sh
 npm install
-npm run dev                  # development, http://localhost:8080
+npm run dev                  # development, http://localhost:5000
 npm run build && npm start   # production
 ```
