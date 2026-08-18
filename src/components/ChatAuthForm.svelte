@@ -15,6 +15,7 @@
     username_taken: "That username is already taken.",
     invalid_credentials: "Wrong username or password.",
     rate_limited: "Too many attempts. Try again later.",
+    banned: "This account has been banned.",
   };
 
   async function submit(event) {

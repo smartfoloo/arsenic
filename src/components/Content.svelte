@@ -19,7 +19,7 @@
   </button>
 
   <div id="frames">
-    {#each tabs as tab (tab.id)}
+    {#each tabs.filter((tab) => tab.kind === "proxy") as tab (tab.id)}
       <Frame id={tab.id} />
     {/each}
   </div>

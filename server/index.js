@@ -1,3 +1,5 @@
+import "./env.js";
+
 import { createServer } from "node:http";
 import { hostname } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -10,13 +12,17 @@ import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { scramjetPath } from "@mercuryworkshop/scramjet/path";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 
-import authRouter from "./auth.js";
+import authRouter, { serveAvatar } from "./auth.js";
 import { handleChatUpgrade } from "./chat.js";
+import { sweepOldMessages } from "./retention.js";
 
 const distPath = fileURLToPath(new URL("../dist/", import.meta.url));
 
 const dev = process.env.NODE_ENV !== "production";
 const port = Number(process.argv[2] || process.env.PORT) || 8080;
+// Off by default: an open-source clone only gets a working chatroom when its
+// own operator deliberately opts in, not just by having the code.
+const chatEnabled = process.env.ARSENIC_CHAT_ENABLED === "true";
 
 logging.set_level(logging.NONE);
 
@@ -38,7 +44,12 @@ app.use((req, res, next) => {
 // in front of us can't answer it from cache.
 app.get("/ping", (req, res) => res.set("Cache-Control", "no-store").status(204).end());
 
-app.use("/chat/api", express.json({ limit: "1kb" }), authRouter);
+if (chatEnabled) {
+  app.use("/chat/api", express.json({ limit: "1kb" }), authRouter);
+  app.get("/chat/avatars/:uid", serveAvatar);
+} else {
+  app.use(["/chat/api", "/chat/avatars"], (req, res) => res.status(404).json({ error: "chat_disabled" }));
+}
 
 app.use("/scram/", express.static(scramjetPath));
 app.use("/uv/", express.static(uvPath));
@@ -62,7 +73,10 @@ server.on("request", app);
 
 server.on("upgrade", (req, socket, head) => {
   if (req.url.endsWith("/wisp/")) wisp.routeRequest(req, socket, head);
-  else if (req.url === "/chat/ws") handleChatUpgrade(req, socket, head);
+  else if (req.url === "/chat/ws") {
+    if (chatEnabled) handleChatUpgrade(req, socket, head);
+    else socket.end();
+  }
   // In dev anything else is Vite's HMR socket, handled by its own listener.
   else if (!dev) socket.end();
 });
@@ -81,5 +95,8 @@ for (const signal of ["SIGINT", "SIGTERM"]) {
     process.exit(0);
   });
 }
+
+sweepOldMessages();
+setInterval(sweepOldMessages, 30 * 60 * 1000);
 
 server.listen({ port });

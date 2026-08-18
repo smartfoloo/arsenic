@@ -9,7 +9,7 @@
     WALLPAPER_OPTIONS,
     settings,
   } from "../lib/settings.svelte.js";
-  import { ui } from "../lib/tabs.svelte.js";
+  import { activeTab } from "../lib/tabs.svelte.js";
 
   function launchAboutBlank() {
     const win = window.open("about:blank");
@@ -23,7 +23,7 @@
   }
 </script>
 
-<section class="page" id="settingsPage" class:active={ui.settingsOpen}>
+<section class="page" id="settingsPage" class:active={activeTab()?.kind === "settings"}>
   <div class="inner">
     <h1>Settings</h1>
     <p class="sub">Stored locally in this browser.</p>

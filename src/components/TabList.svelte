@@ -1,17 +1,21 @@
 <script>
+  import MessageCircle from "@lucide/svelte/icons/message-circle";
+  import Cog from "@lucide/svelte/icons/settings";
   import X from "@lucide/svelte/icons/x";
 
   import { ICONS, iconForHost } from "../lib/icons.js";
   import { closeTab, focus, tabs, ui } from "../lib/tabs.svelte.js";
   import { hostOf } from "../lib/url.js";
+
+  const INTERNAL_ICONS = { settings: Cog, chat: MessageCircle };
 </script>
 
 <div id="tablist">
   {#each tabs as tab (tab.id)}
-    {@const Icon = ICONS[iconForHost(hostOf(tab.url))]}
+    {@const Icon = INTERNAL_ICONS[tab.kind] ?? ICONS[iconForHost(hostOf(tab.url))]}
     <div
       class="tab"
-      class:active={tab.id === ui.activeId && !ui.settingsOpen}
+      class:active={tab.id === ui.activeId}
       role="button"
       tabindex="0"
       onclick={() => focus(tab.id)}

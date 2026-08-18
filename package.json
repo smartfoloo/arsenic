@@ -24,6 +24,7 @@
     "argon2": "^0.45.1",
     "better-sqlite3": "^13.0.3",
     "express": "^5.2.1",
+    "multer": "^2.2.0",
     "ws": "^8.21.3"
   },
   "devDependencies": {

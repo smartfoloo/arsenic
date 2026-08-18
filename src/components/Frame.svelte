@@ -14,7 +14,7 @@
 
   const tab = $derived(tabById(id));
   const backend = $derived(tab && backendOf(tab));
-  const active = $derived(!!tab?.url && tab.id === ui.activeId && !ui.settingsOpen);
+  const active = $derived(!!tab?.url && tab.id === ui.activeId);
 
   $effect(() => {
     if (tab) tab.el = el;

@@ -3,14 +3,15 @@
   import Star from "@lucide/svelte/icons/star";
 
   import { settings } from "../lib/settings.svelte.js";
-  import { activeUrl, isBookmarked, open, toggleBookmark, ui } from "../lib/tabs.svelte.js";
+  import { activeTab, activeUrl, isBookmarked, open, toggleBookmark } from "../lib/tabs.svelte.js";
   import { resolve } from "../lib/url.js";
 
   let input = $state();
   let focused = $state(false);
 
   const url = $derived(activeUrl());
-  const shown = $derived(ui.settingsOpen ? "arsenic://settings" : (url ?? ""));
+  const kind = $derived(activeTab()?.kind);
+  const shown = $derived(kind && kind !== "proxy" ? `arsenic://${kind}` : (url ?? ""));
 
   // Leave whatever's being typed alone; put the real address back on blur.
   $effect(() => {

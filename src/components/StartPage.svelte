@@ -5,7 +5,7 @@
   import Select from "./Select.svelte";
   import { BACKEND_OPTIONS } from "../lib/backends.js";
   import { settings } from "../lib/settings.svelte.js";
-  import { activeUrl, open, ui } from "../lib/tabs.svelte.js";
+  import { activeTab, activeUrl, open } from "../lib/tabs.svelte.js";
   import { resolve } from "../lib/url.js";
 
   const GOOD_MS = 100;
@@ -15,7 +15,7 @@
   /** Milliseconds, null while measuring, or "error". */
   let latency = $state(null);
 
-  const visible = $derived(!ui.settingsOpen && !ui.chatOpen && !activeUrl());
+  const visible = $derived(activeTab()?.kind === "proxy" && !activeUrl());
   const label = $derived(
     latency === null ? "measuring…" : latency === "error" ? "unreachable" : `${latency} ms`,
   );

@@ -11,8 +11,9 @@
   import Bookmarks from "./Bookmarks.svelte";
   import TabList from "./TabList.svelte";
   import UrlBar from "./UrlBar.svelte";
+  import { chat } from "../lib/chat.svelte.js";
   import { inspect } from "../lib/inspect.js";
-  import { activeTab, activeUrl, newTab, reload, ui } from "../lib/tabs.svelte.js";
+  import { activeTab, activeUrl, newTab, openInternal, reload, ui } from "../lib/tabs.svelte.js";
 
   let fullscreen = $state(false);
 
@@ -50,28 +51,14 @@
   <TabList />
 
   <div id="footer">
-    <button
-      class="iconbtn"
-      id="openSettings"
-      title="Settings"
-      onclick={() => {
-        ui.settingsOpen = !ui.settingsOpen;
-        if (ui.settingsOpen) ui.chatOpen = false;
-      }}
-    >
+    <button class="iconbtn" id="openSettings" title="Settings" onclick={() => openInternal("settings")}>
       <Cog />
     </button>
-    <button
-      class="iconbtn"
-      id="openChat"
-      title="Chat"
-      onclick={() => {
-        ui.chatOpen = !ui.chatOpen;
-        if (ui.chatOpen) ui.settingsOpen = false;
-      }}
-    >
-      <MessageCircle />
-    </button>
+    {#if !chat.disabled}
+      <button class="iconbtn" id="openChat" title="Chat" onclick={() => openInternal("chat")}>
+        <MessageCircle />
+      </button>
+    {/if}
     <button
       class="iconbtn"
       id="devtools"

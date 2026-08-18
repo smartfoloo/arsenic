@@ -4,9 +4,10 @@ import { MAX_BOOKMARKS, settings } from "./settings.svelte.js";
 import { hostOf, titleFor } from "./url.js";
 
 const TAB_COLORS = ["blue", "mauve", "teal", "peach", "green", "pink", "sapphire", "yellow"];
+const INTERNAL_TITLES = { settings: "Settings", chat: "Chat" };
 
 export const tabs = $state([]);
-export const ui = $state({ activeId: null, settingsOpen: false, chatOpen: false, collapsed: false });
+export const ui = $state({ activeId: null, collapsed: false });
 
 let seq = 0;
 
@@ -22,15 +23,17 @@ export function activeTab() {
   return tabs.find((tab) => tab.id === ui.activeId) ?? null;
 }
 
-/** The URL of the active tab, or null on a blank tab or a full-page overlay (settings/chat). */
+/** The URL of the active tab, or null on a blank tab or an internal page (settings/chat). */
 export function activeUrl() {
-  return ui.settingsOpen || ui.chatOpen ? null : (activeTab()?.url ?? null);
+  const tab = activeTab();
+  return tab?.kind === "proxy" ? (tab.url ?? null) : null;
 }
 
 export function newTab(url = null) {
   const id = ++seq;
   const tab = {
     id,
+    kind: "proxy",
     url: null,
     title: "New Tab",
     favicon: null,
@@ -49,6 +52,34 @@ export function newTab(url = null) {
   return tabs.at(-1);
 }
 
+/** Settings and chat are singleton tabs: reuse one already open instead of duplicating it. */
+export function openInternal(kind) {
+  const existing = tabs.find((tab) => tab.kind === kind);
+  if (existing) {
+    focus(existing.id);
+    return existing;
+  }
+
+  const id = ++seq;
+  const tab = {
+    id,
+    kind,
+    url: null,
+    title: INTERNAL_TITLES[kind],
+    favicon: null,
+    color: null,
+    backendName: null,
+    request: null,
+    el: null,
+    handle: null,
+    inspecting: false,
+  };
+
+  tabs.push(tab);
+  focus(id);
+  return tab;
+}
+
 export function closeTab(id) {
   const i = tabs.findIndex((tab) => tab.id === id);
   if (i === -1) return;
@@ -60,8 +91,6 @@ export function closeTab(id) {
 
 export function focus(id) {
   ui.activeId = id;
-  ui.settingsOpen = false;
-  ui.chatOpen = false;
 }
 
 /**
@@ -74,14 +103,12 @@ export function navigate(tab, url) {
   tab.favicon = null;
   tab.inspecting = false;
   tab.request = { url };
-  ui.settingsOpen = false;
-  ui.chatOpen = false;
 }
 
-/** Address bar and start page both land here: reuse the active tab, or open one. */
+/** Address bar and start page both land here: reuse the active proxy tab, or open one. */
 export function open(url) {
   const tab = activeTab();
-  if (tab) navigate(tab, url);
+  if (tab?.kind === "proxy") navigate(tab, url);
   else newTab(url);
 }
 
