@@ -15,7 +15,7 @@
   /** Milliseconds, null while measuring, or "error". */
   let latency = $state(null);
 
-  const visible = $derived(!ui.settingsOpen && !activeUrl());
+  const visible = $derived(!ui.settingsOpen && !ui.chatOpen && !activeUrl());
   const label = $derived(
     latency === null ? "measuring…" : latency === "error" ? "unreachable" : `${latency} ms`,
   );

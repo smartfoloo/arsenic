@@ -1,6 +1,7 @@
 <script>
   import PanelLeft from "@lucide/svelte/icons/panel-left";
 
+  import ChatPage from "./ChatPage.svelte";
   import Frame from "./Frame.svelte";
   import SettingsPage from "./SettingsPage.svelte";
   import StartPage from "./StartPage.svelte";
@@ -25,4 +26,5 @@
 
   <StartPage />
   <SettingsPage />
+  <ChatPage />
 </main>

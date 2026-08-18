@@ -6,7 +6,7 @@ import { hostOf, titleFor } from "./url.js";
 const TAB_COLORS = ["blue", "mauve", "teal", "peach", "green", "pink", "sapphire", "yellow"];
 
 export const tabs = $state([]);
-export const ui = $state({ activeId: null, settingsOpen: false, collapsed: false });
+export const ui = $state({ activeId: null, settingsOpen: false, chatOpen: false, collapsed: false });
 
 let seq = 0;
 
@@ -22,9 +22,9 @@ export function activeTab() {
   return tabs.find((tab) => tab.id === ui.activeId) ?? null;
 }
 
-/** The URL of the active tab, or null on a blank tab or the settings page. */
+/** The URL of the active tab, or null on a blank tab or a full-page overlay (settings/chat). */
 export function activeUrl() {
-  return ui.settingsOpen ? null : (activeTab()?.url ?? null);
+  return ui.settingsOpen || ui.chatOpen ? null : (activeTab()?.url ?? null);
 }
 
 export function newTab(url = null) {
@@ -61,6 +61,7 @@ export function closeTab(id) {
 export function focus(id) {
   ui.activeId = id;
   ui.settingsOpen = false;
+  ui.chatOpen = false;
 }
 
 /**
@@ -74,6 +75,7 @@ export function navigate(tab, url) {
   tab.inspecting = false;
   tab.request = { url };
   ui.settingsOpen = false;
+  ui.chatOpen = false;
 }
 
 /** Address bar and start page both land here: reuse the active tab, or open one. */

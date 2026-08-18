@@ -10,6 +10,9 @@ import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { scramjetPath } from "@mercuryworkshop/scramjet/path";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 
+import authRouter from "./auth.js";
+import { handleChatUpgrade } from "./chat.js";
+
 const distPath = fileURLToPath(new URL("../dist/", import.meta.url));
 
 const dev = process.env.NODE_ENV !== "production";
@@ -19,6 +22,10 @@ logging.set_level(logging.NONE);
 
 const app = express();
 const server = createServer();
+
+// Trust the reverse proxy's X-Forwarded-For in production, so req.ip (used
+// for login rate limiting) reflects the real client rather than the proxy.
+if (!dev) app.set("trust proxy", 1);
 
 app.use((req, res, next) => {
   // Cross-origin isolation, so Scramjet can use SharedArrayBuffer for sync XHR.
@@ -30,6 +37,8 @@ app.use((req, res, next) => {
 // Timed by the start page's latency readout; no-store so a reverse proxy
 // in front of us can't answer it from cache.
 app.get("/ping", (req, res) => res.set("Cache-Control", "no-store").status(204).end());
+
+app.use("/chat/api", express.json({ limit: "1kb" }), authRouter);
 
 app.use("/scram/", express.static(scramjetPath));
 app.use("/uv/", express.static(uvPath));
@@ -53,6 +62,7 @@ server.on("request", app);
 
 server.on("upgrade", (req, socket, head) => {
   if (req.url.endsWith("/wisp/")) wisp.routeRequest(req, socket, head);
+  else if (req.url === "/chat/ws") handleChatUpgrade(req, socket, head);
   // In dev anything else is Vite's HMR socket, handled by its own listener.
   else if (!dev) socket.end();
 });

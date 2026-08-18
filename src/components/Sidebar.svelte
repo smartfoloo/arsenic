@@ -1,6 +1,7 @@
 <script>
   import Code from "@lucide/svelte/icons/code";
   import Maximize from "@lucide/svelte/icons/maximize";
+  import MessageCircle from "@lucide/svelte/icons/message-circle";
   import Minimize from "@lucide/svelte/icons/minimize";
   import PanelLeft from "@lucide/svelte/icons/panel-left";
   import Plus from "@lucide/svelte/icons/plus";
@@ -53,9 +54,23 @@
       class="iconbtn"
       id="openSettings"
       title="Settings"
-      onclick={() => (ui.settingsOpen = !ui.settingsOpen)}
+      onclick={() => {
+        ui.settingsOpen = !ui.settingsOpen;
+        if (ui.settingsOpen) ui.chatOpen = false;
+      }}
     >
       <Cog />
+    </button>
+    <button
+      class="iconbtn"
+      id="openChat"
+      title="Chat"
+      onclick={() => {
+        ui.chatOpen = !ui.chatOpen;
+        if (ui.chatOpen) ui.settingsOpen = false;
+      }}
+    >
+      <MessageCircle />
     </button>
     <button
       class="iconbtn"
