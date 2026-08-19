@@ -1354,6 +1354,9 @@ svg {
   color: var(--overlay0);
   font-size: 12px;
 }
+.chatMessageText {
+  white-space: pre-wrap;
+}
 .chatMessageLink {
   color: var(--accent);
   text-decoration: underline;
@@ -1439,28 +1442,33 @@ svg {
 }
 .chatComposerField {
   position: relative;
-  display: flex;
-  align-items: center;
 }
-.chatComposerField input {
+.chatComposerField textarea {
+  display: block;
   width: 100%;
-  height: 44px;
-  padding: 0 44px 0 16px;
+  min-height: 44px;
+  max-height: 124px;
+  padding: 12px 44px 12px 16px;
   border-radius: 22px;
   border: 1px solid var(--surface0);
   background: var(--base);
   outline: 0;
+  font: inherit;
   font-size: 15px;
+  line-height: 20px;
+  resize: none;
+  overflow-y: auto;
   box-sizing: border-box;
 }
-.chatComposerField.hasImageBtn input {
+.chatComposerField.hasImageBtn textarea {
   padding-left: 44px;
 }
-.chatComposerField input:focus {
+.chatComposerField textarea:focus {
   border-color: var(--accent);
 }
 .chatImageBtn {
   position: absolute;
+  top: 6px;
   left: 6px;
   width: 32px;
   height: 32px;
@@ -1483,6 +1491,7 @@ svg {
 }
 .chatSendBtn {
   position: absolute;
+  top: 6px;
   right: 6px;
   width: 32px;
   height: 32px;

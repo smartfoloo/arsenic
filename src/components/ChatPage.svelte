@@ -282,7 +282,7 @@
                   {/if}
                   {#if message.imageUrl}<img class="chatMessageImage" src={message.imageUrl} alt="" />{/if}
                   {#if message.body}
-                    <span
+                    <span class="chatMessageText"
                       >{#each withChannelMentions(linkify(message.body), channelsByName) as part}{#if part.type === "link"}<a
                           href={linkHref(part.value)}
                           target="_blank"
