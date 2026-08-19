@@ -9,6 +9,9 @@
   let imageInput = $state(null);
   let imageError = $state(null);
 
+  const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
+  const locked = $derived(!chat.activeDmUsername && !!activeChannel?.locked && !chat.isAdmin);
+
   function submit(event) {
     event.preventDefault();
     if (!draft.trim()) return;
@@ -51,8 +54,14 @@
         hidden
       />
     {/if}
-    <input type="text" bind:value={draft} {placeholder} autocomplete="off" />
-    <button class="chatSendBtn" type="submit" title="Send" aria-label="Send">
+    <input
+      type="text"
+      bind:value={draft}
+      placeholder={locked ? "Only admins can post in this channel" : placeholder}
+      autocomplete="off"
+      disabled={locked}
+    />
+    <button class="chatSendBtn" type="submit" title="Send" aria-label="Send" disabled={locked}>
       <ArrowUp />
     </button>
   </div>

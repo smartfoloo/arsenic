@@ -73,6 +73,7 @@ db.prepare("UPDATE messages SET expires_at = created_at + ? WHERE expires_at IS 
 
 const channelColumns = columnNames("channels");
 if (!channelColumns.has("position")) db.exec("ALTER TABLE channels ADD COLUMN position INTEGER");
+if (!channelColumns.has("locked")) db.exec("ALTER TABLE channels ADD COLUMN locked INTEGER NOT NULL DEFAULT 0");
 db.exec("UPDATE channels SET position = id WHERE position IS NULL");
 
 // Every install needs at least one channel — seed "general" if none exist,
@@ -124,7 +125,10 @@ const pinMessageStmt = db.prepare("UPDATE messages SET pinned = 1 WHERE id = ?")
 const unpinMessageStmt = db.prepare("UPDATE messages SET pinned = 0 WHERE id = ?");
 const setMessageImageStmt = db.prepare("UPDATE messages SET image_path = ?, image_mime = ? WHERE id = ?");
 
-const listChannelsStmt = db.prepare("SELECT id, name FROM channels ORDER BY position, id");
+const listChannelsStmt = db.prepare("SELECT id, name, locked FROM channels ORDER BY position, id");
+const lockChannelStmt = db.prepare("UPDATE channels SET locked = 1 WHERE id = ?");
+const unlockChannelStmt = db.prepare("UPDATE channels SET locked = 0 WHERE id = ?");
+const isChannelLockedStmt = db.prepare("SELECT locked FROM channels WHERE id = ?");
 const listChannelsForReorderStmt = db.prepare("SELECT id, position FROM channels ORDER BY position, id");
 const updateChannelPositionStmt = db.prepare("UPDATE channels SET position = ? WHERE id = ?");
 const createChannelStmt = db.prepare(`
@@ -255,7 +259,19 @@ export function setMessageImage(id, path, mime) {
 }
 
 export function listChannels() {
-  return listChannelsStmt.all();
+  return listChannelsStmt.all().map((row) => ({ ...row, locked: !!row.locked }));
+}
+
+export function lockChannel(id) {
+  lockChannelStmt.run(id);
+}
+
+export function unlockChannel(id) {
+  unlockChannelStmt.run(id);
+}
+
+export function isChannelLocked(id) {
+  return !!isChannelLockedStmt.get(id)?.locked;
 }
 
 export function createChannel(name, createdBy) {

@@ -17,6 +17,7 @@ export const chat = $state({
   channelLoadingMore: {},
   dmHasMore: {},
   dmLoadingMore: {},
+  channelError: null,
 });
 
 const PAGE_SIZE = 50;
@@ -109,6 +110,7 @@ export function switchChannel(id) {
   chat.activeDmUsername = null;
   chat.activeChannelId = id;
   chat.dmError = null;
+  chat.channelError = null;
   if (!chat.channelMessages[id]) send({ type: "history", channelId: id });
 }
 
@@ -177,6 +179,10 @@ export function renameChannel(id, name) {
 
 export function moveChannel(id, direction) {
   return request(`admin/channels/${id}/move`, { method: "POST", json: { direction } });
+}
+
+export function setChannelLocked(id, locked) {
+  return request(`admin/channels/${id}/lock`, { method: "POST", json: { locked } });
 }
 
 export function sendImage(channelId, file, caption) {
@@ -267,10 +273,16 @@ function handleMessage(data) {
   } else if (data.type === "channelRenamed") {
     const channel = chat.channels.find((c) => c.id === data.id);
     if (channel) channel.name = data.name;
+  } else if (data.type === "channelLocked") {
+    const channel = chat.channels.find((c) => c.id === data.id);
+    if (channel) channel.locked = data.locked;
   } else if (data.type === "channelsReordered") {
     chat.channels = data.channels;
   } else if (data.type === "error") {
     if (data.context === "dm" || data.context === "dmHistory") chat.dmError = "That user doesn't exist.";
+    else if (data.context === "message" && data.message === "channel_locked") {
+      chat.channelError = "This channel is locked — only admins can post.";
+    }
   } else if (data.type === "channelCreated") {
     chat.channels.push(data.channel);
   } else if (data.type === "channelDeleted") {

@@ -1,6 +1,7 @@
 <script>
   import ChevronDown from "@lucide/svelte/icons/chevron-down";
   import ChevronUp from "@lucide/svelte/icons/chevron-up";
+  import Lock from "@lucide/svelte/icons/lock";
   import Plus from "@lucide/svelte/icons/plus";
 
   import ChatPromptModal from "./ChatPromptModal.svelte";
@@ -63,6 +64,7 @@
               onclick={() => switchChannel(channel.id)}
             >
               # {channel.name}
+              {#if channel.locked}<Lock class="chatLockIcon" />{/if}
             </button>
             {#if chat.isAdmin}
               <div class="chatChannelReorder">

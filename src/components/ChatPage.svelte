@@ -1,6 +1,7 @@
 <script>
   import { tick } from "svelte";
 
+  import Lock from "@lucide/svelte/icons/lock";
   import Pin from "@lucide/svelte/icons/pin";
   import PinOff from "@lucide/svelte/icons/pin-off";
   import Trash2 from "@lucide/svelte/icons/trash-2";
@@ -22,9 +23,13 @@
     loadOlderMessages,
     pinMessage,
     renameChannel,
+    setChannelLocked,
     unpinMessage,
   } from "../lib/chat.svelte.js";
+  import { linkHref, linkify } from "../lib/linkify.js";
   import { activeTab } from "../lib/tabs.svelte.js";
+
+  const GROUP_GAP_MS = 5 * 60 * 1000;
 
   let listEl = $state(null);
   let actionError = $state(null);
@@ -159,11 +164,20 @@
 
         <div id="chatMain">
           <div id="chatHeader">
-            <div class="chatHeaderTitle">{title}</div>
+            <div class="chatHeaderTitle">
+              {title}
+              {#if activeChannel?.locked}<Lock class="chatLockIcon" title="Locked channel" />{/if}
+            </div>
             {#if chat.isAdmin && activeChannel}
               <div class="chatHeaderActions">
                 <button class="chatModeToggle" onclick={() => (editChannelModalOpen = true)}>
                   Edit channel
+                </button>
+                <button
+                  class="chatModeToggle"
+                  onclick={() => runAdminAction(() => setChannelLocked(activeChannel.id, !activeChannel.locked))}
+                >
+                  {activeChannel.locked ? "Unlock channel" : "Lock channel"}
                 </button>
                 <button
                   class="chatModeToggle"
@@ -201,21 +215,32 @@
             {:else if loadingMore}
               <div class="chatMessagesLoadingMore"><div class="chatSpinner"></div></div>
             {/if}
-            {#each currentMessages as message (message.id)}
-              <div class="chatMessage">
-                {#if message.avatarUrl}
-                  <img class="chatMessageAvatar" src={message.avatarUrl} alt="" />
+            {#each currentMessages as message, i (message.id)}
+              {@const sender = message.username ?? message.fromUsername}
+              {@const prev = currentMessages[i - 1]}
+              {@const prevSender = prev ? (prev.username ?? prev.fromUsername) : null}
+              {@const isGroupStart =
+                i === 0 || prevSender !== sender || message.createdAt - prev.createdAt > GROUP_GAP_MS}
+              <div class="chatMessage" class:chatMessageGrouped={!isGroupStart}>
+                {#if isGroupStart}
+                  {#if message.avatarUrl}
+                    <img class="chatMessageAvatar" src={message.avatarUrl} alt="" />
+                  {:else}
+                    <span class="chatMessageAvatar chatAvatarFallback">
+                      {sender[0]?.toUpperCase()}
+                    </span>
+                  {/if}
                 {:else}
-                  <span class="chatMessageAvatar chatAvatarFallback">
-                    {(message.username ?? message.fromUsername)[0]?.toUpperCase()}
-                  </span>
+                  <span class="chatMessageAvatar chatMessageHoverTime">{formatTime(message.createdAt)}</span>
                 {/if}
                 <div class="chatMessageBody">
-                  <div class="chatMessageMeta">
-                    <b>{message.username ?? message.fromUsername}</b>
-                    {#if message.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
-                    {#if message.pinned}<span class="chatPinnedBadge">Pinned</span>{/if}
-                    <small>{formatTime(message.createdAt)}</small>
+                  <div class="chatMessageMeta" class:chatMessageMetaCompact={!isGroupStart}>
+                    {#if isGroupStart}
+                      <b>{sender}</b>
+                      {#if message.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
+                      {#if message.pinned}<span class="chatPinnedBadge">Pinned</span>{/if}
+                      <small>{formatTime(message.createdAt)}</small>
+                    {/if}
                     {#if chat.isAdmin && !chat.activeDmUsername}
                       <button
                         class="chatMessageAction"
@@ -250,12 +275,22 @@
                     {/if}
                   </div>
                   {#if message.imageUrl}<img class="chatMessageImage" src={message.imageUrl} alt="" />{/if}
-                  {#if message.body}<span>{message.body}</span>{/if}
+                  {#if message.body}
+                    <span
+                      >{#each linkify(message.body) as part}{#if part.type === "link"}<a
+                          href={linkHref(part.value)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="chatMessageLink">{part.value}</a
+                        >{:else}{part.value}{/if}{/each}</span
+                    >
+                  {/if}
                 </div>
               </div>
             {/each}
           </div>
 
+          {#if chat.channelError}<p class="chatError">{chat.channelError}</p>{/if}
           <ChatComposer placeholder={chat.activeDmUsername ? `Message ${chat.activeDmUsername}` : "Message the channel"} />
         </div>
       </div>

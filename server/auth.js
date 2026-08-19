@@ -24,11 +24,13 @@ import {
   insertMessage,
   listBannedUsers,
   listChannels,
+  lockChannel,
   messageChannelId,
   messageImagePath,
   moveChannel,
   pinMessage,
   renameChannel,
+  unlockChannel,
   setAvatar,
   setMessageImage,
   unbanUser,
@@ -270,6 +272,17 @@ router.post("/admin/channels/:id/move", requireAdmin, (req, res) => {
 
   moveChannel(id, direction);
   broadcast({ type: "channelsReordered", channels: listChannels() });
+  res.json({});
+});
+
+router.post("/admin/channels/:id/lock", requireAdmin, (req, res) => {
+  const id = Number(req.params.id);
+  const { locked } = req.body ?? {};
+  if (typeof locked !== "boolean") return res.status(400).json({ error: "invalid_locked" });
+
+  if (locked) lockChannel(id);
+  else unlockChannel(id);
+  broadcast({ type: "channelLocked", id, locked });
   res.json({});
 });
 

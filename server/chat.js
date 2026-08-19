@@ -7,6 +7,7 @@ import {
   getAvatar,
   insertDm,
   insertMessage,
+  isChannelLocked,
   isUserBanned,
   olderDmHistory,
   olderMessages,
@@ -99,6 +100,11 @@ wss.on("connection", (ws, req, user) => {
       const channelId = Number(parsed.channelId);
       const body = typeof parsed.body === "string" ? parsed.body.trim() : "";
       if (!channelId || !body || body.length > MAX_BODY_LENGTH) return;
+
+      if (isChannelLocked(channelId) && !isAdmin(ws.user.username)) {
+        ws.send(JSON.stringify({ type: "error", context: "message", message: "channel_locked" }));
+        return;
+      }
 
       const { id, createdAt } = insertMessage({ userId: ws.user.uid, channelId, body });
       const avatar = getAvatar(ws.user.uid);
