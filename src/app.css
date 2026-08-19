@@ -1038,6 +1038,46 @@ svg {
   flex-direction: column;
   gap: 2px;
 }
+.chatChannelRow {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.chatChannelRow .chatChannelItem {
+  flex: 1;
+  width: auto;
+}
+.chatChannelReorder {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+.chatReorderBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 6px;
+  background: none;
+  border: 0;
+  color: var(--overlay0);
+  cursor: pointer;
+}
+.chatReorderBtn:hover:not(:disabled) {
+  background: var(--surface0);
+  color: var(--text);
+}
+.chatReorderBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.chatReorderBtn svg {
+  width: 14px;
+  height: 14px;
+}
+
 .chatChannelItem {
   display: block;
   width: 100%;
@@ -1211,16 +1251,16 @@ svg {
   padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 .chatMessage {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 .chatMessageAvatar {
   flex: none;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
@@ -1255,6 +1295,34 @@ svg {
   background: var(--surface1);
   padding: 2px 6px;
   border-radius: 6px;
+}
+.chatPinnedBadge {
+  flex: none;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--yellow);
+  background: var(--surface1);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.chatMessageImage {
+  display: block;
+  max-width: 360px;
+  max-height: 360px;
+  border-radius: 12px;
+  margin-bottom: 4px;
+}
+.chatMessagesLoadingMore {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+.chatMessagesLoadingMore .chatSpinner {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
 }
 .chatMessageAction {
   background: none;
@@ -1297,8 +1365,33 @@ svg {
   font-size: 15px;
   box-sizing: border-box;
 }
+.chatComposerField.hasImageBtn input {
+  padding-left: 44px;
+}
 .chatComposerField input:focus {
   border-color: var(--accent);
+}
+.chatImageBtn {
+  position: absolute;
+  left: 6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--surface0);
+  color: var(--subtext1);
+  cursor: pointer;
+}
+.chatImageBtn:hover {
+  background: var(--surface0);
+  color: var(--text);
+}
+.chatImageBtn svg {
+  width: 16px;
+  height: 16px;
 }
 .chatSendBtn {
   position: absolute;

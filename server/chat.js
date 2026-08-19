@@ -8,11 +8,14 @@ import {
   insertDm,
   insertMessage,
   isUserBanned,
+  olderDmHistory,
+  olderMessages,
   recentMessages,
 } from "./db.js";
 import { readSession } from "./session.js";
 
 const MAX_BODY_LENGTH = 1000;
+const PAGE_SIZE = 50;
 
 const wss = new WebSocketServer({ noServer: true });
 const clients = new Set();
@@ -27,6 +30,8 @@ function withAvatar(row) {
     ...row,
     avatarUrl: avatarUrl(row.userId, row.avatarMime, row.avatarUpdatedAt),
     isAdmin: isAdmin(row.username),
+    pinned: !!row.pinned,
+    imageUrl: row.imageMime ? `/chat/messages/${row.id}/image` : null,
   };
 }
 
@@ -125,6 +130,18 @@ wss.on("connection", (ws, req, user) => {
       return;
     }
 
+    if (parsed.type === "olderMessages") {
+      const channelId = Number(parsed.channelId);
+      const beforeId = Number(parsed.beforeId);
+      if (!channelId || !beforeId) return;
+
+      const messages = olderMessages(channelId, beforeId).map(withAvatar);
+      ws.send(
+        JSON.stringify({ type: "olderMessages", channelId, messages, hasMore: messages.length === PAGE_SIZE }),
+      );
+      return;
+    }
+
     if (parsed.type === "dm") {
       const toUsername = typeof parsed.toUsername === "string" ? parsed.toUsername.trim() : "";
       const body = typeof parsed.body === "string" ? parsed.body.trim() : "";
@@ -168,6 +185,29 @@ wss.on("connection", (ws, req, user) => {
           type: "dmHistory",
           withUsername: target.username,
           messages: dmHistory(ws.user.uid, target.id).map(withDmAvatar),
+        }),
+      );
+      return;
+    }
+
+    if (parsed.type === "olderDms") {
+      const withUsername = typeof parsed.withUsername === "string" ? parsed.withUsername.trim() : "";
+      const beforeId = Number(parsed.beforeId);
+      if (!withUsername || !beforeId) return;
+
+      const target = findUserByUsername(withUsername);
+      if (!target) {
+        ws.send(JSON.stringify({ type: "error", context: "olderDms", message: "user_not_found" }));
+        return;
+      }
+
+      const messages = olderDmHistory(ws.user.uid, target.id, beforeId).map(withDmAvatar);
+      ws.send(
+        JSON.stringify({
+          type: "olderDms",
+          withUsername: target.username,
+          messages,
+          hasMore: messages.length === PAGE_SIZE,
         }),
       );
     }

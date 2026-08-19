@@ -3,9 +3,12 @@ import { fileURLToPath } from "node:url";
 
 import Database from "better-sqlite3";
 
+import { RETENTION_MS } from "./constants.js";
+
 const dataDir = fileURLToPath(new URL("./data/", import.meta.url));
 mkdirSync(dataDir, { recursive: true });
 mkdirSync(`${dataDir}avatars`, { recursive: true });
+mkdirSync(`${dataDir}message-images`, { recursive: true });
 
 export const db = new Database(`${dataDir}chat.db`);
 db.pragma("journal_mode = WAL");
@@ -61,13 +64,23 @@ const messageColumns = columnNames("messages");
 if (!messageColumns.has("channel_id")) {
   db.exec("ALTER TABLE messages ADD COLUMN channel_id INTEGER REFERENCES channels(id)");
 }
+if (!messageColumns.has("pinned")) db.exec("ALTER TABLE messages ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0");
+if (!messageColumns.has("expires_at")) db.exec("ALTER TABLE messages ADD COLUMN expires_at INTEGER");
+if (!messageColumns.has("image_path")) db.exec("ALTER TABLE messages ADD COLUMN image_path TEXT");
+if (!messageColumns.has("image_mime")) db.exec("ALTER TABLE messages ADD COLUMN image_mime TEXT");
+db.exec("CREATE INDEX IF NOT EXISTS messages_channel_id ON messages(channel_id, id)");
+db.prepare("UPDATE messages SET expires_at = created_at + ? WHERE expires_at IS NULL").run(RETENTION_MS);
+
+const channelColumns = columnNames("channels");
+if (!channelColumns.has("position")) db.exec("ALTER TABLE channels ADD COLUMN position INTEGER");
+db.exec("UPDATE channels SET position = id WHERE position IS NULL");
 
 // Every install needs at least one channel — seed "general" if none exist,
 // and backfill any pre-channels messages (a v1 upgrade) into it.
 let generalId = db.prepare("SELECT id FROM channels ORDER BY id LIMIT 1").get()?.id;
 if (!generalId) {
   generalId = db
-    .prepare("INSERT INTO channels (name, created_by, created_at) VALUES ('general', NULL, ?)")
+    .prepare("INSERT INTO channels (name, created_by, created_at, position) VALUES ('general', NULL, ?, 1)")
     .run(Date.now()).lastInsertRowid;
 }
 db.prepare("UPDATE messages SET channel_id = ? WHERE channel_id IS NULL").run(generalId);
@@ -77,26 +90,48 @@ const createUserStmt = db.prepare(
   "INSERT INTO users (username, password_hash, created_at, accepted_legal_at) VALUES (?, ?, ?, ?)",
 );
 const insertMessageStmt = db.prepare(
-  "INSERT INTO messages (user_id, channel_id, body, created_at) VALUES (?, ?, ?, ?)",
+  "INSERT INTO messages (user_id, channel_id, body, created_at, expires_at) VALUES (?, ?, ?, ?, ?)",
 );
-const recentMessagesStmt = db.prepare(`
+const MESSAGE_SELECT = `
   SELECT messages.id, messages.body, messages.created_at AS createdAt, messages.channel_id AS channelId,
+         messages.pinned AS pinned, messages.image_mime AS imageMime,
          users.id AS userId, users.username, users.avatar_mime AS avatarMime,
          users.avatar_updated_at AS avatarUpdatedAt
   FROM messages
   JOIN users ON users.id = messages.user_id
+`;
+const recentMessagesStmt = db.prepare(`
+  ${MESSAGE_SELECT}
   WHERE messages.channel_id = ? AND users.banned_at IS NULL
   ORDER BY messages.created_at DESC
   LIMIT ?
 `);
+const olderMessagesStmt = db.prepare(`
+  ${MESSAGE_SELECT}
+  WHERE messages.channel_id = ? AND messages.id < ? AND users.banned_at IS NULL
+  ORDER BY messages.created_at DESC
+  LIMIT ?
+`);
 const messageChannelIdStmt = db.prepare("SELECT channel_id AS channelId FROM messages WHERE id = ?");
+const messageImagePathStmt = db.prepare("SELECT image_path AS path FROM messages WHERE id = ?");
+const getMessageImageStmt = db.prepare("SELECT image_path AS path, image_mime AS mime FROM messages WHERE id = ?");
+const channelImagePathsStmt = db.prepare(
+  "SELECT image_path AS path FROM messages WHERE channel_id = ? AND image_path IS NOT NULL",
+);
 const deleteMessageStmt = db.prepare("DELETE FROM messages WHERE id = ?");
 const clearChannelStmt = db.prepare("DELETE FROM messages WHERE channel_id = ?");
+const pinMessageStmt = db.prepare("UPDATE messages SET pinned = 1 WHERE id = ?");
+const unpinMessageStmt = db.prepare("UPDATE messages SET pinned = 0 WHERE id = ?");
+const setMessageImageStmt = db.prepare("UPDATE messages SET image_path = ?, image_mime = ? WHERE id = ?");
 
-const listChannelsStmt = db.prepare("SELECT id, name FROM channels ORDER BY id");
-const createChannelStmt = db.prepare(
-  "INSERT INTO channels (name, created_by, created_at) VALUES (?, ?, ?)",
-);
+const listChannelsStmt = db.prepare("SELECT id, name FROM channels ORDER BY position, id");
+const listChannelsForReorderStmt = db.prepare("SELECT id, position FROM channels ORDER BY position, id");
+const updateChannelPositionStmt = db.prepare("UPDATE channels SET position = ? WHERE id = ?");
+const createChannelStmt = db.prepare(`
+  INSERT INTO channels (name, created_by, created_at, position)
+  VALUES (?, ?, ?, (SELECT COALESCE(MAX(position), 0) + 1 FROM channels))
+`);
+const renameChannelStmt = db.prepare("UPDATE channels SET name = ? WHERE id = ?");
 const deleteChannelStmt = db.prepare("DELETE FROM channels WHERE id = ?");
 const countChannelsStmt = db.prepare("SELECT COUNT(*) AS n FROM channels");
 
@@ -128,6 +163,21 @@ const dmHistoryStmt = db.prepare(`
   ORDER BY dm_messages.created_at DESC
   LIMIT ?
 `);
+const olderDmHistoryStmt = db.prepare(`
+  SELECT dm_messages.id, dm_messages.body, dm_messages.created_at AS createdAt,
+         dm_messages.from_user_id AS fromUserId, dm_messages.to_user_id AS toUserId,
+         fromUser.username AS fromUsername, toUser.username AS toUsername,
+         fromUser.avatar_mime AS fromAvatarMime, fromUser.avatar_updated_at AS fromAvatarUpdatedAt
+  FROM dm_messages
+  JOIN users AS fromUser ON fromUser.id = dm_messages.from_user_id
+  JOIN users AS toUser ON toUser.id = dm_messages.to_user_id
+  WHERE ((dm_messages.from_user_id = ? AND dm_messages.to_user_id = ?)
+      OR (dm_messages.from_user_id = ? AND dm_messages.to_user_id = ?))
+    AND dm_messages.id < ?
+    AND fromUser.banned_at IS NULL AND toUser.banned_at IS NULL
+  ORDER BY dm_messages.created_at DESC
+  LIMIT ?
+`);
 const dmPartnersStmt = db.prepare(`
   SELECT DISTINCT users.username
   FROM dm_messages
@@ -155,7 +205,8 @@ export function createUser({ username, passwordHash }) {
 
 export function insertMessage({ userId, channelId, body }) {
   const createdAt = Date.now();
-  const { lastInsertRowid } = insertMessageStmt.run(userId, channelId, body, createdAt);
+  const expiresAt = createdAt + RETENTION_MS;
+  const { lastInsertRowid } = insertMessageStmt.run(userId, channelId, body, createdAt, expiresAt);
   return { id: lastInsertRowid, createdAt };
 }
 
@@ -163,8 +214,24 @@ export function recentMessages(channelId, limit = 50) {
   return recentMessagesStmt.all(channelId, limit).reverse();
 }
 
+export function olderMessages(channelId, beforeId, limit = 50) {
+  return olderMessagesStmt.all(channelId, beforeId, limit).reverse();
+}
+
 export function messageChannelId(id) {
   return messageChannelIdStmt.get(id)?.channelId ?? null;
+}
+
+export function messageImagePath(id) {
+  return messageImagePathStmt.get(id)?.path ?? null;
+}
+
+export function getMessageImage(id) {
+  return getMessageImageStmt.get(id);
+}
+
+export function channelImagePaths(channelId) {
+  return channelImagePathsStmt.all(channelId).map((row) => row.path);
 }
 
 export function deleteMessage(id) {
@@ -175,6 +242,18 @@ export function clearChannel(channelId) {
   clearChannelStmt.run(channelId);
 }
 
+export function pinMessage(id) {
+  pinMessageStmt.run(id);
+}
+
+export function unpinMessage(id) {
+  unpinMessageStmt.run(id);
+}
+
+export function setMessageImage(id, path, mime) {
+  setMessageImageStmt.run(path, mime, id);
+}
+
 export function listChannels() {
   return listChannelsStmt.all();
 }
@@ -182,6 +261,25 @@ export function listChannels() {
 export function createChannel(name, createdBy) {
   const { lastInsertRowid } = createChannelStmt.run(name, createdBy, Date.now());
   return { id: lastInsertRowid, name };
+}
+
+export function renameChannel(id, name) {
+  renameChannelStmt.run(name, id);
+}
+
+export function moveChannel(id, direction) {
+  const rows = listChannelsForReorderStmt.all();
+  const idx = rows.findIndex((row) => row.id === id);
+  if (idx === -1) return false;
+
+  const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+  if (swapIdx < 0 || swapIdx >= rows.length) return false;
+
+  const a = rows[idx];
+  const b = rows[swapIdx];
+  updateChannelPositionStmt.run(b.position, a.id);
+  updateChannelPositionStmt.run(a.position, b.id);
+  return true;
 }
 
 export function deleteChannel(id) {
@@ -225,6 +323,10 @@ export function insertDm({ fromUserId, toUserId, body }) {
 
 export function dmHistory(uidA, uidB, limit = 50) {
   return dmHistoryStmt.all(uidA, uidB, uidB, uidA, limit).reverse();
+}
+
+export function olderDmHistory(uidA, uidB, beforeId, limit = 50) {
+  return olderDmHistoryStmt.all(uidA, uidB, uidB, uidA, beforeId, limit).reverse();
 }
 
 export function dmPartners(userId) {

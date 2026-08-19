@@ -1,8 +1,19 @@
 <script>
+  import ChevronDown from "@lucide/svelte/icons/chevron-down";
+  import ChevronUp from "@lucide/svelte/icons/chevron-up";
   import Plus from "@lucide/svelte/icons/plus";
 
   import ChatPromptModal from "./ChatPromptModal.svelte";
-  import { chat, createChannel, logout, startDm, switchChannel, unbanUser, uploadAvatar } from "../lib/chat.svelte.js";
+  import {
+    chat,
+    createChannel,
+    logout,
+    moveChannel,
+    startDm,
+    switchChannel,
+    unbanUser,
+    uploadAvatar,
+  } from "../lib/chat.svelte.js";
 
   let channelModalOpen = $state(false);
   let dmModalOpen = $state(false);
@@ -44,14 +55,36 @@
         {/if}
       </div>
       <div class="chatChannelList">
-        {#each chat.channels as channel (channel.id)}
-          <button
-            class="chatChannelItem"
-            class:active={!chat.activeDmUsername && chat.activeChannelId === channel.id}
-            onclick={() => switchChannel(channel.id)}
-          >
-            # {channel.name}
-          </button>
+        {#each chat.channels as channel, i (channel.id)}
+          <div class="chatChannelRow">
+            <button
+              class="chatChannelItem"
+              class:active={!chat.activeDmUsername && chat.activeChannelId === channel.id}
+              onclick={() => switchChannel(channel.id)}
+            >
+              # {channel.name}
+            </button>
+            {#if chat.isAdmin}
+              <div class="chatChannelReorder">
+                <button
+                  class="chatReorderBtn"
+                  title="Move up"
+                  disabled={i === 0}
+                  onclick={() => moveChannel(channel.id, "up")}
+                >
+                  <ChevronUp />
+                </button>
+                <button
+                  class="chatReorderBtn"
+                  title="Move down"
+                  disabled={i === chat.channels.length - 1}
+                  onclick={() => moveChannel(channel.id, "down")}
+                >
+                  <ChevronDown />
+                </button>
+              </div>
+            {/if}
+          </div>
         {/each}
       </div>
     </div>

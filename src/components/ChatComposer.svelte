@@ -1,10 +1,13 @@
 <script>
   import ArrowUp from "@lucide/svelte/icons/arrow-up";
+  import Plus from "@lucide/svelte/icons/plus";
 
-  import { sendMessage } from "../lib/chat.svelte.js";
+  import { chat, sendImage, sendMessage } from "../lib/chat.svelte.js";
 
   let { placeholder = "Message" } = $props();
   let draft = $state("");
+  let imageInput = $state(null);
+  let imageError = $state(null);
 
   function submit(event) {
     event.preventDefault();
@@ -13,10 +16,41 @@
     sendMessage(draft);
     draft = "";
   }
+
+  function onImageChange(event) {
+    const file = event.target.files[0];
+    event.target.value = "";
+    if (!file || !chat.activeChannelId) return;
+
+    imageError = null;
+    const caption = draft;
+    sendImage(chat.activeChannelId, file, caption)
+      .then(() => (draft = ""))
+      .catch((err) => (imageError = err.message));
+  }
 </script>
 
 <form id="chatComposer" onsubmit={submit}>
-  <div class="chatComposerField">
+  {#if imageError}<p class="chatError">{imageError}</p>{/if}
+  <div class="chatComposerField" class:hasImageBtn={chat.isAdmin && !chat.activeDmUsername}>
+    {#if chat.isAdmin && !chat.activeDmUsername}
+      <button
+        type="button"
+        class="chatImageBtn"
+        title="Send an image"
+        aria-label="Send an image"
+        onclick={() => imageInput.click()}
+      >
+        <Plus />
+      </button>
+      <input
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+        bind:this={imageInput}
+        onchange={onImageChange}
+        hidden
+      />
+    {/if}
     <input type="text" bind:value={draft} {placeholder} autocomplete="off" />
     <button class="chatSendBtn" type="submit" title="Send" aria-label="Send">
       <ArrowUp />

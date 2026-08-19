@@ -1,17 +1,35 @@
 <script>
+  import { tick } from "svelte";
+
+  import Pin from "@lucide/svelte/icons/pin";
+  import PinOff from "@lucide/svelte/icons/pin-off";
   import Trash2 from "@lucide/svelte/icons/trash-2";
   import UserX from "@lucide/svelte/icons/user-x";
 
   import ChatAuthForm from "./ChatAuthForm.svelte";
   import ChatComposer from "./ChatComposer.svelte";
   import ChatConfirmModal from "./ChatConfirmModal.svelte";
+  import ChatPromptModal from "./ChatPromptModal.svelte";
   import ChatSidebar from "./ChatSidebar.svelte";
-  import { banUser, chat, checkAuth, clearChannel, deleteChannel, deleteMessage } from "../lib/chat.svelte.js";
+  import {
+    banUser,
+    chat,
+    checkAuth,
+    clearChannel,
+    deleteChannel,
+    deleteMessage,
+    loadOlderDms,
+    loadOlderMessages,
+    pinMessage,
+    renameChannel,
+    unpinMessage,
+  } from "../lib/chat.svelte.js";
   import { activeTab } from "../lib/tabs.svelte.js";
 
   let listEl = $state(null);
   let actionError = $state(null);
   let confirmAction = $state(null);
+  let editChannelModalOpen = $state(false);
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
   const messagesLoaded = $derived(
@@ -24,18 +42,88 @@
       ? (chat.dmThreads[chat.activeDmUsername] ?? [])
       : (chat.channelMessages[chat.activeChannelId] ?? []),
   );
+  const loadingMore = $derived(
+    chat.activeDmUsername
+      ? !!chat.dmLoadingMore[chat.activeDmUsername]
+      : !!chat.channelLoadingMore[chat.activeChannelId],
+  );
   const title = $derived(chat.activeDmUsername ? `@${chat.activeDmUsername}` : `#${activeChannel?.name ?? ""}`);
 
   $effect(() => {
     checkAuth();
   });
 
+  let prevKey = null;
+  let prevMessageCount = 0;
+  let stickToBottom = true;
+  let pendingScrollRestore = false;
+  let prevScrollHeight = 0;
+
   $effect(() => {
-    if (currentMessages.length && listEl) listEl.scrollTop = listEl.scrollHeight;
+    const key = chat.activeDmUsername ?? chat.activeChannelId;
+    const count = currentMessages.length;
+
+    if (key !== prevKey) {
+      prevKey = key;
+      prevMessageCount = count;
+      pendingScrollRestore = false;
+      stickToBottom = true;
+      if (listEl) tick().then(() => listEl && (listEl.scrollTop = listEl.scrollHeight));
+      return;
+    }
+
+    if (!listEl) {
+      prevMessageCount = count;
+      return;
+    }
+
+    if (pendingScrollRestore) {
+      const restoreHeight = prevScrollHeight;
+      tick().then(() => {
+        if (!listEl) return;
+        listEl.scrollTop = listEl.scrollHeight - restoreHeight;
+        pendingScrollRestore = false;
+      });
+    } else if (count > prevMessageCount) {
+      const last = currentMessages[count - 1];
+      const isOwnMessage = last.username === chat.authUsername || last.fromUsername === chat.authUsername;
+      if (stickToBottom || isOwnMessage) {
+        tick().then(() => listEl && (listEl.scrollTop = listEl.scrollHeight));
+      }
+    }
+    prevMessageCount = count;
   });
 
+  function onMessagesScroll() {
+    if (!listEl) return;
+
+    const distanceFromBottom = listEl.scrollHeight - listEl.scrollTop - listEl.clientHeight;
+    stickToBottom = distanceFromBottom < 80;
+
+    if (listEl.scrollTop >= 60 || pendingScrollRestore || loadingMore) return;
+
+    const key = chat.activeDmUsername ?? chat.activeChannelId;
+    const hasMore = chat.activeDmUsername ? chat.dmHasMore[key] : chat.channelHasMore[key];
+    if (!key || hasMore === false) return;
+
+    prevScrollHeight = listEl.scrollHeight;
+    pendingScrollRestore = true;
+    if (chat.activeDmUsername) loadOlderDms(chat.activeDmUsername);
+    else loadOlderMessages(chat.activeChannelId);
+  }
+
   function formatTime(ms) {
-    return new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const date = new Date(ms);
+    const now = new Date();
+    const time = date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const dayDiff = Math.round(
+      (new Date(now.getFullYear(), now.getMonth(), now.getDate()) -
+        new Date(date.getFullYear(), date.getMonth(), date.getDate())) /
+        86400000,
+    );
+    if (dayDiff === 0) return time;
+    if (dayDiff === 1) return `Yesterday, ${time}`;
+    return `${date.toLocaleDateString([], { month: "short", day: "numeric" })}, ${time}`;
   }
 
   async function runAdminAction(fn) {
@@ -74,6 +162,9 @@
             <div class="chatHeaderTitle">{title}</div>
             {#if chat.isAdmin && activeChannel}
               <div class="chatHeaderActions">
+                <button class="chatModeToggle" onclick={() => (editChannelModalOpen = true)}>
+                  Edit channel
+                </button>
                 <button
                   class="chatModeToggle"
                   onclick={() =>
@@ -104,9 +195,11 @@
 
           {#if actionError}<p class="chatError">{actionError}</p>{/if}
 
-          <div id="chatMessages" bind:this={listEl}>
+          <div id="chatMessages" bind:this={listEl} onscroll={onMessagesScroll}>
             {#if !messagesLoaded}
               <div class="chatMessagesLoading"><div class="chatSpinner"></div></div>
+            {:else if loadingMore}
+              <div class="chatMessagesLoadingMore"><div class="chatSpinner"></div></div>
             {/if}
             {#each currentMessages as message (message.id)}
               <div class="chatMessage">
@@ -121,8 +214,17 @@
                   <div class="chatMessageMeta">
                     <b>{message.username ?? message.fromUsername}</b>
                     {#if message.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
+                    {#if message.pinned}<span class="chatPinnedBadge">Pinned</span>{/if}
                     <small>{formatTime(message.createdAt)}</small>
                     {#if chat.isAdmin && !chat.activeDmUsername}
+                      <button
+                        class="chatMessageAction"
+                        title={message.pinned ? "Unpin message" : "Pin message"}
+                        onclick={() =>
+                          runAdminAction(() => (message.pinned ? unpinMessage(message.id) : pinMessage(message.id)))}
+                      >
+                        {#if message.pinned}<PinOff />{:else}<Pin />{/if}
+                      </button>
                       <button
                         class="chatMessageAction"
                         title="Delete message"
@@ -147,7 +249,8 @@
                       {/if}
                     {/if}
                   </div>
-                  <span>{message.body}</span>
+                  {#if message.imageUrl}<img class="chatMessageImage" src={message.imageUrl} alt="" />{/if}
+                  {#if message.body}<span>{message.body}</span>{/if}
                 </div>
               </div>
             {/each}
@@ -166,6 +269,17 @@
       confirmLabel={confirmAction.confirmLabel}
       onconfirm={() => runAdminAction(confirmAction.run)}
       onclose={() => (confirmAction = null)}
+    />
+  {/if}
+
+  {#if editChannelModalOpen && activeChannel}
+    <ChatPromptModal
+      title="Edit channel"
+      placeholder="channel-name"
+      submitLabel="Save"
+      initialValue={activeChannel.name}
+      onsubmit={(name) => renameChannel(activeChannel.id, name)}
+      onclose={() => (editChannelModalOpen = false)}
     />
   {/if}
 </section>

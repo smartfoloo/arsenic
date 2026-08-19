@@ -1,7 +1,7 @@
 <script>
-  let { title, placeholder = "", submitLabel = "Create", onsubmit, onclose } = $props();
+  let { title, placeholder = "", submitLabel = "Create", initialValue = "", onsubmit, onclose } = $props();
 
-  let value = $state("");
+  let value = $state(initialValue);
   let error = $state(null);
   let busy = $state(false);
 

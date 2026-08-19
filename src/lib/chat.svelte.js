@@ -13,7 +13,13 @@ export const chat = $state({
   dmPartners: [],
   dmError: null,
   bannedUsers: [],
+  channelHasMore: {},
+  channelLoadingMore: {},
+  dmHasMore: {},
+  dmLoadingMore: {},
 });
+
+const PAGE_SIZE = 50;
 
 let socket = null;
 
@@ -74,6 +80,10 @@ export async function logout() {
   chat.dmThreads = {};
   chat.dmPartners = [];
   chat.bannedUsers = [];
+  chat.channelHasMore = {};
+  chat.channelLoadingMore = {};
+  chat.dmHasMore = {};
+  chat.dmLoadingMore = {};
   disconnect();
 }
 
@@ -110,6 +120,26 @@ export function startDm(username) {
   send({ type: "dmHistory", withUsername: target });
 }
 
+export function loadOlderMessages(channelId) {
+  if (chat.channelLoadingMore[channelId] || chat.channelHasMore[channelId] === false) return;
+
+  const oldest = chat.channelMessages[channelId]?.[0];
+  if (!oldest) return;
+
+  chat.channelLoadingMore[channelId] = true;
+  send({ type: "olderMessages", channelId, beforeId: oldest.id });
+}
+
+export function loadOlderDms(username) {
+  if (chat.dmLoadingMore[username] || chat.dmHasMore[username] === false) return;
+
+  const oldest = chat.dmThreads[username]?.[0];
+  if (!oldest) return;
+
+  chat.dmLoadingMore[username] = true;
+  send({ type: "olderDms", withUsername: username, beforeId: oldest.id });
+}
+
 export function sendMessage(body) {
   if (!body.trim()) return;
 
@@ -131,6 +161,29 @@ export function clearChannel(id) {
 
 export function deleteMessage(id) {
   return request(`admin/messages/${id}/delete`, { method: "POST" });
+}
+
+export function pinMessage(id) {
+  return request(`admin/messages/${id}/pin`, { method: "POST" });
+}
+
+export function unpinMessage(id) {
+  return request(`admin/messages/${id}/unpin`, { method: "POST" });
+}
+
+export function renameChannel(id, name) {
+  return request(`admin/channels/${id}/rename`, { method: "POST", json: { name } });
+}
+
+export function moveChannel(id, direction) {
+  return request(`admin/channels/${id}/move`, { method: "POST", json: { direction } });
+}
+
+export function sendImage(channelId, file, caption) {
+  const formData = new FormData();
+  formData.append("image", file);
+  formData.append("body", caption ?? "");
+  return request(`admin/channels/${channelId}/image`, { method: "POST", formData });
 }
 
 export function banUser(username) {
@@ -188,15 +241,34 @@ function otherParty(dm) {
 function handleMessage(data) {
   if (data.type === "history") {
     chat.channelMessages[data.channelId] = data.messages;
+    chat.channelHasMore[data.channelId] = data.messages.length === PAGE_SIZE;
   } else if (data.type === "message") {
     (chat.channelMessages[data.channelId] ??= []).push(data);
+  } else if (data.type === "olderMessages") {
+    chat.channelMessages[data.channelId] = [...data.messages, ...(chat.channelMessages[data.channelId] ?? [])];
+    chat.channelHasMore[data.channelId] = data.hasMore;
+    chat.channelLoadingMore[data.channelId] = false;
   } else if (data.type === "dm") {
     (chat.dmThreads[otherParty(data)] ??= []).push(data);
   } else if (data.type === "dmHistory") {
     chat.dmThreads[data.withUsername] = data.messages;
+    chat.dmHasMore[data.withUsername] = data.messages.length === PAGE_SIZE;
     chat.activeChannelId = null;
     chat.activeDmUsername = data.withUsername;
     chat.dmError = null;
+  } else if (data.type === "olderDms") {
+    chat.dmThreads[data.withUsername] = [...data.messages, ...(chat.dmThreads[data.withUsername] ?? [])];
+    chat.dmHasMore[data.withUsername] = data.hasMore;
+    chat.dmLoadingMore[data.withUsername] = false;
+  } else if (data.type === "messagePinned" || data.type === "messageUnpinned") {
+    const list = chat.channelMessages[data.channelId];
+    const message = list?.find((m) => m.id === data.id);
+    if (message) message.pinned = data.type === "messagePinned";
+  } else if (data.type === "channelRenamed") {
+    const channel = chat.channels.find((c) => c.id === data.id);
+    if (channel) channel.name = data.name;
+  } else if (data.type === "channelsReordered") {
+    chat.channels = data.channels;
   } else if (data.type === "error") {
     if (data.context === "dm" || data.context === "dmHistory") chat.dmError = "That user doesn't exist.";
   } else if (data.type === "channelCreated") {

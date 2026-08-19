@@ -12,7 +12,7 @@ import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { scramjetPath } from "@mercuryworkshop/scramjet/path";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 
-import authRouter, { serveAvatar } from "./auth.js";
+import authRouter, { serveAvatar, serveMessageImage } from "./auth.js";
 import { handleChatUpgrade } from "./chat.js";
 import { createDecoyApp } from "./decoy.js";
 import { sweepOldMessages } from "./retention.js";
@@ -57,8 +57,11 @@ app.get("/ping", (req, res) => res.set("Cache-Control", "no-store").status(204).
 if (chatEnabled) {
   app.use("/chat/api", express.json({ limit: "1kb" }), authRouter);
   app.get("/chat/avatars/:uid", serveAvatar);
+  app.get("/chat/messages/:id/image", serveMessageImage);
 } else {
-  app.use(["/chat/api", "/chat/avatars"], (req, res) => res.status(404).json({ error: "chat_disabled" }));
+  app.use(["/chat/api", "/chat/avatars", "/chat/messages"], (req, res) =>
+    res.status(404).json({ error: "chat_disabled" }),
+  );
 }
 
 app.use("/scram/", express.static(scramjetPath));

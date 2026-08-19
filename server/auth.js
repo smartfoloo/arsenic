@@ -10,6 +10,7 @@ import { broadcast, disconnectUser } from "./chat.js";
 import {
   banUser,
   channelCount,
+  channelImagePaths,
   clearChannel,
   createChannel,
   createUser,
@@ -18,12 +19,20 @@ import {
   dmPartners,
   findUserByUsername,
   getAvatar,
+  getMessageImage,
   getUserByUsername,
+  insertMessage,
   listBannedUsers,
   listChannels,
   messageChannelId,
+  messageImagePath,
+  moveChannel,
+  pinMessage,
+  renameChannel,
   setAvatar,
+  setMessageImage,
   unbanUser,
+  unpinMessage,
 } from "./db.js";
 import { clearSessionCookie, readSession, setSessionCookie } from "./session.js";
 
@@ -32,6 +41,7 @@ const CHANNEL_NAME_PATTERN = /^[a-z0-9-]{2,30}$/;
 const MIN_PASSWORD_LENGTH = 8;
 const AVATAR_MIME_EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
 const avatarsDir = fileURLToPath(new URL("./data/avatars/", import.meta.url));
+const messageImagesDir = fileURLToPath(new URL("./data/message-images/", import.meta.url));
 
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX_ATTEMPTS = 10;
@@ -73,6 +83,12 @@ function requireAdmin(req, res, next) {
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 2 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => cb(null, file.mimetype in AVATAR_MIME_EXT),
+});
+
+const uploadImage = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => cb(null, file.mimetype in AVATAR_MIME_EXT),
 });
 
@@ -195,12 +211,23 @@ router.post("/admin/channels", requireAdmin, (req, res) => {
   res.json({ channel });
 });
 
+function unlinkImages(paths) {
+  for (const path of paths) {
+    try {
+      unlinkSync(path);
+    } catch {
+      // already gone; nothing to clean up
+    }
+  }
+}
+
 router.delete("/admin/channels/:id", requireAdmin, (req, res) => {
   const id = Number(req.params.id);
   if (channelCount() <= 1) {
     return res.status(400).json({ error: "at_least_one_channel_required" });
   }
 
+  unlinkImages(channelImagePaths(id));
   deleteChannel(id);
   broadcast({ type: "channelDeleted", id });
   res.json({});
@@ -208,19 +235,103 @@ router.delete("/admin/channels/:id", requireAdmin, (req, res) => {
 
 router.post("/admin/channels/:id/clear", requireAdmin, (req, res) => {
   const id = Number(req.params.id);
+  unlinkImages(channelImagePaths(id));
   clearChannel(id);
   broadcast({ type: "channelCleared", channelId: id });
+  res.json({});
+});
+
+router.post("/admin/channels/:id/rename", requireAdmin, (req, res) => {
+  const id = Number(req.params.id);
+  const { name } = req.body ?? {};
+  if (typeof name !== "string" || !CHANNEL_NAME_PATTERN.test(name)) {
+    return res.status(400).json({ error: "invalid_channel_name" });
+  }
+
+  try {
+    renameChannel(id, name);
+  } catch (err) {
+    if (err.code === "SQLITE_CONSTRAINT_UNIQUE") {
+      return res.status(409).json({ error: "channel_taken" });
+    }
+    throw err;
+  }
+
+  broadcast({ type: "channelRenamed", id, name });
+  res.json({});
+});
+
+router.post("/admin/channels/:id/move", requireAdmin, (req, res) => {
+  const id = Number(req.params.id);
+  const { direction } = req.body ?? {};
+  if (direction !== "up" && direction !== "down") {
+    return res.status(400).json({ error: "invalid_direction" });
+  }
+
+  moveChannel(id, direction);
+  broadcast({ type: "channelsReordered", channels: listChannels() });
+  res.json({});
+});
+
+router.post("/admin/channels/:id/image", requireAdmin, uploadImage.single("image"), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "invalid_image" });
+
+  const channelId = Number(req.params.id);
+  const caption = typeof req.body?.body === "string" ? req.body.body.trim() : "";
+  const ext = AVATAR_MIME_EXT[req.file.mimetype];
+
+  const { id, createdAt } = insertMessage({ userId: req.session.uid, channelId, body: caption });
+  const path = `${messageImagesDir}${id}.${ext}`;
+  writeFileSync(path, req.file.buffer);
+  setMessageImage(id, path, req.file.mimetype);
+
+  const avatar = getAvatar(req.session.uid);
+  broadcast({
+    type: "message",
+    channelId,
+    id,
+    userId: req.session.uid,
+    username: req.session.username,
+    avatarUrl: avatarUrlFor(req.session.uid),
+    isAdmin: true,
+    body: caption,
+    createdAt,
+    pinned: false,
+    imageUrl: `/chat/messages/${id}/image`,
+  });
   res.json({});
 });
 
 router.post("/admin/messages/:id/delete", requireAdmin, (req, res) => {
   const id = Number(req.params.id);
   const channelId = messageChannelId(id);
-  if (!channelId || !deleteMessage(id)) {
-    return res.status(404).json({ error: "message_not_found" });
-  }
+  if (!channelId) return res.status(404).json({ error: "message_not_found" });
+
+  const imagePath = messageImagePath(id);
+  if (!deleteMessage(id)) return res.status(404).json({ error: "message_not_found" });
+  if (imagePath) unlinkImages([imagePath]);
 
   broadcast({ type: "messageDeleted", id, channelId });
+  res.json({});
+});
+
+router.post("/admin/messages/:id/pin", requireAdmin, (req, res) => {
+  const id = Number(req.params.id);
+  const channelId = messageChannelId(id);
+  if (!channelId) return res.status(404).json({ error: "message_not_found" });
+
+  pinMessage(id);
+  broadcast({ type: "messagePinned", id, channelId });
+  res.json({});
+});
+
+router.post("/admin/messages/:id/unpin", requireAdmin, (req, res) => {
+  const id = Number(req.params.id);
+  const channelId = messageChannelId(id);
+  if (!channelId) return res.status(404).json({ error: "message_not_found" });
+
+  unpinMessage(id);
+  broadcast({ type: "messageUnpinned", id, channelId });
   res.json({});
 });
 
@@ -264,6 +375,17 @@ export function serveAvatar(req, res) {
   res.setHeader("Content-Type", avatar.mime);
   res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
   res.sendFile(avatar.path);
+}
+
+export function serveMessageImage(req, res) {
+  const image = getMessageImage(Number(req.params.id));
+  if (!image?.path) return res.status(404).end();
+
+  // Message images are never replaced, only deleted — the URL's content
+  // never changes, so it's safe to cache aggressively and publicly.
+  res.setHeader("Content-Type", image.mime);
+  res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+  res.sendFile(image.path);
 }
 
 export default router;
