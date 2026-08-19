@@ -1271,6 +1271,7 @@ svg {
   flex-direction: column;
 }
 .chatMessage {
+  position: relative;
   display: flex;
   gap: 12px;
   margin-top: 16px;
@@ -1279,7 +1280,7 @@ svg {
   margin-top: 0;
 }
 .chatMessage.chatMessageGrouped {
-  margin-top: 2px;
+  margin-top: 0;
 }
 .chatMessageAvatar {
   flex: none;
@@ -1291,12 +1292,14 @@ svg {
   background: var(--surface0);
 }
 .chatMessageHoverTime {
+  height: auto;
   aspect-ratio: unset;
   background: none;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 10px;
+  line-height: inherit;
   color: var(--overlay0);
   opacity: 0;
   transition: opacity 0.1s;
@@ -1315,8 +1318,13 @@ svg {
   align-items: center;
   gap: 8px;
 }
-.chatMessageMetaCompact {
-  min-height: 18px;
+.chatMessageHoverActions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .chatMessageLink {
   color: var(--accent);

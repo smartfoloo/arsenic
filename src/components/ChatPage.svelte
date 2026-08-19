@@ -215,6 +215,41 @@
             {:else if loadingMore}
               <div class="chatMessagesLoadingMore"><div class="chatSpinner"></div></div>
             {/if}
+            {#snippet messageActions(message)}
+              {#if chat.isAdmin && !chat.activeDmUsername}
+                <button
+                  class="chatMessageAction"
+                  title={message.pinned ? "Unpin message" : "Pin message"}
+                  onclick={() =>
+                    runAdminAction(() => (message.pinned ? unpinMessage(message.id) : pinMessage(message.id)))}
+                >
+                  {#if message.pinned}<PinOff />{:else}<Pin />{/if}
+                </button>
+                <button
+                  class="chatMessageAction"
+                  title="Delete message"
+                  onclick={() => runAdminAction(() => deleteMessage(message.id))}
+                >
+                  <Trash2 />
+                </button>
+                {#if message.username !== chat.authUsername}
+                  <button
+                    class="chatMessageAction"
+                    title="Ban {message.username}"
+                    onclick={() =>
+                      (confirmAction = {
+                        title: "Ban user",
+                        message: `Ban ${message.username}? They'll be logged out and their messages hidden.`,
+                        confirmLabel: "Ban",
+                        run: () => banUser(message.username),
+                      })}
+                  >
+                    <UserX />
+                  </button>
+                {/if}
+              {/if}
+            {/snippet}
+
             {#each currentMessages as message, i (message.id)}
               {@const sender = message.username ?? message.fromUsername}
               {@const prev = currentMessages[i - 1]}
@@ -234,46 +269,19 @@
                   <span class="chatMessageAvatar chatMessageHoverTime">{formatTime(message.createdAt)}</span>
                 {/if}
                 <div class="chatMessageBody">
-                  <div class="chatMessageMeta" class:chatMessageMetaCompact={!isGroupStart}>
-                    {#if isGroupStart}
+                  {#if isGroupStart}
+                    <div class="chatMessageMeta">
                       <b>{sender}</b>
                       {#if message.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
                       {#if message.pinned}<span class="chatPinnedBadge">Pinned</span>{/if}
                       <small>{formatTime(message.createdAt)}</small>
-                    {/if}
-                    {#if chat.isAdmin && !chat.activeDmUsername}
-                      <button
-                        class="chatMessageAction"
-                        title={message.pinned ? "Unpin message" : "Pin message"}
-                        onclick={() =>
-                          runAdminAction(() => (message.pinned ? unpinMessage(message.id) : pinMessage(message.id)))}
-                      >
-                        {#if message.pinned}<PinOff />{:else}<Pin />{/if}
-                      </button>
-                      <button
-                        class="chatMessageAction"
-                        title="Delete message"
-                        onclick={() => runAdminAction(() => deleteMessage(message.id))}
-                      >
-                        <Trash2 />
-                      </button>
-                      {#if message.username !== chat.authUsername}
-                        <button
-                          class="chatMessageAction"
-                          title="Ban {message.username}"
-                          onclick={() =>
-                            (confirmAction = {
-                              title: "Ban user",
-                              message: `Ban ${message.username}? They'll be logged out and their messages hidden.`,
-                              confirmLabel: "Ban",
-                              run: () => banUser(message.username),
-                            })}
-                        >
-                          <UserX />
-                        </button>
-                      {/if}
-                    {/if}
-                  </div>
+                      {@render messageActions(message)}
+                    </div>
+                  {:else}
+                    <div class="chatMessageHoverActions">
+                      {@render messageActions(message)}
+                    </div>
+                  {/if}
                   {#if message.imageUrl}<img class="chatMessageImage" src={message.imageUrl} alt="" />{/if}
                   {#if message.body}
                     <span
