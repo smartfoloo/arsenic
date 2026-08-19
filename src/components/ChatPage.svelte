@@ -24,9 +24,10 @@
     pinMessage,
     renameChannel,
     setChannelLocked,
+    switchChannel,
     unpinMessage,
   } from "../lib/chat.svelte.js";
-  import { linkHref, linkify } from "../lib/linkify.js";
+  import { linkHref, linkify, withChannelMentions } from "../lib/linkify.js";
   import { activeTab } from "../lib/tabs.svelte.js";
 
   const GROUP_GAP_MS = 5 * 60 * 1000;
@@ -53,6 +54,7 @@
       : !!chat.channelLoadingMore[chat.activeChannelId],
   );
   const title = $derived(chat.activeDmUsername ? `@${chat.activeDmUsername}` : `#${activeChannel?.name ?? ""}`);
+  const channelsByName = $derived(new Map(chat.channels.map((c) => [c.name.toLowerCase(), c])));
 
   $effect(() => {
     checkAuth();
@@ -277,22 +279,31 @@
                       <small>{formatTime(message.createdAt)}</small>
                       {@render messageActions(message)}
                     </div>
-                  {:else}
-                    <div class="chatMessageHoverActions">
-                      <small>{formatTime(message.createdAt)}</small>
-                      {@render messageActions(message)}
-                    </div>
                   {/if}
                   {#if message.imageUrl}<img class="chatMessageImage" src={message.imageUrl} alt="" />{/if}
                   {#if message.body}
                     <span
-                      >{#each linkify(message.body) as part}{#if part.type === "link"}<a
+                      >{#each withChannelMentions(linkify(message.body), channelsByName) as part}{#if part.type === "link"}<a
                           href={linkHref(part.value)}
                           target="_blank"
                           rel="noopener noreferrer"
                           class="chatMessageLink">{part.value}</a
-                        >{:else}{part.value}{/if}{/each}</span
+                        >{:else if part.type === "channel"}<button
+                          type="button"
+                          class="chatMessageLink chatChannelMention"
+                          onclick={() => switchChannel(part.id)}>#{part.value}</button
+                        >{:else}{part.value}{/if}{/each}{#if !isGroupStart}<span
+                          class="chatMessageHoverActions"
+                          ><small>{formatTime(message.createdAt)}</small>{@render messageActions(
+                            message,
+                          )}</span
+                        >{/if}</span
                     >
+                  {:else if !isGroupStart}
+                    <span class="chatMessageHoverActions">
+                      <small>{formatTime(message.createdAt)}</small>
+                      {@render messageActions(message)}
+                    </span>
                   {/if}
                 </div>
               </div>
