@@ -266,7 +266,7 @@
                     </span>
                   {/if}
                 {:else}
-                  <span class="chatMessageAvatar chatMessageHoverTime">{formatTime(message.createdAt)}</span>
+                  <span class="chatMessageAvatar chatMessageAvatarSpacer"></span>
                 {/if}
                 <div class="chatMessageBody">
                   {#if isGroupStart}
@@ -279,6 +279,7 @@
                     </div>
                   {:else}
                     <div class="chatMessageHoverActions">
+                      <small>{formatTime(message.createdAt)}</small>
                       {@render messageActions(message)}
                     </div>
                   {/if}

@@ -1,5 +1,4 @@
 <script>
-  import MessageCircle from "@lucide/svelte/icons/message-circle";
   import Search from "@lucide/svelte/icons/search";
 
   import Select from "./Select.svelte";
@@ -50,6 +49,10 @@
     if (target) open(target);
     query = "";
   }
+
+  const partners = [
+    { name: "Re:Vault", logo: "/logos/re-vault.png", url: "https://endiseducation.org/" }
+  ];
 </script>
 
 <section class="page" id="startPage" class:active={visible}>
@@ -72,9 +75,32 @@
       />
     </div>
     <a id="discordLink" href="https://discord.gg/VA2JXq52j4" target="_blank" rel="noopener noreferrer">
-      <MessageCircle />
-      Discord
+      Join the discord for links
     </a>
+
+    {#if partners.length}
+      <div id="partners">
+        <span class="partners-label">Partners</span>
+        <div class="partners-row">
+          {#each partners as partner (partner.name)}
+            <a
+              class="partner"
+              href={partner.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={partner.name}
+            >
+              {#if partner.logo}
+                <img class="logo" src={partner.logo} alt="" />
+              {:else}
+                <span class="logo {partner.accent}">{partner.initial}</span>
+              {/if}
+              <span class="partner-name">{partner.name}</span>
+            </a>
+          {/each}
+        </div>
+      </div>
+    {/if}
   </div>
 
   <div id="latency" title="Round trip to the arsenic server">

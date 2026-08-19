@@ -579,27 +579,58 @@ svg {
 }
 
 #discordLink {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 36px;
-  padding: 0 18px;
-  border-radius: 18px;
-  background: var(--surface0);
-  color: var(--subtext0);
-  font-size: 14px;
+  color: var(--overlay1);
+  font-size: 16px;
   text-decoration: none;
-  transition:
-    background 0.12s,
-    color 0.12s;
+  margin-top: -18px;
+  transition: color 0.12s;
 }
 #discordLink:hover {
-  background: var(--surface1);
   color: var(--text);
+  text-decoration: underline;
 }
-#discordLink svg {
-  width: 16px;
-  height: 16px;
+
+#partners {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+.partners-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--overlay0);
+}
+.partners-row {
+  display: flex;
+  gap: 10px;
+}
+.partner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--overlay0);
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.12s;
+}
+.partner:hover {
+  color: var(--subtext0);
+}
+.partner .logo {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--crust);
+  font-size: 9px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+.partner img.logo {
+  object-fit: contain;
 }
 
 /* latency readout, pinned to the bottom of the start page */
@@ -1291,21 +1322,10 @@ svg {
   object-fit: cover;
   background: var(--surface0);
 }
-.chatMessageHoverTime {
+.chatMessageAvatarSpacer {
   height: auto;
   aspect-ratio: unset;
   background: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  line-height: inherit;
-  color: var(--overlay0);
-  opacity: 0;
-  transition: opacity 0.1s;
-}
-.chatMessage:hover .chatMessageHoverTime {
-  opacity: 1;
 }
 .chatMessageBody {
   flex: 1 1 auto;
@@ -1325,6 +1345,15 @@ svg {
   display: flex;
   align-items: center;
   gap: 8px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.chatMessage:hover .chatMessageHoverActions {
+  opacity: 1;
+}
+.chatMessageHoverActions small {
+  color: var(--overlay0);
+  font-size: 12px;
 }
 .chatMessageLink {
   color: var(--accent);
