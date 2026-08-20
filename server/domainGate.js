@@ -22,6 +22,11 @@ const BLOCKED_SUFFIXES = [
   "sslip.io",
   "nip.io",
   "xip.io",
+  "mywire.org",
+  "ddnsfree.com",
+  "easterndns.com",
+  "joe.dj",
+  "swanndvr.net",
 ];
 
 // Brand names seen chained together in the abusive hostnames (bank /
