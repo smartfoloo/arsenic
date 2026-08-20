@@ -44,7 +44,8 @@ const BRAND_KEYWORDS = [
   "youla",
 ];
 
-const MAX_LABELS = 6;
+const MAX_LENGTH = 30;
+const MAX_LABELS = 4;
 const MAX_BRAND_KEYWORDS = 1;
 
 // Rate-limit how many *never-seen-before* hostnames can be approved in a
@@ -84,6 +85,12 @@ export function evaluateDomain(rawHostname) {
   const cached = decisionCache.get(hostname);
   const now = Date.now();
   if (cached && now - cached.at < CACHE_TTL_MS) return cached;
+
+  if (hostname.length > MAX_LENGTH) {
+    const result = { allow: false, reason: `hostname too long (${hostname.length} > ${MAX_LENGTH})` };
+    decisionCache.set(hostname, { ...result, at: now });
+    return result;
+  }
 
   const badSuffix = matchesBlockedSuffix(hostname);
   if (badSuffix) {
