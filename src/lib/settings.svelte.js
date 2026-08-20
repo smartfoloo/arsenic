@@ -82,7 +82,7 @@ export const settings = $state({
   cloak: "default",
   theme: "mocha",
   accent: "mauve",
-  wallpaper: "none",
+  wallpaper: "mesh",
   bookmarks: [],
   ...stored(),
 });
