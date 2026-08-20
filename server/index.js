@@ -15,6 +15,7 @@ import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import authRouter, { serveAvatar, serveMessageImage } from "./auth.js";
 import { handleChatUpgrade } from "./chat.js";
 import { createDecoyApp } from "./decoy.js";
+import { evaluateDomain } from "./domainGate.js";
 import { sweepOldMessages } from "./retention.js";
 
 const distPath = fileURLToPath(new URL("../dist/", import.meta.url));
@@ -53,6 +54,18 @@ app.use((req, res, next) => {
 // Timed by the start page's latency readout; no-store so a reverse proxy
 // in front of us can't answer it from cache.
 app.get("/ping", (req, res) => res.set("Cache-Control", "no-store").status(204).end());
+
+// Caddy's on_demand_tls "ask" check (see Caddyfile) — hit for every never-
+// before-seen hostname before Caddy spends a Let's Encrypt issuance on it.
+// Self-serve custom domains stay self-serve; this only turns away hostnames
+// matching the phishing-style abuse pattern (chained brand names on
+// wildcard-DNS-for-hire providers) and rate-limits bursts of brand-new
+// domains. See domainGate.js for the actual rules.
+app.get("/internal/tls-ask", (req, res) => {
+  const { allow, reason } = evaluateDomain(req.query.domain);
+  if (!allow) console.warn(`[tls-ask] denied ${req.query.domain}: ${reason}`);
+  res.status(allow ? 200 : 403).end();
+});
 
 if (chatEnabled) {
   app.use("/chat/api", express.json({ limit: "1kb" }), authRouter);
