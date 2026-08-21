@@ -1,4 +1,10 @@
-import { BACKEND_OPTIONS, TRANSPORT_OPTIONS, selectTransport } from "./backends.js";
+import {
+  BACKEND_OPTIONS,
+  LOCATION_OPTIONS,
+  TRANSPORT_OPTIONS,
+  selectLocation,
+  selectTransport,
+} from "./backends.js";
 
 const KEY = "arsenic:settings";
 
@@ -45,6 +51,7 @@ const CLOAK_TITLES = {
 const OPTIONS = {
   backend: BACKEND_OPTIONS,
   transport: TRANSPORT_OPTIONS,
+  location: LOCATION_OPTIONS,
   search: SEARCH_OPTIONS,
   cloak: CLOAK_OPTIONS,
   theme: THEME_OPTIONS,
@@ -78,6 +85,7 @@ function stored() {
 export const settings = $state({
   backend: "scramjet",
   transport: "epoxy",
+  location: "default",
   search: "duckduckgo",
   cloak: "default",
   theme: "mocha",
@@ -100,6 +108,10 @@ $effect.root(() => {
 
   $effect(() => {
     selectTransport(settings.transport);
+  });
+
+  $effect(() => {
+    selectLocation(settings.location);
   });
 
   // Theme, accent, wallpaper and backend are all pure CSS; picking which one

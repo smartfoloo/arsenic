@@ -1,17 +1,5 @@
 import express from "express";
 
-// Serves a fake e-reader app — a close UI/UX clone of a cloud ebook reader
-// (own neutral branding, not Amazon's), with a real short story loaded in
-// it. It doesn't filter by Host, so it's wildcard by construction: whichever
-// domain's traffic gets routed here (by the operator's own reverse proxy
-// config) sees the same cover story. Clicking the book title opens what
-// looks like an ordinary sign-in modal; the right password sets a cookie and
-// reloads in place — it does NOT navigate anywhere. The domain stays the
-// same domain throughout; it's the reverse proxy in front (Caddy) that reads
-// that cookie on the next request and switches which backend it proxies to,
-// decoy or real app, both under the same hostname. The password check itself
-// is entirely client-side and not meant to stop anyone who looks at the page
-// source — it's cover for casual visitors, not access control.
 export function createDecoyApp({ password, cookieName = "reader_session" }) {
   const app = express();
   app.use((req, res) => {

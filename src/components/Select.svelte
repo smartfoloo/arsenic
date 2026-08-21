@@ -12,7 +12,9 @@
   let active = $state(0);
 
   const open = $derived(openId === id);
-  const label = $derived((options.find(([val]) => val === value) ?? options[0])[1]);
+  const selected = $derived(options.find(([val]) => val === value) ?? options[0]);
+  const label = $derived(selected[1]);
+  const icon = $derived(selected[3]);
 
   function toggle() {
     if (open) return (openId = null);
@@ -67,12 +69,15 @@
     onclick={toggle}
     onkeydown={keydown}
   >
-    <span class="value">{label}</span>
+    <span class="value-group">
+      {#if icon}<span class="fi {icon} option-flag"></span>{/if}
+      <span class="value">{label}</span>
+    </span>
     <span class="chev"><ChevronDown /></span>
   </button>
 
   <div class="select-menu" id="{id}-menu" role="listbox" tabindex="-1">
-    {#each options as [val, text, description], i (val)}
+    {#each options as [val, text, description, optionIcon], i (val)}
       <!-- Keyboard interaction lives on the combobox trigger, per the ARIA pattern. -->
       <!-- svelte-ignore a11y_click_events_have_key_events -->
       <div
@@ -85,9 +90,12 @@
         onclick={() => pick(val)}
         onpointermove={() => (active = i)}
       >
-        <span class="text">
-          {text}
-          {#if description}<small>{description}</small>{/if}
+        <span class="value-group">
+          {#if optionIcon}<span class="fi {optionIcon} option-flag"></span>{/if}
+          <span class="text">
+            {text}
+            {#if description}<small>{description}</small>{/if}
+          </span>
         </span>
         <span class="check"><Check /></span>
       </div>

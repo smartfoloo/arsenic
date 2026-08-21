@@ -2,7 +2,7 @@
   import Search from "@lucide/svelte/icons/search";
 
   import Select from "./Select.svelte";
-  import { BACKEND_OPTIONS } from "../lib/backends.js";
+  import { BACKEND_OPTIONS, LOCATION_OPTIONS } from "../lib/backends.js";
   import { settings } from "../lib/settings.svelte.js";
   import { activeTab, activeUrl, open } from "../lib/tabs.svelte.js";
   import { resolve } from "../lib/url.js";
@@ -68,16 +68,26 @@
         bind:value={query}
         onkeydown={keydown}
       />
-      <Select
-        id="setStartBackend"
-        options={BACKEND_OPTIONS}
-        value={settings.backend}
-        onchange={(val) => (settings.backend = val)}
-      />
     </div>
-    <a id="discordLink" href="https://discord.gg/VA2JXq52j4" target="_blank" rel="noopener noreferrer">
-      Join the discord for links
-    </a>
+    <div id="startControls">
+      <a id="discordLink" href="https://discord.gg/VA2JXq52j4" target="_blank" rel="noopener noreferrer">
+        Join the discord for links
+      </a>
+      <div id="startControlsRight">
+        <Select
+          id="setStartBackend"
+          options={BACKEND_OPTIONS}
+          value={settings.backend}
+          onchange={(val) => (settings.backend = val)}
+        />
+        <Select
+          id="setStartLocation"
+          options={LOCATION_OPTIONS}
+          value={settings.location}
+          onchange={(val) => (settings.location = val)}
+        />
+      </div>
+    </div>
 
     {#if partners.length}
       <div id="partners">

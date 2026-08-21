@@ -21,7 +21,7 @@
       onclick={() => focus(tab.id)}
       onkeydown={(event) => event.key === "Enter" && focus(tab.id)}
     >
-      <div class="fav {tab.favicon || !tab.url ? 'bare' : `accent-${tab.color}`}">
+      <div class="fav bare">
         {#if tab.favicon}
           <img src={tab.favicon} alt="" draggable="false" />
         {:else}

@@ -30,22 +30,47 @@ const TRANSPORTS = {
   libcurl: ["libcurl", "/libcurl/index.mjs", "Fine for pages, faster on large downloads."],
 };
 
+/**
+ * Where proxied traffic exits to the internet from. "default" is same-origin
+ * (whatever domain served this page), which always works and needs no
+ * dedicated infrastructure. Other entries are fixed endpoints that trade that
+ * guarantee for a specific exit region — if one goes down or gets blocked,
+ * selectLocation falls back to "default" rather than breaking the app.
+ */
+const LOCATIONS = {
+  default: null,
+  // TODO: set once a Japan-hosted domain has been picked for this.
+  japan: "wss://charityschools.a2zrealty.biz/wisp/",
+};
+
+export const LOCATION_OPTIONS = [
+  ["default", "Philadelphia, PA", "", "fi-us"],
+  ["japan", "Tokyo, Japan", "", "fi-jp"],
+];
+
 let connection;
 let wanted = "epoxy";
+let wantedLocation = "default";
 let applied;
 let pending = Promise.resolve();
+
+function wispUrl() {
+  const fixed = LOCATIONS[wantedLocation];
+  if (fixed) return fixed;
+
+  const scheme = location.protocol === "https:" ? "wss" : "ws";
+  return `${scheme}://${location.host}/wisp/`;
+}
 
 function transport() {
   // Serialized, because ready() and a settings change can both land here.
   pending = pending.then(async () => {
     connection ??= new BareMuxConnection("/baremux/worker.js");
-    if (applied === wanted) return;
+    const key = `${wanted}|${wantedLocation}`;
+    if (applied === key) return;
 
-    const scheme = location.protocol === "https:" ? "wss" : "ws";
-    await connection.setTransport(TRANSPORTS[wanted][1], [
-      { wisp: `${scheme}://${location.host}/wisp/` },
-    ]);
-    applied = wanted;
+    await connection.setTransport(TRANSPORTS[wanted][1], [{ wisp: wispUrl() }]);
+    applied = key;
   });
 
   return pending;
@@ -59,6 +84,14 @@ export function selectTransport(name) {
   if (!TRANSPORTS[name] || name === wanted) return;
 
   wanted = name;
+  if (connection) transport();
+}
+
+/** Switch exit location. Same live-handoff as selectTransport. */
+export function selectLocation(name) {
+  if (!(name in LOCATIONS) || name === wantedLocation) return;
+
+  wantedLocation = name;
   if (connection) transport();
 }
 

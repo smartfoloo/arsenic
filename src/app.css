@@ -336,7 +336,7 @@ svg {
 .tab {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   height: 42px;
   padding: 0 10px;
   margin-bottom: 12px;
@@ -494,11 +494,10 @@ svg {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
   padding: 60px 24px;
 }
 #startPage h1 {
-  margin: 0;
+  margin: 0 0 24px;
   font-size: 36px;
   font-weight: 700;
   letter-spacing: -0.4px;
@@ -552,50 +551,62 @@ svg {
   color: var(--overlay0);
 }
 
-/* backend picker, chip-sized to sit inside #startBar instead of
-   filling a settings row */
-#setStartBackend.select {
+#startControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: min(624px, 100%);
+  margin-top: 4px;
+}
+#startControlsRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* backend/location pickers, chip-sized to sit under the search bar instead
+   of filling a settings row */
+#startControlsRight .select {
   flex: none;
   width: auto;
 }
-#setStartBackend .select-trigger {
+#startControlsRight .select-trigger {
   height: 36px;
   padding: 0 14px 0 12px;
   border-radius: 18px;
-  background: var(--mantle);
+  background: none;
   border: 1px solid transparent;
   font-size: 14px;
   gap: 8px;
 }
-#setStartBackend .select-trigger:hover,
-#setStartBackend.open .select-trigger {
+#startControlsRight .select-trigger:hover,
+#startControlsRight .select.open .select-trigger {
   background: var(--surface1);
 }
-#setStartBackend .select-trigger .value {
+#startControlsRight .select-trigger .value {
   color: var(--subtext0);
   flex: none;
 }
-#setStartBackend .select-menu {
+#startControlsRight .select-menu {
   min-width: 160px;
 }
 
 #discordLink {
-  color: var(--overlay1);
-  font-size: 16px;
-  text-decoration: none;
-  margin-top: -18px;
+  color: var(--accent);
+  font-size: 14px;
+  text-decoration: underline;
   transition: color 0.12s;
 }
 #discordLink:hover {
   color: var(--text);
-  text-decoration: underline;
 }
 
 #partners {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 2px;
+  margin-top: 96px;
 }
 .partners-label {
   font-size: 16px;
@@ -756,6 +767,13 @@ svg {
 .select-trigger:focus-visible {
   background: var(--surface0);
 }
+.value-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
 .select-trigger .value {
   flex: 1;
   min-width: 0;
@@ -822,13 +840,18 @@ svg {
 .select-option[aria-selected="true"] .check {
   opacity: 1;
 }
+.option-flag {
+  flex: none;
+  width: 16px;
+  border-radius: 2px;
+}
 
 /* Options carrying a description stack onto two lines; nowrap is inherited, so
    the menu just grows to the widest one rather than reflowing. */
 .select-option.described {
   height: auto;
   padding: 8px;
-  border-radius: 24px;
+  border-radius: 18px;
 }
 .select-option.described .text {
   display: flex;
@@ -843,9 +866,9 @@ svg {
 .btn {
   flex: none;
   height: 36px;
-  padding: 0 18px;
+  padding: 0 8px;
   border-radius: 18px; /* half of 36px: full pill */
-  background: var(--surface0);
+  background: var(--mantle);
   border: 1px solid var(--surface1);
   font-size: 16px;
   display: inline-flex;
@@ -855,7 +878,7 @@ svg {
   box-sizing: border-box;
 }
 .btn:hover {
-  background: var(--surface1);
+  background: var(--surface0);
 }
 .badge {
   display: inline-block;
@@ -1191,9 +1214,6 @@ svg {
   white-space: nowrap;
 }
 
-/* modal — absolute (not fixed) so it's scoped to the chat page's own box
-   (#chatPage already fills #content edge to edge) rather than the whole
-   app window, keeping the sidebar/tab list out from behind the backdrop. */
 .chatModalBackdrop {
   position: absolute;
   inset: 0;

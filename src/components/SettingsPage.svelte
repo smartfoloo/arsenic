@@ -1,6 +1,6 @@
 <script>
   import Select from "./Select.svelte";
-  import { BACKEND_OPTIONS, TRANSPORT_OPTIONS } from "../lib/backends.js";
+  import { BACKEND_OPTIONS, LOCATION_OPTIONS, TRANSPORT_OPTIONS } from "../lib/backends.js";
   import {
     ACCENTS,
     CLOAK_OPTIONS,
@@ -53,6 +53,18 @@
             options={TRANSPORT_OPTIONS}
             value={settings.transport}
             onchange={(val) => (settings.transport = val)}
+          />
+        </div>
+        <div class="row">
+          <div class="label">
+            <b>Server location</b>
+            <small>Where proxied traffic exits to the internet from.</small>
+          </div>
+          <Select
+            id="setLocation"
+            options={LOCATION_OPTIONS}
+            value={settings.location}
+            onchange={(val) => (settings.location = val)}
           />
         </div>
         <div class="row">
