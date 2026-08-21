@@ -634,7 +634,7 @@ svg {
   justify-content: space-between;
   gap: 12px;
   width: min(624px, 100%);
-  margin-top: 4px;
+  margin-top: 8px;
 }
 #startControlsRight {
   display: flex;
