@@ -14,7 +14,7 @@ import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 
 import authRouter, { serveAvatar, serveMessageImage } from "./auth.js";
 import { handleChatUpgrade } from "./chat.js";
-import { createDecoyApp } from "./decoy.js";
+import { renderDecoyPage } from "./decoy.js";
 import { evaluateDomain } from "./domainGate.js";
 import { sweepOldMessages } from "./retention.js";
 
@@ -22,15 +22,12 @@ const distPath = fileURLToPath(new URL("../dist/", import.meta.url));
 
 const dev = process.env.NODE_ENV !== "production";
 const port = Number(process.argv[2] || process.env.PORT) || 5000;
-// Off by default: any domain forwarded to this port gets a fake "learn to
-// code" site instead of arsenic, with a hero-button login modal that
-// redirects to the real app on the correct password. Wildcard by
-// construction — it doesn't look at the Host header at all.
-const decoyPort = process.env.ARSENIC_DECOY_PORT ? Number(process.env.ARSENIC_DECOY_PORT) : null;
-if (decoyPort && !process.env.ARSENIC_DECOY_PASSWORD) {
-  console.error("ARSENIC_DECOY_PASSWORD must be set when ARSENIC_DECOY_PORT is used");
-  process.exit(1);
-}
+// Off by default: with this set, "/" serves a fake "learn to code" site
+// instead of arsenic, with a hero-button login modal. On the correct
+// password the real app is pulled in over the same document (see decoy.js)
+// rather than via redirect, so the URL never changes and nothing persists
+// across a reload — every reload lands back on the decoy.
+const decoyPassword = process.env.ARSENIC_DECOY_PASSWORD || null;
 // Off by default: an open-source clone only gets a working chatroom when its
 // own operator deliberately opts in, not just by having the code.
 const chatEnabled = process.env.ARSENIC_CHAT_ENABLED === "true";
@@ -83,6 +80,13 @@ app.use("/baremux/", express.static(baremuxPath));
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/libcurl/", express.static(libcurlPath));
 
+// Decoy is a production-only, opt-in concern; dev keeps serving the real
+// app at "/" via Vite regardless of this env var.
+if (decoyPassword && !dev) {
+  app.get("/", (req, res) => res.type("html").send(renderDecoyPage({ password: decoyPassword })));
+  app.get("/__app", (req, res) => res.sendFile(`${distPath}index.html`));
+}
+
 if (dev) {
   const { createServer: createViteServer } = await import("vite");
   const vite = await createViteServer({
@@ -126,11 +130,3 @@ sweepOldMessages();
 setInterval(sweepOldMessages, 30 * 60 * 1000);
 
 server.listen({ port });
-
-if (decoyPort) {
-  const decoyApp = createDecoyApp({
-    password: process.env.ARSENIC_DECOY_PASSWORD,
-    cookieName: process.env.ARSENIC_DECOY_COOKIE || "reader_session",
-  });
-  decoyApp.listen(decoyPort, () => console.log(`Decoy listening on http://localhost:${decoyPort}`));
-}

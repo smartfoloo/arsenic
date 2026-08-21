@@ -1,13 +1,3 @@
-import express from "express";
-
-export function createDecoyApp({ password, cookieName = "reader_session" }) {
-  const app = express();
-  app.use((req, res) => {
-    res.type("html").send(renderDecoyPage({ password, cookieName }));
-  });
-  return app;
-}
-
 const BOOK_TITLE = "Kestrel Point";
 const BOOK_AUTHOR = "Idris Calloway";
 
@@ -73,7 +63,7 @@ const PAGES = [
    <p class="end">The End</p>`,
 ];
 
-function renderDecoyPage({ password, cookieName }) {
+export function renderDecoyPage({ password }) {
   const pagesJson = JSON.stringify(PAGES);
   return `<!doctype html>
 <html lang="en">
@@ -322,7 +312,6 @@ function renderDecoyPage({ password, cookieName }) {
 
   <script>
     const PASSWORD = ${JSON.stringify(password)};
-    const COOKIE_NAME = ${JSON.stringify(cookieName)};
     const PAGES = ${pagesJson};
 
     let idx = 0;
@@ -352,12 +341,20 @@ function renderDecoyPage({ password, cookieName }) {
 
     document.getElementById("submit").addEventListener("click", () => {
       const pw = document.getElementById("pw").value;
-      if (pw === PASSWORD) {
-        document.cookie = COOKIE_NAME + "=1; path=/; SameSite=Lax; Secure";
-        window.location.reload();
-      } else {
+      if (pw !== PASSWORD) {
         document.getElementById("err").classList.add("show");
+        return;
       }
+      // No cookie, no redirect: pull the real app in over this same
+      // document so the URL never changes and a reload always lands back
+      // on the decoy — nothing persists between page loads.
+      fetch("/__app")
+        .then((r) => r.text())
+        .then((html) => {
+          document.open();
+          document.write(html);
+          document.close();
+        });
     });
     document.getElementById("pw").addEventListener("keydown", (e) => {
       if (e.key === "Enter") document.getElementById("submit").click();

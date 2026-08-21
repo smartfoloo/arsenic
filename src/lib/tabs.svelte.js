@@ -39,6 +39,7 @@ export function newTab(url = null) {
     favicon: null,
     color: TAB_COLORS[id % TAB_COLORS.length],
     backendName: settings.backend,
+    locationName: settings.location,
     request: null,
     el: null,
     handle: null,
@@ -69,6 +70,7 @@ export function openInternal(kind) {
     favicon: null,
     color: null,
     backendName: null,
+    locationName: null,
     request: null,
     el: null,
     handle: null,
@@ -98,11 +100,16 @@ export function focus(id) {
  * frame overwrites `url` with wherever the page actually ended up.
  */
 export function navigate(tab, url) {
+  // Before the frame's ever attached (a blank tab on the start page), the
+  // tab hasn't actually committed to a backend yet, so pick up whatever's
+  // currently selected instead of the stale value from when it was created.
+  if (!tab.handle) tab.backendName = settings.backend;
   tab.url = url;
   tab.title = titleFor(url);
   tab.favicon = null;
   tab.inspecting = false;
   tab.request = { url };
+  tab.locationName = settings.location;
 }
 
 /** Address bar and start page both land here: reuse the active proxy tab, or open one. */
@@ -118,6 +125,7 @@ export function reload() {
 
   backendOf(tab).reload(tab.handle);
   tab.inspecting = false;
+  tab.locationName = settings.location;
 }
 
 function tabForHost(host) {

@@ -411,14 +411,91 @@ svg {
   height: 18px;
 }
 
+#newTabRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 42px;
+  padding: 0 10px;
+  border-radius: 24px;
+  color: var(--overlay1);
+  font-size: 16px;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+#newTabRow:hover {
+  background: var(--mantle);
+  color: var(--text);
+}
+#newTabRow svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-left: 3px; /* centers optically against the tab favicon column above it */
+}
+
 /* ---------- sidebar footer ---------- */
 
+#statusRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 12px;
+  margin-top: 6px;
+  border-top: 1px solid var(--surface0);
+}
+#backendIndicator {
+  font-size: 16px;
+  color: var(--overlay1);
+  padding-right: 10px;
+}
+#locationIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  color: var(--overlay1);
+}
+#locationIndicator.stale {
+  color: var(--overlay0);
+}
+#locationIndicator.stale .option-flag {
+  opacity: 0.5;
+}
+#locationReload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-left: -2px;
+  border-radius: 11px;
+  color: var(--accent);
+  transition: background 0.12s;
+}
+#locationReload:hover {
+  background: var(--surface0);
+}
+#locationReload svg {
+  width: 14px;
+  height: 14px;
+}
+/* Kept in flow (not removed from the DOM) even when there's nothing to
+   reload, so the row's height never changes when it appears/disappears. */
+#locationReload.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
 #footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 12px;
-  margin-top: 6px;
+  margin-top: 12px;
   border-top: 1px solid var(--surface0);
 }
 /* ---------- content ---------- */

@@ -1,10 +1,11 @@
 <script>
   import MessageCircle from "@lucide/svelte/icons/message-circle";
+  import Plus from "@lucide/svelte/icons/plus";
   import Cog from "@lucide/svelte/icons/settings";
   import X from "@lucide/svelte/icons/x";
 
   import { ICONS, iconForHost } from "../lib/icons.js";
-  import { closeTab, focus, tabs, ui } from "../lib/tabs.svelte.js";
+  import { closeTab, focus, newTab, tabs, ui } from "../lib/tabs.svelte.js";
   import { hostOf } from "../lib/url.js";
 
   const INTERNAL_ICONS = { settings: Cog, chat: MessageCircle };
@@ -41,4 +42,9 @@
       </button>
     </div>
   {/each}
+
+  <button id="newTabRow" onclick={() => newTab()}>
+    <Plus />
+    New Tab
+  </button>
 </div>
