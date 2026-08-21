@@ -63,8 +63,16 @@ const PAGES = [
    <p class="end">The End</p>`,
 ];
 
+// Flattened to one block (<h2>/<p>) per array entry — the client paginates
+// these dynamically based on how much space is actually available, rather
+// than using these 10 chunks as the pages themselves.
+const BLOCKS = PAGES.join("\n")
+  .split(/\n\s*(?=<h2|<p[ >])/)
+  .map((b) => b.trim())
+  .filter(Boolean);
+
 export function renderDecoyPage() {
-  const pagesJson = JSON.stringify(PAGES);
+  const blocksJson = JSON.stringify(BLOCKS);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -171,23 +179,18 @@ export function renderDecoyPage() {
     flex: 1;
     min-height: 0;
     display: flex;
-    background: #fff;
-    border-radius: 3px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    gap: 56px;
     overflow: hidden;
   }
   .page {
     flex: 1;
     min-width: 0;
     padding: 40px clamp(20px, 4vw, 40px) 24px;
-    overflow-y: auto;
+    overflow: hidden;
     font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif;
     font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.15rem);
     line-height: 1.75;
     overflow-wrap: break-word;
-  }
-  .page-right {
-    border-left: 1px solid var(--border);
   }
   .page-right.hidden {
     display: none;
@@ -311,28 +314,55 @@ export function renderDecoyPage() {
   </div>
 
   <script>
-    const PAGES = ${pagesJson};
+    const BLOCKS = ${blocksJson};
 
-    // Two facing pages on wide screens, one page on narrow ones — recomputed
-    // on resize so rotating a tablet or resizing a window doesn't strand you
-    // mid-spread.
     const spreadQuery = window.matchMedia("(min-width: 860px)");
     let pagesPerView = spreadQuery.matches ? 2 : 1;
     let idx = 0;
+    let PAGES = [];
 
     const leftEl = document.getElementById("page-left");
     const rightEl = document.getElementById("page-right");
     const pagenumEl = document.getElementById("pagenum");
 
+    // Packs BLOCKS into as many pages as it takes to fit leftEl's actual
+    // box with no scrolling — never splits a block, so a page may end a
+    // little short of the bottom rather than clip mid-paragraph.
+    function paginate() {
+      const measure = document.createElement("div");
+      const cs = getComputedStyle(leftEl);
+      measure.className = "page";
+      measure.style.position = "absolute";
+      measure.style.visibility = "hidden";
+      measure.style.top = "-9999px";
+      measure.style.width = leftEl.clientWidth + "px";
+      measure.style.padding = cs.padding;
+      measure.style.fontSize = cs.fontSize;
+      measure.style.lineHeight = cs.lineHeight;
+      document.body.appendChild(measure);
+
+      const available = leftEl.clientHeight;
+      const pages = [];
+      let current = [];
+      for (const block of BLOCKS) {
+        measure.innerHTML = current.concat(block).join("");
+        if (measure.scrollHeight > available && current.length) {
+          pages.push(current.join(""));
+          current = [block];
+        } else {
+          current.push(block);
+        }
+      }
+      if (current.length) pages.push(current.join(""));
+      document.body.removeChild(measure);
+      return pages;
+    }
+
     function render() {
       leftEl.innerHTML = PAGES[idx] || "";
-      leftEl.scrollTop = 0;
       const showRight = pagesPerView === 2;
       rightEl.classList.toggle("hidden", !showRight);
-      if (showRight) {
-        rightEl.innerHTML = PAGES[idx + 1] || "";
-        rightEl.scrollTop = 0;
-      }
+      if (showRight) rightEl.innerHTML = PAGES[idx + 1] || "";
       const last = showRight && PAGES[idx + 1] ? idx + 2 : idx + 1;
       pagenumEl.textContent =
         (showRight && PAGES[idx + 1] ? "Pages " + (idx + 1) + "–" + last : "Page " + (idx + 1)) +
@@ -344,6 +374,12 @@ export function renderDecoyPage() {
       if (pagesPerView === 2) idx -= idx % 2;
       render();
     }
+    function relayout() {
+      PAGES = paginate();
+      idx = Math.min(idx, PAGES.length - 1);
+      if (pagesPerView === 2) idx -= idx % 2;
+      render();
+    }
     document.getElementById("prev-zone").addEventListener("click", () => go(-1));
     document.getElementById("next-zone").addEventListener("click", () => go(1));
     document.addEventListener("keydown", (e) => {
@@ -352,10 +388,14 @@ export function renderDecoyPage() {
     });
     spreadQuery.addEventListener("change", (e) => {
       pagesPerView = e.matches ? 2 : 1;
-      if (pagesPerView === 2) idx -= idx % 2;
-      render();
+      relayout();
     });
-    render();
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(relayout, 150);
+    });
+    relayout();
 
     const overlay = document.getElementById("overlay");
     document.getElementById("title-trigger").addEventListener("click", () => overlay.classList.add("open"));
