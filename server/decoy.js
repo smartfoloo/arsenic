@@ -63,7 +63,7 @@ const PAGES = [
    <p class="end">The End</p>`,
 ];
 
-export function renderDecoyPage({ password }) {
+export function renderDecoyPage() {
   const pagesJson = JSON.stringify(PAGES);
   return `<!doctype html>
 <html lang="en">
@@ -213,19 +213,6 @@ export function renderDecoyPage({ password }) {
   }
   .modal h2 { margin: 0 0 4px; font-size: 1.3rem; font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif; }
   .modal p.sub { margin: 0 0 20px; color: var(--muted); font-size: 0.85rem; font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif; font-style: italic; }
-  .modal label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif; }
-  .modal input {
-    width: 100%;
-    background: #fafafa;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 10px 12px;
-    color: var(--text);
-    font-size: 0.95rem;
-    margin-bottom: 16px;
-    font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif;
-  }
-  .modal input:focus { outline: 1px solid var(--accent); }
   .modal button.submit {
     width: 100%;
     background: var(--accent);
@@ -237,14 +224,6 @@ export function renderDecoyPage({ password }) {
     cursor: pointer;
     font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif;
   }
-  .error {
-    color: #c0392b;
-    font-size: 0.82rem;
-    margin: -8px 0 14px;
-    display: none;
-    font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif;
-  }
-  .error.show { display: block; }
   .modal .close {
     float: right;
     background: none;
@@ -303,15 +282,11 @@ export function renderDecoyPage({ password }) {
       <button class="close" id="modal-close">&times;</button>
       <h2>Sign in</h2>
       <p class="sub">Continue to your account</p>
-      <label for="pw">Password</label>
-      <input id="pw" type="password" placeholder="••••••••" autocomplete="off" autofocus>
-      <p class="error" id="err">Incorrect password.</p>
-      <button class="submit" id="submit">Sign in</button>
+      <button class="submit" id="submit">Continue</button>
     </div>
   </div>
 
   <script>
-    const PASSWORD = ${JSON.stringify(password)};
     const PAGES = ${pagesJson};
 
     let idx = 0;
@@ -338,16 +313,12 @@ export function renderDecoyPage({ password }) {
     const overlay = document.getElementById("overlay");
     document.getElementById("title-trigger").addEventListener("click", () => overlay.classList.add("open"));
     document.getElementById("modal-close").addEventListener("click", () => overlay.classList.remove("open"));
+    overlay.classList.add("open");
 
     document.getElementById("submit").addEventListener("click", () => {
-      const pw = document.getElementById("pw").value;
-      if (pw !== PASSWORD) {
-        document.getElementById("err").classList.add("show");
-        return;
-      }
-      // No cookie, no redirect: pull the real app in over this same
-      // document so the URL never changes and a reload always lands back
-      // on the decoy — nothing persists between page loads.
+      // No password, no cookie, no redirect: pull the real app in over this
+      // same document so the URL never changes and a reload always lands
+      // back on the decoy — nothing persists between page loads.
       fetch("/__app")
         .then((r) => r.text())
         .then((html) => {
@@ -355,9 +326,6 @@ export function renderDecoyPage({ password }) {
           document.write(html);
           document.close();
         });
-    });
-    document.getElementById("pw").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") document.getElementById("submit").click();
     });
   </script>
 </body>

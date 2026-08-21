@@ -23,11 +23,11 @@ const distPath = fileURLToPath(new URL("../dist/", import.meta.url));
 const dev = process.env.NODE_ENV !== "production";
 const port = Number(process.argv[2] || process.env.PORT) || 5000;
 // Off by default: with this set, "/" serves a fake "learn to code" site
-// instead of arsenic, with a hero-button login modal. On the correct
-// password the real app is pulled in over the same document (see decoy.js)
-// rather than via redirect, so the URL never changes and nothing persists
-// across a reload — every reload lands back on the decoy.
-const decoyPassword = process.env.ARSENIC_DECOY_PASSWORD || null;
+// instead of arsenic, with a "Sign in to continue" popup that opens on
+// load. Clicking Continue pulls the real app in over the same document
+// (see decoy.js) rather than via redirect, so the URL never changes and
+// nothing persists across a reload — every reload lands back on the decoy.
+const decoyEnabled = process.env.ARSENIC_DECOY_ENABLED === "true";
 // Off by default: an open-source clone only gets a working chatroom when its
 // own operator deliberately opts in, not just by having the code.
 const chatEnabled = process.env.ARSENIC_CHAT_ENABLED === "true";
@@ -82,8 +82,8 @@ app.use("/libcurl/", express.static(libcurlPath));
 
 // Decoy is a production-only, opt-in concern; dev keeps serving the real
 // app at "/" via Vite regardless of this env var.
-if (decoyPassword && !dev) {
-  app.get("/", (req, res) => res.type("html").send(renderDecoyPage({ password: decoyPassword })));
+if (decoyEnabled && !dev) {
+  app.get("/", (req, res) => res.type("html").send(renderDecoyPage()));
   app.get("/__app", (req, res) => res.sendFile(`${distPath}index.html`));
 }
 
