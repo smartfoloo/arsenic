@@ -156,18 +156,41 @@ export function renderDecoyPage() {
   .zone svg { width: 22px; height: 22px; }
   .page-wrap {
     flex: 1;
+    min-width: 0;
+    min-height: 0;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    padding: 24px 12px;
+  }
+  .spread {
+    width: 100%;
+    max-width: 1040px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
   }
   .page {
-    width: 100%;
-    max-width: 640px;
-    padding: 48px 32px 24px;
+    flex: 1;
+    min-width: 0;
+    padding: 40px clamp(20px, 4vw, 40px) 24px;
     overflow-y: auto;
     font-family: Georgia, "Palatino Linotype", "Iowan Old Style", serif;
-    font-size: 1.15rem;
+    font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.15rem);
     line-height: 1.75;
+    overflow-wrap: break-word;
+  }
+  .page-right {
+    border-left: 1px solid var(--border);
+  }
+  .page-right.hidden {
+    display: none;
   }
   .page h2 {
     font-size: 1.6rem;
@@ -267,10 +290,11 @@ export function renderDecoyPage() {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
     </div>
     <div class="page-wrap">
-      <div>
-        <div class="page" id="page"></div>
-        <div class="pagenum" id="pagenum"></div>
+      <div class="spread" id="spread">
+        <div class="page" id="page-left"></div>
+        <div class="page page-right" id="page-right"></div>
       </div>
+      <div class="pagenum" id="pagenum"></div>
     </div>
     <div class="zone" id="next-zone">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
@@ -289,17 +313,35 @@ export function renderDecoyPage() {
   <script>
     const PAGES = ${pagesJson};
 
+    // Two facing pages on wide screens, one page on narrow ones — recomputed
+    // on resize so rotating a tablet or resizing a window doesn't strand you
+    // mid-spread.
+    const spreadQuery = window.matchMedia("(min-width: 860px)");
+    let pagesPerView = spreadQuery.matches ? 2 : 1;
     let idx = 0;
-    const pageEl = document.getElementById("page");
+
+    const leftEl = document.getElementById("page-left");
+    const rightEl = document.getElementById("page-right");
     const pagenumEl = document.getElementById("pagenum");
 
     function render() {
-      pageEl.innerHTML = PAGES[idx];
-      pageEl.scrollTop = 0;
-      pagenumEl.textContent = "Page " + (idx + 1) + " of " + PAGES.length;
+      leftEl.innerHTML = PAGES[idx] || "";
+      leftEl.scrollTop = 0;
+      const showRight = pagesPerView === 2;
+      rightEl.classList.toggle("hidden", !showRight);
+      if (showRight) {
+        rightEl.innerHTML = PAGES[idx + 1] || "";
+        rightEl.scrollTop = 0;
+      }
+      const last = showRight && PAGES[idx + 1] ? idx + 2 : idx + 1;
+      pagenumEl.textContent =
+        (showRight && PAGES[idx + 1] ? "Pages " + (idx + 1) + "–" + last : "Page " + (idx + 1)) +
+        " of " +
+        PAGES.length;
     }
     function go(delta) {
-      idx = Math.max(0, Math.min(PAGES.length - 1, idx + delta));
+      idx = Math.max(0, Math.min(PAGES.length - 1, idx + pagesPerView * delta));
+      if (pagesPerView === 2) idx -= idx % 2;
       render();
     }
     document.getElementById("prev-zone").addEventListener("click", () => go(-1));
@@ -307,6 +349,11 @@ export function renderDecoyPage() {
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "ArrowRight") go(1);
+    });
+    spreadQuery.addEventListener("change", (e) => {
+      pagesPerView = e.matches ? 2 : 1;
+      if (pagesPerView === 2) idx -= idx % 2;
+      render();
     });
     render();
 
