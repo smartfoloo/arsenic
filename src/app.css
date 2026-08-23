@@ -631,7 +631,7 @@ svg {
 #startControls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
   width: min(624px, 100%);
   margin-top: 8px;
@@ -669,14 +669,77 @@ svg {
   min-width: 160px;
 }
 
-#discordLink {
-  color: var(--accent);
-  font-size: 14px;
-  text-decoration: underline;
+#discordToast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--crust);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  animation: discordToastIn 0.25s ease-out;
+}
+#discordToast.closing {
+  animation: discordToastOut 0.3s ease-in forwards;
+}
+#discordToast a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-size: 16px;
+  text-decoration: none;
   transition: color 0.12s;
 }
-#discordLink:hover {
+#discordToast a:hover {
+  color: var(--accent);
+}
+#discordToast a svg {
+  width: 16px;
+  height: 16px;
+}
+#discordToast button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 24px;
+  border: none;
+  background: none;
+  color: var(--overlay0);
+  cursor: pointer;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+#discordToast button:hover {
+  background: var(--surface0);
   color: var(--text);
+}
+#discordToast button svg {
+  width: 16px;
+  height: 16px;
+}
+@keyframes discordToastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes discordToastOut {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 }
 
 #partners {

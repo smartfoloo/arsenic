@@ -70,9 +70,6 @@
       />
     </div>
     <div id="startControls">
-      <a id="discordLink" href="https://discord.gg/VA2JXq52j4" target="_blank" rel="noopener noreferrer">
-        Join the discord for links
-      </a>
       <div id="startControlsRight">
         <Select
           id="setStartBackend"
