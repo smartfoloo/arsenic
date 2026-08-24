@@ -1071,8 +1071,12 @@ svg {
   padding: 0 14px;
   border-radius: 12px;
   background: var(--base);
+  border: 1px solid var(--surface1);
   outline: 0;
   font-size: 15px;
+  font: inherit;
+  color: var(--text);
+  box-sizing: border-box;
 }
 #chatAuthForm label.checkbox {
   flex-direction: row;
@@ -1566,7 +1570,7 @@ svg {
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  padding: 6px 6px 6px 12px;
+  padding: 6px;
   border-radius: 42px;
   background: var(--mantle);
   transition: border-color 0.12s;
@@ -1620,6 +1624,7 @@ svg {
 .chatImageBtn,
 .chatSendBtn {
   flex: none;
+  align-self: center;
   width: 36px;
   height: 36px;
   border-radius: 24px;
@@ -1629,12 +1634,12 @@ svg {
   cursor: pointer;
 }
 .chatImageBtn {
-  background: none;
-  border: 1px solid var(--surface0);
+  background: var(--surface0);
+  border: 0;
   color: var(--subtext1);
 }
 .chatImageBtn:hover {
-  background: var(--surface0);
+  background: var(--surface1);
   color: var(--text);
 }
 .chatImageBtn svg {
