@@ -12,6 +12,7 @@ import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { scramjetPath } from "@mercuryworkshop/scramjet/path";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 
+import { aiEnabled, handleAiChat, handleAiStatus } from "./ai.js";
 import authRouter, { serveAvatar, serveMessageImage } from "./auth.js";
 import { handleChatUpgrade } from "./chat.js";
 import { renderDecoyPage } from "./decoy.js";
@@ -65,17 +66,6 @@ app.get("/internal/tls-ask", (req, res) => {
 });
 
 if (chatEnabled) {
-  // Cross-origin clients (the static build, hosted wherever) authenticate
-  // with a bearer token instead of a cookie — see readAuth in session.js —
-  // so this can safely allow any origin without opening up CSRF: there are
-  // no ambient credentials for a third-party page to ride along on.
-  app.use("/chat/api", (req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", req.headers.origin ?? "*");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
-    if (req.method === "OPTIONS") return res.status(204).end();
-    next();
-  });
   app.use("/chat/api", express.json({ limit: "1kb" }), authRouter);
   app.get("/chat/avatars/:uid", serveAvatar);
   app.get("/chat/messages/:id/image", serveMessageImage);
@@ -83,6 +73,14 @@ if (chatEnabled) {
   app.use(["/chat/api", "/chat/avatars", "/chat/messages"], (req, res) =>
     res.status(404).json({ error: "chat_disabled" }),
   );
+}
+
+// No login gate (unlike chat) — the sidebar hides the icon entirely when
+// this is off, so /ai/status just needs to exist unconditionally for it to
+// find out. The chat route only exists when enabled.
+app.get("/ai/status", handleAiStatus);
+if (aiEnabled) {
+  app.post("/ai/chat", express.json({ limit: "64kb" }), handleAiChat);
 }
 
 app.use("/scram/", express.static(scramjetPath));
@@ -114,7 +112,7 @@ server.on("request", app);
 
 server.on("upgrade", (req, socket, head) => {
   if (req.url.endsWith("/wisp/")) wisp.routeRequest(req, socket, head);
-  else if (req.url === "/chat/ws" || req.url.startsWith("/chat/ws?")) {
+  else if (req.url === "/chat/ws") {
     if (chatEnabled) handleChatUpgrade(req, socket, head);
     else socket.end();
   }

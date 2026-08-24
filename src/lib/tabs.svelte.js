@@ -1,3 +1,4 @@
+import { sessionById } from "./ai.svelte.js";
 import { backends } from "./backends.js";
 import { iconForHost } from "./icons.js";
 import { MAX_BOOKMARKS, settings } from "./settings.svelte.js";
@@ -67,6 +68,41 @@ export function openInternal(kind) {
     kind,
     url: null,
     title: INTERNAL_TITLES[kind],
+    favicon: null,
+    color: null,
+    backendName: null,
+    locationName: null,
+    request: null,
+    el: null,
+    handle: null,
+    inspecting: false,
+  };
+
+  tabs.push(tab);
+  focus(id);
+  return tab;
+}
+
+/**
+ * AI isn't a singleton like settings/chat — each session gets its own tab,
+ * plus one more for a not-yet-started draft (sessionId null). Passing no id
+ * reuses an existing draft tab rather than piling up empty ones; passing a
+ * real session id reuses that session's tab if it's already open.
+ */
+export function openAiTab(sessionId = null) {
+  const existing = tabs.find((tab) => tab.kind === "ai" && tab.sessionId === sessionId);
+  if (existing) {
+    focus(existing.id);
+    return existing;
+  }
+
+  const id = ++seq;
+  const tab = {
+    id,
+    kind: "ai",
+    sessionId,
+    url: null,
+    title: sessionId ? (sessionById(sessionId)?.title ?? "AI") : "AI",
     favicon: null,
     color: null,
     backendName: null,

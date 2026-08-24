@@ -2,6 +2,7 @@ node_modules/
 dist/
 server/data/
 .env
+.env.example
 .DS_Store
 AGENTS.md
 CLAUDE.md

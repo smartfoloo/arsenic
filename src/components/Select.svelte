@@ -7,7 +7,7 @@
   import Check from "@lucide/svelte/icons/check";
   import ChevronDown from "@lucide/svelte/icons/chevron-down";
 
-  let { id, options, value, onchange } = $props();
+  let { id, options, value, onchange, class: extraClass = "" } = $props();
 
   let active = $state(0);
 
@@ -59,7 +59,7 @@
   }}
 />
 
-<div {id} class="select" class:open>
+<div {id} class="select {extraClass}" class:open>
   <button
     type="button"
     class="select-trigger"

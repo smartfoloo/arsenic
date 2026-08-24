@@ -1,10 +1,13 @@
 <script>
   import { tick } from "svelte";
 
+  import Eraser from "@lucide/svelte/icons/eraser";
   import Lock from "@lucide/svelte/icons/lock";
+  import Pencil from "@lucide/svelte/icons/pencil";
   import Pin from "@lucide/svelte/icons/pin";
   import PinOff from "@lucide/svelte/icons/pin-off";
   import Trash2 from "@lucide/svelte/icons/trash-2";
+  import Unlock from "@lucide/svelte/icons/unlock";
   import UserX from "@lucide/svelte/icons/user-x";
 
   import ChatAuthForm from "./ChatAuthForm.svelte";
@@ -29,6 +32,7 @@
   } from "../lib/chat.svelte.js";
   import { linkHref, linkify, withChannelMentions } from "../lib/linkify.js";
   import { activeTab } from "../lib/tabs.svelte.js";
+  import { tooltip } from "../lib/tooltip.js";
 
   const GROUP_GAP_MS = 5 * 60 * 1000;
 
@@ -172,17 +176,26 @@
             </div>
             {#if chat.isAdmin && activeChannel}
               <div class="chatHeaderActions">
-                <button class="chatModeToggle" onclick={() => (editChannelModalOpen = true)}>
-                  Edit channel
+                <button
+                  class="iconbtn"
+                  aria-label="Edit channel"
+                  use:tooltip={"Edit channel"}
+                  onclick={() => (editChannelModalOpen = true)}
+                >
+                  <Pencil />
                 </button>
                 <button
-                  class="chatModeToggle"
+                  class="iconbtn"
+                  aria-label={activeChannel.locked ? "Unlock channel" : "Lock channel"}
+                  use:tooltip={activeChannel.locked ? "Unlock channel" : "Lock channel"}
                   onclick={() => runAdminAction(() => setChannelLocked(activeChannel.id, !activeChannel.locked))}
                 >
-                  {activeChannel.locked ? "Unlock channel" : "Lock channel"}
+                  {#if activeChannel.locked}<Unlock />{:else}<Lock />{/if}
                 </button>
                 <button
-                  class="chatModeToggle"
+                  class="iconbtn"
+                  aria-label="Clear channel"
+                  use:tooltip={"Clear channel"}
                   onclick={() =>
                     (confirmAction = {
                       title: "Clear channel",
@@ -191,10 +204,12 @@
                       run: () => clearChannel(activeChannel.id),
                     })}
                 >
-                  Clear
+                  <Eraser />
                 </button>
                 <button
-                  class="chatModeToggle"
+                  class="iconbtn"
+                  aria-label="Delete channel"
+                  use:tooltip={"Delete channel"}
                   onclick={() =>
                     (confirmAction = {
                       title: "Delete channel",
@@ -203,7 +218,7 @@
                       run: () => deleteChannel(activeChannel.id),
                     })}
                 >
-                  Delete channel
+                  <Trash2 />
                 </button>
               </div>
             {/if}
@@ -221,7 +236,8 @@
               {#if chat.isAdmin && !chat.activeDmUsername}
                 <button
                   class="chatMessageAction"
-                  title={message.pinned ? "Unpin message" : "Pin message"}
+                  aria-label={message.pinned ? "Unpin message" : "Pin message"}
+                  use:tooltip={message.pinned ? "Unpin message" : "Pin message"}
                   onclick={() =>
                     runAdminAction(() => (message.pinned ? unpinMessage(message.id) : pinMessage(message.id)))}
                 >
@@ -229,7 +245,8 @@
                 </button>
                 <button
                   class="chatMessageAction"
-                  title="Delete message"
+                  aria-label="Delete message"
+                  use:tooltip={"Delete message"}
                   onclick={() => runAdminAction(() => deleteMessage(message.id))}
                 >
                   <Trash2 />
@@ -237,7 +254,8 @@
                 {#if message.username !== chat.authUsername}
                   <button
                     class="chatMessageAction"
-                    title="Ban {message.username}"
+                    aria-label="Ban {message.username}"
+                    use:tooltip={`Ban ${message.username}`}
                     onclick={() =>
                       (confirmAction = {
                         title: "Ban user",

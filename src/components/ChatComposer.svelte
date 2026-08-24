@@ -5,8 +5,9 @@
   import Plus from "@lucide/svelte/icons/plus";
 
   import { chat, sendImage, sendMessage } from "../lib/chat.svelte.js";
+  import { tooltip } from "../lib/tooltip.js";
 
-  const MAX_TEXTAREA_HEIGHT = 124; // ~5 lines, kept in sync with .chatComposerField textarea max-height
+  const MAX_TEXTAREA_HEIGHT = 140; // ~5 lines, kept in sync with .chatComposerField textarea max-height
 
   let { placeholder = "Message" } = $props();
   let draft = $state("");
@@ -61,13 +62,13 @@
 
 <form id="chatComposer" onsubmit={submit}>
   {#if imageError}<p class="chatError">{imageError}</p>{/if}
-  <div class="chatComposerField" class:hasImageBtn={chat.isAdmin && !chat.activeDmUsername}>
+  <div class="chatComposerField">
     {#if chat.isAdmin && !chat.activeDmUsername}
       <button
         type="button"
         class="chatImageBtn"
-        title="Send an image"
         aria-label="Send an image"
+        use:tooltip={"Send an image"}
         onclick={() => imageInput.click()}
       >
         <Plus />
@@ -89,7 +90,7 @@
       rows="1"
       disabled={locked}
     ></textarea>
-    <button class="chatSendBtn" type="submit" title="Send" aria-label="Send" disabled={locked}>
+    <button class="chatSendBtn" type="submit" aria-label="Send" disabled={locked}>
       <ArrowUp />
     </button>
   </div>

@@ -21,6 +21,16 @@
     win.document.body.style.margin = "0";
     win.document.body.append(frame);
   }
+
+  function clearAllStorage() {
+    const ok = confirm(
+      "Clear all local storage? This removes your settings, bookmarks, and AI sessions, plus anything sites you've visited through arsenic have stored here. This can't be undone.",
+    );
+    if (!ok) return;
+
+    localStorage.clear();
+    location.reload();
+  }
 </script>
 
 <section class="page" id="settingsPage" class:active={activeTab()?.kind === "settings"}>
@@ -149,6 +159,19 @@
             value={settings.wallpaper}
             onchange={(val) => (settings.wallpaper = val)}
           />
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h2>Data</h2>
+      <div class="card">
+        <div class="row">
+          <div class="label">
+            <b>Clear local storage</b>
+            <small>Erases everything saved in this browser, including AI sessions.</small>
+          </div>
+          <button class="btn danger" onclick={clearAllStorage}>Clear</button>
         </div>
       </div>
     </div>

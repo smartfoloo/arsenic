@@ -1,6 +1,5 @@
 <script>
   import Content from "./components/Content.svelte";
-  import DiscordToast from "./components/DiscordToast.svelte";
   import Sidebar from "./components/Sidebar.svelte";
   import { closeTab, newTab, ui } from "./lib/tabs.svelte.js";
 
@@ -23,4 +22,3 @@
   <Sidebar />
   <Content />
 </div>
-<DiscordToast />

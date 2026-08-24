@@ -13,7 +13,7 @@ import {
   olderMessages,
   recentMessages,
 } from "./db.js";
-import { readAuth } from "./session.js";
+import { readSession } from "./session.js";
 
 const MAX_BODY_LENGTH = 1000;
 const PAGE_SIZE = 50;
@@ -224,10 +224,7 @@ wss.on("connection", (ws, req, user) => {
 });
 
 export function handleChatUpgrade(req, socket, head) {
-  // Browser WebSocket has no way to set an Authorization header, so a
-  // cross-origin client (see readAuth in session.js) passes its bearer
-  // token as a query param instead — the one case readAuth accepts that.
-  const user = readAuth(req);
+  const user = readSession(req.headers.cookie);
   if (!user || isUserBanned(user.uid)) {
     socket.write("HTTP/1.1 401 Unauthorized\r\n\r\n");
     socket.destroy();

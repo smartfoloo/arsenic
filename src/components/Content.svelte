@@ -1,6 +1,7 @@
 <script>
   import PanelLeft from "@lucide/svelte/icons/panel-left";
 
+  import AiPage from "./AiPage.svelte";
   import ChatPage from "./ChatPage.svelte";
   import Frame from "./Frame.svelte";
   import SettingsPage from "./SettingsPage.svelte";
@@ -27,4 +28,7 @@
   <StartPage />
   <SettingsPage />
   <ChatPage />
+  {#each tabs.filter((tab) => tab.kind === "ai") as tab (tab.id)}
+    <AiPage id={tab.id} />
+  {/each}
 </main>

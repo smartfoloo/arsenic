@@ -22,29 +22,6 @@ export const chat = $state({
 
 const PAGE_SIZE = 50;
 
-// Set only in the static build (see vite.static.config.mjs), which has no
-// server of its own to be same-origin with — it authenticates via a bearer
-// token instead of a cookie (server/session.js's readAuth). Empty here means
-// same-origin cookie auth, unchanged for the main app.
-const CHAT_BASE = (import.meta.env.VITE_CHAT_BASE_URL ?? "").replace(/\/$/, "");
-const TOKEN_KEY = "arsenic:chatToken";
-
-function getToken() {
-  return CHAT_BASE ? localStorage.getItem(TOKEN_KEY) : null;
-}
-function setToken(token) {
-  if (!CHAT_BASE) return;
-  if (token) localStorage.setItem(TOKEN_KEY, token);
-  else localStorage.removeItem(TOKEN_KEY);
-}
-
-// Server responses carry relative "/chat/..." URLs (avatars, message
-// images) — fine same-origin, but a cross-origin static page needs them
-// resolved against the chat backend rather than its own origin.
-export function resolveChatUrl(path) {
-  return path && CHAT_BASE ? `${CHAT_BASE}${path}` : path;
-}
-
 let socket = null;
 
 async function request(path, { method = "GET", json, formData } = {}) {
@@ -56,18 +33,10 @@ async function request(path, { method = "GET", json, formData } = {}) {
   } else if (formData) {
     body = formData;
   }
-  const token = getToken();
-  if (token) headers["Authorization"] = `Bearer ${token}`;
 
-  const response = await fetch(`${CHAT_BASE}/chat/api/${path}`, {
-    method,
-    headers,
-    credentials: CHAT_BASE ? "omit" : "same-origin",
-    body,
-  });
+  const response = await fetch(`/chat/api/${path}`, { method, headers, credentials: "same-origin", body });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(data.error ?? "request_failed");
-  if (data.token !== undefined) setToken(data.token);
   return data;
 }
 
@@ -76,7 +45,7 @@ export async function checkAuth() {
     const data = await request("me");
     chat.authUsername = data.username;
     chat.isAdmin = !!data.isAdmin;
-    chat.avatarUrl = resolveChatUrl(data.avatarUrl) ?? null;
+    chat.avatarUrl = data.avatarUrl ?? null;
   } catch (err) {
     if (err.message === "chat_disabled") chat.disabled = true;
   } finally {
@@ -102,7 +71,6 @@ export async function login(username, password) {
 
 export async function logout() {
   await request("logout", { method: "POST" });
-  setToken(null);
   chat.authUsername = null;
   chat.isAdmin = false;
   chat.avatarUrl = null;
@@ -124,7 +92,7 @@ export async function uploadAvatar(file) {
   const formData = new FormData();
   formData.append("avatar", file);
   const data = await request("avatar", { method: "POST", formData });
-  chat.avatarUrl = resolveChatUrl(data.avatarUrl);
+  chat.avatarUrl = data.avatarUrl;
 }
 
 export async function fetchChannels() {
@@ -250,20 +218,8 @@ function send(payload) {
 export function connect() {
   if (socket) return;
 
-  let wsProtocol, wsHost;
-  if (CHAT_BASE) {
-    const base = new URL(CHAT_BASE);
-    wsProtocol = base.protocol === "https:" ? "wss" : "ws";
-    wsHost = base.host;
-  } else {
-    wsProtocol = location.protocol === "https:" ? "wss" : "ws";
-    wsHost = location.host;
-  }
-  // Browser WebSocket can't carry an Authorization header — the token rides
-  // as a query param instead (handleChatUpgrade in server/chat.js).
-  const token = getToken();
-  const query = token ? `?token=${encodeURIComponent(token)}` : "";
-  socket = new WebSocket(`${wsProtocol}://${wsHost}/chat/ws${query}`);
+  const protocol = location.protocol === "https:" ? "wss" : "ws";
+  socket = new WebSocket(`${protocol}://${location.host}/chat/ws`);
 
   socket.onopen = () => {
     chat.connected = true;
@@ -288,39 +244,26 @@ function otherParty(dm) {
   return dm.fromUsername === chat.authUsername ? dm.toUsername : dm.fromUsername;
 }
 
-// Messages arrive over the WebSocket with the same relative "/chat/..."
-// URLs the REST responses have (see resolveChatUrl above) — resolve them
-// once here rather than at every render site.
-function resolveMessage(m) {
-  return { ...m, avatarUrl: resolveChatUrl(m.avatarUrl), imageUrl: resolveChatUrl(m.imageUrl) };
-}
-
 function handleMessage(data) {
   if (data.type === "history") {
-    chat.channelMessages[data.channelId] = data.messages.map(resolveMessage);
+    chat.channelMessages[data.channelId] = data.messages;
     chat.channelHasMore[data.channelId] = data.messages.length === PAGE_SIZE;
   } else if (data.type === "message") {
-    (chat.channelMessages[data.channelId] ??= []).push(resolveMessage(data));
+    (chat.channelMessages[data.channelId] ??= []).push(data);
   } else if (data.type === "olderMessages") {
-    chat.channelMessages[data.channelId] = [
-      ...data.messages.map(resolveMessage),
-      ...(chat.channelMessages[data.channelId] ?? []),
-    ];
+    chat.channelMessages[data.channelId] = [...data.messages, ...(chat.channelMessages[data.channelId] ?? [])];
     chat.channelHasMore[data.channelId] = data.hasMore;
     chat.channelLoadingMore[data.channelId] = false;
   } else if (data.type === "dm") {
-    (chat.dmThreads[otherParty(data)] ??= []).push(resolveMessage(data));
+    (chat.dmThreads[otherParty(data)] ??= []).push(data);
   } else if (data.type === "dmHistory") {
-    chat.dmThreads[data.withUsername] = data.messages.map(resolveMessage);
+    chat.dmThreads[data.withUsername] = data.messages;
     chat.dmHasMore[data.withUsername] = data.messages.length === PAGE_SIZE;
     chat.activeChannelId = null;
     chat.activeDmUsername = data.withUsername;
     chat.dmError = null;
   } else if (data.type === "olderDms") {
-    chat.dmThreads[data.withUsername] = [
-      ...data.messages.map(resolveMessage),
-      ...(chat.dmThreads[data.withUsername] ?? []),
-    ];
+    chat.dmThreads[data.withUsername] = [...data.messages, ...(chat.dmThreads[data.withUsername] ?? [])];
     chat.dmHasMore[data.withUsername] = data.hasMore;
     chat.dmLoadingMore[data.withUsername] = false;
   } else if (data.type === "messagePinned" || data.type === "messageUnpinned") {
