@@ -36,7 +36,7 @@ import {
   unbanUser,
   unpinMessage,
 } from "./db.js";
-import { clearSessionCookie, readSession, setSessionCookie } from "./session.js";
+import { clearSessionCookie, readAuth, setSessionCookie, signCookie } from "./session.js";
 
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,20}$/;
 const CHANNEL_NAME_PATTERN = /^[a-z0-9-]{2,30}$/;
@@ -66,7 +66,7 @@ function avatarUrlFor(userId) {
 }
 
 function requireAuth(req, res, next) {
-  const session = readSession(req.headers.cookie);
+  const session = readAuth(req);
   if (!session) return res.status(401).json({ error: "not_authenticated" });
 
   req.session = session;
@@ -74,7 +74,7 @@ function requireAuth(req, res, next) {
 }
 
 function requireAdmin(req, res, next) {
-  const session = readSession(req.headers.cookie);
+  const session = readAuth(req);
   if (!session) return res.status(401).json({ error: "not_authenticated" });
   if (!isAdmin(session.username)) return res.status(403).json({ error: "not_admin" });
 
@@ -122,7 +122,10 @@ router.post("/signup", async (req, res) => {
   }
 
   setSessionCookie(res, { uid: user.id, username: user.username });
-  res.json({ username: user.username });
+  // Also returned as a bearer token: a page that can't share cookies with
+  // this origin (see readAuth in session.js) has no other way to stay
+  // signed in. Cookie-based callers just ignore the field.
+  res.json({ username: user.username, token: signCookie({ uid: user.id, username: user.username }) });
 });
 
 router.post("/login", async (req, res) => {
@@ -146,7 +149,7 @@ router.post("/login", async (req, res) => {
   }
 
   setSessionCookie(res, { uid: user.id, username: user.username });
-  res.json({ username: user.username });
+  res.json({ username: user.username, token: signCookie({ uid: user.id, username: user.username }) });
 });
 
 router.post("/logout", (req, res) => {
@@ -155,7 +158,7 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/me", (req, res) => {
-  const session = readSession(req.headers.cookie);
+  const session = readAuth(req);
   if (!session) return res.json({ username: null });
 
   res.json({

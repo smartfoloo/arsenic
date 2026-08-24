@@ -72,6 +72,23 @@ export function readSession(cookieHeader) {
   return verifyCookie(value);
 }
 
+// Same signed payload, two transports: the main app gets it as an HttpOnly
+// cookie (readSession above); a page that can't share cookies with this
+// origin — e.g. the static build, dropped at an unpredictable third-party
+// URL — gets it back as a bearer token on login/signup instead and sends it
+// in an Authorization header (or, for the WebSocket, a query param, since
+// browsers can't set custom headers on WebSocket handshakes).
+export function readAuth(req) {
+  const authHeader = req.headers.authorization;
+  if (authHeader?.startsWith("Bearer ")) return verifyCookie(authHeader.slice(7));
+
+  const url = req.url ? new URL(req.url, "http://internal") : null;
+  const queryToken = url?.searchParams.get("token");
+  if (queryToken) return verifyCookie(queryToken);
+
+  return readSession(req.headers.cookie);
+}
+
 export function setSessionCookie(res, { uid, username }) {
   const value = signCookie({ uid, username });
   const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
