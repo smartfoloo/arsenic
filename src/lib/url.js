@@ -27,12 +27,18 @@ export function titleFor(url) {
   return hostOf(url)?.replace(/^www\./, "") ?? "New Tab";
 }
 
-/** The real (unproxied) URL of a page's icon. */
-export function faviconFor(backend, doc, pageUrl) {
+/** The real (unproxied) URL of a page's icon. `handle` is the tab's backend
+ * handle (Frame.svelte's tab.handle) — needed for Scramjet v2, where each
+ * frame has its own prefix rather than a single flat one. */
+export function faviconFor(backend, doc, pageUrl, handle) {
   const raw = doc.querySelector("link[rel~='icon']")?.getAttribute("href") || "/favicon.ico";
   if (raw.startsWith("data:")) return raw;
+
+  const prefix = handle?.prefix ?? backend.prefix;
   // Some proxies hand back an href they already rewrote; undo that.
-  if (raw.startsWith(backend.prefix)) return backend.decode(location.origin + raw);
+  if (raw.startsWith(prefix)) {
+    return handle?.decode ? handle.decode(location.origin + raw) : backend.decode(location.origin + raw);
+  }
 
   try {
     return new URL(raw, pageUrl).href;

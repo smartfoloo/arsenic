@@ -21,14 +21,32 @@ function script(src) {
 }
 
 /**
- * Both backends share one bare-mux connection over our wisp server. Which TLS
- * client sits on the far end of it is the user's choice; the two differ in
- * speed and in which sites they trip over, not in what they can address.
+ * Ultraviolet still goes through bare-mux — both backends shared one
+ * connection here until Scramjet moved to v2, which needs the transport
+ * interface these packages moved to at 3.x/2.x (bare-mux only speaks the
+ * 2.x/1.x-era one; see AGENTS.md). UV has no v2-equivalent to move to yet,
+ * so it keeps the old packages and the shared bare-mux connection below;
+ * Scramjet gets its own transport instances via scramjetTransport().
  */
 const TRANSPORTS = {
   epoxy: ["Epoxy", "/epoxy/index.mjs", "Fine for pages, slow on large downloads."],
   libcurl: ["libcurl", "/libcurl/index.mjs", "Fine for pages, faster on large downloads."],
 };
+
+/**
+ * Same two choices, but the v3/v2-era modules Scramjet's controller can use
+ * directly. Built from a non-literal path (not a plain string in the import()
+ * call) — these are server-served paths, not part of Vite's module graph, and
+ * a literal specifier makes Vite try to resolve them at build time and fail.
+ */
+const SCRAMJET_TRANSPORT_PATHS = {
+  epoxy: "/epoxy3/index.mjs",
+  libcurl: "/libcurl2/index.mjs",
+};
+function loadScramjetTransport(name) {
+  const path = SCRAMJET_TRANSPORT_PATHS[name];
+  return import(/* @vite-ignore */ path);
+}
 
 /**
  * Where proxied traffic exits to the internet from. "default" is same-origin
@@ -66,15 +84,32 @@ export function wispUrl() {
   return `${scheme}://${location.host}/wisp/`;
 }
 
+/** A fresh v3/v2-era transport instance, for Scramjet's controller. */
+async function scramjetTransport() {
+  const { default: Client } = await loadScramjetTransport(wanted);
+  return new Client({ wisp: wispUrl() });
+}
+
+// Set once scramjet.ready() has constructed it; selectTransport/selectLocation
+// hand it a fresh transport directly instead of going through bare-mux.
+let scramjetController;
+let scramjetApplied;
+
 function transport() {
   // Serialized, because ready() and a settings change can both land here.
   pending = pending.then(async () => {
-    connection ??= new BareMuxConnection("/baremux/worker.js");
     const key = `${wanted}|${wantedLocation}`;
-    if (applied === key) return;
 
-    await connection.setTransport(TRANSPORTS[wanted][1], [{ wisp: wispUrl() }]);
-    applied = key;
+    if (applied !== key) {
+      connection ??= new BareMuxConnection("/baremux/worker.js");
+      await connection.setTransport(TRANSPORTS[wanted][1], [{ wisp: wispUrl() }]);
+      applied = key;
+    }
+
+    if (scramjetController && scramjetApplied !== key) {
+      scramjetController.setTransport(await scramjetTransport());
+      scramjetApplied = key;
+    }
   });
 
   return pending;
@@ -82,13 +117,14 @@ function transport() {
 
 /**
  * Switch transports. bare-mux hands the new one to every service worker on its
- * next request, so open tabs move over without a reload.
+ * next request, so open tabs move over without a reload; Scramjet's controller
+ * gets a fresh transport instance the same way, via setTransport().
  */
 export function selectTransport(name) {
   if (!TRANSPORTS[name] || name === wanted) return;
 
   wanted = name;
-  if (connection) transport();
+  if (connection || scramjetController) transport();
 }
 
 /** Switch exit location. Same live-handoff as selectTransport. */
@@ -96,7 +132,7 @@ export function selectLocation(name) {
   if (!(name in LOCATIONS) || name === wantedLocation) return;
 
   wantedLocation = name;
-  if (connection) transport();
+  if (connection || scramjetController) transport();
 }
 
 async function registerSW(path, scope) {
@@ -109,43 +145,109 @@ async function registerSW(path, scope) {
   }
 
   const registration = await navigator.serviceWorker.register(path, { scope });
-  const worker = registration.installing ?? registration.waiting;
-  if (!worker || worker.state === "activated") return;
+  const worker = registration.installing ?? registration.waiting ?? registration.active;
+  if (worker && worker.state !== "activated") {
+    await new Promise((resolve) => {
+      worker.addEventListener("statechange", () => worker.state === "activated" && resolve());
+    });
+  }
 
-  // The first proxied request would miss a worker that's still installing.
-  await new Promise((resolve) => {
-    worker.addEventListener("statechange", () => worker.state === "activated" && resolve());
-  });
+  // navigator.serviceWorker.ready/.controller only resolve for a worker whose
+  // scope covers *this* page — ours is scoped to the prefix, not "/", so
+  // registration.active (a real, usable ServiceWorker reference either way)
+  // is what Controller needs, not the page's own controller.
+  return registration.active;
+}
+
+/**
+ * Service workers can be evicted by the browser at any point, and the
+ * controller's own routing table lives in that worker's memory — so a killed
+ * worker forgets every open tab until each one re-registers. The library's
+ * only built-in recovery is passive (the worker broadcasts on its own
+ * restart); this polls instead, so a tab notices and re-registers within
+ * about a second even if that broadcast doesn't arrive in time. Ported from
+ * arctic-static's production heartbeat.
+ */
+function startHeartbeat(sw, controller) {
+  const prefix = controller.prefix;
+  let handling = false;
+
+  const onMessage = (event) => {
+    const info = event.data && event.data.$arsenic$controller;
+    if (!info || info.prefix !== prefix || info.alive !== false || handling) return;
+
+    handling = true;
+    try {
+      controller.setupMessagePort();
+    } finally {
+      setTimeout(() => (handling = false), 250);
+    }
+  };
+  navigator.serviceWorker.addEventListener("message", onMessage);
+
+  const ping = () => {
+    try {
+      sw.postMessage({ $arsenic$keepalive: { prefix } });
+    } catch {
+      // sw reference is gone (e.g. mid-restart); the next tick tries again
+    }
+  };
+  setInterval(ping, 1000);
+  ping();
 }
 
 const SCRAMJET_PREFIX = "/service/scramjet/";
-let controller;
 
 const scramjet = {
-  label: "Scramjet",
+  label: "Scramjet v2",
   description: "Quick on simple pages, can be slow on heavy ones.",
   prefix: SCRAMJET_PREFIX,
   ready: once(async () => {
-    await script("/scram/scramjet.all.js");
-    const { ScramjetController } = $scramjetLoadController();
-    controller = new ScramjetController({
-      prefix: SCRAMJET_PREFIX,
-      files: {
-        wasm: "/scram/scramjet.wasm.wasm",
-        all: "/scram/scramjet.all.js",
-        sync: "/scram/scramjet.sync.js",
+    await script("/scram/scramjet.js");
+    await script("/controller/controller.api.js");
+    const { Controller } = globalThis.$scramjetController;
+
+    const sw = await registerSW("/scramjet.sw.js", SCRAMJET_PREFIX);
+
+    const key = `${wanted}|${wantedLocation}`;
+    scramjetController = new Controller({
+      serviceworker: sw,
+      transport: await scramjetTransport(),
+      config: {
+        prefix: SCRAMJET_PREFIX,
+        scramjetPath: "/scram/scramjet.js",
+        injectPath: "/controller/controller.inject.js",
+        wasmPath: "/scram/scramjet.wasm",
       },
+      // Quieter console: scramjet's own instrumentation throws on plenty of
+      // sites without it actually breaking anything (see AGENTS.md — this
+      // matches arctic-static's own baseline config).
+      scramjetConfig: { flags: { captureErrors: false } },
     });
-    // Hands the service worker its config through IndexedDB.
-    await controller.init();
-    await registerSW("/scramjet.sw.js", SCRAMJET_PREFIX);
-    await transport();
+    await scramjetController.wait();
+    scramjetApplied = key;
+
+    startHeartbeat(sw, scramjetController);
   }),
-  attach: (iframe) => controller.createFrame(iframe),
+  attach: (iframe) => {
+    const frame = scramjetController.createFrame(iframe);
+    // Each frame gets its own randomized sub-prefix under the controller's
+    // (also randomized) one — unlike v1's single flat prefix, so decoding a
+    // frame's URL needs that specific frame's context, not just a static
+    // constant. Callers that need the real prefix/decode for a given tab
+    // should prefer frame.prefix/frame.decode over backend.prefix/decode.
+    frame.decode = (href) => globalThis.$scramjet.unrewriteUrl(href, frame.context);
+    return frame;
+  },
   go: (frame, url) => frame.go(url),
   reload: (frame) => frame.reload(),
-  encode: (url) => controller.encodeUrl(url),
-  decode: (href) => controller.decodeUrl(href),
+  // No controller-level encode/decode: unlike v1's single flat prefix, every
+  // v2 frame gets its own randomized sub-prefix, so rewriting a URL requires
+  // a specific frame's context. Callers hold the frame already (it's what
+  // attach() returned) — use frame.decode(href) directly, which Frame.svelte
+  // and url.js's faviconFor both do, falling back to this only if no frame
+  // exists yet.
+  decode: (href) => href,
 };
 
 const UV_PREFIX = "/service/uv/";

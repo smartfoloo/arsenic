@@ -120,16 +120,21 @@
     if (!doc) return;
 
     // A redirect can leave the frame on a URL that's been proxied more than
-    // once, so unwrap until what's left is the real address.
-    const proxied = location.origin + backend.prefix;
+    // once, so unwrap until what's left is the real address. Prefer the
+    // frame's own prefix/decode over the backend's static ones — Scramjet v2
+    // gives every frame its own randomized sub-prefix, unlike the single
+    // flat one v1 and Ultraviolet use, so only the frame itself knows it.
+    const proxied = location.origin + (tab.handle?.prefix ?? backend.prefix);
     let url = href;
-    for (let depth = 0; depth < 5 && url.startsWith(proxied); depth++) url = backend.decode(url);
+    for (let depth = 0; depth < 5 && url.startsWith(proxied); depth++) {
+      url = tab.handle?.decode ? tab.handle.decode(url) : backend.decode(url);
+    }
     if (!/^https?:/.test(url) || url.startsWith(proxied)) return;
 
     tab.url = url;
     tab.title = doc.title || titleFor(url);
 
-    const src = faviconFor(backend, doc, url);
+    const src = faviconFor(backend, doc, url, tab.handle);
     if (src === iconSrc || iconPending) return;
 
     iconPending = true;

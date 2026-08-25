@@ -1,6 +1,8 @@
 import "./env.js";
 
+import { createRequire } from "node:module";
 import { createServer } from "node:http";
+import { dirname } from "node:path";
 import { hostname } from "node:os";
 import { fileURLToPath } from "node:url";
 
@@ -20,6 +22,17 @@ import { evaluateDomain } from "./domainGate.js";
 import { sweepOldMessages } from "./retention.js";
 
 const distPath = fileURLToPath(new URL("../dist/", import.meta.url));
+
+// None of these three ship a "./path"-style export (scramjet-controller has
+// none at all; the v3/v2-era transport packages only expose one in a CJS
+// subpath their "exports" map doesn't wire up), so resolve their package
+// root from the main entry point instead, same trick as the "./path"
+// exports do internally.
+const require = createRequire(import.meta.url);
+const distDirOf = (pkg) => dirname(require.resolve(pkg));
+const scramjetControllerPath = distDirOf("@mercuryworkshop/scramjet-controller");
+const epoxy3Path = distDirOf("@mercuryworkshop/epoxy-transport-3");
+const libcurl2Path = distDirOf("@mercuryworkshop/libcurl-transport-2");
 
 const dev = process.env.NODE_ENV !== "production";
 const port = Number(process.argv[2] || process.env.PORT) || 5000;

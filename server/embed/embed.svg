@@ -35,39 +35,50 @@
         document.documentElement.appendChild(s);
       }
 
-      loadScript(new URL("scram/scramjet.all.js", base).href, function () {
-        var ScramjetController = $scramjetLoadController().ScramjetController;
-        controller = new ScramjetController({
-          prefix: prefix,
-          files: {
-            wasm: new URL("scram/scramjet.wasm.wasm", base).href,
-            all: new URL("scram/scramjet.all.js", base).href,
-            sync: new URL("scram/scramjet.sync.js", base).href,
-          },
-        });
-        controller.init().then(function () {
+      loadScript(new URL("scram/scramjet.js", base).href, function () {
+        loadScript(new URL("controller/controller.api.js", base).href, function () {
+          var Controller = $scramjetController.Controller;
+
           navigator.serviceWorker
             .register(new URL("service/scramjet/sw.js", base).href, { scope: prefix })
             .then(function (registration) {
-              var worker = registration.installing || registration.waiting;
+              var worker = registration.installing || registration.waiting || registration.active;
               if (worker && worker.state !== "activated") {
                 worker.addEventListener("statechange", function () {
-                  if (worker.state === "activated") connect();
+                  if (worker.state === "activated") connect(Controller, registration.active);
                 });
               } else {
-                connect();
+                connect(Controller, registration.active);
               }
             });
         });
       });
 
-      function connect() {
-        // bare-mux can't be loaded as a classic script inside an SVG document,
-        // so the client is imported dynamically; the worker is same-origin.
-        import(new URL("baremux/index.mjs", base).href)
-          .then(function (bareMux) {
-            var connection = new bareMux.BareMuxConnection(new URL("baremux/worker.js", base).href);
-            return connection.setTransport(new URL("epoxy/index.mjs", base).href, [{ wisp: wisp }]);
+      function connect(Controller, sw) {
+        // Full absolute URLs (with origin), not paths — embed.svg is meant to
+        // work from any subpath on any host, and the rewriter needs these to
+        // resolve correctly from inside a nested proxied document, not just
+        // relative to wherever this script happens to be running.
+        import(new URL("epoxy3/index.mjs", base).href)
+          .then(function (epoxy) {
+            return new epoxy.default({ wisp: wisp });
+          })
+          .then(function (transport) {
+            controller = new Controller({
+              serviceworker: sw,
+              transport: transport,
+              config: {
+                prefix: prefix,
+                scramjetPath: new URL("scram/scramjet.js", base).href,
+                injectPath: new URL("controller/controller.inject.js", base).href,
+                wasmPath: new URL("scram/scramjet.wasm", base).href,
+              },
+              // Matches the main app's config (backends.js) — scramjet's own
+              // instrumentation throws visibly-caught exceptions on plenty of
+              // ordinary sites without anything actually breaking.
+              scramjetConfig: { flags: { captureErrors: false } },
+            });
+            return controller.wait();
           })
           .then(function () {
             // The foreignObject div is parsed after this script, so look it
@@ -78,13 +89,52 @@
             iframeEl.style.cssText = "width:100%;height:100%;border:none;background:#fff;margin:0;padding:0;";
             host.appendChild(iframeEl);
             frame = controller.createFrame(iframeEl);
+            frame.decode = function (href) {
+              return $scramjet.unrewriteUrl(href, frame.context);
+            };
             parent.postMessage({ type: "ready" }, "*");
+            startHeartbeat(sw, controller);
             setInterval(relay, 500);
           })
           .catch(function (error) {
             console.error("embed: connect failed", error);
             parent.postMessage({ type: "error", message: String(error) }, "*");
           });
+      }
+
+      // Ported from the main app's startHeartbeat (backends.js): the
+      // controller's routing table lives in the service worker's memory, and
+      // the browser can evict an idle worker at any time, wiping it. This
+      // pings once a second and re-registers within about a second of the
+      // worker going stale, instead of relying only on the library's passive
+      // revive-on-restart broadcast.
+      function startHeartbeat(sw, controller) {
+        var heartbeatPrefix = controller.prefix;
+        var handling = false;
+
+        navigator.serviceWorker.addEventListener("message", function (event) {
+          var info = event.data && event.data.$arsenic$controller;
+          if (!info || info.prefix !== heartbeatPrefix || info.alive !== false || handling) return;
+
+          handling = true;
+          try {
+            controller.setupMessagePort();
+          } finally {
+            setTimeout(function () {
+              handling = false;
+            }, 250);
+          }
+        });
+
+        function ping() {
+          try {
+            sw.postMessage({ $arsenic$keepalive: { prefix: heartbeatPrefix } });
+          } catch (error) {
+            // sw reference is gone (e.g. mid-restart); the next tick tries again
+          }
+        }
+        setInterval(ping, 1000);
+        ping();
       }
 
       // The frame is same-origin with this document (the service worker serves
@@ -99,9 +149,12 @@
         }
         if (!doc || !href) return;
 
-        var proxied = location.origin + prefix;
+        // Each frame gets its own randomized sub-prefix under the controller's
+        // (also randomized) one, unlike v1's single flat prefix — only the
+        // frame itself knows its real prefix/decode.
+        var proxied = location.origin + frame.prefix;
         var url = href;
-        for (var depth = 0; depth < 5 && url.indexOf(proxied) === 0; depth++) url = controller.decodeUrl(url);
+        for (var depth = 0; depth < 5 && url.indexOf(proxied) === 0; depth++) url = frame.decode(url);
         if (!/^https?:/.test(url) || url.indexOf(proxied) === 0) return;
 
         var title = doc.title || hostOf(url);
@@ -145,7 +198,7 @@
         var raw = (el && el.getAttribute("href")) || "/favicon.ico";
         if (raw.indexOf("data:") === 0) return raw;
         try {
-          if (raw.indexOf(prefix) === 0) raw = controller.decodeUrl(new URL(raw, location.href).href);
+          if (raw.indexOf(frame.prefix) === 0) raw = frame.decode(new URL(raw, location.href).href);
           return new URL(raw, pageUrl).href;
         } catch (error) {
           return null;
