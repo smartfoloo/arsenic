@@ -56,7 +56,7 @@
           <button
             class="chatIconAdd"
             aria-label="Create channel"
-            use:tooltip={"Create channel"}
+            use:tooltip={{ text: "Create channel", class: "chatTooltip" }}
             onclick={() => (channelModalOpen = true)}
           >
             <Plus />
@@ -79,7 +79,7 @@
                 <button
                   class="chatReorderBtn"
                   aria-label="Move up"
-                  use:tooltip={"Move up"}
+                  use:tooltip={{ text: "Move up", class: "chatTooltip" }}
                   disabled={i === 0}
                   onclick={() => moveChannel(channel.id, "up")}
                 >
@@ -88,7 +88,7 @@
                 <button
                   class="chatReorderBtn"
                   aria-label="Move down"
-                  use:tooltip={"Move down"}
+                  use:tooltip={{ text: "Move down", class: "chatTooltip" }}
                   disabled={i === chat.channels.length - 1}
                   onclick={() => moveChannel(channel.id, "down")}
                 >
@@ -107,7 +107,7 @@
         <button
           class="chatIconAdd"
           aria-label="Message someone"
-          use:tooltip={"Message someone"}
+          use:tooltip={{ text: "Message someone", class: "chatTooltip" }}
           onclick={() => (dmModalOpen = true)}
         >
           <Plus />
@@ -139,7 +139,7 @@
               <button
                 class="chatIconBtn"
                 aria-label="Unban {username}"
-                use:tooltip={`Unban ${username}`}
+                use:tooltip={{ text: `Unban ${username}`, class: "chatTooltip" }}
                 onclick={() => onUnban(username)}
               >
                 <UserCheck />
@@ -155,7 +155,7 @@
     <button
       class="chatAvatarBtn"
       aria-label="Change your avatar"
-      use:tooltip={"Change your avatar"}
+      use:tooltip={{ text: "Change your avatar", class: "chatTooltip" }}
       onclick={() => avatarInput.click()}
     >
       {#if chat.avatarUrl}
@@ -175,7 +175,12 @@
       <span class="chatProfileUsername">{chat.authUsername}</span>
       {#if chat.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
     </span>
-    <button class="chatIconBtn" aria-label="Log out" use:tooltip={"Log out"} onclick={logout}>
+    <button
+      class="chatIconBtn"
+      aria-label="Log out"
+      use:tooltip={{ text: "Log out", class: "chatTooltip" }}
+      onclick={logout}
+    >
       <LogOut />
     </button>
   </div>

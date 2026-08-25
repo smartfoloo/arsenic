@@ -161,7 +161,7 @@
     {:else if !chat.authUsername}
       <div class="chatCentered">
         <h1>Chat</h1>
-        <p class="sub">A public room for everyone using arsenic. Be nice.</p>
+        <p class="sub">Welcome to arsenic chat!</p>
         <ChatAuthForm />
       </div>
     {:else}
@@ -177,25 +177,25 @@
             {#if chat.isAdmin && activeChannel}
               <div class="chatHeaderActions">
                 <button
-                  class="iconbtn"
+                  class="chatIconBtn"
                   aria-label="Edit channel"
-                  use:tooltip={"Edit channel"}
+                  use:tooltip={{ text: "Edit channel", class: "chatTooltip" }}
                   onclick={() => (editChannelModalOpen = true)}
                 >
                   <Pencil />
                 </button>
                 <button
-                  class="iconbtn"
+                  class="chatIconBtn"
                   aria-label={activeChannel.locked ? "Unlock channel" : "Lock channel"}
-                  use:tooltip={activeChannel.locked ? "Unlock channel" : "Lock channel"}
+                  use:tooltip={{ text: activeChannel.locked ? "Unlock channel" : "Lock channel", class: "chatTooltip" }}
                   onclick={() => runAdminAction(() => setChannelLocked(activeChannel.id, !activeChannel.locked))}
                 >
                   {#if activeChannel.locked}<Unlock />{:else}<Lock />{/if}
                 </button>
                 <button
-                  class="iconbtn"
+                  class="chatIconBtn"
                   aria-label="Clear channel"
-                  use:tooltip={"Clear channel"}
+                  use:tooltip={{ text: "Clear channel", class: "chatTooltip" }}
                   onclick={() =>
                     (confirmAction = {
                       title: "Clear channel",
@@ -207,9 +207,9 @@
                   <Eraser />
                 </button>
                 <button
-                  class="iconbtn"
+                  class="chatIconBtn"
                   aria-label="Delete channel"
-                  use:tooltip={"Delete channel"}
+                  use:tooltip={{ text: "Delete channel", class: "chatTooltip" }}
                   onclick={() =>
                     (confirmAction = {
                       title: "Delete channel",
@@ -237,7 +237,7 @@
                 <button
                   class="chatMessageAction"
                   aria-label={message.pinned ? "Unpin message" : "Pin message"}
-                  use:tooltip={message.pinned ? "Unpin message" : "Pin message"}
+                  use:tooltip={{ text: message.pinned ? "Unpin message" : "Pin message", class: "chatTooltip" }}
                   onclick={() =>
                     runAdminAction(() => (message.pinned ? unpinMessage(message.id) : pinMessage(message.id)))}
                 >
@@ -246,7 +246,7 @@
                 <button
                   class="chatMessageAction"
                   aria-label="Delete message"
-                  use:tooltip={"Delete message"}
+                  use:tooltip={{ text: "Delete message", class: "chatTooltip" }}
                   onclick={() => runAdminAction(() => deleteMessage(message.id))}
                 >
                   <Trash2 />
@@ -255,7 +255,7 @@
                   <button
                     class="chatMessageAction"
                     aria-label="Ban {message.username}"
-                    use:tooltip={`Ban ${message.username}`}
+                    use:tooltip={{ text: `Ban ${message.username}`, class: "chatTooltip" }}
                     onclick={() =>
                       (confirmAction = {
                         title: "Ban user",

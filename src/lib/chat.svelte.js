@@ -189,7 +189,7 @@ export function sendImage(channelId, file, caption) {
   const formData = new FormData();
   formData.append("image", file);
   formData.append("body", caption ?? "");
-  return request(`admin/channels/${channelId}/image`, { method: "POST", formData });
+  return request(`channels/${channelId}/image`, { method: "POST", formData });
 }
 
 export function banUser(username) {

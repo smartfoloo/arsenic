@@ -63,12 +63,12 @@
 <form id="chatComposer" onsubmit={submit}>
   {#if imageError}<p class="chatError">{imageError}</p>{/if}
   <div class="chatComposerField">
-    {#if chat.isAdmin && !chat.activeDmUsername}
+    {#if !chat.activeDmUsername}
       <button
         type="button"
         class="chatImageBtn"
         aria-label="Send an image"
-        use:tooltip={"Send an image"}
+        use:tooltip={{ text: "Send an image", class: "chatTooltip" }}
         onclick={() => imageInput.click()}
       >
         <Plus />

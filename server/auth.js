@@ -22,6 +22,7 @@ import {
   getMessageImage,
   getUserByUsername,
   insertMessage,
+  isChannelLocked,
   listBannedUsers,
   listChannels,
   lockChannel,
@@ -286,10 +287,17 @@ router.post("/admin/channels/:id/lock", requireAdmin, (req, res) => {
   res.json({});
 });
 
-router.post("/admin/channels/:id/image", requireAdmin, uploadImage.single("image"), (req, res) => {
+// Open to any authenticated user, not just admins — still gated by the same
+// channel-lock rule the WS text-message path uses (chat.js), since without
+// it a user excluded from a locked channel could still post via images.
+router.post("/channels/:id/image", requireAuth, uploadImage.single("image"), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "invalid_image" });
 
   const channelId = Number(req.params.id);
+  if (isChannelLocked(channelId) && !isAdmin(req.session.username)) {
+    return res.status(403).json({ error: "channel_locked" });
+  }
+
   const caption = typeof req.body?.body === "string" ? req.body.body.trim() : "";
   const ext = AVATAR_MIME_EXT[req.file.mimetype];
 
@@ -306,7 +314,7 @@ router.post("/admin/channels/:id/image", requireAdmin, uploadImage.single("image
     userId: req.session.uid,
     username: req.session.username,
     avatarUrl: avatarUrlFor(req.session.uid),
-    isAdmin: true,
+    isAdmin: isAdmin(req.session.username),
     body: caption,
     createdAt,
     pinned: false,

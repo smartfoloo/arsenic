@@ -10,16 +10,22 @@ const MARGIN = 8;
  * computed from the trigger's actual bounding box against the viewport, so
  * it never overflows a screen corner either.
  */
-export function tooltip(node, text) {
+// `value` is either the tooltip text, or { text, class } to add an extra
+// class (e.g. chat's smaller variant) alongside the base "app-tooltip".
+export function tooltip(node, value) {
   let el = null;
-  let current = text;
+  let current = normalize(value);
+
+  function normalize(v) {
+    return typeof v === "string" ? { text: v, class: null } : { text: v?.text ?? "", class: v?.class ?? null };
+  }
 
   function show() {
-    if (!current) return;
+    if (!current.text) return;
 
     el = document.createElement("div");
-    el.className = "app-tooltip";
-    el.textContent = current;
+    el.className = current.class ? `app-tooltip ${current.class}` : "app-tooltip";
+    el.textContent = current.text;
     document.body.appendChild(el);
     place();
   }
@@ -53,7 +59,7 @@ export function tooltip(node, text) {
 
   return {
     update(next) {
-      current = next;
+      current = normalize(next);
       if (el) hide();
     },
     destroy() {
