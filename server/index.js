@@ -97,10 +97,18 @@ if (aiEnabled) {
 }
 
 app.use("/scram/", express.static(scramjetPath));
+app.use("/controller/", express.static(scramjetControllerPath));
 app.use("/uv/", express.static(uvPath));
 app.use("/baremux/", express.static(baremuxPath));
+// Ultraviolet still goes through bare-mux, which only speaks these
+// packages' 2.x/1.x-era transport interface (see AGENTS.md); Scramjet's
+// controller needs the interface these packages moved to at 3.x/2.x, which
+// bare-mux can't carry. Two major versions of the same package, so they're
+// installed under aliases and served at separate paths.
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/libcurl/", express.static(libcurlPath));
+app.use("/epoxy3/", express.static(epoxy3Path));
+app.use("/libcurl2/", express.static(libcurl2Path));
 
 // Decoy is a production-only, opt-in concern; dev keeps serving the real
 // app at "/" via Vite regardless of this env var.
