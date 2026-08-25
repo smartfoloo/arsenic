@@ -159,7 +159,11 @@ export function reload() {
   const tab = activeTab();
   if (!tab?.url) return;
 
-  backendOf(tab).reload(tab.handle);
+  // tab.embedPost is set by Frame.svelte only in the static build, where the
+  // proxy runs cross-origin inside embed.svg — tab.handle is meaningless
+  // there, so backendOf(tab).reload would be reloading nothing.
+  if (tab.embedPost) tab.embedPost({ type: "frame", action: "reload" });
+  else backendOf(tab).reload(tab.handle);
   tab.inspecting = false;
   tab.locationName = settings.location;
 }

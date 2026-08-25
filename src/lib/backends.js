@@ -54,7 +54,11 @@ let wantedLocation = "default";
 let applied;
 let pending = Promise.resolve();
 
-function wispUrl() {
+// Exported for Frame.svelte's static-build path (see EMBED_BASE there),
+// which needs it to build the ?wisp= query param for embed.svg — that
+// document runs on a separate origin and can't reach this module's private
+// connection state directly.
+export function wispUrl() {
   const fixed = LOCATIONS[wantedLocation];
   if (fixed) return fixed;
 
