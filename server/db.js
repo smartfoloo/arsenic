@@ -59,6 +59,7 @@ if (!userColumns.has("avatar_path")) db.exec("ALTER TABLE users ADD COLUMN avata
 if (!userColumns.has("avatar_mime")) db.exec("ALTER TABLE users ADD COLUMN avatar_mime TEXT");
 if (!userColumns.has("avatar_updated_at")) db.exec("ALTER TABLE users ADD COLUMN avatar_updated_at INTEGER");
 if (!userColumns.has("banned_at")) db.exec("ALTER TABLE users ADD COLUMN banned_at INTEGER");
+if (!userColumns.has("bio")) db.exec("ALTER TABLE users ADD COLUMN bio TEXT");
 
 const messageColumns = columnNames("messages");
 if (!messageColumns.has("channel_id")) {
@@ -149,6 +150,13 @@ const getAvatarStmt = db.prepare(
 );
 const isBannedStmt = db.prepare("SELECT banned_at FROM users WHERE id = ?");
 const listBannedStmt = db.prepare("SELECT username FROM users WHERE banned_at IS NOT NULL ORDER BY banned_at DESC");
+const listUsersStmt = db.prepare(`
+  SELECT id, username, avatar_mime AS avatarMime, avatar_updated_at AS avatarUpdatedAt
+  FROM users
+  WHERE banned_at IS NULL
+  ORDER BY username COLLATE NOCASE
+`);
+const setBioStmt = db.prepare("UPDATE users SET bio = ? WHERE id = ?");
 
 const insertDmStmt = db.prepare(
   "INSERT INTO dm_messages (from_user_id, to_user_id, body, created_at) VALUES (?, ?, ?, ?)",
@@ -327,8 +335,16 @@ export function isUserBanned(userId) {
   return !!isBannedStmt.get(userId)?.banned_at;
 }
 
+export function setBio(userId, bio) {
+  setBioStmt.run(bio, userId);
+}
+
 export function listBannedUsers() {
   return listBannedStmt.all().map((row) => row.username);
+}
+
+export function listUsers() {
+  return listUsersStmt.all();
 }
 
 export function insertDm({ fromUserId, toUserId, body }) {

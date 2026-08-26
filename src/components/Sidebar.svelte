@@ -17,7 +17,6 @@
   import { inspect } from "../lib/inspect.js";
   import { settings } from "../lib/settings.svelte.js";
   import { activeTab, activeUrl, openAiTab, openInternal, reload, ui } from "../lib/tabs.svelte.js";
-  import { tooltip } from "../lib/tooltip.js";
 
   let fullscreen = $state(false);
 
@@ -110,7 +109,6 @@
       class="iconbtn"
       id="openSettings"
       aria-label="Settings"
-      use:tooltip={"Settings"}
       onclick={() => openInternal("settings")}
     >
       <Cog />
@@ -120,7 +118,6 @@
         class="iconbtn"
         id="openChat"
         aria-label="Chat"
-        use:tooltip={"Chat"}
         onclick={() => openInternal("chat")}
       >
         <MessageCircle />
@@ -131,7 +128,6 @@
         class="iconbtn"
         id="openAi"
         aria-label="AI"
-        use:tooltip={"AI"}
         onclick={() => openAiTab()}
       >
         <Sparkles />
@@ -141,7 +137,6 @@
       class="iconbtn"
       id="devtools"
       aria-label="Inspect page"
-      use:tooltip={"Inspect page"}
       disabled={!activeUrl()}
       onclick={() => inspect(activeTab())}
     >

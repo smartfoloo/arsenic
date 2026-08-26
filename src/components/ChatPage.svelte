@@ -8,15 +8,15 @@
   import PinOff from "@lucide/svelte/icons/pin-off";
   import Trash2 from "@lucide/svelte/icons/trash-2";
   import Unlock from "@lucide/svelte/icons/unlock";
-  import UserX from "@lucide/svelte/icons/user-x";
 
   import ChatAuthForm from "./ChatAuthForm.svelte";
   import ChatComposer from "./ChatComposer.svelte";
   import ChatConfirmModal from "./ChatConfirmModal.svelte";
+  import ChatMemberList from "./ChatMemberList.svelte";
+  import ChatProfileModal from "./ChatProfileModal.svelte";
   import ChatPromptModal from "./ChatPromptModal.svelte";
   import ChatSidebar from "./ChatSidebar.svelte";
   import {
-    banUser,
     chat,
     checkAuth,
     clearChannel,
@@ -40,6 +40,7 @@
   let actionError = $state(null);
   let confirmAction = $state(null);
   let editChannelModalOpen = $state(false);
+  let profileUsername = $state(null);
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
   const messagesLoaded = $derived(
@@ -135,6 +136,10 @@
     if (dayDiff === 0) return time;
     if (dayDiff === 1) return `Yesterday, ${time}`;
     return `${date.toLocaleDateString([], { month: "short", day: "numeric" })}, ${time}`;
+  }
+
+  function formatHoverTime(ms) {
+    return new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: false });
   }
 
   async function runAdminAction(fn) {
@@ -237,7 +242,6 @@
                 <button
                   class="chatMessageAction"
                   aria-label={message.pinned ? "Unpin message" : "Pin message"}
-                  use:tooltip={{ text: message.pinned ? "Unpin message" : "Pin message", class: "chatTooltip" }}
                   onclick={() =>
                     runAdminAction(() => (message.pinned ? unpinMessage(message.id) : pinMessage(message.id)))}
                 >
@@ -246,27 +250,10 @@
                 <button
                   class="chatMessageAction"
                   aria-label="Delete message"
-                  use:tooltip={{ text: "Delete message", class: "chatTooltip" }}
                   onclick={() => runAdminAction(() => deleteMessage(message.id))}
                 >
                   <Trash2 />
                 </button>
-                {#if message.username !== chat.authUsername}
-                  <button
-                    class="chatMessageAction"
-                    aria-label="Ban {message.username}"
-                    use:tooltip={{ text: `Ban ${message.username}`, class: "chatTooltip" }}
-                    onclick={() =>
-                      (confirmAction = {
-                        title: "Ban user",
-                        message: `Ban ${message.username}? They'll be logged out and their messages hidden.`,
-                        confirmLabel: "Ban",
-                        run: () => banUser(message.username),
-                      })}
-                  >
-                    <UserX />
-                  </button>
-                {/if}
               {/if}
             {/snippet}
 
@@ -278,51 +265,59 @@
                 i === 0 || prevSender !== sender || message.createdAt - prev.createdAt > GROUP_GAP_MS}
               <div class="chatMessage" class:chatMessageGrouped={!isGroupStart}>
                 {#if isGroupStart}
-                  {#if message.avatarUrl}
-                    <img class="chatMessageAvatar" src={message.avatarUrl} alt="" />
-                  {:else}
-                    <span class="chatMessageAvatar chatAvatarFallback">
-                      {sender[0]?.toUpperCase()}
-                    </span>
-                  {/if}
+                  <button
+                    type="button"
+                    class="chatMessageAvatarBtn"
+                    aria-label="{sender}'s profile"
+                    onclick={() => (profileUsername = sender)}
+                  >
+                    {#if message.avatarUrl}
+                      <img class="chatMessageAvatar" src={message.avatarUrl} alt="" />
+                    {:else}
+                      <span class="chatMessageAvatar chatAvatarFallback">
+                        {sender[0]?.toUpperCase()}
+                      </span>
+                    {/if}
+                  </button>
                 {:else}
-                  <span class="chatMessageAvatar chatMessageAvatarSpacer"></span>
+                  <span class="chatMessageAvatar chatMessageAvatarSpacer">
+                    <small class="chatMessageHoverTime">{formatHoverTime(message.createdAt)}</small>
+                  </span>
                 {/if}
                 <div class="chatMessageBody">
                   {#if isGroupStart}
                     <div class="chatMessageMeta">
-                      <b>{sender}</b>
+                      <button type="button" class="chatMessageNameBtn" onclick={() => (profileUsername = sender)}>
+                        {sender}
+                      </button>
                       {#if message.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
                       {#if message.pinned}<span class="chatPinnedBadge">Pinned</span>{/if}
                       <small>{formatTime(message.createdAt)}</small>
                       {@render messageActions(message)}
                     </div>
                   {/if}
-                  {#if message.imageUrl}<img class="chatMessageImage" src={message.imageUrl} alt="" />{/if}
-                  {#if message.body}
-                    <span class="chatMessageText"
-                      >{#each withChannelMentions(linkify(message.body), channelsByName) as part}{#if part.type === "link"}<a
-                          href={linkHref(part.value)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="chatMessageLink">{part.value}</a
-                        >{:else if part.type === "channel"}<button
-                          type="button"
-                          class="chatMessageLink chatChannelMention"
-                          onclick={() => switchChannel(part.id)}>#{part.value}</button
-                        >{:else}{part.value}{/if}{/each}{#if !isGroupStart}<span
-                          class="chatMessageHoverActions"
-                          ><small>{formatTime(message.createdAt)}</small>{@render messageActions(
-                            message,
-                          )}</span
-                        >{/if}</span
-                    >
-                  {:else if !isGroupStart}
-                    <span class="chatMessageHoverActions">
-                      <small>{formatTime(message.createdAt)}</small>
-                      {@render messageActions(message)}
+                  <span class="chatMessageContentRow">
+                    <span class="chatMessageContent">
+                      {#if message.imageUrl}<img class="chatMessageImage" src={message.imageUrl} alt="" />{/if}
+                      {#if message.body}
+                        <span class="chatMessageText"
+                          >{#each withChannelMentions(linkify(message.body), channelsByName) as part}{#if part.type === "link"}<a
+                              href={linkHref(part.value)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="chatMessageLink">{part.value}</a
+                            >{:else if part.type === "channel"}<button
+                              type="button"
+                              class="chatMessageLink chatChannelMention"
+                              onclick={() => switchChannel(part.id)}>#{part.value}</button
+                            >{:else}{part.value}{/if}{/each}</span
+                        >
+                      {/if}
                     </span>
-                  {/if}
+                    {#if !isGroupStart}
+                      <span class="chatMessageInlineActions">{@render messageActions(message)}</span>
+                    {/if}
+                  </span>
                 </div>
               </div>
             {/each}
@@ -331,6 +326,10 @@
           {#if chat.channelError}<p class="chatError">{chat.channelError}</p>{/if}
           <ChatComposer placeholder={chat.activeDmUsername ? `Message ${chat.activeDmUsername}` : "Message the channel"} />
         </div>
+
+        {#if !chat.activeDmUsername}
+          <ChatMemberList onOpenProfile={(username) => (profileUsername = username)} />
+        {/if}
       </div>
     {/if}
   </div>
@@ -354,5 +353,9 @@
       onsubmit={(name) => renameChannel(activeChannel.id, name)}
       onclose={() => (editChannelModalOpen = false)}
     />
+  {/if}
+
+  {#if profileUsername}
+    <ChatProfileModal username={profileUsername} onclose={() => (profileUsername = null)} />
   {/if}
 </section>

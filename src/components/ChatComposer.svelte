@@ -5,7 +5,6 @@
   import Plus from "@lucide/svelte/icons/plus";
 
   import { chat, sendImage, sendMessage } from "../lib/chat.svelte.js";
-  import { tooltip } from "../lib/tooltip.js";
 
   const MAX_TEXTAREA_HEIGHT = 140; // ~5 lines, kept in sync with .chatComposerField textarea max-height
 
@@ -68,7 +67,6 @@
         type="button"
         class="chatImageBtn"
         aria-label="Send an image"
-        use:tooltip={{ text: "Send an image", class: "chatTooltip" }}
         onclick={() => imageInput.click()}
       >
         <Plus />

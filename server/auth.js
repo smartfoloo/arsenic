@@ -25,6 +25,7 @@ import {
   isChannelLocked,
   listBannedUsers,
   listChannels,
+  listUsers,
   lockChannel,
   messageChannelId,
   messageImagePath,
@@ -33,6 +34,7 @@ import {
   renameChannel,
   unlockChannel,
   setAvatar,
+  setBio,
   setMessageImage,
   unbanUser,
   unpinMessage,
@@ -42,6 +44,7 @@ import { clearSessionCookie, readSession, setSessionCookie } from "./session.js"
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,20}$/;
 const CHANNEL_NAME_PATTERN = /^[a-z0-9-]{2,30}$/;
 const MIN_PASSWORD_LENGTH = 8;
+const MAX_BIO_LENGTH = 190;
 const AVATAR_MIME_EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
 const avatarsDir = fileURLToPath(new URL("./data/avatars/", import.meta.url));
 const messageImagesDir = fileURLToPath(new URL("./data/message-images/", import.meta.url));
@@ -186,8 +189,42 @@ router.post("/avatar", requireAuth, upload.single("avatar"), (req, res) => {
   res.json({ avatarUrl: avatarUrlFor(req.session.uid) });
 });
 
+router.post("/me/bio", requireAuth, (req, res) => {
+  const { bio } = req.body ?? {};
+  if (typeof bio !== "string" || bio.length > MAX_BIO_LENGTH) {
+    return res.status(400).json({ error: "invalid_bio" });
+  }
+
+  const trimmed = bio.trim();
+  setBio(req.session.uid, trimmed);
+  res.json({ bio: trimmed });
+});
+
+router.get("/users/:username", requireAuth, (req, res) => {
+  const target = getUserByUsername(req.params.username);
+  if (!target) return res.status(404).json({ error: "user_not_found" });
+
+  res.json({
+    username: target.username,
+    isAdmin: isAdmin(target.username),
+    avatarUrl: avatarUrlFor(target.id),
+    bio: target.bio ?? "",
+    joinedAt: target.created_at,
+    banned: isAdmin(req.session.username) ? !!target.banned_at : undefined,
+  });
+});
+
 router.get("/channels", requireAuth, (req, res) => {
   res.json({ channels: listChannels() });
+});
+
+router.get("/members", requireAuth, (req, res) => {
+  const members = listUsers().map((user) => ({
+    username: user.username,
+    avatarUrl: user.avatarMime ? `/chat/avatars/${user.id}?v=${user.avatarUpdatedAt ?? 0}` : null,
+    isAdmin: isAdmin(user.username),
+  }));
+  res.json({ members });
 });
 
 router.get("/dms", requireAuth, (req, res) => {

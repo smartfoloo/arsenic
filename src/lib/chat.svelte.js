@@ -13,6 +13,7 @@ export const chat = $state({
   dmPartners: [],
   dmError: null,
   bannedUsers: [],
+  members: [],
   channelHasMore: {},
   channelLoadingMore: {},
   dmHasMore: {},
@@ -55,6 +56,7 @@ export async function checkAuth() {
     connect();
     fetchChannels();
     fetchDmPartners();
+    fetchMembers();
     if (chat.isAdmin) fetchBannedUsers();
   }
 }
@@ -81,6 +83,7 @@ export async function logout() {
   chat.dmThreads = {};
   chat.dmPartners = [];
   chat.bannedUsers = [];
+  chat.members = [];
   chat.channelHasMore = {};
   chat.channelLoadingMore = {};
   chat.dmHasMore = {};
@@ -104,6 +107,11 @@ export async function fetchChannels() {
 export async function fetchDmPartners() {
   const data = await request("dms");
   chat.dmPartners = data.partners;
+}
+
+export async function fetchMembers() {
+  const data = await request("members");
+  chat.members = data.members;
 }
 
 export function switchChannel(id) {
@@ -190,6 +198,14 @@ export function sendImage(channelId, file, caption) {
   formData.append("image", file);
   formData.append("body", caption ?? "");
   return request(`channels/${channelId}/image`, { method: "POST", formData });
+}
+
+export function fetchUserProfile(username) {
+  return request(`users/${encodeURIComponent(username)}`);
+}
+
+export async function updateBio(bio) {
+  return request("me/bio", { method: "POST", json: { bio } });
 }
 
 export function banUser(username) {
@@ -304,8 +320,10 @@ function handleMessage(data) {
     if (chat.isAdmin && !chat.bannedUsers.includes(data.username)) {
       chat.bannedUsers = [...chat.bannedUsers, data.username];
     }
+    chat.members = chat.members.filter((member) => member.username !== data.username);
   } else if (data.type === "userUnbanned") {
     for (const id of Object.keys(chat.channelMessages)) send({ type: "history", channelId: Number(id) });
     chat.bannedUsers = chat.bannedUsers.filter((username) => username !== data.username);
+    fetchMembers();
   }
 }

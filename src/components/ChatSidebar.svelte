@@ -7,22 +7,12 @@
   import UserCheck from "@lucide/svelte/icons/user-check";
 
   import ChatPromptModal from "./ChatPromptModal.svelte";
-  import {
-    chat,
-    createChannel,
-    logout,
-    moveChannel,
-    startDm,
-    switchChannel,
-    unbanUser,
-    uploadAvatar,
-  } from "../lib/chat.svelte.js";
-  import { tooltip } from "../lib/tooltip.js";
+  import ChatProfileModal from "./ChatProfileModal.svelte";
+  import { chat, createChannel, logout, moveChannel, startDm, switchChannel, unbanUser } from "../lib/chat.svelte.js";
 
   let channelModalOpen = $state(false);
   let dmModalOpen = $state(false);
-  let avatarInput = $state(null);
-  let avatarError = $state(null);
+  let myProfileOpen = $state(false);
   let bannedError = $state(null);
 
   const dmUsernames = $derived([...new Set([...chat.dmPartners, ...Object.keys(chat.dmThreads)])]);
@@ -30,15 +20,6 @@
   function onUnban(username) {
     bannedError = null;
     unbanUser(username).catch((err) => (bannedError = err.message));
-  }
-
-  function onAvatarChange(event) {
-    const file = event.target.files[0];
-    event.target.value = "";
-    if (!file) return;
-
-    avatarError = null;
-    uploadAvatar(file).catch((err) => (avatarError = err.message));
   }
 </script>
 
@@ -56,7 +37,6 @@
           <button
             class="chatIconAdd"
             aria-label="Create channel"
-            use:tooltip={{ text: "Create channel", class: "chatTooltip" }}
             onclick={() => (channelModalOpen = true)}
           >
             <Plus />
@@ -79,7 +59,6 @@
                 <button
                   class="chatReorderBtn"
                   aria-label="Move up"
-                  use:tooltip={{ text: "Move up", class: "chatTooltip" }}
                   disabled={i === 0}
                   onclick={() => moveChannel(channel.id, "up")}
                 >
@@ -88,7 +67,6 @@
                 <button
                   class="chatReorderBtn"
                   aria-label="Move down"
-                  use:tooltip={{ text: "Move down", class: "chatTooltip" }}
                   disabled={i === chat.channels.length - 1}
                   onclick={() => moveChannel(channel.id, "down")}
                 >
@@ -107,7 +85,6 @@
         <button
           class="chatIconAdd"
           aria-label="Message someone"
-          use:tooltip={{ text: "Message someone", class: "chatTooltip" }}
           onclick={() => (dmModalOpen = true)}
         >
           <Plus />
@@ -139,7 +116,6 @@
               <button
                 class="chatIconBtn"
                 aria-label="Unban {username}"
-                use:tooltip={{ text: `Unban ${username}`, class: "chatTooltip" }}
                 onclick={() => onUnban(username)}
               >
                 <UserCheck />
@@ -153,39 +129,34 @@
 
   <div id="chatProfile">
     <button
-      class="chatAvatarBtn"
-      aria-label="Change your avatar"
-      use:tooltip={{ text: "Change your avatar", class: "chatTooltip" }}
-      onclick={() => avatarInput.click()}
+      type="button"
+      class="chatProfileBtn"
+      aria-label="Your profile"
+      onclick={() => (myProfileOpen = true)}
     >
       {#if chat.avatarUrl}
-        <img src={chat.avatarUrl} alt="" />
+        <img class="chatAvatarBtn" src={chat.avatarUrl} alt="" />
       {:else}
-        <span class="chatAvatarFallback">{chat.authUsername[0]?.toUpperCase()}</span>
+        <span class="chatAvatarBtn chatAvatarFallback">{chat.authUsername[0]?.toUpperCase()}</span>
       {/if}
+      <span class="chatProfileName">
+        <span class="chatProfileUsername">{chat.authUsername}</span>
+        {#if chat.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
+      </span>
     </button>
-    <input
-      type="file"
-      accept="image/png,image/jpeg,image/webp"
-      bind:this={avatarInput}
-      onchange={onAvatarChange}
-      hidden
-    />
-    <span class="chatProfileName">
-      <span class="chatProfileUsername">{chat.authUsername}</span>
-      {#if chat.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
-    </span>
     <button
       class="chatIconBtn"
       aria-label="Log out"
-      use:tooltip={{ text: "Log out", class: "chatTooltip" }}
       onclick={logout}
     >
       <LogOut />
     </button>
   </div>
-  {#if avatarError}<p class="chatError">{avatarError}</p>{/if}
 </div>
+
+{#if myProfileOpen}
+  <ChatProfileModal username={chat.authUsername} onclose={() => (myProfileOpen = false)} />
+{/if}
 
 {#if channelModalOpen}
   <ChatPromptModal
