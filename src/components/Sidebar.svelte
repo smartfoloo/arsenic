@@ -19,6 +19,20 @@
   import { activeTab, activeUrl, openAiTab, openInternal, reload, ui } from "../lib/tabs.svelte.js";
 
   let fullscreen = $state(false);
+  let reloadSpinning = $state(false);
+  let reloadSpinTimeout;
+
+  function onReloadClick() {
+    // Restart the animation even on rapid re-clicks: drop the class, wait a
+    // frame so the browser notices it's gone, then re-add it.
+    clearTimeout(reloadSpinTimeout);
+    reloadSpinning = false;
+    requestAnimationFrame(() => {
+      reloadSpinning = true;
+      reloadSpinTimeout = setTimeout(() => (reloadSpinning = false), 500);
+    });
+    reload();
+  }
 
   // AiPage now only mounts once an AI tab is open, so this is the one
   // always-mounted place left to learn whether the sidebar button shows.
@@ -87,9 +101,10 @@
       class="iconbtn"
       id="reload"
       class:stale={locationStale}
+      class:spinning={reloadSpinning}
       aria-label="Reload"
       disabled={!activeUrl()}
-      onclick={reload}
+      onclick={onReloadClick}
     >
       <RotateCw />
     </button>

@@ -208,6 +208,14 @@ svg {
   width: 20px;
   height: 20px;
 }
+@keyframes iconSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+#reload.spinning svg {
+  animation: iconSpin 0.5s ease;
+}
 .app-tooltip {
   position: fixed;
   z-index: 1000;
@@ -829,6 +837,14 @@ svg {
 .row .label small {
   color: var(--overlay1);
   font-size: 14px;
+}
+.creditAvatar {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  corner-shape: round !important;
+  object-fit: cover;
 }
 
 /* custom select */
@@ -1588,6 +1604,33 @@ svg {
   width: 18px;
   height: 18px;
 }
+.chatTimeoutRow {
+  display: flex;
+  gap: 8px;
+}
+.chatTimeoutRow input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--surface0);
+  background: var(--base);
+  outline: 0;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+}
+.chatTimeoutRow input:focus {
+  border-color: var(--surface2);
+}
+.chatTimeoutRow .btn {
+  flex: none;
+  gap: 8px;
+}
+.chatTimeoutRow .btn svg {
+  width: 18px;
+  height: 18px;
+}
 .chatProfileWarningCount {
   margin: 0;
   font-size: 13px;
@@ -1912,6 +1955,17 @@ svg {
 .aiModel .select-menu {
   top: auto;
   bottom: calc(100% + 6px);
+}
+.chatCharCount {
+  flex: none;
+  align-self: center;
+  padding-bottom: 8px;
+  font-size: 12px;
+  color: var(--subtext0);
+  white-space: nowrap;
+}
+.chatCharCount.chatCharCountLimit {
+  color: var(--red);
 }
 .chatImageBtn,
 .chatSendBtn {

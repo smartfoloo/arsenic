@@ -177,6 +177,19 @@
     </div>
 
     <div class="group">
+      <h2>About</h2>
+      <div class="card">
+        <div class="row">
+          <img class="creditAvatar" src="/logos/smartfoloo.png" alt="" />
+          <div class="label">
+            <b>smartfoloo</b>
+            <small>Owner</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
       <h2>Legal</h2>
       <div class="card">
         <div class="row">

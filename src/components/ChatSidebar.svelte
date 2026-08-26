@@ -8,14 +8,11 @@
 
   import ChatPromptModal from "./ChatPromptModal.svelte";
   import ChatProfileModal from "./ChatProfileModal.svelte";
-  import { chat, createChannel, logout, moveChannel, startDm, switchChannel, unbanUser } from "../lib/chat.svelte.js";
+  import { chat, createChannel, logout, moveChannel, switchChannel, unbanUser } from "../lib/chat.svelte.js";
 
   let channelModalOpen = $state(false);
-  let dmModalOpen = $state(false);
   let myProfileOpen = $state(false);
   let bannedError = $state(null);
-
-  const dmUsernames = $derived([...new Set([...chat.dmPartners, ...Object.keys(chat.dmThreads)])]);
 
   function onUnban(username) {
     bannedError = null;
@@ -27,7 +24,6 @@
   <div class="chatSidebarHeader">
     <h2>Chat</h2>
   </div>
-  {#if chat.dmError}<p class="chatError">{chat.dmError}</p>{/if}
 
   <div class="chatSidebarScroll">
     <div class="chatSidebarSection">
@@ -48,7 +44,7 @@
           <div class="chatChannelRow">
             <button
               class="chatChannelItem"
-              class:active={!chat.activeDmUsername && chat.activeChannelId === channel.id}
+              class:active={chat.activeChannelId === channel.id}
               onclick={() => switchChannel(channel.id)}
             >
               # {channel.name}
@@ -75,30 +71,6 @@
               </div>
             {/if}
           </div>
-        {/each}
-      </div>
-    </div>
-
-    <div class="chatSidebarSection">
-      <div class="chatSectionHeading">
-        <h3>Direct messages</h3>
-        <button
-          class="chatIconAdd"
-          aria-label="Message someone"
-          onclick={() => (dmModalOpen = true)}
-        >
-          <Plus />
-        </button>
-      </div>
-      <div class="chatChannelList">
-        {#each dmUsernames as username (username)}
-          <button
-            class="chatChannelItem"
-            class:active={chat.activeDmUsername === username}
-            onclick={() => startDm(username)}
-          >
-            {username}
-          </button>
         {/each}
       </div>
     </div>
@@ -169,15 +141,5 @@
     submitLabel="Create"
     onsubmit={(name) => createChannel(name)}
     onclose={() => (channelModalOpen = false)}
-  />
-{/if}
-
-{#if dmModalOpen}
-  <ChatPromptModal
-    title="Message someone"
-    placeholder="username"
-    submitLabel="Message"
-    onsubmit={(username) => startDm(username)}
-    onclose={() => (dmModalOpen = false)}
   />
 {/if}

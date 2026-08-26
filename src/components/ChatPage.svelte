@@ -24,7 +24,6 @@
     clearChannel,
     deleteChannel,
     deleteMessage,
-    loadOlderDms,
     loadOlderMessages,
     pinMessage,
     renameChannel,
@@ -45,22 +44,10 @@
   let profileUsername = $state(null);
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
-  const messagesLoaded = $derived(
-    chat.activeDmUsername
-      ? chat.dmThreads[chat.activeDmUsername] !== undefined
-      : chat.channelMessages[chat.activeChannelId] !== undefined,
-  );
-  const currentMessages = $derived(
-    chat.activeDmUsername
-      ? (chat.dmThreads[chat.activeDmUsername] ?? [])
-      : (chat.channelMessages[chat.activeChannelId] ?? []),
-  );
-  const loadingMore = $derived(
-    chat.activeDmUsername
-      ? !!chat.dmLoadingMore[chat.activeDmUsername]
-      : !!chat.channelLoadingMore[chat.activeChannelId],
-  );
-  const title = $derived(chat.activeDmUsername ? `@${chat.activeDmUsername}` : `#${activeChannel?.name ?? ""}`);
+  const messagesLoaded = $derived(chat.channelMessages[chat.activeChannelId] !== undefined);
+  const currentMessages = $derived(chat.channelMessages[chat.activeChannelId] ?? []);
+  const loadingMore = $derived(!!chat.channelLoadingMore[chat.activeChannelId]);
+  const title = $derived(`#${activeChannel?.name ?? ""}`);
   const channelsByName = $derived(new Map(chat.channels.map((c) => [c.name.toLowerCase(), c])));
 
   $effect(() => {
@@ -74,7 +61,7 @@
   let prevScrollHeight = 0;
 
   $effect(() => {
-    const key = chat.activeDmUsername ?? chat.activeChannelId;
+    const key = chat.activeChannelId;
     const count = currentMessages.length;
 
     if (key !== prevKey) {
@@ -100,7 +87,7 @@
       });
     } else if (count > prevMessageCount) {
       const last = currentMessages[count - 1];
-      const isOwnMessage = last.username === chat.authUsername || last.fromUsername === chat.authUsername;
+      const isOwnMessage = last.username === chat.authUsername;
       if (stickToBottom || isOwnMessage) {
         tick().then(() => listEl && (listEl.scrollTop = listEl.scrollHeight));
       }
@@ -116,14 +103,13 @@
 
     if (listEl.scrollTop >= 60 || pendingScrollRestore || loadingMore) return;
 
-    const key = chat.activeDmUsername ?? chat.activeChannelId;
-    const hasMore = chat.activeDmUsername ? chat.dmHasMore[key] : chat.channelHasMore[key];
+    const key = chat.activeChannelId;
+    const hasMore = chat.channelHasMore[key];
     if (!key || hasMore === false) return;
 
     prevScrollHeight = listEl.scrollHeight;
     pendingScrollRestore = true;
-    if (chat.activeDmUsername) loadOlderDms(chat.activeDmUsername);
-    else loadOlderMessages(chat.activeChannelId);
+    loadOlderMessages(chat.activeChannelId);
   }
 
   function formatTime(ms) {
@@ -142,6 +128,10 @@
 
   function formatHoverTime(ms) {
     return new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit", hour12: false });
+  }
+
+  function formatTimeoutUntil(ms) {
+    return new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
   }
 
   async function runAdminAction(fn) {
@@ -248,6 +238,21 @@
             </div>
           {/if}
 
+          {#if chat.timeoutNotice}
+            <div class="chatWarningBanner">
+              <TriangleAlert />
+              <span>You've been timed out until {formatTimeoutUntil(chat.timeoutNotice.until)}.</span>
+              <button
+                type="button"
+                class="chatIconBtn"
+                aria-label="Dismiss"
+                onclick={() => (chat.timeoutNotice = null)}
+              >
+                <X />
+              </button>
+            </div>
+          {/if}
+
           <div id="chatMessages" bind:this={listEl} onscroll={onMessagesScroll}>
             {#if !messagesLoaded}
               <div class="chatMessagesLoading"><div class="chatSpinner"></div></div>
@@ -255,7 +260,7 @@
               <div class="chatMessagesLoadingMore"><div class="chatSpinner"></div></div>
             {/if}
             {#snippet messageActions(message)}
-              {#if chat.isAdmin && !chat.activeDmUsername}
+              {#if chat.isAdmin}
                 <button
                   class="chatMessageAction"
                   aria-label={message.pinned ? "Unpin message" : "Pin message"}
@@ -275,9 +280,9 @@
             {/snippet}
 
             {#each currentMessages as message, i (message.id)}
-              {@const sender = message.username ?? message.fromUsername}
+              {@const sender = message.username}
               {@const prev = currentMessages[i - 1]}
-              {@const prevSender = prev ? (prev.username ?? prev.fromUsername) : null}
+              {@const prevSender = prev?.username ?? null}
               {@const isGroupStart =
                 i === 0 || prevSender !== sender || message.createdAt - prev.createdAt > GROUP_GAP_MS}
               <div class="chatMessage" class:chatMessageGrouped={!isGroupStart}>
@@ -348,12 +353,10 @@
           </div>
 
           {#if chat.channelError}<p class="chatError">{chat.channelError}</p>{/if}
-          <ChatComposer placeholder={chat.activeDmUsername ? `Message ${chat.activeDmUsername}` : "Message the channel"} />
+          <ChatComposer placeholder="Message the channel" />
         </div>
 
-        {#if !chat.activeDmUsername}
-          <ChatMemberList onOpenProfile={(username) => (profileUsername = username)} />
-        {/if}
+        <ChatMemberList onOpenProfile={(username) => (profileUsername = username)} />
       </div>
     {/if}
   </div>

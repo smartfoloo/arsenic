@@ -2,22 +2,32 @@ import { WebSocketServer } from "ws";
 
 import { isAdmin } from "./admin.js";
 import {
-  dmHistory,
-  findUserByUsername,
   getAvatar,
-  insertDm,
   insertMessage,
   isChannelLocked,
   isUserBanned,
-  olderDmHistory,
   olderMessages,
   recentMessages,
+  timeoutUntil,
 } from "./db.js";
 import { getRoles } from "./roles.js";
 import { readSession } from "./session.js";
 
-const MAX_BODY_LENGTH = 1000;
+export const MAX_BODY_LENGTH = 300;
+const MESSAGE_COOLDOWN_MS = 1000;
 const PAGE_SIZE = 50;
+
+// In-memory only — a 1s spam cooldown doesn't need to survive a restart.
+const lastMessageAt = new Map();
+
+export function canSendMessage(userId) {
+  const last = lastMessageAt.get(userId);
+  return !last || Date.now() - last >= MESSAGE_COOLDOWN_MS;
+}
+
+export function recordMessageSent(userId) {
+  lastMessageAt.set(userId, Date.now());
+}
 
 const wss = new WebSocketServer({ noServer: true });
 const clients = new Set();
@@ -35,15 +45,6 @@ function withAvatar(row) {
     pinned: !!row.pinned,
     imageUrl: row.imageMime ? `/chat/messages/${row.id}/image` : null,
     roles: getRoles(row.username),
-  };
-}
-
-function withDmAvatar(row) {
-  return {
-    ...row,
-    avatarUrl: avatarUrl(row.fromUserId, row.fromAvatarMime, row.fromAvatarUpdatedAt),
-    isAdmin: isAdmin(row.fromUsername),
-    roles: getRoles(row.fromUsername),
   };
 }
 
@@ -102,14 +103,31 @@ wss.on("connection", (ws, req, user) => {
     if (parsed.type === "message") {
       const channelId = Number(parsed.channelId);
       const body = typeof parsed.body === "string" ? parsed.body.trim() : "";
-      if (!channelId || !body || body.length > MAX_BODY_LENGTH) return;
+      if (!channelId || !body) return;
+
+      if (body.length > MAX_BODY_LENGTH) {
+        ws.send(JSON.stringify({ type: "error", context: "message", message: "too_long" }));
+        return;
+      }
 
       if (isChannelLocked(channelId) && !isAdmin(ws.user.username)) {
         ws.send(JSON.stringify({ type: "error", context: "message", message: "channel_locked" }));
         return;
       }
 
+      const timedOutUntil = timeoutUntil(ws.user.uid);
+      if (timedOutUntil) {
+        ws.send(JSON.stringify({ type: "error", context: "message", message: "timed_out", until: timedOutUntil }));
+        return;
+      }
+
+      if (!canSendMessage(ws.user.uid)) {
+        ws.send(JSON.stringify({ type: "error", context: "message", message: "rate_limited" }));
+        return;
+      }
+
       const { id, createdAt } = insertMessage({ userId: ws.user.uid, channelId, body });
+      recordMessageSent(ws.user.uid);
       const avatar = getAvatar(ws.user.uid);
       broadcast({
         type: "message",
@@ -152,76 +170,6 @@ wss.on("connection", (ws, req, user) => {
       return;
     }
 
-    if (parsed.type === "dm") {
-      const toUsername = typeof parsed.toUsername === "string" ? parsed.toUsername.trim() : "";
-      const body = typeof parsed.body === "string" ? parsed.body.trim() : "";
-      if (!toUsername || !body || body.length > MAX_BODY_LENGTH) return;
-
-      const target = findUserByUsername(toUsername);
-      if (!target) {
-        ws.send(JSON.stringify({ type: "error", context: "dm", message: "user_not_found" }));
-        return;
-      }
-
-      const { id, createdAt } = insertDm({ fromUserId: ws.user.uid, toUserId: target.id, body });
-      const avatar = getAvatar(ws.user.uid);
-      const payload = {
-        type: "dm",
-        id,
-        fromUsername: ws.user.username,
-        toUsername: target.username,
-        avatarUrl: avatarUrl(ws.user.uid, avatar?.mime, avatar?.updatedAt),
-        isAdmin: isAdmin(ws.user.username),
-        roles: getRoles(ws.user.username),
-        body,
-        createdAt,
-      };
-      sendToUser(target.id, payload);
-      sendToUser(ws.user.uid, payload);
-      return;
-    }
-
-    if (parsed.type === "dmHistory") {
-      const withUsername = typeof parsed.withUsername === "string" ? parsed.withUsername.trim() : "";
-      if (!withUsername) return;
-
-      const target = findUserByUsername(withUsername);
-      if (!target) {
-        ws.send(JSON.stringify({ type: "error", context: "dmHistory", message: "user_not_found" }));
-        return;
-      }
-
-      ws.send(
-        JSON.stringify({
-          type: "dmHistory",
-          withUsername: target.username,
-          messages: dmHistory(ws.user.uid, target.id).map(withDmAvatar),
-        }),
-      );
-      return;
-    }
-
-    if (parsed.type === "olderDms") {
-      const withUsername = typeof parsed.withUsername === "string" ? parsed.withUsername.trim() : "";
-      const beforeId = Number(parsed.beforeId);
-      if (!withUsername || !beforeId) return;
-
-      const target = findUserByUsername(withUsername);
-      if (!target) {
-        ws.send(JSON.stringify({ type: "error", context: "olderDms", message: "user_not_found" }));
-        return;
-      }
-
-      const messages = olderDmHistory(ws.user.uid, target.id, beforeId).map(withDmAvatar);
-      ws.send(
-        JSON.stringify({
-          type: "olderDms",
-          withUsername: target.username,
-          messages,
-          hasMore: messages.length === PAGE_SIZE,
-        }),
-      );
-    }
   });
 
   ws.on("close", () => untrackClient(ws, user.uid));

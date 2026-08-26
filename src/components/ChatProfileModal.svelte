@@ -1,11 +1,21 @@
 <script>
   import Camera from "@lucide/svelte/icons/camera";
+  import Clock from "@lucide/svelte/icons/clock";
   import Pencil from "@lucide/svelte/icons/pencil";
   import TriangleAlert from "@lucide/svelte/icons/triangle-alert";
   import UserCheck from "@lucide/svelte/icons/user-check";
   import UserX from "@lucide/svelte/icons/user-x";
 
-  import { banUser, chat, fetchUserProfile, unbanUser, updateBio, uploadAvatar, warnUser } from "../lib/chat.svelte.js";
+  import {
+    banUser,
+    chat,
+    fetchUserProfile,
+    timeoutUser,
+    unbanUser,
+    updateBio,
+    uploadAvatar,
+    warnUser,
+  } from "../lib/chat.svelte.js";
   import ChatConfirmModal from "./ChatConfirmModal.svelte";
   import ChatPromptModal from "./ChatPromptModal.svelte";
 
@@ -25,6 +35,9 @@
   let actionBusy = $state(false);
   let avatarInput = $state(null);
   let avatarError = $state(null);
+  let timeoutMinutes = $state("");
+  let timeoutBusy = $state(false);
+  let timeoutError = $state(null);
 
   const isSelf = $derived(username === chat.authUsername);
 
@@ -71,6 +84,27 @@
 
   function formatJoined(ms) {
     return new Date(ms).toLocaleDateString([], { year: "numeric", month: "long", day: "numeric" });
+  }
+
+  function formatTimeoutUntil(ms) {
+    return new Date(ms).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+
+  async function runTimeout() {
+    const minutes = Number(timeoutMinutes);
+    if (!Number.isFinite(minutes) || minutes <= 0) return;
+
+    timeoutError = null;
+    timeoutBusy = true;
+    try {
+      const data = await timeoutUser(username, minutes);
+      profile.timeoutUntil = data.until;
+      timeoutMinutes = "";
+    } catch (err) {
+      timeoutError = err.message;
+    } finally {
+      timeoutBusy = false;
+    }
   }
 
   async function onAvatarChange(event) {
@@ -165,6 +199,30 @@
               <UserX /> Ban
             </button>
           {/if}
+
+          {#if timeoutError}<p class="chatError">{timeoutError}</p>{/if}
+          <div class="chatTimeoutRow">
+            <input
+              type="number"
+              min="0.1"
+              step="0.1"
+              placeholder="Minutes"
+              bind:value={timeoutMinutes}
+              aria-label="Timeout duration in minutes"
+            />
+            <button
+              class="btn"
+              type="button"
+              disabled={timeoutBusy || !timeoutMinutes}
+              onclick={runTimeout}
+            >
+              <Clock /> Timeout
+            </button>
+          </div>
+          {#if profile.timeoutUntil}
+            <p class="chatProfileWarningCount">Timed out until {formatTimeoutUntil(profile.timeoutUntil)}</p>
+          {/if}
+
           <button class="btn" type="button" onclick={() => (warnModalOpen = true)}>
             <TriangleAlert /> Warn
           </button>

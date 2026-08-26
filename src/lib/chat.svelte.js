@@ -8,23 +8,34 @@ export const chat = $state({
   channels: [],
   activeChannelId: null,
   channelMessages: {},
-  activeDmUsername: null,
-  dmThreads: {},
-  dmPartners: [],
-  dmError: null,
   bannedUsers: [],
   members: [],
   roles: [],
   roleOrder: [],
   channelHasMore: {},
   channelLoadingMore: {},
-  dmHasMore: {},
-  dmLoadingMore: {},
   channelError: null,
   warningNotice: null,
+  timeoutUntil: null,
+  timeoutNotice: null,
 });
 
+let timeoutClearHandle;
+
+// The gate (chat.timeoutUntil) has to clear itself once the timeout expires,
+// or the composer would stay disabled until the next unrelated state change.
+function scheduleTimeoutClear(until) {
+  clearTimeout(timeoutClearHandle);
+  const ms = until - Date.now();
+  if (ms <= 0) {
+    chat.timeoutUntil = null;
+    return;
+  }
+  timeoutClearHandle = setTimeout(() => (chat.timeoutUntil = null), ms);
+}
+
 const PAGE_SIZE = 50;
+export const MAX_MESSAGE_LENGTH = 500; // kept in sync with server/chat.js's MAX_BODY_LENGTH
 
 let socket = null;
 
@@ -52,6 +63,10 @@ export async function checkAuth() {
     chat.avatarUrl = data.avatarUrl ?? null;
     chat.roles = data.roles ?? [];
     chat.roleOrder = data.roleOrder ?? [];
+    if (data.timeoutUntil) {
+      chat.timeoutUntil = data.timeoutUntil;
+      scheduleTimeoutClear(data.timeoutUntil);
+    }
   } catch (err) {
     if (err.message === "chat_disabled") chat.disabled = true;
   } finally {
@@ -60,7 +75,6 @@ export async function checkAuth() {
   if (chat.authUsername) {
     connect();
     fetchChannels();
-    fetchDmPartners();
     fetchMembers();
     if (chat.isAdmin) {
       fetchBannedUsers();
@@ -86,18 +100,16 @@ export async function logout() {
   chat.channels = [];
   chat.activeChannelId = null;
   chat.channelMessages = {};
-  chat.activeDmUsername = null;
-  chat.dmThreads = {};
-  chat.dmPartners = [];
   chat.bannedUsers = [];
   chat.members = [];
   chat.roles = [];
   chat.roleOrder = [];
   chat.channelHasMore = {};
   chat.channelLoadingMore = {};
-  chat.dmHasMore = {};
-  chat.dmLoadingMore = {};
   chat.warningNotice = null;
+  chat.timeoutUntil = null;
+  chat.timeoutNotice = null;
+  clearTimeout(timeoutClearHandle);
   disconnect();
 }
 
@@ -114,30 +126,15 @@ export async function fetchChannels() {
   if (!chat.activeChannelId && data.channels.length) switchChannel(data.channels[0].id);
 }
 
-export async function fetchDmPartners() {
-  const data = await request("dms");
-  chat.dmPartners = data.partners;
-}
-
 export async function fetchMembers() {
   const data = await request("members");
   chat.members = data.members;
 }
 
 export function switchChannel(id) {
-  chat.activeDmUsername = null;
   chat.activeChannelId = id;
-  chat.dmError = null;
   chat.channelError = null;
   if (!chat.channelMessages[id]) send({ type: "history", channelId: id });
-}
-
-export function startDm(username) {
-  const target = username.trim();
-  if (!target) return;
-
-  chat.dmError = null;
-  send({ type: "dmHistory", withUsername: target });
 }
 
 export function loadOlderMessages(channelId) {
@@ -150,21 +147,9 @@ export function loadOlderMessages(channelId) {
   send({ type: "olderMessages", channelId, beforeId: oldest.id });
 }
 
-export function loadOlderDms(username) {
-  if (chat.dmLoadingMore[username] || chat.dmHasMore[username] === false) return;
-
-  const oldest = chat.dmThreads[username]?.[0];
-  if (!oldest) return;
-
-  chat.dmLoadingMore[username] = true;
-  send({ type: "olderDms", withUsername: username, beforeId: oldest.id });
-}
-
 export function sendMessage(body) {
   if (!body.trim()) return;
-
-  if (chat.activeDmUsername) send({ type: "dm", toUsername: chat.activeDmUsername, body });
-  else if (chat.activeChannelId) send({ type: "message", channelId: chat.activeChannelId, body });
+  if (chat.activeChannelId) send({ type: "message", channelId: chat.activeChannelId, body });
 }
 
 export function createChannel(name) {
@@ -230,6 +215,10 @@ export function warnUser(username, reason) {
   return request("admin/warn", { method: "POST", json: { username, reason } });
 }
 
+export function timeoutUser(username, minutes) {
+  return request("admin/timeout", { method: "POST", json: { username, minutes } });
+}
+
 export async function fetchBannedUsers() {
   const data = await request("admin/banned");
   chat.bannedUsers = data.users;
@@ -270,10 +259,6 @@ export function disconnect() {
   chat.connected = false;
 }
 
-function otherParty(dm) {
-  return dm.fromUsername === chat.authUsername ? dm.toUsername : dm.fromUsername;
-}
-
 function handleMessage(data) {
   if (data.type === "history") {
     chat.channelMessages[data.channelId] = data.messages;
@@ -284,18 +269,6 @@ function handleMessage(data) {
     chat.channelMessages[data.channelId] = [...data.messages, ...(chat.channelMessages[data.channelId] ?? [])];
     chat.channelHasMore[data.channelId] = data.hasMore;
     chat.channelLoadingMore[data.channelId] = false;
-  } else if (data.type === "dm") {
-    (chat.dmThreads[otherParty(data)] ??= []).push(data);
-  } else if (data.type === "dmHistory") {
-    chat.dmThreads[data.withUsername] = data.messages;
-    chat.dmHasMore[data.withUsername] = data.messages.length === PAGE_SIZE;
-    chat.activeChannelId = null;
-    chat.activeDmUsername = data.withUsername;
-    chat.dmError = null;
-  } else if (data.type === "olderDms") {
-    chat.dmThreads[data.withUsername] = [...data.messages, ...(chat.dmThreads[data.withUsername] ?? [])];
-    chat.dmHasMore[data.withUsername] = data.hasMore;
-    chat.dmLoadingMore[data.withUsername] = false;
   } else if (data.type === "messagePinned" || data.type === "messageUnpinned") {
     const list = chat.channelMessages[data.channelId];
     const message = list?.find((m) => m.id === data.id);
@@ -309,9 +282,16 @@ function handleMessage(data) {
   } else if (data.type === "channelsReordered") {
     chat.channels = data.channels;
   } else if (data.type === "error") {
-    if (data.context === "dm" || data.context === "dmHistory") chat.dmError = "That user doesn't exist.";
-    else if (data.context === "message" && data.message === "channel_locked") {
+    if (data.message === "timed_out") {
+      chat.timeoutUntil = data.until;
+      scheduleTimeoutClear(data.until);
+      chat.channelError = "You're timed out and can't send messages right now.";
+    } else if (data.context === "message" && data.message === "channel_locked") {
       chat.channelError = "This channel is locked — only admins can post.";
+    } else if (data.context === "message" && data.message === "too_long") {
+      chat.channelError = `Messages can't be longer than ${MAX_MESSAGE_LENGTH} characters.`;
+    } else if (data.context === "message" && data.message === "rate_limited") {
+      chat.channelError = "You're sending messages too fast — slow down a bit.";
     }
   } else if (data.type === "channelCreated") {
     chat.channels.push(data.channel);
@@ -328,9 +308,6 @@ function handleMessage(data) {
     for (const id of Object.keys(chat.channelMessages)) {
       chat.channelMessages[id] = chat.channelMessages[id].filter((m) => m.username !== data.username);
     }
-    delete chat.dmThreads[data.username];
-    chat.dmPartners = chat.dmPartners.filter((username) => username !== data.username);
-    if (chat.activeDmUsername === data.username) chat.activeDmUsername = null;
     if (chat.isAdmin && !chat.bannedUsers.includes(data.username)) {
       chat.bannedUsers = [...chat.bannedUsers, data.username];
     }
@@ -341,5 +318,9 @@ function handleMessage(data) {
     fetchMembers();
   } else if (data.type === "warned") {
     chat.warningNotice = { reason: data.reason, at: Date.now() };
+  } else if (data.type === "timedOut") {
+    chat.timeoutUntil = data.until;
+    chat.timeoutNotice = { until: data.until };
+    scheduleTimeoutClear(data.until);
   }
 }
