@@ -42,6 +42,14 @@ import {
 import { clearSessionCookie, readSession, setSessionCookie } from "./session.js";
 
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,20}$/;
+const MAX_USERNAME_DIGITS = 8;
+
+function isValidUsername(username) {
+  if (typeof username !== "string" || !USERNAME_PATTERN.test(username)) return false;
+  if (/^[0-9]+$/.test(username)) return false;
+  const digitCount = (username.match(/[0-9]/g) ?? []).length;
+  return digitCount <= MAX_USERNAME_DIGITS;
+}
 const CHANNEL_NAME_PATTERN = /^[a-z0-9-]{2,30}$/;
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_BIO_LENGTH = 190;
@@ -103,7 +111,7 @@ const router = Router();
 router.post("/signup", async (req, res) => {
   const { username, password, agreedToLegal } = req.body ?? {};
 
-  if (typeof username !== "string" || !USERNAME_PATTERN.test(username)) {
+  if (!isValidUsername(username)) {
     return res.status(400).json({ error: "invalid_username" });
   }
   if (typeof password !== "string" || password.length < MIN_PASSWORD_LENGTH) {

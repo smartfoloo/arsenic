@@ -9,7 +9,8 @@
   let busy = $state(false);
 
   const ERROR_MESSAGES = {
-    invalid_username: "Usernames are 3-20 characters: letters, numbers, underscore.",
+    invalid_username:
+      "Usernames are 3-20 characters (letters, numbers, underscore), can't be all numbers, and can have at most 8 digits.",
     invalid_password: "Password must be at least 8 characters.",
     must_agree_to_legal: "You need to agree to the terms and privacy policy.",
     username_taken: "That username is already taken.",

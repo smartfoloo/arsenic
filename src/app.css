@@ -1927,9 +1927,6 @@ svg {
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  background: color-mix(in srgb, var(--base) 70%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 /* Content stays capped at a comfortable ~800px column on wide windows —
    max() falls back to the plain base padding below that, so narrow/phone
@@ -1969,7 +1966,7 @@ svg {
   flex: 1;
   min-width: 0;
   border-radius: 20px;
-  background: var(--mantle);
+  background: var(--base);
   overflow: hidden;
 }
 .aiHistoryRow {
@@ -2015,7 +2012,7 @@ svg {
   max-width: 70%;
   padding: 10px 14px;
   border-radius: 16px;
-  background: var(--mantle);
+  background: var(--base);
 }
 .aiMessageUser {
   align-self: flex-end;
