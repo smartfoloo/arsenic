@@ -1,3 +1,11 @@
+// v2.1 — bump this comment whenever the file needs to change on its own so the
+// browser's service-worker update algorithm (byte-diff on the registered
+// script) picks it up. Needed once after the v1→v2 Scramjet migration: a
+// stale v1 worker (which bundled bare-mux and logged its endless
+// "failed to get a bare-mux SharedWorker MessagePort" retry) keeps running
+// under its old scope until the browser notices this file changed and
+// installs the new one — skipWaiting()/clients.claim() below then hand
+// control over immediately instead of waiting for all v1 tabs to close.
 importScripts("/controller/controller.sw.js");
 
 self.addEventListener("install", () => self.skipWaiting());
