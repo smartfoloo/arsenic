@@ -13,6 +13,7 @@ import {
   olderMessages,
   recentMessages,
 } from "./db.js";
+import { getRoles } from "./roles.js";
 import { readSession } from "./session.js";
 
 const MAX_BODY_LENGTH = 1000;
@@ -33,6 +34,7 @@ function withAvatar(row) {
     isAdmin: isAdmin(row.username),
     pinned: !!row.pinned,
     imageUrl: row.imageMime ? `/chat/messages/${row.id}/image` : null,
+    roles: getRoles(row.username),
   };
 }
 
@@ -41,6 +43,7 @@ function withDmAvatar(row) {
     ...row,
     avatarUrl: avatarUrl(row.fromUserId, row.fromAvatarMime, row.fromAvatarUpdatedAt),
     isAdmin: isAdmin(row.fromUsername),
+    roles: getRoles(row.fromUsername),
   };
 }
 
@@ -116,6 +119,7 @@ wss.on("connection", (ws, req, user) => {
         username: ws.user.username,
         avatarUrl: avatarUrl(ws.user.uid, avatar?.mime, avatar?.updatedAt),
         isAdmin: isAdmin(ws.user.username),
+        roles: getRoles(ws.user.username),
         body,
         createdAt,
       });
@@ -168,6 +172,7 @@ wss.on("connection", (ws, req, user) => {
         toUsername: target.username,
         avatarUrl: avatarUrl(ws.user.uid, avatar?.mime, avatar?.updatedAt),
         isAdmin: isAdmin(ws.user.username),
+        roles: getRoles(ws.user.username),
         body,
         createdAt,
       };

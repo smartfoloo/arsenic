@@ -6,8 +6,9 @@ import { Router } from "express";
 import multer from "multer";
 
 import { isAdmin } from "./admin.js";
-import { broadcast, disconnectUser } from "./chat.js";
+import { broadcast, disconnectUser, sendToUser } from "./chat.js";
 import {
+  addWarning,
   banUser,
   channelCount,
   channelImagePaths,
@@ -26,6 +27,7 @@ import {
   listBannedUsers,
   listChannels,
   listUsers,
+  listWarnings,
   lockChannel,
   messageChannelId,
   messageImagePath,
@@ -38,7 +40,9 @@ import {
   setMessageImage,
   unbanUser,
   unpinMessage,
+  warningCount,
 } from "./db.js";
+import { getRoles, roleOrder } from "./roles.js";
 import { clearSessionCookie, readSession, setSessionCookie } from "./session.js";
 
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,20}$/;
@@ -53,6 +57,7 @@ function isValidUsername(username) {
 const CHANNEL_NAME_PATTERN = /^[a-z0-9-]{2,30}$/;
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_BIO_LENGTH = 190;
+const MAX_WARNING_REASON_LENGTH = 300;
 const AVATAR_MIME_EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
 const avatarsDir = fileURLToPath(new URL("./data/avatars/", import.meta.url));
 const messageImagesDir = fileURLToPath(new URL("./data/message-images/", import.meta.url));
@@ -174,6 +179,8 @@ router.get("/me", (req, res) => {
     username: session.username,
     isAdmin: isAdmin(session.username),
     avatarUrl: avatarUrlFor(session.uid),
+    roles: getRoles(session.username),
+    roleOrder: roleOrder(),
   });
 });
 
@@ -218,7 +225,9 @@ router.get("/users/:username", requireAuth, (req, res) => {
     avatarUrl: avatarUrlFor(target.id),
     bio: target.bio ?? "",
     joinedAt: target.created_at,
+    roles: getRoles(target.username),
     banned: isAdmin(req.session.username) ? !!target.banned_at : undefined,
+    warningCount: isAdmin(req.session.username) ? warningCount(target.id) : undefined,
   });
 });
 
@@ -231,6 +240,7 @@ router.get("/members", requireAuth, (req, res) => {
     username: user.username,
     avatarUrl: user.avatarMime ? `/chat/avatars/${user.id}?v=${user.avatarUpdatedAt ?? 0}` : null,
     isAdmin: isAdmin(user.username),
+    roles: getRoles(user.username),
   }));
   res.json({ members });
 });
@@ -416,6 +426,25 @@ router.post("/admin/ban", requireAdmin, (req, res) => {
   disconnectUser(target.id);
   broadcast({ type: "userBanned", username: target.username });
   res.json({});
+});
+
+router.post("/admin/warn", requireAdmin, (req, res) => {
+  const { username, reason } = req.body ?? {};
+  const target = typeof username === "string" ? findUserByUsername(username) : null;
+  if (!target) return res.status(404).json({ error: "user_not_found" });
+  if (target.username.toLowerCase() === req.session.username.toLowerCase()) {
+    return res.status(400).json({ error: "cannot_warn_self" });
+  }
+  if (isAdmin(target.username)) {
+    return res.status(400).json({ error: "cannot_warn_admin" });
+  }
+
+  const trimmedReason = typeof reason === "string" ? reason.trim().slice(0, MAX_WARNING_REASON_LENGTH) : "";
+  if (!trimmedReason) return res.status(400).json({ error: "invalid_reason" });
+
+  addWarning(target.id, trimmedReason, req.session.username);
+  sendToUser(target.id, { type: "warned", reason: trimmedReason });
+  res.json({ count: warningCount(target.id) });
 });
 
 router.get("/admin/banned", requireAdmin, (req, res) => {

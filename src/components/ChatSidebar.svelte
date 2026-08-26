@@ -140,8 +140,12 @@
         <span class="chatAvatarBtn chatAvatarFallback">{chat.authUsername[0]?.toUpperCase()}</span>
       {/if}
       <span class="chatProfileName">
-        <span class="chatProfileUsername">{chat.authUsername}</span>
-        {#if chat.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
+        <span class="chatProfileUsername" style={chat.roles[0] ? `color: var(--${chat.roles[0].color})` : ""}>
+          {chat.authUsername}
+        </span>
+        {#each chat.roles as role (role.name)}
+          <span class="chatRoleBadge" style="color: var(--{role.color})">{role.name}</span>
+        {/each}
       </span>
     </button>
     <button

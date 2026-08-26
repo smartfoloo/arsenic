@@ -8,7 +8,7 @@ import {
 
 const KEY = "arsenic:settings";
 
-export const MAX_BOOKMARKS = 4;
+export const MAX_BOOKMARKS = 6;
 
 export const ACCENTS = ["mauve", "blue", "pink", "teal", "peach", "green"];
 

@@ -1,10 +1,5 @@
-const ADMINS = new Set(
-  (process.env.ARSENIC_ADMIN_USERNAMES ?? "")
-    .split(",")
-    .map((name) => name.trim().toLowerCase())
-    .filter(Boolean),
-);
+import { isAdminUser } from "./roles.js";
 
 export function isAdmin(username) {
-  return !!username && ADMINS.has(username.toLowerCase());
+  return !!username && isAdminUser(username);
 }

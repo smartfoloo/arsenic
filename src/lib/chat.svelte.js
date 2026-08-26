@@ -14,11 +14,14 @@ export const chat = $state({
   dmError: null,
   bannedUsers: [],
   members: [],
+  roles: [],
+  roleOrder: [],
   channelHasMore: {},
   channelLoadingMore: {},
   dmHasMore: {},
   dmLoadingMore: {},
   channelError: null,
+  warningNotice: null,
 });
 
 const PAGE_SIZE = 50;
@@ -47,6 +50,8 @@ export async function checkAuth() {
     chat.authUsername = data.username;
     chat.isAdmin = !!data.isAdmin;
     chat.avatarUrl = data.avatarUrl ?? null;
+    chat.roles = data.roles ?? [];
+    chat.roleOrder = data.roleOrder ?? [];
   } catch (err) {
     if (err.message === "chat_disabled") chat.disabled = true;
   } finally {
@@ -57,7 +62,9 @@ export async function checkAuth() {
     fetchChannels();
     fetchDmPartners();
     fetchMembers();
-    if (chat.isAdmin) fetchBannedUsers();
+    if (chat.isAdmin) {
+      fetchBannedUsers();
+    }
   }
 }
 
@@ -84,10 +91,13 @@ export async function logout() {
   chat.dmPartners = [];
   chat.bannedUsers = [];
   chat.members = [];
+  chat.roles = [];
+  chat.roleOrder = [];
   chat.channelHasMore = {};
   chat.channelLoadingMore = {};
   chat.dmHasMore = {};
   chat.dmLoadingMore = {};
+  chat.warningNotice = null;
   disconnect();
 }
 
@@ -216,6 +226,10 @@ export function unbanUser(username) {
   return request("admin/unban", { method: "POST", json: { username } });
 }
 
+export function warnUser(username, reason) {
+  return request("admin/warn", { method: "POST", json: { username, reason } });
+}
+
 export async function fetchBannedUsers() {
   const data = await request("admin/banned");
   chat.bannedUsers = data.users;
@@ -325,5 +339,7 @@ function handleMessage(data) {
     for (const id of Object.keys(chat.channelMessages)) send({ type: "history", channelId: Number(id) });
     chat.bannedUsers = chat.bannedUsers.filter((username) => username !== data.username);
     fetchMembers();
+  } else if (data.type === "warned") {
+    chat.warningNotice = { reason: data.reason, at: Date.now() };
   }
 }

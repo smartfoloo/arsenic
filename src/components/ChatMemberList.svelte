@@ -12,8 +12,14 @@
     return copy;
   }
 
-  const admins = $derived(chat.members.filter((member) => member.isAdmin));
-  const members = $derived(shuffled(chat.members.filter((member) => !member.isAdmin)));
+  // Sectioned by each member's highest-ranked role (server sends roles pre-sorted,
+  // rank order taken from ARSENIC_ROLES), highest rank first, roleless members last.
+  const roleGroups = $derived(
+    chat.roleOrder
+      .map((name) => ({ name, members: chat.members.filter((member) => member.roles[0]?.name === name) }))
+      .filter((group) => group.members.length),
+  );
+  const plainMembers = $derived(shuffled(chat.members.filter((member) => !member.roles.length)));
 </script>
 
 {#snippet memberRow(member)}
@@ -23,30 +29,32 @@
     {:else}
       <span class="chatMemberAvatar chatAvatarFallback">{member.username[0]?.toUpperCase()}</span>
     {/if}
-    <span class="chatMemberName">{member.username}</span>
+    <span class="chatMemberName" style={member.roles[0] ? `color: var(--${member.roles[0].color})` : ""}>
+      {member.username}
+    </span>
   </button>
 {/snippet}
 
 <div id="chatMemberList">
   <div class="chatSidebarScroll">
-    {#if admins.length}
+    {#each roleGroups as group (group.name)}
       <div class="chatSidebarSection">
         <div class="chatSectionHeading">
-          <h3>Admins — {admins.length}</h3>
+          <h3>{group.name} — {group.members.length}</h3>
         </div>
         <div class="chatMemberGroup">
-          {#each admins as member (member.username)}
+          {#each group.members as member (member.username)}
             {@render memberRow(member)}
           {/each}
         </div>
       </div>
-    {/if}
+    {/each}
     <div class="chatSidebarSection">
       <div class="chatSectionHeading">
-        <h3>Members — {members.length}</h3>
+        <h3>Members — {plainMembers.length}</h3>
       </div>
       <div class="chatMemberGroup">
-        {#each members as member (member.username)}
+        {#each plainMembers as member (member.username)}
           {@render memberRow(member)}
         {/each}
       </div>

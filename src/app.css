@@ -270,29 +270,40 @@ svg {
 #bookmarks {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 66px; /* one square unit — tiles span 2 or 4 columns wide but always 1 unit tall */
+  grid-auto-rows: 66px;
   gap: 6px;
   padding: 12px 0;
 }
 #bookmarks:empty {
   padding: 12px 0 0; /* no tiles, but the divider keeps its gap from the url bar */
 }
-/* Tile widths in "square units": grid auto-placement wraps a row once
-   it's full, so only the column span needs to be set per tile — a
-   single 4-wide tile fills its own row, two 2-wide tiles share a row,
-   and a lone leftover 2-wide tile just wraps to the next row on its own. */
-#bookmarks[data-count="1"] .bookmark {
-  grid-column: span 4;
+/* Each count gets its own explicit layout rather than a shared base grid,
+   since 3/5/6 need row shapes a fixed column count can't produce by itself. */
+#bookmarks[data-count="1"] {
+  grid-template-columns: 1fr;
 }
-#bookmarks[data-count="2"] .bookmark,
-#bookmarks[data-count="4"] .bookmark {
+#bookmarks[data-count="2"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+#bookmarks[data-count="3"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+#bookmarks[data-count="4"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+/* 5 = 2 over 3: a 6-wide base lets the top row's tiles span 3 each and the
+   bottom row's span 2 each, so both rows fill the same total width. */
+#bookmarks[data-count="5"] {
+  grid-template-columns: repeat(6, 1fr);
+}
+#bookmarks[data-count="5"] .bookmark:nth-child(-n + 2) {
+  grid-column: span 3;
+}
+#bookmarks[data-count="5"] .bookmark:nth-child(n + 3) {
   grid-column: span 2;
 }
-#bookmarks[data-count="3"] .bookmark:first-child {
-  grid-column: span 4;
-}
-#bookmarks[data-count="3"] .bookmark:not(:first-child) {
-  grid-column: span 2;
+#bookmarks[data-count="6"] {
+  grid-template-columns: repeat(3, 1fr);
 }
 .bookmark {
   display: flex;
@@ -1103,6 +1114,28 @@ svg {
   color: var(--red);
   font-size: 13px;
 }
+.chatWarningBanner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 14px 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--yellow) 16%, var(--mantle));
+  border: 1px solid color-mix(in srgb, var(--yellow) 35%, transparent);
+  color: var(--text);
+  font-size: 14px;
+}
+.chatWarningBanner svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--yellow);
+}
+.chatWarningBanner span {
+  flex: 1;
+  min-width: 0;
+}
 .chatModeToggle {
   background: none;
   border: 0;
@@ -1137,6 +1170,8 @@ svg {
 .chatMemberRow {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 4px;
   gap: 10px;
   width: 100%;
   padding: 6px 8px;
@@ -1167,6 +1202,7 @@ svg {
   height: 28px;
 }
 .chatMemberName {
+  flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1493,6 +1529,8 @@ svg {
 .chatProfileNames {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 4px;
   gap: 8px;
 }
 .chatProfileJoined {
@@ -1550,6 +1588,12 @@ svg {
   width: 18px;
   height: 18px;
 }
+.chatProfileWarningCount {
+  margin: 0;
+  font-size: 13px;
+  color: var(--overlay0);
+  text-align: center;
+}
 
 /* main pane */
 #chatMain {
@@ -1594,9 +1638,8 @@ svg {
   cursor: pointer;
   flex: none;
 }
+.chatAvatarBtn,
 .chatAvatarBtn img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 .chatAvatarBtn.chatAvatarFallback {
@@ -1685,6 +1728,8 @@ svg {
 .chatMessageMeta {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 4px;
   gap: 8px;
 }
 .chatMessageContentRow {
@@ -1731,17 +1776,6 @@ svg {
   color: var(--overlay0);
   font-size: 12px;
 }
-.chatAdminBadge {
-  flex: none;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  color: var(--accent);
-  background: var(--surface1);
-  padding: 2px 6px;
-  border-radius: 6px;
-}
 .chatPinnedBadge {
   flex: none;
   font-size: 10px;
@@ -1752,6 +1786,22 @@ svg {
   background: var(--surface1);
   padding: 2px 6px;
   border-radius: 6px;
+}
+/* Color comes from an inline style per-instance (the role's own palette
+   color), not a fixed var here — everything else matches the other badges. */
+.chatRoleBadge {
+  flex: none;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background: var(--surface1);
+  padding: 2px 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100px;
 }
 /* min-height covers a broken or still-loading image, which would otherwise
    collapse to a near-zero box (visible content aside, that's what made a

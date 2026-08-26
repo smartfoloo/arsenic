@@ -1,11 +1,13 @@
 <script>
   import Camera from "@lucide/svelte/icons/camera";
   import Pencil from "@lucide/svelte/icons/pencil";
+  import TriangleAlert from "@lucide/svelte/icons/triangle-alert";
   import UserCheck from "@lucide/svelte/icons/user-check";
   import UserX from "@lucide/svelte/icons/user-x";
 
-  import { banUser, chat, fetchUserProfile, unbanUser, updateBio, uploadAvatar } from "../lib/chat.svelte.js";
+  import { banUser, chat, fetchUserProfile, unbanUser, updateBio, uploadAvatar, warnUser } from "../lib/chat.svelte.js";
   import ChatConfirmModal from "./ChatConfirmModal.svelte";
+  import ChatPromptModal from "./ChatPromptModal.svelte";
 
   const MAX_BIO_LENGTH = 190;
 
@@ -18,6 +20,7 @@
   let bioBusy = $state(false);
   let bioError = $state(null);
   let banConfirmOpen = $state(false);
+  let warnModalOpen = $state(false);
   let actionError = $state(null);
   let actionBusy = $state(false);
   let avatarInput = $state(null);
@@ -117,8 +120,10 @@
           <span class="chatProfileAvatar chatAvatarFallback">{profile.username[0]?.toUpperCase()}</span>
         {/if}
         <div class="chatProfileNames">
-          <h3>{profile.username}</h3>
-          {#if profile.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
+          <h3 style={profile.roles[0] ? `color: var(--${profile.roles[0].color})` : ""}>{profile.username}</h3>
+          {#each profile.roles as role (role.name)}
+            <span class="chatRoleBadge" style="color: var(--{role.color})">{role.name}</span>
+          {/each}
         </div>
       </div>
       {#if avatarError}<p class="chatError">{avatarError}</p>{/if}
@@ -160,6 +165,12 @@
               <UserX /> Ban
             </button>
           {/if}
+          <button class="btn" type="button" onclick={() => (warnModalOpen = true)}>
+            <TriangleAlert /> Warn
+          </button>
+          <p class="chatProfileWarningCount">
+            {profile.warningCount === 1 ? "1 warning" : `${profile.warningCount ?? 0} warnings`}
+          </p>
         </div>
       {/if}
     {/if}
@@ -176,5 +187,18 @@
       profile.banned = true;
     }}
     onclose={() => (banConfirmOpen = false)}
+  />
+{/if}
+
+{#if warnModalOpen}
+  <ChatPromptModal
+    title="Warn user"
+    placeholder="Reason"
+    submitLabel="Warn"
+    onsubmit={async (reason) => {
+      const data = await warnUser(username, reason);
+      profile.warningCount = data.count;
+    }}
+    onclose={() => (warnModalOpen = false)}
   />
 {/if}

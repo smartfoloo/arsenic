@@ -7,7 +7,9 @@
   import Pin from "@lucide/svelte/icons/pin";
   import PinOff from "@lucide/svelte/icons/pin-off";
   import Trash2 from "@lucide/svelte/icons/trash-2";
+  import TriangleAlert from "@lucide/svelte/icons/triangle-alert";
   import Unlock from "@lucide/svelte/icons/unlock";
+  import X from "@lucide/svelte/icons/x";
 
   import ChatAuthForm from "./ChatAuthForm.svelte";
   import ChatComposer from "./ChatComposer.svelte";
@@ -231,6 +233,21 @@
 
           {#if actionError}<p class="chatError">{actionError}</p>{/if}
 
+          {#if chat.warningNotice}
+            <div class="chatWarningBanner">
+              <TriangleAlert />
+              <span>You've been warned by an admin: {chat.warningNotice.reason}</span>
+              <button
+                type="button"
+                class="chatIconBtn"
+                aria-label="Dismiss"
+                onclick={() => (chat.warningNotice = null)}
+              >
+                <X />
+              </button>
+            </div>
+          {/if}
+
           <div id="chatMessages" bind:this={listEl} onscroll={onMessagesScroll}>
             {#if !messagesLoaded}
               <div class="chatMessagesLoading"><div class="chatSpinner"></div></div>
@@ -287,10 +304,17 @@
                 <div class="chatMessageBody">
                   {#if isGroupStart}
                     <div class="chatMessageMeta">
-                      <button type="button" class="chatMessageNameBtn" onclick={() => (profileUsername = sender)}>
+                      <button
+                        type="button"
+                        class="chatMessageNameBtn"
+                        style={message.roles[0] ? `color: var(--${message.roles[0].color})` : ""}
+                        onclick={() => (profileUsername = sender)}
+                      >
                         {sender}
                       </button>
-                      {#if message.isAdmin}<span class="chatAdminBadge">Admin</span>{/if}
+                      {#each message.roles as role (role.name)}
+                        <span class="chatRoleBadge" style="color: var(--{role.color})">{role.name}</span>
+                      {/each}
                       {#if message.pinned}<span class="chatPinnedBadge">Pinned</span>{/if}
                       <small>{formatTime(message.createdAt)}</small>
                       {@render messageActions(message)}

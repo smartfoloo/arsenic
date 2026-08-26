@@ -44,8 +44,17 @@ db.exec(`
     created_at INTEGER NOT NULL
   );
 
+  CREATE TABLE IF NOT EXISTS warnings (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    reason TEXT NOT NULL,
+    issued_by TEXT NOT NULL,
+    created_at INTEGER NOT NULL
+  );
+
   CREATE INDEX IF NOT EXISTS messages_created_at ON messages(created_at);
   CREATE INDEX IF NOT EXISTS dm_messages_created_at ON dm_messages(created_at);
+  CREATE INDEX IF NOT EXISTS warnings_user_id ON warnings(user_id);
 `);
 
 // Migration-safe boot init: add columns that a v1 install won't have yet.
@@ -151,12 +160,19 @@ const getAvatarStmt = db.prepare(
 const isBannedStmt = db.prepare("SELECT banned_at FROM users WHERE id = ?");
 const listBannedStmt = db.prepare("SELECT username FROM users WHERE banned_at IS NOT NULL ORDER BY banned_at DESC");
 const listUsersStmt = db.prepare(`
-  SELECT id, username, avatar_mime AS avatarMime, avatar_updated_at AS avatarUpdatedAt
+  SELECT users.id, users.username, users.avatar_mime AS avatarMime, users.avatar_updated_at AS avatarUpdatedAt
   FROM users
-  WHERE banned_at IS NULL
-  ORDER BY username COLLATE NOCASE
+  WHERE users.banned_at IS NULL
+  ORDER BY users.username COLLATE NOCASE
 `);
 const setBioStmt = db.prepare("UPDATE users SET bio = ? WHERE id = ?");
+const addWarningStmt = db.prepare(
+  "INSERT INTO warnings (user_id, reason, issued_by, created_at) VALUES (?, ?, ?, ?)",
+);
+const listWarningsStmt = db.prepare(
+  "SELECT id, reason, issued_by AS issuedBy, created_at AS createdAt FROM warnings WHERE user_id = ? ORDER BY created_at DESC",
+);
+const warningCountStmt = db.prepare("SELECT COUNT(*) AS n FROM warnings WHERE user_id = ?");
 
 const insertDmStmt = db.prepare(
   "INSERT INTO dm_messages (from_user_id, to_user_id, body, created_at) VALUES (?, ?, ?, ?)",
@@ -337,6 +353,18 @@ export function isUserBanned(userId) {
 
 export function setBio(userId, bio) {
   setBioStmt.run(bio, userId);
+}
+
+export function addWarning(userId, reason, issuedBy) {
+  addWarningStmt.run(userId, reason, issuedBy, Date.now());
+}
+
+export function listWarnings(userId) {
+  return listWarningsStmt.all(userId);
+}
+
+export function warningCount(userId) {
+  return warningCountStmt.get(userId).n;
 }
 
 export function listBannedUsers() {
