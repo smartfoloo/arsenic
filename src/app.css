@@ -1456,6 +1456,42 @@ svg {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.chatReportsModal {
+  width: min(420px, calc(100% - 48px));
+}
+.chatReportEntryList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.chatReportEntry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--base);
+  border: 1px solid var(--surface0);
+}
+.chatReportQuote {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+  word-break: break-word;
+}
+.chatReportMeta {
+  margin: 0;
+  font-size: 12px;
+  color: var(--overlay0);
+}
+.chatReportReasonText {
+  margin: 0;
+  font-size: 14px;
+  color: var(--subtext1);
+  word-break: break-word;
+}
 
 #chatProfile {
   display: flex;

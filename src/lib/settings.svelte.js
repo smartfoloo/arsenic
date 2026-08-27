@@ -35,9 +35,9 @@ export const THEME_OPTIONS = [
 ];
 
 export const WALLPAPER_OPTIONS = [
+  ["mesh", "Mesh"],
   ["none", "None"],
   ["gradient", "Gradient"],
-  ["mesh", "Mesh"],
 ];
 
 const CLOAK_TITLES = {

@@ -1,8 +1,8 @@
 <script>
   import Camera from "@lucide/svelte/icons/camera";
   import Clock from "@lucide/svelte/icons/clock";
+  import Flag from "@lucide/svelte/icons/flag";
   import Pencil from "@lucide/svelte/icons/pencil";
-  import TriangleAlert from "@lucide/svelte/icons/triangle-alert";
   import UserCheck from "@lucide/svelte/icons/user-check";
   import UserX from "@lucide/svelte/icons/user-x";
 
@@ -10,11 +10,12 @@
     banUser,
     chat,
     fetchUserProfile,
+    reportUser,
     timeoutUser,
     unbanUser,
+    untimeoutUser,
     updateBio,
     uploadAvatar,
-    warnUser,
   } from "../lib/chat.svelte.js";
   import ChatConfirmModal from "./ChatConfirmModal.svelte";
   import ChatPromptModal from "./ChatPromptModal.svelte";
@@ -30,14 +31,13 @@
   let bioBusy = $state(false);
   let bioError = $state(null);
   let banConfirmOpen = $state(false);
-  let warnModalOpen = $state(false);
+  let timeoutModalOpen = $state(false);
+  let reportModalOpen = $state(false);
+  let reportSent = $state(false);
   let actionError = $state(null);
   let actionBusy = $state(false);
   let avatarInput = $state(null);
   let avatarError = $state(null);
-  let timeoutMinutes = $state("");
-  let timeoutBusy = $state(false);
-  let timeoutError = $state(null);
 
   const isSelf = $derived(username === chat.authUsername);
 
@@ -82,29 +82,25 @@
     }
   }
 
+  async function runUntimeout() {
+    actionError = null;
+    actionBusy = true;
+    try {
+      await untimeoutUser(username);
+      profile.timeoutUntil = null;
+    } catch (err) {
+      actionError = err.message;
+    } finally {
+      actionBusy = false;
+    }
+  }
+
   function formatJoined(ms) {
     return new Date(ms).toLocaleDateString([], { year: "numeric", month: "long", day: "numeric" });
   }
 
   function formatTimeoutUntil(ms) {
     return new Date(ms).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
-  }
-
-  async function runTimeout() {
-    const minutes = Number(timeoutMinutes);
-    if (!Number.isFinite(minutes) || minutes <= 0) return;
-
-    timeoutError = null;
-    timeoutBusy = true;
-    try {
-      const data = await timeoutUser(username, minutes);
-      profile.timeoutUntil = data.until;
-      timeoutMinutes = "";
-    } catch (err) {
-      timeoutError = err.message;
-    } finally {
-      timeoutBusy = false;
-    }
   }
 
   async function onAvatarChange(event) {
@@ -200,35 +196,27 @@
             </button>
           {/if}
 
-          {#if timeoutError}<p class="chatError">{timeoutError}</p>{/if}
-          <div class="chatTimeoutRow">
-            <input
-              type="number"
-              min="0.1"
-              step="0.1"
-              placeholder="Minutes"
-              bind:value={timeoutMinutes}
-              aria-label="Timeout duration in minutes"
-            />
-            <button
-              class="btn"
-              type="button"
-              disabled={timeoutBusy || !timeoutMinutes}
-              onclick={runTimeout}
-            >
-              <Clock /> Timeout
-            </button>
-          </div>
-          {#if profile.timeoutUntil}
-            <p class="chatProfileWarningCount">Timed out until {formatTimeoutUntil(profile.timeoutUntil)}</p>
-          {/if}
-
-          <button class="btn" type="button" onclick={() => (warnModalOpen = true)}>
-            <TriangleAlert /> Warn
+          <button class="btn" type="button" onclick={() => (timeoutModalOpen = true)}>
+            <Clock /> Timeout
           </button>
-          <p class="chatProfileWarningCount">
-            {profile.warningCount === 1 ? "1 warning" : `${profile.warningCount ?? 0} warnings`}
-          </p>
+          {#if profile.timeoutUntil}
+            <p class="chatProfileWarningCount">
+              Timed out until {formatTimeoutUntil(profile.timeoutUntil)}
+              <button type="button" class="chatModeToggle" disabled={actionBusy} onclick={runUntimeout}>
+                Undo
+              </button>
+            </p>
+          {/if}
+        </div>
+      {:else if !chat.isAdmin && !isSelf}
+        <div class="chatProfileAdminActions">
+          {#if reportSent}
+            <p class="chatProfileWarningCount">Report sent to admins.</p>
+          {:else}
+            <button class="btn danger" type="button" onclick={() => (reportModalOpen = true)}>
+              <Flag /> Report
+            </button>
+          {/if}
         </div>
       {/if}
     {/if}
@@ -248,15 +236,29 @@
   />
 {/if}
 
-{#if warnModalOpen}
+{#if timeoutModalOpen}
   <ChatPromptModal
-    title="Warn user"
-    placeholder="Reason"
-    submitLabel="Warn"
-    onsubmit={async (reason) => {
-      const data = await warnUser(username, reason);
-      profile.warningCount = data.count;
+    title="Timeout user"
+    numberPlaceholder="Minutes"
+    placeholder="Message"
+    submitLabel="Timeout"
+    onsubmit={async (message, minutes) => {
+      const data = await timeoutUser(username, minutes, message);
+      profile.timeoutUntil = data.until;
     }}
-    onclose={() => (warnModalOpen = false)}
+    onclose={() => (timeoutModalOpen = false)}
+  />
+{/if}
+
+{#if reportModalOpen}
+  <ChatPromptModal
+    title="Report user"
+    placeholder="Reason"
+    submitLabel="Report"
+    onsubmit={async (reason) => {
+      await reportUser(username, reason);
+      reportSent = true;
+    }}
+    onclose={() => (reportModalOpen = false)}
   />
 {/if}

@@ -36,17 +36,25 @@ db.exec(`
     created_at INTEGER NOT NULL
   );
 
-  CREATE TABLE IF NOT EXISTS warnings (
+  CREATE TABLE IF NOT EXISTS reports (
     id INTEGER PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
+    type TEXT NOT NULL,
+    target_username TEXT NOT NULL,
+    reporter_username TEXT NOT NULL,
+    message_id INTEGER,
+    message_body TEXT,
     reason TEXT NOT NULL,
-    issued_by TEXT NOT NULL,
-    created_at INTEGER NOT NULL
+    created_at INTEGER NOT NULL,
+    cleared_at INTEGER
   );
 
   CREATE INDEX IF NOT EXISTS messages_created_at ON messages(created_at);
-  CREATE INDEX IF NOT EXISTS warnings_user_id ON warnings(user_id);
+  CREATE INDEX IF NOT EXISTS reports_cleared_at ON reports(cleared_at);
 `);
+
+// warnings were replaced by timeouts (which already carry a message) —
+// drop the table outright rather than leaving dead rows behind.
+db.exec("DROP TABLE IF EXISTS warnings");
 
 // DMs were removed (community-only chat, plus this data was never really
 // private — self-hosted and fully readable server-side). Drop the table
@@ -121,6 +129,9 @@ const olderMessagesStmt = db.prepare(`
   LIMIT ?
 `);
 const messageChannelIdStmt = db.prepare("SELECT channel_id AS channelId FROM messages WHERE id = ?");
+const messageBodyStmt = db.prepare(`
+  SELECT messages.body, users.username FROM messages JOIN users ON users.id = messages.user_id WHERE messages.id = ?
+`);
 const messageImagePathStmt = db.prepare("SELECT image_path AS path FROM messages WHERE id = ?");
 const getMessageImageStmt = db.prepare("SELECT image_path AS path, image_mime AS mime FROM messages WHERE id = ?");
 const channelImagePathsStmt = db.prepare(
@@ -165,13 +176,18 @@ const listUsersStmt = db.prepare(`
   ORDER BY users.username COLLATE NOCASE
 `);
 const setBioStmt = db.prepare("UPDATE users SET bio = ? WHERE id = ?");
-const addWarningStmt = db.prepare(
-  "INSERT INTO warnings (user_id, reason, issued_by, created_at) VALUES (?, ?, ?, ?)",
-);
-const listWarningsStmt = db.prepare(
-  "SELECT id, reason, issued_by AS issuedBy, created_at AS createdAt FROM warnings WHERE user_id = ? ORDER BY created_at DESC",
-);
-const warningCountStmt = db.prepare("SELECT COUNT(*) AS n FROM warnings WHERE user_id = ?");
+const addReportStmt = db.prepare(`
+  INSERT INTO reports (type, target_username, reporter_username, message_id, message_body, reason, created_at)
+  VALUES (?, ?, ?, ?, ?, ?, ?)
+`);
+const listOpenReportsStmt = db.prepare(`
+  SELECT id, type, target_username AS targetUsername, reporter_username AS reporterUsername,
+         message_id AS messageId, message_body AS messageBody, reason, created_at AS createdAt
+  FROM reports
+  WHERE cleared_at IS NULL
+  ORDER BY created_at DESC
+`);
+const clearReportStmt = db.prepare("UPDATE reports SET cleared_at = ? WHERE id = ?");
 
 export function getUserByUsername(username) {
   return getUserByUsernameStmt.get(username);
@@ -204,6 +220,10 @@ export function olderMessages(channelId, beforeId, limit = 50) {
 
 export function messageChannelId(id) {
   return messageChannelIdStmt.get(id)?.channelId ?? null;
+}
+
+export function getMessageBody(id) {
+  return messageBodyStmt.get(id) ?? null;
 }
 
 export function messageImagePath(id) {
@@ -320,16 +340,16 @@ export function setBio(userId, bio) {
   setBioStmt.run(bio, userId);
 }
 
-export function addWarning(userId, reason, issuedBy) {
-  addWarningStmt.run(userId, reason, issuedBy, Date.now());
+export function addReport({ type, targetUsername, reporterUsername, messageId, messageBody, reason }) {
+  addReportStmt.run(type, targetUsername, reporterUsername, messageId ?? null, messageBody ?? null, reason, Date.now());
 }
 
-export function listWarnings(userId) {
-  return listWarningsStmt.all(userId);
+export function listOpenReports() {
+  return listOpenReportsStmt.all();
 }
 
-export function warningCount(userId) {
-  return warningCountStmt.get(userId).n;
+export function clearReport(id) {
+  return clearReportStmt.run(Date.now(), id).changes > 0;
 }
 
 export function listBannedUsers() {

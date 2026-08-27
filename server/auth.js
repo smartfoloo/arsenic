@@ -8,25 +8,27 @@ import multer from "multer";
 import { isAdmin } from "./admin.js";
 import { broadcast, canSendMessage, disconnectUser, MAX_BODY_LENGTH, recordMessageSent, sendToUser } from "./chat.js";
 import {
-  addWarning,
+  addReport,
   banUser,
   channelCount,
   channelImagePaths,
   clearChannel,
+  clearReport,
   createChannel,
   createUser,
   deleteChannel,
   deleteMessage,
   findUserByUsername,
   getAvatar,
+  getMessageBody,
   getMessageImage,
   getUserByUsername,
   insertMessage,
   isChannelLocked,
   listBannedUsers,
   listChannels,
+  listOpenReports,
   listUsers,
-  listWarnings,
   lockChannel,
   messageChannelId,
   messageImagePath,
@@ -41,7 +43,6 @@ import {
   timeoutUntil,
   unbanUser,
   unpinMessage,
-  warningCount,
 } from "./db.js";
 import { getRoles, roleOrder } from "./roles.js";
 import { clearSessionCookie, readSession, setSessionCookie } from "./session.js";
@@ -58,7 +59,8 @@ function isValidUsername(username) {
 const CHANNEL_NAME_PATTERN = /^[a-z0-9-]{2,30}$/;
 const MIN_PASSWORD_LENGTH = 8;
 const MAX_BIO_LENGTH = 190;
-const MAX_WARNING_REASON_LENGTH = 300;
+const MAX_TIMEOUT_MESSAGE_LENGTH = 300;
+const MAX_REPORT_REASON_LENGTH = 300;
 const MAX_TIMEOUT_MINUTES = 10080; // 7 days
 const AVATAR_MIME_EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
 const avatarsDir = fileURLToPath(new URL("./data/avatars/", import.meta.url));
@@ -230,7 +232,6 @@ router.get("/users/:username", requireAuth, (req, res) => {
     joinedAt: target.created_at,
     roles: getRoles(target.username),
     banned: isAdmin(req.session.username) ? !!target.banned_at : undefined,
-    warningCount: isAdmin(req.session.username) ? warningCount(target.id) : undefined,
     timeoutUntil: isAdmin(req.session.username) ? timeoutUntil(target.id) : undefined,
   });
 });
@@ -439,27 +440,8 @@ router.post("/admin/ban", requireAdmin, (req, res) => {
   res.json({});
 });
 
-router.post("/admin/warn", requireAdmin, (req, res) => {
-  const { username, reason } = req.body ?? {};
-  const target = typeof username === "string" ? findUserByUsername(username) : null;
-  if (!target) return res.status(404).json({ error: "user_not_found" });
-  if (target.username.toLowerCase() === req.session.username.toLowerCase()) {
-    return res.status(400).json({ error: "cannot_warn_self" });
-  }
-  if (isAdmin(target.username)) {
-    return res.status(400).json({ error: "cannot_warn_admin" });
-  }
-
-  const trimmedReason = typeof reason === "string" ? reason.trim().slice(0, MAX_WARNING_REASON_LENGTH) : "";
-  if (!trimmedReason) return res.status(400).json({ error: "invalid_reason" });
-
-  addWarning(target.id, trimmedReason, req.session.username);
-  sendToUser(target.id, { type: "warned", reason: trimmedReason });
-  res.json({ count: warningCount(target.id) });
-});
-
 router.post("/admin/timeout", requireAdmin, (req, res) => {
-  const { username, minutes } = req.body ?? {};
+  const { username, minutes, message } = req.body ?? {};
   const target = typeof username === "string" ? findUserByUsername(username) : null;
   if (!target) return res.status(404).json({ error: "user_not_found" });
   if (target.username.toLowerCase() === req.session.username.toLowerCase()) {
@@ -473,11 +455,67 @@ router.post("/admin/timeout", requireAdmin, (req, res) => {
   if (!Number.isFinite(parsedMinutes) || parsedMinutes <= 0 || parsedMinutes > MAX_TIMEOUT_MINUTES) {
     return res.status(400).json({ error: "invalid_minutes" });
   }
+  const trimmedMessage = typeof message === "string" ? message.trim().slice(0, MAX_TIMEOUT_MESSAGE_LENGTH) : "";
+  if (!trimmedMessage) return res.status(400).json({ error: "invalid_message" });
 
   const until = Date.now() + parsedMinutes * 60 * 1000;
   setUserTimeout(target.id, until);
-  sendToUser(target.id, { type: "timedOut", until });
+  sendToUser(target.id, { type: "timedOut", until, message: trimmedMessage });
   res.json({ until });
+});
+
+router.post("/admin/untimeout", requireAdmin, (req, res) => {
+  const { username } = req.body ?? {};
+  const target = typeof username === "string" ? findUserByUsername(username) : null;
+  if (!target) return res.status(404).json({ error: "user_not_found" });
+
+  setUserTimeout(target.id, null);
+  sendToUser(target.id, { type: "timeoutCleared" });
+  res.json({});
+});
+
+router.post("/reports", requireAuth, (req, res) => {
+  const { type, username, messageId, reason } = req.body ?? {};
+  if (type !== "user" && type !== "message") return res.status(400).json({ error: "invalid_type" });
+
+  const target = typeof username === "string" ? findUserByUsername(username) : null;
+  if (!target) return res.status(404).json({ error: "user_not_found" });
+  if (target.username.toLowerCase() === req.session.username.toLowerCase()) {
+    return res.status(400).json({ error: "cannot_report_self" });
+  }
+
+  const trimmedReason = typeof reason === "string" ? reason.trim().slice(0, MAX_REPORT_REASON_LENGTH) : "";
+  if (!trimmedReason) return res.status(400).json({ error: "invalid_reason" });
+
+  let messageBody = null;
+  let resolvedMessageId = null;
+  if (type === "message") {
+    resolvedMessageId = Number(messageId);
+    const message = resolvedMessageId ? getMessageBody(resolvedMessageId) : null;
+    if (!message || message.username.toLowerCase() !== target.username.toLowerCase()) {
+      return res.status(404).json({ error: "message_not_found" });
+    }
+    messageBody = message.body;
+  }
+
+  addReport({
+    type,
+    targetUsername: target.username,
+    reporterUsername: req.session.username,
+    messageId: resolvedMessageId,
+    messageBody,
+    reason: trimmedReason,
+  });
+  res.json({});
+});
+
+router.get("/admin/reports", requireAdmin, (req, res) => {
+  res.json({ reports: listOpenReports() });
+});
+
+router.post("/admin/reports/:id/clear", requireAdmin, (req, res) => {
+  if (!clearReport(Number(req.params.id))) return res.status(404).json({ error: "report_not_found" });
+  res.json({});
 });
 
 router.get("/admin/banned", requireAdmin, (req, res) => {

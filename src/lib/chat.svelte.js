@@ -9,13 +9,13 @@ export const chat = $state({
   activeChannelId: null,
   channelMessages: {},
   bannedUsers: [],
+  reports: [],
   members: [],
   roles: [],
   roleOrder: [],
   channelHasMore: {},
   channelLoadingMore: {},
   channelError: null,
-  warningNotice: null,
   timeoutUntil: null,
   timeoutNotice: null,
 });
@@ -78,6 +78,7 @@ export async function checkAuth() {
     fetchMembers();
     if (chat.isAdmin) {
       fetchBannedUsers();
+      fetchReports();
     }
   }
 }
@@ -106,7 +107,7 @@ export async function logout() {
   chat.roleOrder = [];
   chat.channelHasMore = {};
   chat.channelLoadingMore = {};
-  chat.warningNotice = null;
+  chat.reports = [];
   chat.timeoutUntil = null;
   chat.timeoutNotice = null;
   clearTimeout(timeoutClearHandle);
@@ -211,17 +212,35 @@ export function unbanUser(username) {
   return request("admin/unban", { method: "POST", json: { username } });
 }
 
-export function warnUser(username, reason) {
-  return request("admin/warn", { method: "POST", json: { username, reason } });
+export function timeoutUser(username, minutes, message) {
+  return request("admin/timeout", { method: "POST", json: { username, minutes, message } });
 }
 
-export function timeoutUser(username, minutes) {
-  return request("admin/timeout", { method: "POST", json: { username, minutes } });
+export function untimeoutUser(username) {
+  return request("admin/untimeout", { method: "POST", json: { username } });
 }
 
 export async function fetchBannedUsers() {
   const data = await request("admin/banned");
   chat.bannedUsers = data.users;
+}
+
+export function reportUser(username, reason) {
+  return request("reports", { method: "POST", json: { type: "user", username, reason } });
+}
+
+export function reportMessage(username, messageId, reason) {
+  return request("reports", { method: "POST", json: { type: "message", username, messageId, reason } });
+}
+
+export async function fetchReports() {
+  const data = await request("admin/reports");
+  chat.reports = data.reports;
+}
+
+export async function clearReport(id) {
+  await request(`admin/reports/${id}/clear`, { method: "POST" });
+  chat.reports = chat.reports.filter((report) => report.id !== id);
 }
 
 // The socket takes a moment to open, but callers (e.g. switchChannel on the
@@ -316,11 +335,13 @@ function handleMessage(data) {
     for (const id of Object.keys(chat.channelMessages)) send({ type: "history", channelId: Number(id) });
     chat.bannedUsers = chat.bannedUsers.filter((username) => username !== data.username);
     fetchMembers();
-  } else if (data.type === "warned") {
-    chat.warningNotice = { reason: data.reason, at: Date.now() };
   } else if (data.type === "timedOut") {
     chat.timeoutUntil = data.until;
-    chat.timeoutNotice = { until: data.until };
+    chat.timeoutNotice = { until: data.until, message: data.message };
     scheduleTimeoutClear(data.until);
+  } else if (data.type === "timeoutCleared") {
+    chat.timeoutUntil = null;
+    chat.timeoutNotice = null;
+    clearTimeout(timeoutClearHandle);
   }
 }

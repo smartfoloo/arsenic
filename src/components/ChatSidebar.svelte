@@ -8,11 +8,15 @@
 
   import ChatPromptModal from "./ChatPromptModal.svelte";
   import ChatProfileModal from "./ChatProfileModal.svelte";
+  import ChatReportsModal from "./ChatReportsModal.svelte";
   import { chat, createChannel, logout, moveChannel, switchChannel, unbanUser } from "../lib/chat.svelte.js";
 
   let channelModalOpen = $state(false);
   let myProfileOpen = $state(false);
   let bannedError = $state(null);
+  let reportsUsername = $state(null);
+
+  const reportedUsernames = $derived(Array.from(new Set(chat.reports.map((report) => report.targetUsername))));
 
   function onUnban(username) {
     bannedError = null;
@@ -75,6 +79,21 @@
       </div>
     </div>
 
+    {#if chat.isAdmin && reportedUsernames.length}
+      <div class="chatSidebarSection">
+        <div class="chatSectionHeading">
+          <h3>Reports</h3>
+        </div>
+        <div class="chatChannelList">
+          {#each reportedUsernames as username (username)}
+            <button class="chatChannelItem" onclick={() => (reportsUsername = username)}>
+              {username}
+            </button>
+          {/each}
+        </div>
+      </div>
+    {/if}
+
     {#if chat.isAdmin && chat.bannedUsers.length}
       <div class="chatSidebarSection">
         <div class="chatSectionHeading">
@@ -132,6 +151,10 @@
 
 {#if myProfileOpen}
   <ChatProfileModal username={chat.authUsername} onclose={() => (myProfileOpen = false)} />
+{/if}
+
+{#if reportsUsername}
+  <ChatReportsModal username={reportsUsername} onclose={() => (reportsUsername = null)} />
 {/if}
 
 {#if channelModalOpen}

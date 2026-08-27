@@ -23,7 +23,15 @@
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
   const timedOut = $derived(!!chat.timeoutUntil);
-  const locked = $derived((!!activeChannel?.locked && !chat.isAdmin) || timedOut || onCooldown);
+  const channelLocked = $derived(!!activeChannel?.locked && !chat.isAdmin);
+  // Only these two actually prevent typing — disabling the textarea for the 1s send
+  // cooldown too would drop its focus, forcing a re-click on every message sent.
+  const inputDisabled = $derived(channelLocked || timedOut);
+  const sendDisabled = $derived(inputDisabled || onCooldown);
+
+  function formatTimeoutUntil(ms) {
+    return new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  }
 
   function startCooldown() {
     onCooldown = true;
@@ -37,7 +45,7 @@
   }
 
   function send() {
-    if (!draft.trim() || locked) return;
+    if (!draft.trim() || sendDisabled) return;
 
     sendMessage(draft);
     draft = "";
@@ -81,7 +89,7 @@
       type="button"
       class="chatImageBtn"
       aria-label="Send an image"
-      disabled={locked}
+      disabled={sendDisabled}
       onclick={() => imageInput.click()}
     >
       <Plus />
@@ -99,20 +107,20 @@
       oninput={resizeTextarea}
       onkeydown={onKeydown}
       placeholder={timedOut
-        ? "You're timed out and can't send messages"
-        : !!activeChannel?.locked && !chat.isAdmin
+        ? `You're timed out until ${formatTimeoutUntil(chat.timeoutUntil)} and can't send messages`
+        : channelLocked
           ? "Only admins can post in this channel"
           : placeholder}
       maxlength={MAX_MESSAGE_LENGTH}
       rows="1"
-      disabled={locked}
+      disabled={inputDisabled}
     ></textarea>
     {#if draft.length > MAX_MESSAGE_LENGTH * 0.8}
       <span class="chatCharCount" class:chatCharCountLimit={draft.length >= MAX_MESSAGE_LENGTH}>
         {draft.length}/{MAX_MESSAGE_LENGTH}
       </span>
     {/if}
-    <button class="chatSendBtn" type="submit" aria-label="Send" disabled={locked}>
+    <button class="chatSendBtn" type="submit" aria-label="Send" disabled={sendDisabled}>
       <ArrowUp />
     </button>
   </div>

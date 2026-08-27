@@ -2,6 +2,7 @@
   import { tick } from "svelte";
 
   import Eraser from "@lucide/svelte/icons/eraser";
+  import Flag from "@lucide/svelte/icons/flag";
   import Lock from "@lucide/svelte/icons/lock";
   import Pencil from "@lucide/svelte/icons/pencil";
   import Pin from "@lucide/svelte/icons/pin";
@@ -27,6 +28,7 @@
     loadOlderMessages,
     pinMessage,
     renameChannel,
+    reportMessage,
     setChannelLocked,
     switchChannel,
     unpinMessage,
@@ -42,6 +44,8 @@
   let confirmAction = $state(null);
   let editChannelModalOpen = $state(false);
   let profileUsername = $state(null);
+  let reportMessageTarget = $state(null);
+  let reportedMessageIds = $state(new Set());
 
   const activeChannel = $derived(chat.channels.find((c) => c.id === chat.activeChannelId));
   const messagesLoaded = $derived(chat.channelMessages[chat.activeChannelId] !== undefined);
@@ -223,25 +227,12 @@
 
           {#if actionError}<p class="chatError">{actionError}</p>{/if}
 
-          {#if chat.warningNotice}
-            <div class="chatWarningBanner">
-              <TriangleAlert />
-              <span>You've been warned by an admin: {chat.warningNotice.reason}</span>
-              <button
-                type="button"
-                class="chatIconBtn"
-                aria-label="Dismiss"
-                onclick={() => (chat.warningNotice = null)}
-              >
-                <X />
-              </button>
-            </div>
-          {/if}
-
           {#if chat.timeoutNotice}
             <div class="chatWarningBanner">
               <TriangleAlert />
-              <span>You've been timed out until {formatTimeoutUntil(chat.timeoutNotice.until)}.</span>
+              <span>
+                You've been timed out until {formatTimeoutUntil(chat.timeoutNotice.until)}{#if chat.timeoutNotice.message}: {chat.timeoutNotice.message}{/if}.
+              </span>
               <button
                 type="button"
                 class="chatIconBtn"
@@ -275,6 +266,15 @@
                   onclick={() => runAdminAction(() => deleteMessage(message.id))}
                 >
                   <Trash2 />
+                </button>
+              {:else if message.username !== chat.authUsername}
+                <button
+                  class="chatMessageAction"
+                  aria-label="Report message"
+                  disabled={reportedMessageIds.has(message.id)}
+                  onclick={() => (reportMessageTarget = message)}
+                >
+                  <Flag />
                 </button>
               {/if}
             {/snippet}
@@ -384,5 +384,18 @@
 
   {#if profileUsername}
     <ChatProfileModal username={profileUsername} onclose={() => (profileUsername = null)} />
+  {/if}
+
+  {#if reportMessageTarget}
+    <ChatPromptModal
+      title="Report message"
+      placeholder="Reason"
+      submitLabel="Report"
+      onsubmit={async (reason) => {
+        await reportMessage(reportMessageTarget.username, reportMessageTarget.id, reason);
+        reportedMessageIds = new Set(reportedMessageIds).add(reportMessageTarget.id);
+      }}
+      onclose={() => (reportMessageTarget = null)}
+    />
   {/if}
 </section>
