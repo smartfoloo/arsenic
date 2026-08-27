@@ -89,6 +89,27 @@
             onchange={(val) => (settings.search = val)}
           />
         </div>
+        <div class="row">
+          <div class="label">
+            <b>YouTube adblock</b>
+            <small>
+              {#if settings.backend === "scramjet"}
+                Experimental. Skips ad breaks during in-app video navigation. Applies to new tabs.
+              {:else}
+                Experimental. Scramjet only — switch backends above to use it.
+              {/if}
+            </small>
+          </div>
+          <label class="toggle">
+            <input
+              type="checkbox"
+              disabled={settings.backend !== "scramjet"}
+              checked={settings.youtubeAdblock}
+              onchange={(e) => (settings.youtubeAdblock = e.target.checked)}
+            />
+            <span class="track"></span>
+          </label>
+        </div>
       </div>
     </div>
 

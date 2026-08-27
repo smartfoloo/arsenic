@@ -1,4 +1,5 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
+import { createYoutubeAdblockPlugin } from "./youtubeAdblock.js";
 
 const SW_ALLOWED_HOSTNAMES = ["localhost", "127.0.0.1"];
 
@@ -66,6 +67,14 @@ export const LOCATION_OPTIONS = [
   ["japan", "Tokyo, Japan", "", "fi-jp"],
 ];
 
+// Set only in the static build (see vite.static.config.mjs). The "default"
+// location is normally same-origin wisp — fine for the main app, but
+// embed.svg runs on its own origin and the outer page (wherever
+// arsenic.html ends up hosted) has no wisp of its own to fall back to, so
+// wisp needs a fixed known-good domain instead of location.host. Empty here
+// means the main app's normal same-origin behavior, unchanged.
+const WISP_BASE = (import.meta.env.VITE_WISP_BASE_URL ?? "").replace(/\/$/, "");
+
 let connection;
 let wanted = "epoxy";
 let wantedLocation = "default";
@@ -79,6 +88,7 @@ let pending = Promise.resolve();
 export function wispUrl() {
   const fixed = LOCATIONS[wantedLocation];
   if (fixed) return fixed;
+  if (WISP_BASE) return `wss://${WISP_BASE}/wisp/`;
 
   const scheme = location.protocol === "https:" ? "wss" : "ws";
   return `${scheme}://${location.host}/wisp/`;
@@ -94,6 +104,7 @@ async function scramjetTransport() {
 // hand it a fresh transport directly instead of going through bare-mux.
 let scramjetController;
 let scramjetApplied;
+let scramjetManagedPlugin;
 
 function transport() {
   // Serialized, because ready() and a settings change can both land here.
@@ -205,7 +216,8 @@ const scramjet = {
   ready: once(async () => {
     await script("/scram/scramjet.js");
     await script("/controller/controller.api.js");
-    const { Controller } = globalThis.$scramjetController;
+    const { Controller, ManagedPlugin } = globalThis.$scramjetController;
+    scramjetManagedPlugin = ManagedPlugin;
 
     const sw = await registerSW("/scramjet.sw.js", SCRAMJET_PREFIX);
 
@@ -229,8 +241,9 @@ const scramjet = {
 
     startHeartbeat(sw, scramjetController);
   }),
-  attach: (iframe) => {
-    const frame = scramjetController.createFrame(iframe);
+  attach: (iframe, options = {}) => {
+    const plugins = options.youtubeAdblock ? [createYoutubeAdblockPlugin(scramjetManagedPlugin)] : [];
+    const frame = scramjetController.createFrame(iframe, { plugins });
     // Each frame gets its own randomized sub-prefix under the controller's
     // (also randomized) one — unlike v1's single flat prefix, so decoding a
     // frame's URL needs that specific frame's context, not just a static

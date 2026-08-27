@@ -78,6 +78,7 @@ function stored() {
     if (key in saved && !options.some(([value]) => value === saved[key])) delete saved[key];
   }
   if (!ACCENTS.includes(saved.accent)) delete saved.accent;
+  if (typeof saved.youtubeAdblock !== "boolean") delete saved.youtubeAdblock;
 
   return saved;
 }
@@ -91,6 +92,7 @@ export const settings = $state({
   theme: "mocha",
   accent: "mauve",
   wallpaper: "mesh",
+  youtubeAdblock: false,
   bookmarks: [],
   ...stored(),
 });

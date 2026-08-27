@@ -2,6 +2,7 @@
   import { backendOf, cacheBookmarkIcon, tabById, ui } from "../lib/tabs.svelte.js";
   import { wispUrl } from "../lib/backends.js";
   import { faviconFor, inlineIcon, titleFor } from "../lib/url.js";
+  import { settings } from "../lib/settings.svelte.js";
 
   const POLL_MS = 500;
 
@@ -99,7 +100,7 @@
       await backend.ready();
       if (!tab) return; // closed while the backend was still connecting
 
-      tab.handle ??= backend.attach(el);
+      tab.handle ??= backend.attach(el, { youtubeAdblock: settings.youtubeAdblock });
       backend.go(tab.handle, url);
     } catch (error) {
       console.error(error);
