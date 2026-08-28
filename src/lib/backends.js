@@ -3,6 +3,16 @@ import { createYoutubeAdblockPlugin } from "./youtubeAdblock.js";
 
 const SW_ALLOWED_HOSTNAMES = ["localhost", "127.0.0.1"];
 
+// Set only in the static build (see vite.static.config.mjs). Ultraviolet's
+// bare-mux SharedWorker (registerSW("/uv.sw.js", ...) below, and the
+// "/baremux/worker.js" it opens) is only ever served by this app's own
+// server, same-origin — there's no equivalent on the embed's origin, so
+// resolving it from there 404s or fails an import (see AGENTS.md — "not do
+// baremux" from the embed). Frame.svelte already never calls backend.ready()
+// for either backend under EMBED_BASE (it posts to embed.svg instead), so
+// this is normally unreachable; this is a hard backstop, not the fix itself.
+const EMBED_BASE = (import.meta.env.VITE_EMBED_BASE_URL ?? "").replace(/\/$/, "");
+
 /** Run an async setup step at most once, no matter how often it's asked for. */
 function once(fn) {
   let promise;
@@ -276,6 +286,9 @@ const ultraviolet = {
   description: "Slower to start, better on heavy pages.",
   prefix: UV_PREFIX,
   ready: once(async () => {
+    if (EMBED_BASE) {
+      throw new Error("Ultraviolet isn't available in the static build — see AGENTS.md.");
+    }
     await codec();
     await registerSW("/uv.sw.js", UV_PREFIX);
     await transport();
@@ -289,10 +302,14 @@ const ultraviolet = {
 
 export const backends = { scramjet, ultraviolet };
 
-export const BACKEND_OPTIONS = Object.entries(backends).map(([value, { label, description }]) => [
-  value,
-  label,
-  description,
+// Ultraviolet is excluded from the picker in the static build (Settings would
+// otherwise let someone select a backend whose ready() only ever throws).
+export const BACKEND_OPTIONS = Object.entries(backends)
+  .filter(([value]) => !(EMBED_BASE && value === "ultraviolet"))
+  .map(([value, { label, description }]) => [
+    value,
+    label,
+    description,
 ]);
 
 export const TRANSPORT_OPTIONS = Object.entries(TRANSPORTS).map(

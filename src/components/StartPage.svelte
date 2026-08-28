@@ -53,7 +53,8 @@
   const partners = [
     { name: "Re:Vault", logo: "/logos/re-vault.png", url: "https://endiseducation.org/" },
     { name: "Catclass", logo: "/logos/catclass.png", url: "https://catclass.net/" },
-    { name: "Nocturne", logo: "/logos/nocturne.png", url: "https://nocturne.lol/" }
+    { name: "Nocturne", logo: "/logos/nocturne.png", url: "https://nocturne.lol/" },
+    { name: "Mizumath", logo: "/logos/mizumath.png", url: "https://mizumath.com/" }
   ];
 </script>
 
