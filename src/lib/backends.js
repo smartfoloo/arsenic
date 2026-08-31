@@ -3,15 +3,31 @@ import { createYoutubeAdblockPlugin } from "./youtubeAdblock.js";
 
 const SW_ALLOWED_HOSTNAMES = ["localhost", "127.0.0.1"];
 
-// Set only in the static build (see vite.static.config.mjs). Ultraviolet's
-// bare-mux SharedWorker (registerSW("/uv.sw.js", ...) below, and the
-// "/baremux/worker.js" it opens) is only ever served by this app's own
-// server, same-origin — there's no equivalent on the embed's origin, so
-// resolving it from there 404s or fails an import (see AGENTS.md — "not do
-// baremux" from the embed). Frame.svelte already never calls backend.ready()
-// for either backend under EMBED_BASE (it posts to embed.svg instead), so
-// this is normally unreachable; this is a hard backstop, not the fix itself.
+// Set only by the Caddy-VPS embed split (see AGENTS.md's "Deployment (VPS +
+// Caddy)"). Ultraviolet's bare-mux SharedWorker (registerSW("/uv.sw.js", ...)
+// below, and the "/baremux/worker.js" it opens) is only ever served by this
+// app's own server, same-origin — there's no equivalent on the embed's
+// origin, so resolving it from there 404s or fails an import. Frame.svelte
+// already never calls backend.ready() for either backend under EMBED_BASE
+// (it posts to embed.svg instead), so this is normally unreachable; this is
+// a hard backstop, not the fix itself.
 const EMBED_BASE = (import.meta.env.VITE_EMBED_BASE_URL ?? "").replace(/\/$/, "");
+
+// Set only by tools/build-static.mjs's single-svg build (see AGENTS.md's
+// static-version section). That build ships Scramjet's vendored files as
+// plain sibling files next to arsenic.svg, but not Ultraviolet's (uv/,
+// baremux/, uv.sw.js, uv.config.js) — so UV has to stay off there too, same
+// reasoning as EMBED_BASE above, just for a build with no separate origin.
+const STATIC_BUILD = import.meta.env.VITE_STATIC_BUILD === "true";
+
+// Resolved against the page's own directory, not hardcoded to site root: the
+// normal app is always served from "/" so this comes out identical to the
+// old absolute-path constants, but the static build (tools/build-static.mjs)
+// can be dropped at any nested path, and its vendored siblings — plus the
+// service worker's default scope — live wherever arsenic.svg itself does,
+// not at the origin root.
+const HERE = new URL(".", document.baseURI);
+const asset = (path) => new URL(path, HERE).pathname;
 
 /** Run an async setup step at most once, no matter how often it's asked for. */
 function once(fn) {
@@ -51,8 +67,8 @@ const TRANSPORTS = {
  * a literal specifier makes Vite try to resolve them at build time and fail.
  */
 const SCRAMJET_TRANSPORT_PATHS = {
-  epoxy: "/epoxy3/index.mjs",
-  libcurl: "/libcurl2/index.mjs",
+  epoxy: asset("epoxy3/index.mjs"),
+  libcurl: asset("libcurl2/index.mjs"),
 };
 function loadScramjetTransport(name) {
   const path = SCRAMJET_TRANSPORT_PATHS[name];
@@ -217,19 +233,19 @@ function startHeartbeat(sw, controller) {
   ping();
 }
 
-const SCRAMJET_PREFIX = "/service/scramjet/";
+const SCRAMJET_PREFIX = asset("service/scramjet/");
 
 const scramjet = {
   label: "Scramjet v2",
   description: "Quick on simple pages, can be slow on heavy ones.",
   prefix: SCRAMJET_PREFIX,
   ready: once(async () => {
-    await script("/scram/scramjet.js");
-    await script("/controller/controller.api.js");
+    await script(asset("scram/scramjet.js"));
+    await script(asset("controller/controller.api.js"));
     const { Controller, ManagedPlugin } = globalThis.$scramjetController;
     scramjetManagedPlugin = ManagedPlugin;
 
-    const sw = await registerSW("/scramjet.sw.js", SCRAMJET_PREFIX);
+    const sw = await registerSW(asset("scramjet.sw.js"), SCRAMJET_PREFIX);
 
     const key = `${wanted}|${wantedLocation}`;
     scramjetController = new Controller({
@@ -237,9 +253,9 @@ const scramjet = {
       transport: await scramjetTransport(),
       config: {
         prefix: SCRAMJET_PREFIX,
-        scramjetPath: "/scram/scramjet.js",
-        injectPath: "/controller/controller.inject.js",
-        wasmPath: "/scram/scramjet.wasm",
+        scramjetPath: asset("scram/scramjet.js"),
+        injectPath: asset("controller/controller.inject.js"),
+        wasmPath: asset("scram/scramjet.wasm"),
       },
       // Quieter console: scramjet's own instrumentation throws on plenty of
       // sites without it actually breaking anything (see AGENTS.md — this
@@ -286,7 +302,7 @@ const ultraviolet = {
   description: "Slower to start, better on heavy pages.",
   prefix: UV_PREFIX,
   ready: once(async () => {
-    if (EMBED_BASE) {
+    if (EMBED_BASE || STATIC_BUILD) {
       throw new Error("Ultraviolet isn't available in the static build — see AGENTS.md.");
     }
     await codec();
@@ -305,7 +321,7 @@ export const backends = { scramjet, ultraviolet };
 // Ultraviolet is excluded from the picker in the static build (Settings would
 // otherwise let someone select a backend whose ready() only ever throws).
 export const BACKEND_OPTIONS = Object.entries(backends)
-  .filter(([value]) => !(EMBED_BASE && value === "ultraviolet"))
+  .filter(([value]) => !((EMBED_BASE || STATIC_BUILD) && value === "ultraviolet"))
   .map(([value, { label, description }]) => [
     value,
     label,
