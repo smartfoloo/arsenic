@@ -6,6 +6,7 @@
   import { settings } from "../lib/settings.svelte.js";
   import { activeTab, activeUrl, open } from "../lib/tabs.svelte.js";
   import { resolve } from "../lib/url.js";
+  import { siteAsset } from "../lib/siteAsset.js";
 
   const GOOD_MS = 100;
   const FAIR_MS = 300;
@@ -51,10 +52,10 @@
   }
 
   const partners = [
-    { name: "Re:Vault", logo: "/logos/re-vault.png", url: "https://endiseducation.org/" },
-    { name: "Catclass", logo: "/logos/catclass.png", url: "https://catclass.net/" },
-    { name: "Nocturne", logo: "/logos/nocturne.png", url: "https://nocturne.lol/" },
-    { name: "Mizumath", logo: "/logos/mizumath.png", url: "https://mizumath.com/" }
+    { name: "Re:Vault", logo: siteAsset("logos/re-vault.png"), url: "https://endiseducation.org/" },
+    { name: "Catclass", logo: siteAsset("logos/catclass.png"), url: "https://catclass.net/" },
+    { name: "Nocturne", logo: siteAsset("logos/nocturne.png"), url: "https://nocturne.lol/" },
+    { name: "Mizumath", logo: siteAsset("logos/mizumath.png"), url: "https://mizumath.com/" }
   ];
 </script>
 

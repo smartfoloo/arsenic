@@ -10,6 +10,7 @@
     settings,
   } from "../lib/settings.svelte.js";
   import { activeTab } from "../lib/tabs.svelte.js";
+  import { siteAsset } from "../lib/siteAsset.js";
 
   function launchAboutBlank() {
     const win = window.open("about:blank");
@@ -201,7 +202,7 @@
       <h2>About</h2>
       <div class="card">
         <div class="row">
-          <img class="creditAvatar" src="/logos/smartfoloo.png" alt="" />
+          <img class="creditAvatar" src={siteAsset("logos/smartfoloo.png")} alt="" />
           <div class="label">
             <b>smartfoloo</b>
             <small>Owner</small>

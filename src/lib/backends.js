@@ -1,5 +1,6 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 import { createYoutubeAdblockPlugin } from "./youtubeAdblock.js";
+import { siteAsset as asset } from "./siteAsset.js";
 
 const SW_ALLOWED_HOSTNAMES = ["localhost", "127.0.0.1"];
 
@@ -19,15 +20,6 @@ const EMBED_BASE = (import.meta.env.VITE_EMBED_BASE_URL ?? "").replace(/\/$/, ""
 // baremux/, uv.sw.js, uv.config.js) — so UV has to stay off there too, same
 // reasoning as EMBED_BASE above, just for a build with no separate origin.
 const STATIC_BUILD = import.meta.env.VITE_STATIC_BUILD === "true";
-
-// Resolved against the page's own directory, not hardcoded to site root: the
-// normal app is always served from "/" so this comes out identical to the
-// old absolute-path constants, but the static build (tools/build-static.mjs)
-// can be dropped at any nested path, and its vendored siblings — plus the
-// service worker's default scope — live wherever arsenic.svg itself does,
-// not at the origin root.
-const HERE = new URL(".", document.baseURI);
-const asset = (path) => new URL(path, HERE).pathname;
 
 /** Run an async setup step at most once, no matter how often it's asked for. */
 function once(fn) {
