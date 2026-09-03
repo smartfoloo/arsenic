@@ -6,6 +6,7 @@ import { dirname } from "node:path";
 import { hostname } from "node:os";
 import { fileURLToPath } from "node:url";
 
+import compression from "compression";
 import express from "express";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
@@ -55,10 +56,29 @@ const server = createServer();
 // for login rate limiting) reflects the real client rather than the proxy.
 if (!dev) app.set("trust proxy", 1);
 
+// Vendored proxy runtime is ~800 KB of JS and wasm uncompressed and is on
+// the critical path of the first navigation; gzip takes it to roughly a
+// third. Express serves it directly, so this can't be left to whatever
+// reverse proxy happens to be in front. SSE is excluded because the
+// middleware would buffer /ai/chat's stream into one chunk at the end.
+app.use(
+  compression({
+    filter: (req, res) =>
+      String(res.getHeader("Content-Type") ?? "").includes("text/event-stream")
+        ? false
+        : compression.filter(req, res),
+  }),
+);
+
 app.use((req, res, next) => {
   // Cross-origin isolation, so Scramjet can use SharedArrayBuffer for sync XHR.
+  // "credentialless" rather than "require-corp": it still sets
+  // crossOriginIsolated, but instead of demanding a CORP header on every
+  // cross-origin subresource it just loads them without credentials. Same
+  // guarantee for Scramjet, without the rule that anything the shell itself
+  // loads has to be same-origin. Matches nocturne.lol's deployment.
   res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+  res.setHeader("Cross-Origin-Embedder-Policy", "credentialless");
   next();
 });
 
@@ -96,19 +116,28 @@ if (aiEnabled) {
   app.post("/ai/chat", express.json({ limit: "64kb" }), handleAiChat);
 }
 
-app.use("/scram/", express.static(scramjetPath));
-app.use("/controller/", express.static(scramjetControllerPath));
-app.use("/uv/", express.static(uvPath));
-app.use("/baremux/", express.static(baremuxPath));
+// Every path below is pinned to an exact version in package.json, so its
+// bytes can never change without a redeploy under a fresh node_modules —
+// serving them immutable turns a conditional request per file per page load
+// into nothing at all. Deliberately not applied to the service worker
+// wrappers in public/ (scramjet.sw.js, uv.sw.js): the browser's SW update
+// algorithm byte-diffs the registered script, so those must stay
+// revalidated or a worker fix can never ship.
+const vendored = (path) => express.static(path, { maxAge: "1y", immutable: true });
+
+app.use("/scram/", vendored(scramjetPath));
+app.use("/controller/", vendored(scramjetControllerPath));
+app.use("/uv/", vendored(uvPath));
+app.use("/baremux/", vendored(baremuxPath));
 // Ultraviolet still goes through bare-mux, which only speaks these
 // packages' 2.x/1.x-era transport interface (see AGENTS.md); Scramjet's
 // controller needs the interface these packages moved to at 3.x/2.x, which
 // bare-mux can't carry. Two major versions of the same package, so they're
 // installed under aliases and served at separate paths.
-app.use("/epoxy/", express.static(epoxyPath));
-app.use("/libcurl/", express.static(libcurlPath));
-app.use("/epoxy3/", express.static(epoxy3Path));
-app.use("/libcurl2/", express.static(libcurl2Path));
+app.use("/epoxy/", vendored(epoxyPath));
+app.use("/libcurl/", vendored(libcurlPath));
+app.use("/epoxy3/", vendored(epoxy3Path));
+app.use("/libcurl2/", vendored(libcurl2Path));
 
 // Decoy is a production-only, opt-in concern; dev keeps serving the real
 // app at "/" via Vite regardless of this env var.
@@ -125,6 +154,10 @@ if (dev) {
   });
   app.use(vite.middlewares);
 } else {
+  // Vite content-hashes everything under assets/, so those are immutable
+  // too. Mounted first so the general handler below never sees them — it
+  // has to stay uncached for index.html and the service worker wrappers.
+  app.use("/assets/", express.static(`${distPath}assets/`, { maxAge: "1y", immutable: true }));
   app.use(express.static(distPath));
   app.use((req, res) => res.sendFile(`${distPath}index.html`));
 }

@@ -26,6 +26,7 @@
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "argon2": "^0.45.1",
     "better-sqlite3": "^13.0.3",
+    "compression": "^1.8.1",
     "express": "^5.2.1",
     "flag-icons": "^7.5.0",
     "multer": "^2.2.0",

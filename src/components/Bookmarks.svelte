@@ -1,4 +1,5 @@
 <script>
+  import { prewarm } from "../lib/backends.js";
   import { ICONS } from "../lib/icons.js";
   import { settings } from "../lib/settings.svelte.js";
   import { isOpen, openBookmark } from "../lib/tabs.svelte.js";
@@ -12,6 +13,7 @@
       class:open={isOpen(bookmark)}
       title={bookmark.url}
       onclick={() => openBookmark(bookmark)}
+      onpointerenter={() => prewarm(settings.backend)}
     >
       {#if bookmark.favicon}
         <img src={bookmark.favicon} alt="" draggable="false" />

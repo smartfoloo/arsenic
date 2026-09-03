@@ -2,6 +2,7 @@
   import Search from "@lucide/svelte/icons/search";
   import Star from "@lucide/svelte/icons/star";
 
+  import { prewarm } from "../lib/backends.js";
   import { settings } from "../lib/settings.svelte.js";
   import { activeTab, activeUrl, isBookmarked, open, toggleBookmark } from "../lib/tabs.svelte.js";
   import { resolve } from "../lib/url.js";
@@ -48,6 +49,8 @@
     onfocus={() => {
       focused = true;
       input.select();
+      // Boot the proxy while they're still typing, so Enter doesn't pay for it.
+      prewarm(settings.backend);
     }}
     onblur={() => (focused = false)}
   />

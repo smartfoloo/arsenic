@@ -112,10 +112,16 @@ export function wispUrl() {
   return `${scheme}://${location.host}/wisp/`;
 }
 
+// The transport instance the Scramjet controller is currently using. Kept
+// so keepWarm() can exercise the wisp connection directly — see there for
+// why a plain fetch() from this page can't.
+let scramjetLive;
+
 /** A fresh v3/v2-era transport instance, for Scramjet's controller. */
 async function scramjetTransport() {
   const { default: Client } = await loadScramjetTransport(wanted);
-  return new Client({ wisp: wispUrl() });
+  scramjetLive = new Client({ wisp: wispUrl() });
+  return scramjetLive;
 }
 
 // Set once scramjet.ready() has constructed it; selectTransport/selectLocation
@@ -225,6 +231,42 @@ function startHeartbeat(sw, controller) {
   ping();
 }
 
+const WARM_MS = 20_000;
+// Something cheap, reliably up, and served by a host that isn't the one
+// being browsed, so a warm request never perturbs a real page's session.
+const WARM_URL = "https://www.gstatic.com/generate_204";
+
+/**
+ * Keep the wisp connection itself warm, not just the service worker.
+ * startHeartbeat above only proves the worker still holds the routing
+ * table; the transport underneath it can still have gone idle and had its
+ * WebSocket dropped by an intermediary, so the next real navigation pays a
+ * fresh handshake.
+ *
+ * Ported in spirit from mizumath.com, which does this as a proxied
+ * fetch() from its own page every 20s. That exact form can't work here:
+ * our worker is scoped to the proxy prefix rather than "/", so this
+ * document isn't service-worker-controlled and its fetches never reach the
+ * proxy (see AGENTS.md). Scramjet v2's controller owns its transport
+ * directly in the page, though, so the transport can just be driven itself.
+ */
+function startWarmup() {
+  const warm = async () => {
+    if (document.hidden || !scramjetLive) return;
+
+    try {
+      if (!scramjetLive.ready) await scramjetLive.init();
+      const response = await scramjetLive.request(new URL(WARM_URL), "GET", null, [], undefined);
+      // A ReadableStream body left undrained holds the stream open.
+      await response?.body?.cancel?.();
+    } catch {
+      // Offline, or the transport is mid-swap; the next tick tries again.
+    }
+  };
+
+  setInterval(warm, WARM_MS);
+}
+
 const SCRAMJET_PREFIX = asset("service/scramjet/");
 
 const scramjet = {
@@ -258,6 +300,7 @@ const scramjet = {
     scramjetApplied = key;
 
     startHeartbeat(sw, scramjetController);
+    startWarmup();
   }),
   attach: (iframe, options = {}) => {
     const plugins = options.youtubeAdblock ? [createYoutubeAdblockPlugin(scramjetManagedPlugin)] : [];
@@ -323,3 +366,53 @@ export const BACKEND_OPTIONS = Object.entries(backends)
 export const TRANSPORT_OPTIONS = Object.entries(TRANSPORTS).map(
   ([value, [label, , description]]) => [value, label, description],
 );
+
+/**
+ * Start the selected backend before anything asks it to navigate.
+ *
+ * Without this the first click pays the whole cold start serially — fetch
+ * the rewriter, fetch the controller, register and activate the service
+ * worker, fetch and decode the wasm, build the transport, open wisp — and
+ * only then does the target site get its first request. Every proxy we
+ * compared against boots on the start page instead of on first navigation.
+ *
+ * ready() is wrapped in once(), so calling this on every hover and focus
+ * costs nothing after the first. Errors are swallowed: this is speculative
+ * work, and a real navigation will surface the same failure properly.
+ */
+export function prewarm(name) {
+  backends[name]?.ready().catch(() => {});
+}
+
+/**
+ * Tell the browser to start fetching the Scramjet runtime while the shell
+ * is still painting, so prewarm() above finds them in cache instead of
+ * chaining three requests. Low priority so they don't compete with the
+ * app's own assets.
+ *
+ * Injected rather than written into index.html because the static build
+ * ships to arbitrarily nested paths, where a literal "/scram/..." would
+ * resolve against the CDN root; siteAsset() handles both.
+ */
+export function preloadRuntime(name) {
+  // Scramjet-only: these are ~300 KB that an Ultraviolet user would never
+  // touch. UV's own bundle is small enough not to be worth a hint.
+  if (name !== "scramjet") return;
+
+  const assets = [
+    ["scram/scramjet.js", "script"],
+    ["controller/controller.api.js", "script"],
+    ["scram/scramjet.wasm", "fetch"],
+  ];
+
+  for (const [path, as] of assets) {
+    const link = document.createElement("link");
+    Object.assign(link, { rel: "preload", as, href: asset(path), fetchPriority: "low" });
+    // An as="fetch" preload has to declare a credentials mode or it won't
+    // match the controller's own fetch() of the wasm, and the file gets
+    // pulled twice. "anonymous" is same-origin credentials, which is what
+    // that fetch uses.
+    if (as === "fetch") link.crossOrigin = "anonymous";
+    document.head.append(link);
+  }
+}
