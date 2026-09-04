@@ -21,6 +21,12 @@ const EMBED_BASE = (import.meta.env.VITE_EMBED_BASE_URL ?? "").replace(/\/$/, ""
 // reasoning as EMBED_BASE above, just for a build with no separate origin.
 const STATIC_BUILD = import.meta.env.VITE_STATIC_BUILD === "true";
 
+// Neither of those builds ships Ultraviolet's files, and that includes
+// bare-mux's SharedWorker at "/baremux/worker.js". Anything that would
+// reach for bare-mux has to be skipped there, not just the UV backend
+// itself — see transport() for the failure this caused.
+const UV_UNAVAILABLE = !!EMBED_BASE || STATIC_BUILD;
+
 /** Run an async setup step at most once, no matter how often it's asked for. */
 function once(fn) {
   let promise;
@@ -76,8 +82,10 @@ function loadScramjetTransport(name) {
  */
 const LOCATIONS = {
   default: null,
-  // TODO: set once a Japan-hosted domain has been picked for this.
-  japan: "wss://charityschools.a2zrealty.biz/wisp/",
+  // Trailing slash is load-bearing: this host answers the upgrade on
+  // "/wisp/" and 502s on "/wisp" (our own server matches on endsWith("/wisp/")
+  // too), so don't "tidy" it away.
+  japan: "wss://tokyo.new-updates.info/wisp/",
 };
 
 export const LOCATION_OPTIONS = [
@@ -135,7 +143,12 @@ function transport() {
   pending = pending.then(async () => {
     const key = `${wanted}|${wantedLocation}`;
 
-    if (applied !== key) {
+    // Only Ultraviolet rides bare-mux. Guarded because a build without
+    // "/baremux/worker.js" leaves setTransport awaiting a SharedWorker that
+    // will never answer ("Failed to get a ping response from the worker"),
+    // and the Scramjet branch below it then never runs — which silently
+    // broke every transport and location switch in the static build.
+    if (!UV_UNAVAILABLE && applied !== key) {
       connection ??= new BareMuxConnection("/baremux/worker.js");
       await connection.setTransport(TRANSPORTS[wanted][1], [{ wisp: wispUrl() }]);
       applied = key;
@@ -337,7 +350,7 @@ const ultraviolet = {
   description: "Slower to start, better on heavy pages.",
   prefix: UV_PREFIX,
   ready: once(async () => {
-    if (EMBED_BASE || STATIC_BUILD) {
+    if (UV_UNAVAILABLE) {
       throw new Error("Ultraviolet isn't available in the static build — see AGENTS.md.");
     }
     await codec();
@@ -356,7 +369,7 @@ export const backends = { scramjet, ultraviolet };
 // Ultraviolet is excluded from the picker in the static build (Settings would
 // otherwise let someone select a backend whose ready() only ever throws).
 export const BACKEND_OPTIONS = Object.entries(backends)
-  .filter(([value]) => !((EMBED_BASE || STATIC_BUILD) && value === "ultraviolet"))
+  .filter(([value]) => !(UV_UNAVAILABLE && value === "ultraviolet"))
   .map(([value, { label, description }]) => [
     value,
     label,
