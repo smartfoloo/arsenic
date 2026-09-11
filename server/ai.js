@@ -1,8 +1,11 @@
 // Off by default, same opt-in shape as chat: an open-source clone only talks
 // to a paid LLM API when its operator deliberately turns it on and supplies
-// an OpenAI API key. Gemini and Groq are optional secondaries — the feature
-// still works with only the primary key set, it just offers fewer models.
-export const aiEnabled = process.env.ARSENIC_AI_ENABLED === "true" && !!process.env.OPENAI_API_KEY;
+// at least one provider key. OpenAI is the preferred/default provider when
+// its key is present (see DEFAULT_TIER below), but any single key is enough
+// to turn the feature on — it just offers fewer models without the others.
+export const aiEnabled =
+  process.env.ARSENIC_AI_ENABLED === "true" &&
+  (!!process.env.OPENAI_API_KEY || !!process.env.GOOGLE_AI_API_KEY || !!process.env.GROQ_API_KEY);
 
 const LUNA_MODEL = "gpt-5.6-luna";
 const GEMINI_FLASH_LITE_MODEL = "gemini-3.5-flash-lite";
@@ -342,10 +345,15 @@ const TIERS = [
   },
   { id: "groq", label: "Compound", run: streamGroq, keyPresent: () => !!process.env.GROQ_API_KEY },
 ];
-// Falls back to Gemma when no provider is requested or an unknown one is
-// sent, unless a real OPENAI_API_KEY is configured — Luna is meant to be
-// the flagship default, but only once its key actually works.
-const DEFAULT_TIER = TIERS.find((t) => t.id === (process.env.OPENAI_API_KEY ? "luna" : "gemma"));
+// Falls back to whichever tier's key is actually present when no provider
+// is requested or an unknown one is sent — Luna is the preferred default,
+// but only once its key actually works, and the server can be running with
+// only a Gemini or only a Groq key configured at all.
+const DEFAULT_TIER =
+  TIERS.find((t) => t.id === "luna" && t.keyPresent()) ??
+  TIERS.find((t) => t.id === "gemma" && t.keyPresent()) ??
+  TIERS.find((t) => t.id === "groq" && t.keyPresent()) ??
+  TIERS[0];
 
 function resolveTier(requested) {
   return TIERS.find((t) => t.id === requested) ?? DEFAULT_TIER;

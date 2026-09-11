@@ -23,11 +23,15 @@ function loadSessions() {
 export const aiStatus = $state({ enabled: null, groqAvailable: false, geminiAvailable: false, lunaAvailable: false }); // enabled: null until checkAiEnabled resolves
 
 // Luna whenever the server reports an OpenAI key is configured, otherwise
-// Gemma — picker order/labels are unaffected, only which one starts
-// pre-selected. aiStatus.lunaAvailable only resolves once checkAiEnabled's
-// fetch finishes, so this starts at "gemma" and updates itself reactively.
+// whichever other provider actually has a key — picker order/labels are
+// unaffected, only which one starts pre-selected. The aiStatus.*Available
+// flags only resolve once checkAiEnabled's fetch finishes, so this starts
+// at "gemma" and updates itself reactively.
 export function defaultModel() {
-  return aiStatus.lunaAvailable ? "luna" : "gemma";
+  if (aiStatus.lunaAvailable) return "luna";
+  if (aiStatus.geminiAvailable) return "gemma";
+  if (aiStatus.groqAvailable) return "groq";
+  return "gemma";
 }
 
 export const aiUsage = $state({ used: 0, limit: 2500 });
