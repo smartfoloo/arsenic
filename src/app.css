@@ -1277,8 +1277,9 @@ svg {
   font-size: 14px;
 }
 
-/* rail */
-#chatSidebar {
+/* rail — shared by Chat's own sidebar and AiSidebar.svelte */
+#chatSidebar,
+#aiSidebar {
   flex: 0 0 240px;
   min-width: 0;
   display: flex;
@@ -1493,7 +1494,8 @@ svg {
   word-break: break-word;
 }
 
-#chatProfile {
+#chatProfile,
+#aiUsageFooter {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2023,10 +2025,12 @@ svg {
    tabs. */
 .aiModel {
   flex: none;
+  align-self: center;
   width: auto;
 }
 .aiModel .select-trigger {
   width: auto;
+  border-radius: 12px;
   background: none;
   border: 1px solid transparent;
 }
@@ -2099,8 +2103,9 @@ svg {
   cursor: default;
 }
 
-/* ai assistant — one AiPage instance per open AI tab (like Frame.svelte for
-   proxy tabs), so all of these are classes rather than ids. */
+/* ai assistant — AiPage is a singleton (like ChatPage), so its own top-level
+   wrapper stays a class rather than an id purely for historical reasons;
+   AiSidebar/the usage footer below reuse Chat's rail ids directly. */
 .aiPage .inner {
   height: 100%;
   box-sizing: border-box;
@@ -2110,6 +2115,11 @@ svg {
 .aiLayout {
   flex: 1;
   min-height: 0;
+  display: flex;
+}
+.aiMain {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
@@ -2142,71 +2152,48 @@ svg {
   font-weight: 700;
   letter-spacing: -0.4px;
 }
-/* Previous sessions, shown between the welcome heading and the composer on
-   a draft (not-yet-started) tab. Capped at 4 rows — more than that pages
-   via the chevrons instead of growing the box. */
-.aiHistory {
-  display: flex;
+/* AiSidebar.svelte's usage readout — #chatProfile's row layout doesn't fit
+   a text line + bar, so this overrides just the direction/alignment. */
+#aiUsageFooter {
+  flex-direction: column;
   align-items: stretch;
   gap: 6px;
-  width: 100%;
-  max-width: 360px;
-  margin: 28px auto 0;
 }
-.aiHistoryRows {
-  flex: 1;
-  min-width: 0;
-  border-radius: 20px;
-  background: var(--base);
-  overflow: hidden;
+.aiUsageText {
+  font-size: 12px;
+  color: var(--subtext0);
 }
-.aiHistoryRow {
-  display: block;
-  width: 100%;
-  padding: 11px 16px;
-  border-top: 1px solid var(--surface0);
-  color: var(--subtext1);
-  font-size: 14px;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition:
-    background 0.12s,
-    color 0.12s;
-}
-.aiHistoryRow:first-child {
-  border-top: 0;
-}
-.aiHistoryRow:hover {
+.aiUsageBar {
+  height: 4px;
+  border-radius: 2px;
   background: var(--surface0);
-  color: var(--text);
+  overflow: hidden;
 }
-.aiHistoryPager {
-  flex: none;
+.aiUsageBarFill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--accent);
+}
+/* .aiMessage is just the bubble now — alignment and the copy button (which
+   sits below it, outside the bubble's own box) live on this wrapper. */
+.aiMessageRow {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 4px;
+  align-items: flex-start;
+  max-width: 70%;
 }
-.aiHistoryPager .iconbtn {
-  width: 28px;
-  height: 28px;
-}
-.aiHistoryPager .iconbtn svg {
-  width: 16px;
-  height: 16px;
+.aiMessageRowUser {
+  align-self: flex-end;
+  align-items: flex-end;
 }
 .aiMessage {
-  align-self: flex-start;
   width: fit-content;
-  max-width: 70%;
+  max-width: 100%;
   padding: 10px 14px;
   border-radius: 16px;
   background: var(--base);
 }
 .aiMessageUser {
-  align-self: flex-end;
   background: var(--accent);
   color: var(--crust);
 }
@@ -2214,6 +2201,30 @@ svg {
   overflow-wrap: break-word;
   white-space: pre-wrap;
   font-size: 15px;
+  line-height: 1.5;
+}
+.aiMessageMeta {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 2px;
+}
+.aiMessageRowUser .aiMessageMeta {
+  flex-direction: row-reverse;
+}
+.aiCopyBtn {
+  width: 24px;
+  height: 24px;
+}
+.aiCopyBtn svg {
+  width: 14px;
+  height: 14px;
+}
+.aiMessageTime {
+  padding: 0 4px;
+  font-size: 12px;
+  color: var(--subtext0);
+  white-space: nowrap;
 }
 .aiMessageBody .aiHeading {
   margin: 4px 0;
@@ -2258,6 +2269,75 @@ svg {
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 13px;
   line-height: 1.5;
+}
+.aiMessageBody a {
+  color: var(--accent);
+}
+.aiMessageUser .aiMessageBody a {
+  color: var(--crust);
+  text-decoration-color: color-mix(in srgb, var(--crust) 50%, transparent);
+}
+.aiList {
+  margin: 4px 0;
+  padding-left: 22px;
+  white-space: normal;
+}
+.aiList li {
+  margin: 2px 0;
+}
+.aiList li::marker {
+  color: var(--subtext0);
+}
+.aiMessageUser .aiList li::marker {
+  color: color-mix(in srgb, var(--crust) 70%, transparent);
+}
+.aiSubList {
+  margin: 2px 0 4px;
+}
+.aiQuote {
+  margin: 6px 0;
+  padding: 2px 12px;
+  border-left: 3px solid var(--surface2);
+  color: var(--subtext0);
+  white-space: normal;
+}
+.aiMessageUser .aiQuote {
+  border-left-color: color-mix(in srgb, var(--crust) 40%, transparent);
+  color: color-mix(in srgb, var(--crust) 80%, transparent);
+}
+.aiHr {
+  margin: 10px 0;
+  border: 0;
+  border-top: 1px solid var(--surface1);
+}
+.aiMessageUser .aiHr {
+  border-top-color: color-mix(in srgb, var(--crust) 30%, transparent);
+}
+.aiTableWrap {
+  margin: 8px 0;
+  overflow-x: auto;
+}
+.aiTable {
+  border-collapse: collapse;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.aiTable th,
+.aiTable td {
+  padding: 6px 10px;
+  border: 1px solid var(--surface1);
+  text-align: left;
+}
+.aiTable th {
+  background: var(--surface0);
+  font-weight: 600;
+}
+.aiMessageUser .aiTable th,
+.aiMessageUser .aiTable td {
+  border-color: color-mix(in srgb, var(--crust) 30%, transparent);
+}
+.aiMessageUser .aiTable th {
+  background: color-mix(in srgb, var(--crust) 18%, transparent);
 }
 .aiTypingDot {
   display: inline-block;

@@ -5,6 +5,7 @@
 
   function shortcut(event) {
     if (!(event.metaKey || event.ctrlKey)) return;
+    if (event.shiftKey || event.altKey) return;
 
     const key = event.key.toLowerCase();
     if (key === "t") newTab();

@@ -86,16 +86,58 @@
         >
       </p>
 
+      <h2>AI assistant</h2>
+      <p>
+        If you use the AI assistant, your messages and the model's replies are sent to whichever
+        provider the model you picked runs on &mdash; OpenAI, Google, or Groq &mdash; to generate
+        a response. This Service doesn't require an account for this feature and doesn't keep its
+        own copy of your conversations; they're stored only in your own browser. The provider
+        you're routed to does receive that data, though, and the person operating this Service
+        has access to that provider's own usage logs and dashboards as part of running the
+        account those requests are billed to. Each provider retains and uses that data
+        differently:
+      </p>
+      <p>
+        <b>OpenAI</b> (used for GPT-5.6 Luna) does not use API data to train its models by
+        default, and retains it for up to 30 days for abuse monitoring:
+        <a
+          href="https://developers.openai.com/api/docs/guides/your-data"
+          target="_blank"
+          rel="noopener"
+          >developers.openai.com/api/docs/guides/your-data</a
+        >
+      </p>
+      <p>
+        <b>Google</b> (used for Gemini 3.5 Flash Lite and Gemma 4 31B) handles this differently
+        depending on whether the API key in use is on a free or a billed plan. On the free plan,
+        Google may use what's submitted and what the model replies with to improve its own
+        products; on a billed plan, data is instead retained only temporarily, for abuse
+        monitoring:
+        <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener"
+          >ai.google.dev/gemini-api/terms</a
+        >
+      </p>
+      <p>
+        <b>Groq</b> (used for Compound) handles API usage under its own business terms, separate
+        from its general privacy policy:
+        <a href="https://groq.com/privacy-policy" target="_blank" rel="noopener"
+          >groq.com/privacy-policy</a
+        >
+      </p>
+
       <h2>What we don't do</h2>
       <p>
         We do not sell your data. We do not share your data with third parties except Google
-        Analytics as described above, or if required by law.
+        Analytics and, if you use it, the AI assistant's provider &mdash; both described above
+        &mdash; or if required by law.
       </p>
 
       <h2>How long we keep data</h2>
       <p>
         Account data and chat history are kept until you delete your account or ask us to delete
-        it. You can request deletion at any time by emailing us.
+        it. You can request deletion at any time by emailing us. AI conversations aren't stored
+        on our servers at all &mdash; see the AI assistant section above for what the provider
+        you're routed to may keep.
       </p>
 
       <h2>Cookies</h2>

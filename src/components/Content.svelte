@@ -28,7 +28,5 @@
   <StartPage />
   <SettingsPage />
   <ChatPage />
-  {#each tabs.filter((tab) => tab.kind === "ai") as tab (tab.id)}
-    <AiPage id={tab.id} />
-  {/each}
+  <AiPage />
 </main>

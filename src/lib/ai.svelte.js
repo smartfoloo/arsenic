@@ -1,12 +1,11 @@
 const SESSIONS_KEY = "arsenic:aiSessions";
 
 export const MODEL_OPTIONS = [
-  ["flash-lite", "Gemini 3.5 Flash Lite", "Our flagship: fast and capable, best for most things"],
-  ["gemma", "Gemma 4 31B", "Balanced and reliable, a bit slower on long replies"],
-  ["groq", "Compound", "Very fast, can search the web, less consistent on complex asks"],
+  ["luna", "GPT-5.6 Luna", "OpenAI"],
+  ["flash-lite", "Gemini 3.5 Flash Lite", "Google"],
+  ["gemma", "Gemma 4 31B", "Google"],
+  ["groq", "Compound", "Groq"],
 ];
-
-export const DEFAULT_MODEL = "gemma";
 
 function loadSessions() {
   try {
@@ -21,11 +20,30 @@ function loadSessions() {
   }
 }
 
-export const aiStatus = $state({ enabled: null, groqAvailable: false }); // enabled: null until checkAiEnabled resolves
+export const aiStatus = $state({ enabled: null, groqAvailable: false, geminiAvailable: false, lunaAvailable: false }); // enabled: null until checkAiEnabled resolves
 
-/** Every session that's had at least one message sent — a tab that never
- * sends one stays a draft and never shows up here (see sendAiMessage). */
+// Luna whenever the server reports an OpenAI key is configured, otherwise
+// Gemma — picker order/labels are unaffected, only which one starts
+// pre-selected. aiStatus.lunaAvailable only resolves once checkAiEnabled's
+// fetch finishes, so this starts at "gemma" and updates itself reactively.
+export function defaultModel() {
+  return aiStatus.lunaAvailable ? "luna" : "gemma";
+}
+
+export const aiUsage = $state({ used: 0, limit: 2500 });
+
+/** Every session that's had at least one message sent — a fresh draft
+ * never sends one and never shows up here (see sendAiMessage). */
 export const aiSessions = $state(loadSessions());
+
+/** The one AI tab is a singleton (see tabs.svelte.js's openInternal), so
+ * which conversation it's showing lives here instead of on the tab, same
+ * as chat.svelte.js's activeChannelId. null means the draft/empty state. */
+export const aiUi = $state({ activeSessionId: null });
+
+export function switchAiSession(id) {
+  aiUi.activeSessionId = id;
+}
 
 $effect.root(() => {
   $effect(() => {
@@ -55,6 +73,10 @@ export async function checkAiEnabled() {
     const data = await response.json();
     aiStatus.enabled = !!data.enabled;
     aiStatus.groqAvailable = !!data.groqAvailable;
+    aiStatus.geminiAvailable = !!data.geminiAvailable;
+    aiStatus.lunaAvailable = !!data.lunaAvailable;
+    if (typeof data.usageToday === "number") aiUsage.used = data.usageToday;
+    if (typeof data.dailyLimit === "number") aiUsage.limit = data.dailyLimit;
   } catch {
     aiStatus.enabled = false;
   }
@@ -69,27 +91,26 @@ function titleFromMessage(text) {
   return clean.length > 60 ? `${clean.slice(0, 60)}…` : clean;
 }
 
-/** Deletes the tab's session (if any) and resets it back to a blank draft. */
-export function clearAiSession(tab) {
-  if (tab.sessionId) {
-    const i = aiSessions.findIndex((s) => s.id === tab.sessionId);
+/** Deletes the active session (if any) and resets back to a blank draft. */
+export function clearAiSession() {
+  if (aiUi.activeSessionId) {
+    const i = aiSessions.findIndex((s) => s.id === aiUi.activeSessionId);
     if (i !== -1) aiSessions.splice(i, 1);
   }
-  tab.sessionId = null;
-  tab.title = "AI";
+  aiUi.activeSessionId = null;
 }
 
 /**
  * A session doesn't exist until its first message is sent — before that,
- * the tab is just a draft (home screen, not yet in history). Sending the
- * first message creates it, titled from that message, and renames the tab;
- * titles never change again after that (sessions aren't renameable).
+ * it's just a draft (empty state, not yet in history/the sidebar). Sending
+ * the first message creates it and titles it from that message; titles
+ * never change again after that (sessions aren't renameable).
  */
-export async function sendAiMessage(tab, text, model) {
+export async function sendAiMessage(text, model) {
   const content = text.trim();
   if (!content) return;
 
-  let session = tab.sessionId ? sessionById(tab.sessionId) : null;
+  let session = aiUi.activeSessionId ? sessionById(aiUi.activeSessionId) : null;
   if (!session) {
     session = {
       id: crypto.randomUUID(),
@@ -106,13 +127,15 @@ export async function sendAiMessage(tab, text, model) {
     // wouldn't trigger any reactivity — Svelte only wraps what's actually
     // inside the $state array.
     session = aiSessions[aiSessions.length - 1];
-    tab.sessionId = session.id;
-    tab.title = session.title;
+    aiUi.activeSessionId = session.id;
   }
   if (session.streaming) return;
 
-  session.messages.push({ role: "user", content });
-  const assistantIndex = session.messages.push({ role: "assistant", content: "" }) - 1;
+  session.messages.push({ role: "user", content, sentAt: Date.now() });
+  // sentAt is filled in once the reply actually finishes (below), not at
+  // creation — for an assistant message "time sent" should mean when it was
+  // done, not when the placeholder was created.
+  const assistantIndex = session.messages.push({ role: "assistant", content: "", sentAt: null }) - 1;
   session.streaming = true;
   session.updatedAt = Date.now();
 
@@ -164,12 +187,17 @@ export async function sendAiMessage(tab, text, model) {
         // Shown as the reply itself, not a separate error UI — the point is
         // that a failure reads exactly like a message would.
         else if (payload.error) session.messages[assistantIndex].content = payload.error;
+        // Present on every tier's terminal event — keeps the sidebar's usage
+        // readout live without a separate request.
+        if (typeof payload.usageToday === "number") aiUsage.used = payload.usageToday;
+        if (typeof payload.dailyLimit === "number") aiUsage.limit = payload.dailyLimit;
       }
     }
   } catch (err) {
     session.messages[assistantIndex].content = err.message;
   } finally {
     if (!session.messages[assistantIndex]?.content) session.messages.splice(assistantIndex, 1);
+    else session.messages[assistantIndex].sentAt = Date.now();
     session.streaming = false;
     session.updatedAt = Date.now();
   }

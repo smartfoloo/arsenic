@@ -16,7 +16,7 @@
   import { chat } from "../lib/chat.svelte.js";
   import { inspect } from "../lib/inspect.js";
   import { settings } from "../lib/settings.svelte.js";
-  import { activeTab, activeUrl, openAiTab, openInternal, reload, ui } from "../lib/tabs.svelte.js";
+  import { activeTab, activeUrl, openInternal, reload, ui } from "../lib/tabs.svelte.js";
 
   let fullscreen = $state(false);
   let reloadSpinning = $state(false);
@@ -143,7 +143,7 @@
         class="iconbtn"
         id="openAi"
         aria-label="AI"
-        onclick={() => openAiTab()}
+        onclick={() => openInternal("ai")}
       >
         <Sparkles />
       </button>
