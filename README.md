@@ -2,7 +2,7 @@
 arsenic
 </h1>
 
-A browser-like web proxy built with Svelte and Node.js.
+A private, ad-free web proxy built with Svelte and Node.js.
 
 **If you like our project, please consider giving us a star!**
 
