@@ -563,6 +563,21 @@ svg {
   display: block;
 }
 
+.frameError {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--base);
+  color: var(--subtext1);
+}
+.frameError.active {
+  display: flex;
+}
+
 .page {
   position: absolute;
   inset: 0;

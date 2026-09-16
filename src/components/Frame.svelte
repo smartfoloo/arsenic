@@ -5,6 +5,13 @@
   import { settings } from "../lib/settings.svelte.js";
 
   const POLL_MS = 500;
+  // backend.ready() has no bound of its own: a stuck SW registration or a
+  // wisp/transport handshake that never settles (the epoxy 3.0.1 "tls
+  // handshake eof" issue) leaves this promise pending forever, which is
+  // what produced the tab-hang reports. 12s is long enough to survive a
+  // slow cold start (WASM fetch, first-time SW activation) without making
+  // a genuinely stuck connection look responsive.
+  const READY_TIMEOUT_MS = 12000;
 
   // Set only in the static build (see vite.static.config.mjs). Scramjet's
   // service worker can only intercept traffic for its own origin, so a page
@@ -24,6 +31,9 @@
   let iconPending = false;
   let embedReady = false;
   let pendingUrl;
+  let failed = $state(false);
+  let failedUrl;
+  let navGen = 0;
 
   const tab = $derived(tabById(id));
   const backend = $derived(tab && backendOf(tab));
@@ -96,15 +106,37 @@
   }
 
   async function go(url) {
+    // Bumped on every call so a timeout or rejection from a superseded
+    // navigation (user moved on before it settled) doesn't clobber
+    // whatever the frame is doing now.
+    const gen = ++navGen;
+    failed = false;
+
     try {
-      await backend.ready();
-      if (!tab) return; // closed while the backend was still connecting
+      await withTimeout(backend.ready(), READY_TIMEOUT_MS);
+      if (!tab || gen !== navGen) return; // closed, or a newer go() took over
 
       tab.handle ??= backend.attach(el, { youtubeAdblock: settings.youtubeAdblock });
       backend.go(tab.handle, url);
     } catch (error) {
       console.error(error);
+      if (tab && gen === navGen) {
+        failed = true;
+        failedUrl = url;
+      }
     }
+  }
+
+  function withTimeout(promise, ms) {
+    let timer;
+    const timeout = new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error("timed out")), ms);
+    });
+    return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+  }
+
+  function retry() {
+    if (failedUrl) go(failedUrl);
   }
 
   /** Pull the address, title and icon out of whatever the frame is showing. */
@@ -155,3 +187,10 @@
 <iframe bind:this={el} class:active title={tab?.title} referrerpolicy="no-referrer" src={embedSrc}
   onload={EMBED_BASE ? undefined : read}
 ></iframe>
+
+{#if failed}
+  <div class="frameError" class:active>
+    <p>This page didn't load.</p>
+    <button class="btn" onclick={retry}>Retry</button>
+  </div>
+{/if}
