@@ -117,13 +117,20 @@ if (aiEnabled) {
 }
 
 // Every path below is pinned to an exact version in package.json, so its
-// bytes can never change without a redeploy under a fresh node_modules —
-// serving them immutable turns a conditional request per file per page load
-// into nothing at all. Deliberately not applied to the service worker
-// wrappers in public/ (scramjet.sw.js, uv.sw.js): the browser's SW update
-// algorithm byte-diffs the registered script, so those must stay
-// revalidated or a worker fix can never ship.
-const vendored = (path) => express.static(path, { maxAge: "1y", immutable: true });
+// bytes only change on a redeploy under a fresh node_modules — but the URL
+// itself doesn't encode that version, so "immutable" here would be a lie:
+// a browser that cached e.g. epoxy3/index.mjs or controller.sw.js before a
+// dependency bump has no way to know a redeploy changed the bytes at that
+// same path, and keeps running the stale client-side proxy engine against
+// the now-current server (mismatched wisp/epoxy protocol expectations —
+// this is what "Wisp WebSocket failed to connect" turned out to be). Short
+// maxAge with revalidation (express.static's default ETag/Last-Modified)
+// bounds that staleness window instead of leaving it open for a year, at
+// the cost of a cheap conditional request per file once the cache goes
+// stale. Same reasoning that already excludes the service worker wrappers
+// in public/ (scramjet.sw.js, uv.sw.js) from long caching, just extended to
+// everything those wrappers importScripts() or fetch() themselves.
+const vendored = (path) => express.static(path, { maxAge: "10m" });
 
 app.use("/scram/", vendored(scramjetPath));
 app.use("/controller/", vendored(scramjetControllerPath));
