@@ -27,11 +27,23 @@ const STATIC_BUILD = import.meta.env.VITE_STATIC_BUILD === "true";
 // itself — see transport() for the failure this caused.
 const UV_UNAVAILABLE = !!EMBED_BASE || STATIC_BUILD;
 
-/** Run an async setup step at most once, no matter how often it's asked for. */
+/**
+ * Run an async setup step at most once, no matter how often it's asked for —
+ * but only while it keeps succeeding. A rejection clears the cache instead of
+ * being memoized forever, so a transient failure (a stuck SW registration, a
+ * dropped handshake) can actually be retried instead of replaying the same
+ * error on every subsequent call.
+ */
 function once(fn) {
   let promise;
 
-  return () => (promise ??= fn());
+  return () => {
+    promise ??= fn().catch((error) => {
+      promise = undefined;
+      throw error;
+    });
+    return promise;
+  };
 }
 
 const scripts = {};
