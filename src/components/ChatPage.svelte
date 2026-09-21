@@ -54,8 +54,13 @@
   const title = $derived(`#${activeChannel?.name ?? ""}`);
   const channelsByName = $derived(new Map(chat.channels.map((c) => [c.name.toLowerCase(), c])));
 
+  let chatOpened = false;
+
   $effect(() => {
-    checkAuth();
+    if (activeTab()?.kind === "chat" && !chatOpened) {
+      chatOpened = true;
+      checkAuth();
+    }
   });
 
   let prevKey = null;

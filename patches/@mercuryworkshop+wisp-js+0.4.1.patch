@@ -1,0 +1,17 @@
+diff --git a/node_modules/@mercuryworkshop/wisp-js/src/websocket.mjs b/node_modules/@mercuryworkshop/wisp-js/src/websocket.mjs
+index 6cd72bd..de7ae8c 100644
+--- a/node_modules/@mercuryworkshop/wisp-js/src/websocket.mjs
++++ b/node_modules/@mercuryworkshop/wisp-js/src/websocket.mjs
+@@ -30,6 +30,12 @@ export class AsyncWebSocket {
+         if (!this.connected) reject();
+         else this.data_queue.close();
+       }
++      this.ws.onerror = () => {
++        // Absorb malformed frames (e.g. invalid close codes) instead of letting
++        // the 'error' event go unhandled and crash the process — see onclose.
++        if (!this.connected) reject();
++        else this.data_queue.close();
++      }
+       if (this.ws.readyState === this.ws.OPEN) {
+         this.connected = true;
+         resolve();
