@@ -36,7 +36,10 @@
   </div>
 
   <div id="aiUsageFooter">
-    <div class="aiUsageText">Daily usage {aiUsage.used.toLocaleString()} / {aiUsage.limit.toLocaleString()} tokens</div>
+    <div class="aiUsageText">
+      <span class="aiUsageValue">{aiUsage.used.toLocaleString()}</span>
+      <span class="aiUsageLabel">/ {aiUsage.limit.toLocaleString()} tokens today</span>
+    </div>
     <div class="aiUsageBar"><div class="aiUsageBarFill" style="width: {usagePct}%"></div></div>
   </div>
 </div>
