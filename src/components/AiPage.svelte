@@ -134,10 +134,11 @@
             {/if}
           </div>
 
+          <div class="aiBody" class:aiBodyCentered={!session}>
           <div class="aiMessages" bind:this={listEl}>
             {#if !session}
               <div class="aiEmpty">
-                <h1>What's on your mind today?</h1>
+                <h1>What's on your mind?</h1>
               </div>
             {:else}
               {#snippet inlineParts(parts)}
@@ -237,23 +238,28 @@
           </div>
 
           <form class="aiComposer" onsubmit={submit}>
-            <div class="chatComposerField">
+            <div class="aiComposerField">
               <textarea
                 bind:value={draft}
                 bind:this={textareaEl}
                 oninput={resizeTextarea}
                 onkeydown={onKeydown}
-                placeholder={session ? "Ask AI" : "What can I help you with?"}
+                placeholder={session ? "Ask AI" : "How can I help you today?"}
                 rows="1"
               ></textarea>
-              {#if modelOptions.length > 1}
-                <Select id="aiModel" class="aiModel" options={modelOptions} value={model} onchange={setModel} />
-              {/if}
-              <button class="chatSendBtn" type="submit" aria-label="Send" disabled={session?.streaming}>
-                <ArrowUp />
-              </button>
+              <div class="aiComposerToolbar">
+                <div class="aiComposerToolbarLeft">
+                  {#if modelOptions.length > 1}
+                    <Select id="aiModel" class="aiModel" options={modelOptions} value={model} onchange={setModel} />
+                  {/if}
+                </div>
+                <button class="chatSendBtn" type="submit" aria-label="Send" disabled={session?.streaming}>
+                  <ArrowUp />
+                </button>
+              </div>
             </div>
           </form>
+          </div>
         </div>
       </div>
     {/if}

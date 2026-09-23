@@ -1455,6 +1455,21 @@ svg {
   background: var(--surface1);
   color: var(--text);
 }
+.aiNewChatItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.aiNewChatIcon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--overlay0);
+}
+.aiNewChatItem.active .aiNewChatIcon {
+  color: var(--text);
+}
 .chatLockIcon {
   width: 12px;
   height: 12px;
@@ -2039,6 +2054,50 @@ svg {
   overflow-y: auto;
   box-sizing: border-box;
 }
+/* Claude-style composer card: a tall borderless textarea on its own row,
+   with the model picker and send button in a toolbar row underneath —
+   rather than all three sitting inline in a single row like chat's
+   .chatComposerField. */
+.aiComposerField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 20px;
+  background: var(--crust);
+  border: 1px solid var(--surface0);
+  transition: border-color 0.12s;
+}
+.aiComposerField:focus-within {
+  border-color: var(--surface2);
+}
+.aiComposerField textarea {
+  width: 100%;
+  min-height: 28px;
+  max-height: 140px;
+  padding: 2px;
+  border: 0;
+  background: none;
+  outline: 0;
+  font: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  resize: none;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.aiComposerToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.aiComposerToolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+}
 /* Same ghost treatment as the backend/location pickers on the start page
    (#startControlsRight) — no border, just a hover fill. One AiPage mounts
    per open AI tab, so this is a class (matched by Select's extra-class
@@ -2150,6 +2209,26 @@ svg {
   justify-content: space-between;
   padding: 14px 16px;
 }
+.aiBody {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+/* No-session state: instead of the welcome heading centering only within
+   the messages area while the composer stays pinned to the bottom, the
+   pair collapses to their natural height and centers together as one
+   block in the space below the header. */
+.aiBodyCentered {
+  justify-content: center;
+}
+.aiBodyCentered .aiMessages {
+  flex: none;
+  overflow: visible;
+}
+.aiBodyCentered .aiComposer {
+  flex: none;
+}
 /* Content stays capped at a comfortable ~800px column on wide windows —
    max() falls back to the plain base padding below that, so narrow/phone
    widths are unaffected and never get less than they'd have had anyway. */
@@ -2170,7 +2249,7 @@ svg {
 .aiEmpty h1 {
   margin: 0 0 12px;
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 200;
   letter-spacing: -0.4px;
 }
 /* AiSidebar.svelte's usage readout — #chatProfile's row layout doesn't fit
@@ -2389,7 +2468,7 @@ svg {
   }
 }
 .aiComposer {
-  padding: 16px max(24px, calc(50% - 400px));
+  padding: 16px max(24px, calc(50% - 300px));
   flex: none;
 }
 

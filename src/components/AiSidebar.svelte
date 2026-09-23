@@ -14,14 +14,19 @@
 <div id="aiSidebar">
   <div class="chatSidebarHeader">
     <h2>AI</h2>
-    <button class="chatIconAdd" aria-label="New chat" onclick={startNewChat}>
-      <Plus />
-    </button>
   </div>
 
   <div class="chatSidebarScroll">
     <div class="chatSidebarSection">
       <div class="chatChannelList">
+        <button
+          class="chatChannelItem aiNewChatItem"
+          class:active={aiUi.activeSessionId === null}
+          onclick={startNewChat}
+        >
+          <Plus class="aiNewChatIcon" />
+          New chat
+        </button>
         {#each sortedSessions as session (session.id)}
           <button
             class="chatChannelItem"
