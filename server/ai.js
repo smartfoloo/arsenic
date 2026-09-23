@@ -16,7 +16,7 @@ const SYSTEM_PROMPT =
 
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;
-const MAX_OUTPUT_TOKENS = 2048;
+const MAX_OUTPUT_TOKENS = 4096;
 // Assumed output size for the admission check only (below) — using the real
 // per-request ceiling above there would burn most of a deliberately small
 // daily budget on a single pre-flight check regardless of how long the
