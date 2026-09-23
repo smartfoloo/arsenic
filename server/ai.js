@@ -30,7 +30,7 @@ const ESTIMATED_OUTPUT_TOKENS = 600;
 // here; this is purely about one IP not being the reason a shared budget
 // (of whichever kind) gets eaten in a day. Low stakes if a restart resets
 // it, same reasoning as requestLog below.
-const DAILY_TOKEN_LIMIT = parseInt(process.env.ARSENIC_AI_DAILY_TOKEN_LIMIT, 10) || 2500;
+const DAILY_TOKEN_LIMIT = parseInt(process.env.ARSENIC_AI_DAILY_TOKEN_LIMIT, 10) || 7500;
 const dailyUsage = new Map();
 
 function todayUTC() {
