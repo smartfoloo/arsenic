@@ -70,7 +70,13 @@
     onkeydown={keydown}
   >
     <span class="value-group">
-      {#if icon}<span class="fi {icon} option-flag"></span>{/if}
+      {#if icon}
+        {#if icon.startsWith("/")}
+          <img class="option-flag option-logo" src={icon} alt="" />
+        {:else}
+          <span class="fi {icon} option-flag"></span>
+        {/if}
+      {/if}
       <span class="value">{label}</span>
     </span>
     <span class="chev"><ChevronDown /></span>
@@ -91,7 +97,13 @@
         onpointermove={() => (active = i)}
       >
         <span class="value-group">
-          {#if optionIcon}<span class="fi {optionIcon} option-flag"></span>{/if}
+          {#if optionIcon}
+            {#if optionIcon.startsWith("/")}
+              <img class="option-flag option-logo" src={optionIcon} alt="" />
+            {:else}
+              <span class="fi {optionIcon} option-flag"></span>
+            {/if}
+          {/if}
           <span class="text">
             {text}
             {#if description}<small>{description}</small>{/if}

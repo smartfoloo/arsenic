@@ -1022,6 +1022,12 @@ svg {
   width: 16px;
   border-radius: 2px;
 }
+.option-logo {
+  height: 16px;
+  width: auto;
+  border-radius: 0;
+  object-fit: contain;
+}
 
 /* Options carrying a description stack onto two lines; nowrap is inherited, so
    the menu just grows to the widest one rather than reflowing. */

@@ -1,10 +1,10 @@
 const SESSIONS_KEY = "arsenic:aiSessions";
 
 export const MODEL_OPTIONS = [
-  ["luna", "GPT-6 Luna", "OpenAI"],
-  ["flash-lite", "Gemini 3.5 Flash Lite", "Google"],
-  ["gemma", "Gemma 4 31B", "Google"],
-  ["groq", "Compound", "Groq"],
+  ["luna", "GPT-6 Luna", null, "/logos/openai-light.svg"],
+  ["flash-lite", "Gemini 3.5 Flash Lite", null, "/logos/google.svg"],
+  ["gemma", "Gemma 4 31B", null, "/logos/google.svg"],
+  ["groq", "Compound", null, "/logos/groq-dark.png"],
 ];
 
 function loadSessions() {
