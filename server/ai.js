@@ -7,7 +7,7 @@ export const aiEnabled =
   process.env.ARSENIC_AI_ENABLED === "true" &&
   (!!process.env.OPENAI_API_KEY || !!process.env.GOOGLE_AI_API_KEY || !!process.env.GROQ_API_KEY);
 
-const LUNA_MODEL = "gpt-5.6-luna";
+const LUNA_MODEL = "gpt-6-luna";
 const GEMINI_FLASH_LITE_MODEL = "gemini-3.5-flash-lite";
 const GEMINI_FALLBACK_MODEL = "gemma-4-31b-it";
 const GROQ_MODEL = "groq/compound";
@@ -330,7 +330,7 @@ async function streamGroq(messages, res) {
 }
 
 const TIERS = [
-  { id: "luna", label: "GPT-5.6 Luna", run: streamLuna, keyPresent: () => !!process.env.OPENAI_API_KEY },
+  { id: "luna", label: "GPT-6 Luna", run: streamLuna, keyPresent: () => !!process.env.OPENAI_API_KEY },
   {
     id: "flash-lite",
     label: "Gemini 3.5 Flash Lite",
