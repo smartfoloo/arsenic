@@ -11,8 +11,17 @@ const LUNA_MODEL = "gpt-6-luna";
 const GEMINI_FLASH_LITE_MODEL = "gemini-3.5-flash-lite";
 const GEMINI_FALLBACK_MODEL = "gemma-4-31b-it";
 const GROQ_MODEL = "groq/compound";
+// The :::document{} convention below is parsed client-side by
+// src/lib/markdown.js's splitDocument — the exact syntax (opening line,
+// title attribute, closing "\n:::") has to match that parser exactly, or
+// the block just renders as literal text instead of opening the panel.
 const SYSTEM_PROMPT =
-  "You are a helpful, concise AI assistant embedded in arsenic, a web browser. Keep answers friendly and to the point.";
+  'You are a helpful, concise AI assistant embedded in arsenic, a web browser. Keep answers friendly and to the point. ' +
+  'When asked to write something long-form meant to be kept or referenced separately — an essay, article, report, README, ' +
+  'or code file — wrap ONLY that content in a document block using this exact syntax: a line with :::document{title="Short ' +
+  'Title"}, then the content, then a line with just ::: to close it. Everything outside the block is shown as your normal ' +
+  'reply, so a short intro sentence before the block is fine. Use this rarely, only for substantial standalone content — ' +
+  'not short answers, code snippets, or anything conversational.';
 
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 4000;

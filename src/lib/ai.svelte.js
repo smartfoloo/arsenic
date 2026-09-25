@@ -95,13 +95,12 @@ function titleFromMessage(text) {
   return clean.length > 60 ? `${clean.slice(0, 60)}…` : clean;
 }
 
-/** Deletes the active session (if any) and resets back to a blank draft. */
-export function clearAiSession() {
-  if (aiUi.activeSessionId) {
-    const i = aiSessions.findIndex((s) => s.id === aiUi.activeSessionId);
-    if (i !== -1) aiSessions.splice(i, 1);
-  }
-  aiUi.activeSessionId = null;
+/** Deletes any session by id, active or not — if it was the active one,
+ * resets back to a blank draft. */
+export function deleteAiSession(id) {
+  const i = aiSessions.findIndex((s) => s.id === id);
+  if (i !== -1) aiSessions.splice(i, 1);
+  if (aiUi.activeSessionId === id) aiUi.activeSessionId = null;
 }
 
 /**

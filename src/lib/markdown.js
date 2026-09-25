@@ -183,6 +183,38 @@ function parseProse(text) {
   return blocks;
 }
 
+// AI replies can wrap long-form content the user will want to keep
+// separately — an essay, a README, a code file — in a custom
+// :::document{title="..."}...::: block (see server/ai.js's SYSTEM_PROMPT).
+// A plain ``` fence can't carry a title and, more importantly, would
+// collide with fences the document's own body might contain (a doc about
+// code will have real ``` blocks inside it) — a distinct delimiter avoids
+// that ambiguity entirely.
+const DOC_OPEN_PATTERN = /:::document\{title="([^"]*)"\}\n?/;
+
+/** Splits a message into the chat text around a document block (if any)
+ * and the block's own `{ title, content, complete }` — `complete` is false
+ * while the closing `:::` hasn't streamed in yet, so the panel can still
+ * render the partial content live. Only the first block is recognized
+ * (the feature is one live document per conversation, not a list). */
+export function splitDocument(text) {
+  const open = DOC_OPEN_PATTERN.exec(text);
+  if (!open) return { before: text, document: null, after: "" };
+
+  const before = text.slice(0, open.index);
+  const rest = text.slice(open.index + open[0].length);
+  const title = open[1].trim() || "Untitled document";
+
+  const closeIndex = rest.indexOf("\n:::");
+  if (closeIndex === -1) return { before, document: { title, content: rest, complete: false }, after: "" };
+
+  return {
+    before,
+    document: { title, content: rest.slice(0, closeIndex), complete: true },
+    after: rest.slice(closeIndex + 4).replace(/^\n/, ""),
+  };
+}
+
 /** Returns a list of blocks: `{ type: "code", lang, value }`,
  * `{ type: "heading", level, parts }`,
  * `{ type: "list", ordered, items }` — each item is

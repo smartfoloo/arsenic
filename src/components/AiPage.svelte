@@ -4,17 +4,57 @@
   import ArrowUp from "@lucide/svelte/icons/arrow-up";
   import Check from "@lucide/svelte/icons/check";
   import Copy from "@lucide/svelte/icons/copy";
-  import Eraser from "@lucide/svelte/icons/eraser";
+  import FileText from "@lucide/svelte/icons/file-text";
 
+  import AiDocumentPanel from "./AiDocumentPanel.svelte";
+  import AiMarkdown from "./AiMarkdown.svelte";
   import AiSidebar from "./AiSidebar.svelte";
   import Select from "./Select.svelte";
-  import { aiStatus, aiUi, checkAiEnabled, clearAiSession, defaultModel, MODEL_OPTIONS, sendAiMessage, sessionById } from "../lib/ai.svelte.js";
-  import { parseMarkdown } from "../lib/markdown.js";
+  import { aiStatus, aiUi, checkAiEnabled, defaultModel, MODEL_OPTIONS, sendAiMessage, sessionById } from "../lib/ai.svelte.js";
+  import { splitDocument } from "../lib/markdown.js";
   import { activeTab } from "../lib/tabs.svelte.js";
-  import { tooltip } from "../lib/tooltip.js";
 
   const active = $derived(activeTab()?.kind === "ai");
   const session = $derived(aiUi.activeSessionId ? sessionById(aiUi.activeSessionId) : null);
+
+  // The document itself isn't stored separately — it's just parsed back out
+  // of whichever assistant message last contained a :::document{} block, so
+  // it can never drift out of sync with the (already-persisted) message
+  // content. "Latest wins" gives the single-live-document behavior: a newer
+  // block simply supersedes whatever an earlier reply produced.
+  const activeDocument = $derived.by(() => {
+    if (!session) return null;
+    for (let i = session.messages.length - 1; i >= 0; i--) {
+      const message = session.messages[i];
+      if (message.role !== "assistant") continue;
+      const { document } = splitDocument(message.content);
+      if (document) return document;
+    }
+    return null;
+  });
+
+  let documentPanelOpen = $state(false);
+  let panelSessionId = null;
+  let panelHadDocument = false;
+
+  // Opens the panel the moment a document first appears — either because a
+  // freshly-switched-to session already has one, or because one just started
+  // streaming in during this view. Doesn't fight the user: closing it while
+  // the same document keeps growing doesn't reopen it.
+  $effect(() => {
+    const id = session?.id ?? null;
+    const has = !!activeDocument;
+    if (id !== panelSessionId) {
+      panelSessionId = id;
+      panelHadDocument = has;
+      documentPanelOpen = has;
+    } else if (has && !panelHadDocument) {
+      panelHadDocument = true;
+      documentPanelOpen = true;
+    } else {
+      panelHadDocument = has;
+    }
+  });
 
   const modelOptions = $derived(
     MODEL_OPTIONS.filter(([value]) => {
@@ -120,20 +160,6 @@
         <AiSidebar />
 
         <div class="aiMain">
-          <div class="aiHeader">
-            <div class="chatHeaderTitle">{session?.title ?? ""}</div>
-            {#if session}
-              <button
-                class="iconbtn"
-                onclick={() => clearAiSession()}
-                aria-label="Clear conversation"
-                use:tooltip={"Clear conversation"}
-              >
-                <Eraser />
-              </button>
-            {/if}
-          </div>
-
           <div class="aiBody" class:aiBodyCentered={!session}>
           <div class="aiMessages" bind:this={listEl}>
             {#if !session}
@@ -141,81 +167,23 @@
                 <h1>What's on your mind?</h1>
               </div>
             {:else}
-              {#snippet inlineParts(parts)}
-                {#each parts as part}
-                  {#if part.type === "bold"}<strong>{part.value}</strong>
-                  {:else if part.type === "italic"}<em>{part.value}</em>
-                  {:else if part.type === "strike"}<s>{part.value}</s>
-                  {:else if part.type === "code"}<code class="aiInlineCode">{part.value}</code>
-                  {:else if part.type === "link"}<a href={part.href} target="_blank" rel="noopener noreferrer">{part.value}</a>
-                  {:else}{part.value}{/if}
-                {/each}
-              {/snippet}
-              {#snippet listBlock(list, nested)}
-                {#if list.ordered}
-                  <ol class="aiList" class:aiSubList={nested}>
-                    {#each list.items as item}
-                      <li>
-                        {@render inlineParts(item.parts)}
-                        {#if item.sublist}{@render listBlock(item.sublist, true)}{/if}
-                      </li>
-                    {/each}
-                  </ol>
-                {:else}
-                  <ul class="aiList" class:aiSubList={nested}>
-                    {#each list.items as item}
-                      <li>
-                        {@render inlineParts(item.parts)}
-                        {#if item.sublist}{@render listBlock(item.sublist, true)}{/if}
-                      </li>
-                    {/each}
-                  </ul>
-                {/if}
-              {/snippet}
               {#each session.messages as message, i (i)}
+                {@const split = message.role === "assistant" ? splitDocument(message.content) : { before: message.content, document: null, after: "" }}
                 <div class="aiMessageRow" class:aiMessageRowUser={message.role === "user"}>
                   <div class="aiMessage" class:aiMessageUser={message.role === "user"}>
                     <div class="aiMessageBody">
-                      {#if message.content}
-                        {#each parseMarkdown(message.content) as block}
-                          {#if block.type === "code"}
-                            <pre class="aiCodeBlock"><code>{block.value}</code></pre>
-                          {:else if block.type === "heading"}
-                            {#if block.level === 1}
-                              <h3 class="aiHeading">{@render inlineParts(block.parts)}</h3>
-                            {:else if block.level === 2}
-                              <h4 class="aiHeading">{@render inlineParts(block.parts)}</h4>
-                            {:else}
-                              <h5 class="aiHeading">{@render inlineParts(block.parts)}</h5>
-                            {/if}
-                          {:else if block.type === "list"}
-                            {@render listBlock(block, false)}
-                          {:else if block.type === "quote"}
-                            <blockquote class="aiQuote">{@render inlineParts(block.parts)}</blockquote>
-                          {:else if block.type === "hr"}
-                            <hr class="aiHr" />
-                          {:else if block.type === "table"}
-                            <div class="aiTableWrap">
-                              <table class="aiTable">
-                                <thead>
-                                  <tr>
-                                    {#each block.header as cell}<th>{@render inlineParts(cell)}</th>{/each}
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {#each block.rows as row}
-                                    <tr>
-                                      {#each row as cell}<td>{@render inlineParts(cell)}</td>{/each}
-                                    </tr>
-                                  {/each}
-                                </tbody>
-                              </table>
-                            </div>
-                          {:else}
-                            {@render inlineParts(block.parts)}
-                          {/if}
-                        {/each}
-                      {:else if session.streaming && i === session.messages.length - 1}
+                      {#if split.before}<AiMarkdown content={split.before} />{/if}
+                      {#if split.document}
+                        <button class="aiDocumentCard" onclick={() => (documentPanelOpen = true)}>
+                          <FileText class="aiDocumentCardIcon" />
+                          <span class="aiDocumentCardText">
+                            <span class="aiDocumentCardTitle">{split.document.title}</span>
+                            <span class="aiDocumentCardHint">{split.document.complete ? "Click to view" : "Writing…"}</span>
+                          </span>
+                        </button>
+                      {/if}
+                      {#if split.after}<AiMarkdown content={split.after} />{/if}
+                      {#if !message.content && session.streaming && i === session.messages.length - 1}
                         <span class="aiTypingDot"></span>
                       {/if}
                     </div>
@@ -261,6 +229,10 @@
           </form>
           </div>
         </div>
+
+        {#if documentPanelOpen && activeDocument}
+          <AiDocumentPanel document={activeDocument} onclose={() => (documentPanelOpen = false)} />
+        {/if}
       </div>
     {/if}
   </div>

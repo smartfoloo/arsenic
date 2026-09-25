@@ -1432,6 +1432,17 @@ svg {
   width: 14px;
   height: 14px;
 }
+/* Reuses .chatReorderBtn's box model/icon sizing wholesale (see above) —
+   the hover color differs (delete, not reorder), and it needs its own
+   right inset since it sits alone at the row's edge rather than paired
+   with a second button the way the reorder chevrons are. */
+.aiSessionDelete {
+  margin-right: 8px;
+}
+.aiSessionDelete:hover {
+  background: var(--surface1);
+  color: var(--red);
+}
 
 .chatChannelItem {
   display: block;
@@ -2054,16 +2065,16 @@ svg {
   overflow-y: auto;
   box-sizing: border-box;
 }
-/* Claude-style composer card: a tall borderless textarea on its own row,
-   with the model picker and send button in a toolbar row underneath —
-   rather than all three sitting inline in a single row like chat's
-   .chatComposerField. */
+/* In-conversation composer: one inline row (textarea, then the toolbar's
+   model picker + send button), matching chat's .chatComposerField. The
+   new-chat/centered state overrides this to the taller stacked card
+   instead — see .aiBodyCentered below. */
 .aiComposerField {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 10px;
-  border-radius: 20px;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 16px;
   background: var(--crust);
   border: 1px solid var(--surface0);
   transition: border-color 0.12s;
@@ -2072,16 +2083,17 @@ svg {
   border-color: var(--surface2);
 }
 .aiComposerField textarea {
-  width: 100%;
-  min-height: 28px;
+  flex: 1;
+  min-width: 0;
+  height: 36px;
   max-height: 140px;
-  padding: 2px;
+  padding: 7px 4px;
   border: 0;
   background: none;
   outline: 0;
   font: inherit;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 22px;
   resize: none;
   overflow-y: auto;
   box-sizing: border-box;
@@ -2091,12 +2103,29 @@ svg {
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+  flex: none;
 }
 .aiComposerToolbarLeft {
   display: flex;
   align-items: center;
   gap: 6px;
   min-height: 36px;
+}
+/* New-chat/centered state: back to the taller stacked card — textarea on
+   its own row, toolbar underneath — since there's no message column width
+   to match here and the composer is the visual focus of the page. */
+.aiBodyCentered .aiComposerField {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 14px 14px 10px;
+  border-radius: 20px;
+}
+.aiBodyCentered .aiComposerField textarea {
+  height: auto;
+  min-height: 28px;
+  padding: 2px;
+  line-height: 24px;
 }
 /* Same ghost treatment as the backend/location pickers on the start page
    (#startControlsRight) — no border, just a hover fill. One AiPage mounts
@@ -2202,6 +2231,7 @@ svg {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .aiHeader {
   display: flex;
@@ -2218,25 +2248,33 @@ svg {
 /* No-session state: instead of the welcome heading centering only within
    the messages area while the composer stays pinned to the bottom, the
    pair collapses to their natural height and centers together as one
-   block in the space below the header. */
+   block in the space below the header. Here .aiComposer stays in normal
+   flow (unlike the absolute overlay below) so it participates in the
+   centering alongside .aiMessages. */
 .aiBodyCentered {
   justify-content: center;
 }
 .aiBodyCentered .aiMessages {
   flex: none;
   overflow: visible;
+  padding-bottom: 20px;
 }
 .aiBodyCentered .aiComposer {
+  position: static;
   flex: none;
+  background: none;
 }
 /* Content stays capped at a comfortable ~800px column on wide windows —
    max() falls back to the plain base padding below that, so narrow/phone
-   widths are unaffected and never get less than they'd have had anyway. */
+   widths are unaffected and never get less than they'd have had anyway.
+   Bottom padding reserves room for .aiComposer, which overlays this area
+   (see below) rather than sitting in flow, same as #chatMessages/
+   #chatComposer. */
 .aiMessages {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 20px max(24px, calc(50% - 400px));
+  padding: 20px max(24px, calc(50% - 400px)) 84px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -2300,11 +2338,10 @@ svg {
 .aiMessage {
   width: fit-content;
   max-width: 100%;
-  padding: 10px 14px;
-  border-radius: 16px;
-  background: var(--base);
 }
 .aiMessageUser {
+  padding: 10px 14px;
+  border-radius: 16px;
   background: var(--accent);
   color: var(--crust);
 }
@@ -2330,11 +2367,12 @@ svg {
 .aiCopyBtn svg {
   width: 14px;
   height: 14px;
+  color: var(--surface2);
 }
 .aiMessageTime {
   padding: 0 4px;
   font-size: 12px;
-  color: var(--subtext0);
+  color: var(--surface2);
   white-space: nowrap;
 }
 .aiMessageBody .aiHeading {
@@ -2467,9 +2505,109 @@ svg {
     opacity: 1;
   }
 }
-.aiComposer {
-  padding: 16px max(24px, calc(50% - 300px));
+
+/* Inline card standing in for a :::document{} block inside a chat bubble —
+   clicking it opens/reopens #aiDocumentPanel rather than showing the raw
+   markdown source in the message itself. */
+.aiDocumentCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  margin: 4px 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--surface0);
+  border: 1px solid var(--surface1);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.aiDocumentCard:hover {
+  background: var(--surface1);
+}
+.aiMessageUser .aiDocumentCard {
+  background: color-mix(in srgb, var(--crust) 18%, transparent);
+  border-color: color-mix(in srgb, var(--crust) 30%, transparent);
+}
+.aiMessageUser .aiDocumentCard:hover {
+  background: color-mix(in srgb, var(--crust) 28%, transparent);
+}
+.aiDocumentCardIcon {
   flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+.aiDocumentCardText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.aiDocumentCardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aiDocumentCardHint {
+  font-size: 12px;
+  color: var(--subtext0);
+}
+
+/* Right-side panel — third column in .aiLayout, alongside #aiSidebar and
+   .aiMain, sized/bordered to match #aiSidebar for visual symmetry. */
+#aiDocumentPanel {
+  flex: 0 0 400px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--mantle);
+  border-left: 1px solid var(--surface0);
+}
+.aiDocumentPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 56px;
+  padding: 0 14px;
+  flex: none;
+  border-bottom: 1px solid var(--surface0);
+}
+.aiDocumentPanelTitle {
+  font-weight: 600;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aiDocumentPanelActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+.aiDocumentPanelBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.aiComposer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Same column width as .aiMessages (calc(50% - 400px)), so the input
+     lines up with the message column above it. */
+  padding: 16px max(24px, calc(50% - 400px));
+  background: transparent;
 }
 
 /* Accent utilities — a bookmark tile, tab favicon, or swatch just adds

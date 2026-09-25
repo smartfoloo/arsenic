@@ -1,10 +1,14 @@
 <script>
   import Plus from "@lucide/svelte/icons/plus";
+  import Trash2 from "@lucide/svelte/icons/trash-2";
 
-  import { aiSessions, aiUi, aiUsage, switchAiSession } from "../lib/ai.svelte.js";
+  import ChatConfirmModal from "./ChatConfirmModal.svelte";
+  import { aiSessions, aiUi, aiUsage, deleteAiSession, switchAiSession } from "../lib/ai.svelte.js";
 
   const sortedSessions = $derived(aiSessions.slice().sort((a, b) => b.updatedAt - a.updatedAt));
   const usagePct = $derived(aiUsage.limit > 0 ? Math.min(100, (aiUsage.used / aiUsage.limit) * 100) : 0);
+
+  let deleteTarget = $state(null);
 
   function startNewChat() {
     aiUi.activeSessionId = null;
@@ -28,13 +32,22 @@
           New chat
         </button>
         {#each sortedSessions as session (session.id)}
-          <button
-            class="chatChannelItem"
-            class:active={aiUi.activeSessionId === session.id}
-            onclick={() => switchAiSession(session.id)}
-          >
-            {session.title}
-          </button>
+          <div class="chatChannelRow">
+            <button
+              class="chatChannelItem"
+              class:active={aiUi.activeSessionId === session.id}
+              onclick={() => switchAiSession(session.id)}
+            >
+              {session.title}
+            </button>
+            <button
+              class="chatReorderBtn aiSessionDelete"
+              aria-label="Delete chat"
+              onclick={() => (deleteTarget = session)}
+            >
+              <Trash2 />
+            </button>
+          </div>
         {/each}
       </div>
     </div>
@@ -47,4 +60,14 @@
     </div>
     <div class="aiUsageBar"><div class="aiUsageBarFill" style="width: {usagePct}%"></div></div>
   </div>
+
+  {#if deleteTarget}
+    <ChatConfirmModal
+      title="Delete chat"
+      message={`Delete "${deleteTarget.title}"? This cannot be undone.`}
+      confirmLabel="Delete"
+      onconfirm={() => deleteAiSession(deleteTarget.id)}
+      onclose={() => (deleteTarget = null)}
+    />
+  {/if}
 </div>
