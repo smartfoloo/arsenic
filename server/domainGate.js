@@ -47,7 +47,7 @@ const BRAND_KEYWORDS = [
   "youla",
 ];
 
-const MAX_LENGTH = 30;
+const MAX_LENGTH = 40;
 const MAX_LABELS = 4;
 const MAX_BRAND_KEYWORDS = 1;
 
