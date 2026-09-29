@@ -1,10 +1,14 @@
 const SESSIONS_KEY = "arsenic:aiSessions";
 
+export const MAX_IMAGES = 3;
+const MAX_IMAGE_EDGE = 1024;
+// Kept in step with the vision flag on each tier in server/ai.js.
+export const VISION_MODELS = new Set(["luna", "flash-lite"]);
+
 export const MODEL_OPTIONS = [
   ["luna", "GPT-6 Luna", null, "/logos/openai-light.svg"],
   ["flash-lite", "Gemini 3.5 Flash Lite", null, "/logos/google.svg"],
   ["gemma", "Gemma 4 31B", null, "/logos/google.svg"],
-  ["groq", "Compound", null, "/logos/groq-dark.png"],
 ];
 
 function loadSessions() {
@@ -20,21 +24,20 @@ function loadSessions() {
   }
 }
 
-export const aiStatus = $state({ enabled: null, groqAvailable: false, geminiAvailable: false, lunaAvailable: false }); // enabled: null until checkAiEnabled resolves
+export const aiStatus = $state({ enabled: null, geminiAvailable: false, lunaAvailable: false }); // enabled: null until checkAiEnabled resolves
 
 // Luna whenever the server reports an OpenAI key is configured, otherwise
-// whichever other provider actually has a key — picker order/labels are
+// Gemini — picker order/labels are
 // unaffected, only which one starts pre-selected. The aiStatus.*Available
 // flags only resolve once checkAiEnabled's fetch finishes, so this starts
 // at "gemma" and updates itself reactively.
 export function defaultModel() {
   if (aiStatus.lunaAvailable) return "luna";
   if (aiStatus.geminiAvailable) return "gemma";
-  if (aiStatus.groqAvailable) return "groq";
   return "gemma";
 }
 
-export const aiUsage = $state({ used: 0, limit: 2500 });
+export const aiUsage = $state({ used: 0, limit: 50000 });
 
 /** Every session that's had at least one message sent — a fresh draft
  * never sends one and never shows up here (see sendAiMessage). */
@@ -54,11 +57,12 @@ $effect.root(() => {
     // Proxied sites share this origin's storage and can fill the quota, and
     // a throw in here would take the render loop with it.
     try {
+      // Image data URLs stay in memory only — see sendAiMessage.
       const serializable = aiSessions.map(({ id, title, model, messages, createdAt, updatedAt }) => ({
         id,
         title,
         model,
-        messages,
+        messages: messages.map(({ images, ...rest }) => rest),
         createdAt,
         updatedAt,
       }));
@@ -76,7 +80,6 @@ export async function checkAiEnabled() {
     const response = await fetch("/ai/status");
     const data = await response.json();
     aiStatus.enabled = !!data.enabled;
-    aiStatus.groqAvailable = !!data.groqAvailable;
     aiStatus.geminiAvailable = !!data.geminiAvailable;
     aiStatus.lunaAvailable = !!data.lunaAvailable;
     if (typeof data.usageToday === "number") aiUsage.used = data.usageToday;
@@ -109,8 +112,26 @@ export function deleteAiSession(id) {
  * the first message creates it and titles it from that message; titles
  * never change again after that (sessions aren't renameable).
  */
-export async function sendAiMessage(text, model) {
-  const content = text.trim();
+export async function prepareImage(file) {
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, MAX_IMAGE_EDGE / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+  canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+  const ctx = canvas.getContext("2d");
+  // JPEG has no alpha, so transparent PNGs would otherwise go black.
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+  return canvas.toDataURL("image/jpeg", 0.85);
+}
+
+/** `images` are data URLs from prepareImage. They're kept on the message
+ * in memory and sent with this turn only; they're stripped from what's saved
+ * to localStorage and never re-sent on later turns. */
+export async function sendAiMessage(text, model, images = []) {
+  const content = text.trim() || (images.length ? "Describe this image." : "");
   if (!content) return;
 
   let session = aiUi.activeSessionId ? sessionById(aiUi.activeSessionId) : null;
@@ -134,7 +155,12 @@ export async function sendAiMessage(text, model) {
   }
   if (session.streaming) return;
 
-  session.messages.push({ role: "user", content, sentAt: Date.now() });
+  const userMessage = { role: "user", content, sentAt: Date.now() };
+  if (images.length) {
+    userMessage.images = images;
+    userMessage.imageCount = images.length;
+  }
+  session.messages.push(userMessage);
   // sentAt is filled in once the reply actually finishes (below), not at
   // creation — for an assistant message "time sent" should mean when it was
   // done, not when the placeholder was created.
@@ -148,7 +174,11 @@ export async function sendAiMessage(text, model) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         provider: session.model,
-        messages: session.messages.slice(0, -1).map(({ role, content }) => ({ role, content })),
+        messages: session.messages.slice(0, -1).map(({ role, content }, i, all) => ({
+          role,
+          content,
+          ...(i === all.length - 1 && images.length ? { images } : {}),
+        })),
       }),
     });
     if (!response.ok) {

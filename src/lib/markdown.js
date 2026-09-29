@@ -1,31 +1,34 @@
 // Minimal markdown for AI replies: fenced code blocks, headings, lists (one
 // level of nesting — the common "1. Section\n   - detail" shape models
 // output), tables, blockquotes, rules, links, plus bold/italic/strike/inline
-// code within regular text. Not a CommonMark parser — model output doesn't
+// code within regular text, and LaTeX math in OpenAI's \( \) / \[ \] delimiters
+// (rendered by AiMath.svelte). Not a CommonMark parser — model output doesn't
 // need one, and a flat pass keeps this predictable.
 
 const FENCE_PATTERN = /```(\w*)\n?([\s\S]*?)```/g;
 const INLINE_PATTERN =
-  /(\*\*[^*]+\*\*|__[^_]+__|~~[^~]+~~|`[^`]+`|\*[^*]+\*|_[^_]+_|\[[^\]]+\]\([^)]+\))/g;
+  /(\\\([\s\S]+?\\\)|\*\*[^*]+\*\*|__[^_]+__|~~[^~]+~~|`[^`]+`|\*[^*]+\*|_[^_]+_|\[[^\]]+\]\([^)]+\))/g;
 const LINK_PATTERN = /^\[([^\]]+)\]\(([^)]+)\)$/;
 const HEADING_PATTERN = /^(#{1,3})\s+(.*)$/;
 const HR_PATTERN = /^\s*([-*_])(?:\s*\1){2,}\s*$/;
 const UL_PATTERN = /^(\s*)[-*+]\s+(.*)$/;
-const OL_PATTERN = /^(\s*)\d+[.)]\s+(.*)$/;
+const OL_PATTERN = /^(\s*)(\d+)[.)]\s+(.*)$/;
 const QUOTE_PATTERN = /^>\s?(.*)$/;
 const TABLE_SEPARATOR_PATTERN = /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$/;
 
+// Bold/italic/strike recurse, so math (or other emphasis) inside them still renders.
 function parseInline(text) {
   return text
     .split(INLINE_PATTERN)
     .filter((segment) => segment !== "")
     .map((segment) => {
-      if (segment.startsWith("**") && segment.endsWith("**")) return { type: "bold", value: segment.slice(2, -2) };
-      if (segment.startsWith("__") && segment.endsWith("__")) return { type: "bold", value: segment.slice(2, -2) };
-      if (segment.startsWith("~~") && segment.endsWith("~~")) return { type: "strike", value: segment.slice(2, -2) };
+      if (segment.startsWith("\\(") && segment.endsWith("\\)")) return { type: "math", value: segment.slice(2, -2).trim() };
+      if (segment.startsWith("**") && segment.endsWith("**")) return { type: "bold", parts: parseInline(segment.slice(2, -2)) };
+      if (segment.startsWith("__") && segment.endsWith("__")) return { type: "bold", parts: parseInline(segment.slice(2, -2)) };
+      if (segment.startsWith("~~") && segment.endsWith("~~")) return { type: "strike", parts: parseInline(segment.slice(2, -2)) };
       if (segment.startsWith("`") && segment.endsWith("`")) return { type: "code", value: segment.slice(1, -1) };
-      if (segment.startsWith("*") && segment.endsWith("*")) return { type: "italic", value: segment.slice(1, -1) };
-      if (segment.startsWith("_") && segment.endsWith("_")) return { type: "italic", value: segment.slice(1, -1) };
+      if (segment.startsWith("*") && segment.endsWith("*")) return { type: "italic", parts: parseInline(segment.slice(1, -1)) };
+      if (segment.startsWith("_") && segment.endsWith("_")) return { type: "italic", parts: parseInline(segment.slice(1, -1)) };
       const link = LINK_PATTERN.exec(segment);
       if (link) return { type: "link", value: link[1], href: link[2] };
       return { type: "text", value: segment };
@@ -48,7 +51,7 @@ function splitTableRow(line) {
  * than against fixed tab stops, so it tolerates whatever the model used. */
 function matchListMarker(line) {
   const ol = OL_PATTERN.exec(line);
-  if (ol) return { ordered: true, indent: ol[1].length, content: ol[2] };
+  if (ol) return { ordered: true, indent: ol[1].length, content: ol[3], number: parseInt(ol[2], 10) };
   const ul = UL_PATTERN.exec(line);
   if (ul) return { ordered: false, indent: ul[1].length, content: ul[2] };
   return null;
@@ -59,6 +62,25 @@ function skipBlank(lines, i) {
   let j = i;
   while (j < lines.length && lines[j].trim() === "") j++;
   return j;
+}
+
+/** A `\[ ... \]` block starting at line `i`, possibly on one line or spread
+ * over several. `null` when the closing `\]` hasn't arrived (mid-stream), so
+ * the lines fall through as ordinary text until it does. */
+function readDisplayMath(lines, i) {
+  const collected = [];
+  for (let j = i; j < lines.length; j++) {
+    let text = lines[j];
+    if (j === i) text = text.trimStart().slice(2);
+    const close = text.indexOf("\\]");
+    if (close !== -1) {
+      if (text.slice(close + 2).trim()) return null;
+      collected.push(text.slice(0, close));
+      return { value: collected.join("\n").trim(), next: j + 1 };
+    }
+    collected.push(text);
+  }
+  return null;
 }
 
 /** Line-based block parser: `#`/`##`/`###` headings, `-`/`*`/`1.` lists,
@@ -120,10 +142,20 @@ function parseProse(text) {
       continue;
     }
 
+    if (line.trim().startsWith("\\[")) {
+      const math = readDisplayMath(lines, i);
+      if (math) {
+        flushText();
+        blocks.push({ type: "math", value: math.value });
+        i = math.next;
+        continue;
+      }
+    }
+
     const marker = matchListMarker(line);
     if (marker) {
       flushText();
-      const { ordered, indent: baseIndent } = marker;
+      const { ordered, indent: baseIndent, number: start } = marker;
       const items = [];
 
       while (i < lines.length) {
@@ -171,7 +203,7 @@ function parseProse(text) {
         i++;
       }
 
-      blocks.push({ type: "list", ordered, items });
+      blocks.push({ type: "list", ordered, start, items });
       continue;
     }
 
@@ -217,10 +249,11 @@ export function splitDocument(text) {
 
 /** Returns a list of blocks: `{ type: "code", lang, value }`,
  * `{ type: "heading", level, parts }`,
- * `{ type: "list", ordered, items }` — each item is
+ * `{ type: "list", ordered, start, items }` — each item is
  * `{ parts, sublist: { ordered, items } | null }`, one level deep —
  * `{ type: "quote", parts }`, `{ type: "table", header, rows }` (cells are
- * inline-parts arrays), `{ type: "hr" }`, or `{ type: "text", parts }`. */
+ * inline-parts arrays), `{ type: "hr" }`, `{ type: "math", value }` (display math), or
+ * `{ type: "text", parts }`. Inline math is a `{ type: "math", value }` part. */
 export function parseMarkdown(text) {
   const blocks = [];
   let lastIndex = 0;

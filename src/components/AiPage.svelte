@@ -5,12 +5,25 @@
   import Check from "@lucide/svelte/icons/check";
   import Copy from "@lucide/svelte/icons/copy";
   import FileText from "@lucide/svelte/icons/file-text";
+  import Plus from "@lucide/svelte/icons/plus";
+  import X from "@lucide/svelte/icons/x";
 
   import AiDocumentPanel from "./AiDocumentPanel.svelte";
   import AiMarkdown from "./AiMarkdown.svelte";
   import AiSidebar from "./AiSidebar.svelte";
   import Select from "./Select.svelte";
-  import { aiStatus, aiUi, checkAiEnabled, defaultModel, MODEL_OPTIONS, sendAiMessage, sessionById } from "../lib/ai.svelte.js";
+  import {
+    aiStatus,
+    aiUi,
+    checkAiEnabled,
+    defaultModel,
+    MAX_IMAGES,
+    MODEL_OPTIONS,
+    prepareImage,
+    sendAiMessage,
+    sessionById,
+    VISION_MODELS,
+  } from "../lib/ai.svelte.js";
   import { splitDocument } from "../lib/markdown.js";
   import { activeTab } from "../lib/tabs.svelte.js";
 
@@ -59,7 +72,6 @@
   const modelOptions = $derived(
     MODEL_OPTIONS.filter(([value]) => {
       if (value === "luna") return aiStatus.lunaAvailable;
-      if (value === "groq") return aiStatus.groqAvailable;
       if (value === "flash-lite" || value === "gemma") return aiStatus.geminiAvailable;
       return true;
     }),
@@ -79,6 +91,48 @@
 
   const draftModel = $derived(draftModelOverride ?? defaultModel());
   const model = $derived(session ? session.model : draftModel);
+  const canAttach = $derived(VISION_MODELS.has(model));
+
+  let attachments = $state([]);
+  let fileInputEl = $state(null);
+  let attachError = $state("");
+  let dragging = $state(false);
+
+  // Switching to a model that can't read images drops what's pending.
+  $effect(() => {
+    if (!canAttach && attachments.length) attachments = [];
+  });
+
+  async function addFiles(files) {
+    attachError = "";
+    const images = [...files].filter((f) => f.type.startsWith("image/"));
+    for (const file of images) {
+      if (attachments.length >= MAX_IMAGES) {
+        attachError = `Up to ${MAX_IMAGES} images per message.`;
+        break;
+      }
+      try {
+        attachments.push(await prepareImage(file));
+      } catch {
+        attachError = "Couldn't read that image.";
+      }
+    }
+  }
+
+  function onPaste(event) {
+    if (!canAttach) return;
+    const files = [...(event.clipboardData?.files ?? [])].filter((f) => f.type.startsWith("image/"));
+    if (!files.length) return;
+    event.preventDefault();
+    addFiles(files);
+  }
+
+  function onDrop(event) {
+    dragging = false;
+    if (!canAttach || !event.dataTransfer?.files?.length) return;
+    event.preventDefault();
+    addFiles(event.dataTransfer.files);
+  }
 
   $effect(() => {
     checkAiEnabled();
@@ -101,10 +155,12 @@
   }
 
   function send() {
-    if (!draft.trim() || session?.streaming) return;
+    if ((!draft.trim() && !attachments.length) || session?.streaming) return;
 
-    sendAiMessage(draft, model);
+    sendAiMessage(draft, model, attachments);
     draft = "";
+    attachments = [];
+    attachError = "";
     tick().then(resizeTextarea);
   }
 
@@ -172,6 +228,13 @@
                 <div class="aiMessageRow" class:aiMessageRowUser={message.role === "user"}>
                   <div class="aiMessage" class:aiMessageUser={message.role === "user"}>
                     <div class="aiMessageBody">
+                      {#if message.images?.length}
+                        <div class="aiMessageImages">
+                          {#each message.images as src}<img {src} alt="Attached" />{/each}
+                        </div>
+                      {:else if message.imageCount}
+                        <div class="aiImageGone">{message.imageCount === 1 ? "Image" : `${message.imageCount} images`} not saved</div>
+                      {/if}
                       {#if split.before}<AiMarkdown content={split.before} />{/if}
                       {#if split.document}
                         <button class="aiDocumentCard" onclick={() => (documentPanelOpen = true)}>
@@ -206,12 +269,53 @@
           </div>
 
           <form class="aiComposer" onsubmit={submit}>
-            <div class="aiComposerField">
+            <div
+              class="aiComposerField"
+              class:aiDragging={dragging}
+              role="group"
+              ondragover={(e) => canAttach && (e.preventDefault(), (dragging = true))}
+              ondragleave={() => (dragging = false)}
+              ondrop={onDrop}
+            >
+              {#if attachments.length || attachError}
+                <div class="aiAttachments">
+                  {#each attachments as src, i}
+                    <div class="aiAttachment">
+                      <img {src} alt="Attachment" />
+                      <button type="button" aria-label="Remove image" onclick={() => attachments.splice(i, 1)}><X /></button>
+                    </div>
+                  {/each}
+                  {#if attachError}<span class="aiAttachError">{attachError}</span>{/if}
+                </div>
+              {/if}
+              {#if canAttach}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/gif"
+                  multiple
+                  hidden
+                  bind:this={fileInputEl}
+                  onchange={(e) => {
+                    addFiles(e.currentTarget.files);
+                    e.currentTarget.value = "";
+                  }}
+                />
+                <button
+                  class="chatImageBtn aiAttachBtn"
+                  type="button"
+                  aria-label="Attach image"
+                  disabled={attachments.length >= MAX_IMAGES}
+                  onclick={() => fileInputEl.click()}
+                >
+                  <Plus />
+                </button>
+              {/if}
               <textarea
                 bind:value={draft}
                 bind:this={textareaEl}
                 oninput={resizeTextarea}
                 onkeydown={onKeydown}
+                onpaste={onPaste}
                 placeholder={session ? "Ask AI" : "How can I help you today?"}
                 rows="1"
               ></textarea>

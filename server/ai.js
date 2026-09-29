@@ -4,13 +4,11 @@
 // its key is present (see DEFAULT_TIER below), but any single key is enough
 // to turn the feature on — it just offers fewer models without the others.
 export const aiEnabled =
-  process.env.ARSENIC_AI_ENABLED === "true" &&
-  (!!process.env.OPENAI_API_KEY || !!process.env.GOOGLE_AI_API_KEY || !!process.env.GROQ_API_KEY);
+  process.env.ARSENIC_AI_ENABLED === "true" && (!!process.env.OPENAI_API_KEY || !!process.env.GOOGLE_AI_API_KEY);
 
 const LUNA_MODEL = "gpt-6-luna";
 const GEMINI_FLASH_LITE_MODEL = "gemini-3.5-flash-lite";
 const GEMINI_FALLBACK_MODEL = "gemma-4-31b-it";
-const GROQ_MODEL = "groq/compound";
 // The :::document{} convention below is parsed client-side by
 // src/lib/markdown.js's splitDocument — the exact syntax (opening line,
 // title attribute, closing "\n:::") has to match that parser exactly, or
@@ -33,13 +31,20 @@ const MAX_OUTPUT_TOKENS = 4096;
 // via recordUsage, once the response finishes.
 const ESTIMATED_OUTPUT_TOKENS = 600;
 
+// Images are downscaled to ~1024px by the client, which OpenAI bills at
+// roughly 1.2k tokens; this flat figure is only for the admission check.
+const MAX_IMAGES = 3;
+const MAX_IMAGE_LENGTH = 800_000; // chars of base64 data URL, per image
+const ESTIMATED_IMAGE_TOKENS = 1300;
+const IMAGE_DATA_URL = /^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/]+=*)$/;
+
 // Per-IP daily token allowance, shared across every model — not just Luna.
 // The actual monthly dollar cap for Luna specifically is a hard spend limit
 // set in the OpenAI dashboard (Settings -> Billing -> Limits), not tracked
 // here; this is purely about one IP not being the reason a shared budget
 // (of whichever kind) gets eaten in a day. Low stakes if a restart resets
 // it, same reasoning as requestLog below.
-const DAILY_TOKEN_LIMIT = parseInt(process.env.ARSENIC_AI_DAILY_TOKEN_LIMIT, 10) || 15000;
+const DAILY_TOKEN_LIMIT = parseInt(process.env.ARSENIC_AI_DAILY_TOKEN_LIMIT, 10) || 50000;
 const dailyUsage = new Map();
 
 function todayUTC() {
@@ -63,7 +68,8 @@ function recordUsage(ip, tokens) {
 // gets recorded after a successful response, via recordUsage.
 function estimateRequestTokens(messages) {
   const inputChars = messages.reduce((sum, m) => sum + m.content.length, 0);
-  return Math.ceil(inputChars / 3) + ESTIMATED_OUTPUT_TOKENS;
+  const images = messages.reduce((sum, m) => sum + (m.images?.length ?? 0), 0);
+  return Math.ceil(inputChars / 3) + images * ESTIMATED_IMAGE_TOKENS + ESTIMATED_OUTPUT_TOKENS;
 }
 
 setInterval(
@@ -122,13 +128,28 @@ function sanitizeMessages(input) {
   }
   if (out[out.length - 1].role !== "user") return null;
 
+  // Images ride only on the final user message; the client never sends them
+  // for earlier turns, and anything on those is ignored rather than trusted.
+  const rawImages = input[input.length - 1].images;
+  if (rawImages !== undefined) {
+    if (!Array.isArray(rawImages) || rawImages.length > MAX_IMAGES) return null;
+    const images = [];
+    for (const url of rawImages) {
+      if (typeof url !== "string" || url.length > MAX_IMAGE_LENGTH) return null;
+      const match = IMAGE_DATA_URL.exec(url);
+      if (!match) return null;
+      images.push({ mimeType: match[1], data: match[2], url });
+    }
+    if (images.length) out[out.length - 1].images = images;
+  }
+
   return out;
 }
 
 /**
  * Decodes an upstream SSE body into individual `data:` payload strings.
- * Google's stream separates events with CRLF pairs (`\r\n\r\n`); Groq's
- * OpenAI-compatible stream uses bare `\n\n` — normalizing line endings
+ * Google's stream separates events with CRLF pairs (`\r\n\r\n`); OpenAI's
+ * stream uses bare `\n\n` — normalizing line endings
  * first means one parser handles both instead of silently matching neither.
  */
 async function* sseEvents(body) {
@@ -182,7 +203,10 @@ async function streamGemini(model, messages, res) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GOOGLE_AI_API_KEY}`;
   const contents = messages.map((m) => ({
     role: m.role === "assistant" ? "model" : "user",
-    parts: [{ text: m.content }],
+    parts: [
+      { text: m.content },
+      ...(m.images ?? []).map((img) => ({ inlineData: { mimeType: img.mimeType, data: img.data } })),
+    ],
   }));
 
   try {
@@ -237,10 +261,22 @@ async function streamLuna(messages, res) {
         stream: true,
         stream_options: { include_usage: true },
         // Luna is on OpenAI's newer reasoning-model parameter convention —
-        // max_tokens (what Groq's otherwise-identical endpoint still wants)
-        // is rejected outright here.
+        // max_tokens is rejected outright here.
         max_completion_tokens: MAX_OUTPUT_TOKENS,
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          ...messages.map((m) =>
+            m.images
+              ? {
+                  role: m.role,
+                  content: [
+                    { type: "text", text: m.content },
+                    ...m.images.map((img) => ({ type: "image_url", image_url: { url: img.url } })),
+                  ],
+                }
+              : { role: m.role, content: m.content },
+          ),
+        ],
       }),
     });
     if (!upstream.ok || !upstream.body) {
@@ -281,69 +317,13 @@ async function streamLuna(messages, res) {
   }
 }
 
-async function streamGroq(messages, res) {
-  try {
-    const upstream = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: GROQ_MODEL,
-        stream: true,
-        stream_options: { include_usage: true },
-        max_tokens: MAX_OUTPUT_TOKENS,
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-      }),
-    });
-    if (!upstream.ok || !upstream.body) {
-      let message = `Groq request failed (HTTP ${upstream.status}).`;
-      try {
-        message = (await upstream.json())?.error?.message ?? message;
-      } catch {
-        // non-JSON error body — fall through with the generic message
-      }
-      throw new StreamError(message, upstream.status === 429 || isRateLimitMessage(message));
-    }
-
-    let usage = null;
-    for await (const event of sseEvents(upstream.body)) {
-      if (event === "[DONE]") break;
-
-      let json;
-      try {
-        json = JSON.parse(event);
-      } catch {
-        continue;
-      }
-      // A mid-stream failure (e.g. hitting Groq's daily token quota) arrives
-      // as its own SSE event with no `choices` field, no HTTP status to
-      // check — only the message text says what happened.
-      if (json?.error) {
-        const message = json.error.message ?? "Groq returned an error.";
-        throw new StreamError(message, isRateLimitMessage(message));
-      }
-      if (json?.usage) {
-        usage = { promptTokens: json.usage.prompt_tokens ?? 0, completionTokens: json.usage.completion_tokens ?? 0 };
-      }
-
-      const text = json?.choices?.[0]?.delta?.content ?? "";
-      if (text) res.write(`data: ${JSON.stringify({ delta: text })}\n\n`);
-    }
-    return usage;
-  } catch (err) {
-    if (err instanceof StreamError) throw err;
-    throw new StreamError(err.message, isRateLimitMessage(err.message));
-  }
-}
-
 const TIERS = [
-  { id: "luna", label: "GPT-6 Luna", run: streamLuna, keyPresent: () => !!process.env.OPENAI_API_KEY },
+  { id: "luna", label: "GPT-6 Luna", run: streamLuna, vision: true, keyPresent: () => !!process.env.OPENAI_API_KEY },
   {
     id: "flash-lite",
     label: "Gemini 3.5 Flash Lite",
     run: (messages, res) => streamGemini(GEMINI_FLASH_LITE_MODEL, messages, res),
+    vision: true,
     keyPresent: () => !!process.env.GOOGLE_AI_API_KEY,
   },
   {
@@ -352,16 +332,14 @@ const TIERS = [
     run: (messages, res) => streamGemini(GEMINI_FALLBACK_MODEL, messages, res),
     keyPresent: () => !!process.env.GOOGLE_AI_API_KEY,
   },
-  { id: "groq", label: "Compound", run: streamGroq, keyPresent: () => !!process.env.GROQ_API_KEY },
 ];
 // Falls back to whichever tier's key is actually present when no provider
 // is requested or an unknown one is sent — Luna is the preferred default,
 // but only once its key actually works, and the server can be running with
-// only a Gemini or only a Groq key configured at all.
+// only a Gemini key configured at all.
 const DEFAULT_TIER =
   TIERS.find((t) => t.id === "luna" && t.keyPresent()) ??
   TIERS.find((t) => t.id === "gemma" && t.keyPresent()) ??
-  TIERS.find((t) => t.id === "groq" && t.keyPresent()) ??
   TIERS[0];
 
 function resolveTier(requested) {
@@ -371,7 +349,6 @@ function resolveTier(requested) {
 export function handleAiStatus(req, res) {
   res.json({
     enabled: aiEnabled,
-    groqAvailable: !!process.env.GROQ_API_KEY,
     geminiAvailable: !!process.env.GOOGLE_AI_API_KEY,
     lunaAvailable: !!process.env.OPENAI_API_KEY,
     usageToday: usageToday(req.ip),
@@ -390,6 +367,10 @@ export async function handleAiChat(req, res) {
   const tier = resolveTier(req.body?.provider);
   if (tier.keyPresent && !tier.keyPresent()) {
     return res.status(400).json({ error: `${tier.label} isn't available on this server.` });
+  }
+
+  if (messages.some((m) => m.images) && !tier.vision) {
+    return res.status(400).json({ error: `${tier.label} can't read images — pick a different model.` });
   }
 
   const estimate = estimateRequestTokens(messages);

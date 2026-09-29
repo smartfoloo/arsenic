@@ -30,6 +30,7 @@
     "compression": "^1.8.1",
     "express": "^5.2.1",
     "flag-icons": "^7.5.0",
+    "katex": "^0.18.9",
     "multer": "^2.2.0",
     "ws": "^8.21.3"
   },

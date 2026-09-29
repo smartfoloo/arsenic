@@ -113,7 +113,7 @@ if (chatEnabled) {
 // find out. The chat route only exists when enabled.
 app.get("/ai/status", handleAiStatus);
 if (aiEnabled) {
-  app.post("/ai/chat", express.json({ limit: "64kb" }), handleAiChat);
+  app.post("/ai/chat", express.json({ limit: "3mb" }), handleAiChat);
 }
 
 // Every path below is pinned to an exact version in package.json, so its

@@ -1,14 +1,16 @@
 <script>
   import { parseMarkdown } from "../lib/markdown.js";
+  import AiMath from "./AiMath.svelte";
 
   let { content } = $props();
 </script>
 
 {#snippet inlineParts(parts)}
   {#each parts as part}
-    {#if part.type === "bold"}<strong>{part.value}</strong>
-    {:else if part.type === "italic"}<em>{part.value}</em>
-    {:else if part.type === "strike"}<s>{part.value}</s>
+    {#if part.type === "math"}<AiMath value={part.value} />
+    {:else if part.type === "bold"}<strong>{@render inlineParts(part.parts)}</strong>
+    {:else if part.type === "italic"}<em>{@render inlineParts(part.parts)}</em>
+    {:else if part.type === "strike"}<s>{@render inlineParts(part.parts)}</s>
     {:else if part.type === "code"}<code class="aiInlineCode">{part.value}</code>
     {:else if part.type === "link"}<a href={part.href} target="_blank" rel="noopener noreferrer">{part.value}</a>
     {:else}{part.value}{/if}
@@ -16,7 +18,7 @@
 {/snippet}
 {#snippet listBlock(list, nested)}
   {#if list.ordered}
-    <ol class="aiList" class:aiSubList={nested}>
+    <ol class="aiList" class:aiSubList={nested} start={list.start}>
       {#each list.items as item}
         <li>
           {@render inlineParts(item.parts)}
@@ -39,6 +41,8 @@
 {#each parseMarkdown(content) as block}
   {#if block.type === "code"}
     <pre class="aiCodeBlock"><code>{block.value}</code></pre>
+  {:else if block.type === "math"}
+    <AiMath value={block.value} display />
   {:else if block.type === "heading"}
     {#if block.level === 1}
       <h3 class="aiHeading">{@render inlineParts(block.parts)}</h3>
