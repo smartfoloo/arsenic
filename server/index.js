@@ -49,6 +49,14 @@ const chatEnabled = process.env.ARSENIC_CHAT_ENABLED === "true";
 
 logging.set_level(logging.NONE);
 
+// wisp-js defaults to unlimited streams per connection, and each stream
+// buffers data for its browser, so one client (or scanner) opening many
+// streams could grow this process into the GBs and OOM the box. Limits are
+// per websocket connection. Don't set stream_limit_per_host: in wisp-js
+// 0.4.1 it iterates connection.streams (a plain object) with for...of and
+// throws, which crashes the process on the first stream.
+wisp.options.stream_limit_total = 100;
+
 const app = express();
 const server = createServer();
 
